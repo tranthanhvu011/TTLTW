@@ -1,0 +1,130 @@
+body {
+    background-color: #F5F5FA;
+}
+
+* {
+    font-size: 14px;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+.account-settings .user-profile {
+    margin: 0 0 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.account-settings .user-profile .user-avatar {
+    margin: 0 0 1rem 0;
+}
+.account-settings .user-profile .user-avatar img {
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    margin-right: 15px;
+}
+
+.border_10px_bgcl_white{
+    border-radius: 10px;
+    background-color: white;
+}
+
+.account-settings .user-profile .i-user{
+    text-align: left;
+    margin: 0 0 1rem 0;
+}
+
+.account-settings .user-profile .i-user .user-name {
+    margin: 0 0 0 0;
+    font-size: 14px;
+    text-align: left;
+}
+.account-settings .user-profile .i-user .user-email {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #9fa8b9;
+    overflow-wrap: normal;
+}
+.account-settings .about {
+    margin: 2rem 0 0 0;
+    text-align: center;
+}
+.account-settings .about h5 {
+    margin: 0 0 15px 0;
+    color: #007ae1;
+}
+.account-settings .about p {
+    font-size: 0.825rem;
+}
+.form-control {
+    border: 1px solid #cfd1d8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-size: .825rem;
+    background: #ffffff;
+    color: #2e323c;
+}
+
+.card {
+    background: #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    margin-bottom: 1rem;
+}
+
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: #dbdbdb;
+    flex: 1;
+}
+
+
+.account-settings .about .my_account {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.account-settings .about .my_account i{
+    margin-right: 10px;
+    color: blue;
+    box-sizing: border-box;
+}
+
+.account-settings .about .my_account a{
+    text-decoration: none;
+    color: black;
+}
+
+.account-settings .about .my_account img{
+    width: 16px;
+    height: 18px;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+
+.account-settings .about .list_information .item_lf{
+    margin: 15px 0 0 24px;
+    align-items: start;
+    text-align: start;
+}
+
+.account-settings .about .list_information .item_lf a{
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.account-settings .about .list_information .item_lf a:hover{
+    color: #ee4d2d;
+}
+
+.account-settings .about .list_information .item_lf a:focus{
+    color: #ee4d2d;
+}
+

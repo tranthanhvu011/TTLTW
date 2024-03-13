@@ -1,0 +1,680 @@
+* {
+    font-size: 14px;
+    font-family: Inter, Helvetica, Arial, sans-serif;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+a:hover {
+    text-decoration: none
+}
+
+img {
+    max-width: 100%
+}
+
+input:focus, button:focus {
+    outline: none
+}
+
+.clear {
+    clear: both
+}
+
+header .top {
+    background: #dadada;
+    border-bottom: 1px solid #999
+
+}
+
+header .top p {
+    line-height: 35px;
+    color: #333;
+    margin-bottom: 0
+}
+
+header .top .top-menu ul {
+    text-align: right
+}
+
+header .top .top-menu ul li {
+    margin-left: 15px;
+    list-style: none;
+    display: inline-block
+}
+
+header .top .top-menu ul li a {
+    color: #333;
+    display: inline-block;
+    line-height: 35px
+}
+
+header .main-header {
+    padding: 7px 0;
+    background-color: unset;
+}
+
+header .main-header .logo h1 {
+    display: none
+}
+
+header .main-header .logo img {
+    max-height: 50px
+}
+
+header .main-header .form-seach-product .input-seach {
+    padding-top: 8px;
+    display: flex; /* Sử dụng flexbox để căn chỉnh các thành phần */
+    width: 100%; /* Chiếm đầy đủ chiều rộng có thể */
+}
+
+header .main-header .form-seach-product .input-seach input {
+    height: 35px;
+    width: 60%; /* Đặt chiều rộng của input là 70% */
+    border: 1px solid #2196f3;
+    padding-right: 20px; /* Điều chỉnh padding nếu cần */
+    box-shadow: none;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 5px 0 0 5px; /* Chỉ làm tròn các góc bên trái */
+}
+
+header .main-header .form-seach-product .input-seach button {
+    height: 35px;
+    width: calc(20% - 12px); /* Chiều rộng của button là 30% trừ đi tổng padding/margin nếu có */
+    border: none;
+    background: #2196f3; /* Màu nền cho button */
+    color: #fff; /* Màu chữ cho button */
+    border-radius: 0 5px 5px 0; /* Chỉ làm tròn các góc bên phải */
+    cursor: pointer;
+    margin-left: 3; /* Đẩy button sang phải */
+}
+
+
+/* Thêm class này để clear float sau các elements */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+header .main-header .icon {
+    color: #333;
+    float: left;
+    font-size: 20px;
+    line-height: 20px;
+    position: relative;
+    width: 50px;
+    margin-right: 17px;
+    border-radius: 20px;
+}
+
+header .main-header .icon span {
+    color: rgb(255, 255, 255);
+    background: rgb(255, 66, 79);
+    height: 16px;
+    right: -10px;
+    top: -4px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    font-size: 10px;
+    line-height: 150%;
+    position: absolute;
+    padding: 0.5px 4px;
+}
+
+header .main-header .info-cart {
+    float: left
+}
+
+header .main-header .info-cart div p {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/*header .main-header .info-cart p:hover{*/
+/*    background-color: rgba(0, 96, 255, 0.12);*/
+/*}*/
+
+header .main-header .info-cart span {
+    color: #e00;
+    font-weight: 500
+}
+
+header .main-header a.icon-cart {
+    display: inline-block;
+    /*padding-left: 10%;*/
+    padding-top: 5px
+}
+
+header .main-header a.icon-cart:hover {
+    background-color: rgba(0, 96, 255, 0.12);
+    border-radius: 8px;
+}
+
+header .main-menu-header {
+    background: #427D9D
+}
+
+header .main-menu-header #nav-menu ul li {
+    float: left;
+    position: relative
+}
+
+header .main-menu-header #nav-menu ul li a {
+    display: inline-block;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 15px
+}
+
+/* CSS để trang trí khi hover */
+header .main-menu-header #nav-menu ul li:hover {
+    background-color: aquamarine; /* Màu nền khi hover */
+}
+
+header .main-menu-header #nav-menu ul li a:hover {
+    color: #000; /* Màu chữ khi hover */
+}
+
+header .main-menu-header #nav-menu ul li ul {
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    background: rgba(33, 150, 243, 0.8);
+    left: 0;
+    transition: all .3s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999
+}
+
+header .main-menu-header #nav-menu ul li ul li {
+    width: 100%
+}
+
+header .main-menu-header #nav-menu ul li ul li a {
+    text-transform: inherit;
+    width: 100%
+}
+
+header .main-menu-header #nav-menu ul li ul li a:hover {
+    background: cadetblue
+}
+header .main-menu-header #nav-menu ul li:hover ul {
+    opacity: 1;
+    transition: all .3s;
+    visibility: visible;
+    top: 42px
+}
+
+header .main-menu-header #nav-menu ul li.current-menu-item a {
+    background: #FED049
+}
+header .main-menu-header .container #nav-menu li a {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    color: rgb(255, 255, 255);
+}
+#content .category-box {
+    margin-bottom: 15px
+}
+
+.filter-by-hangs .col-lg-6 .col-md-6 {
+    border: 2px solid #0071cc;
+}
+
+#content .category-box h3 {
+    text-align: left;
+    font-size: 14px;
+    color: #38383D;
+    font-weight: 500;
+    padding: 15px 0 5px 15px;
+    margin-bottom: 0
+}
+
+.filter-by-hangsx {
+    margin: 0 auto;
+    padding-top: 5px;
+    /*border: 1px solid #0066b7;*/
+    width: 100%;
+}
+
+.category-box .filter-by-hangsx .apple {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    margin-top: 3px;
+}
+
+.category-box .filter-by-hangsx .apple label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #38383D;
+    margin: 2px 0 0 10px;
+}
+
+.filter-by-price {
+    margin: 0 auto;
+    padding: 5px 15px 0 15px;
+    /*border: 1px solid #0066b7;*/
+    width: 100%;
+}
+
+.category-box .filter-by-price .mucgia {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+    margin-top: 3px;
+}
+
+.category-box .filter-by-price .mucgia label {
+    font-size: 13px;
+    font-weight: 400;
+    color: #38383D;
+    margin: 2px 0 0 10px;
+}
+
+#content .category-box .content-cat {
+    border: 1px solid #ededed;
+    padding: 10px
+}
+
+#content .category-box .content-cat ul li {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ededed;
+}
+
+#content .category-box .content-cat ul li .fa {
+    color: #2196f3
+}
+
+#content .category-box .content-cat ul li a {
+    color: #333;
+    font-size: 14px;
+    display: inline-block;
+    transition: all .3s
+}
+
+#content .category-box .content-cat ul li a:hover {
+    transition: all .3s;
+    padding-left: 5px
+}
+
+#content .slider {
+    margin: 30px 0
+}
+
+#content .slider img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover
+}
+
+#content .widget {
+    margin-bottom: 30px
+}
+
+#content .widget h3 {
+    text-transform: uppercase;
+    font-size: 14px;
+    background: #2196f3;
+    color: #fff;
+    text-align: center;
+    font-weight: 400;
+    padding: 10px 15px;
+    margin-bottom: 0;
+    position: relative
+}
+
+#content .widget h3 .fa {
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #ffc107;
+    color: #fff;
+    text-align: center;
+    line-height: 35px
+}
+
+#content .widget .content-w {
+    border: 1px solid #0066b7;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+#content .widget .content-w ul li {
+    padding-bottom: 10px;
+    margin-bottom: 10px
+}
+
+#content .widget .content-w ul li img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #ededed;
+    padding: 1px;
+    float: left;
+    margin-right: 10px
+}
+
+#content .widget .content-w ul li h4 {
+    line-height: 18px;
+    margin-bottom: 0px
+}
+
+#content .widget .content-w ul li h4 a {
+    font-size: 14px;
+    color: #2196f3
+}
+
+#content .widget .content-fb {
+    overflow: hidden
+}
+
+#content .product-section h2.title-product {
+    background-color: #fff;
+    width: 100%;
+    border-bottom: 2px solid #2196f3;
+    line-height: 20px;
+    border-top: 1px dashed #ededed;
+    margin-bottom: 15px
+}
+
+#content .product-section h2.title-product .title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #2196f3
+}
+
+#content .product-section h2.title-product .list-child {
+    float: right
+}
+
+#content .product-section h2.title-product .list-child ul {
+    text-align: right
+}
+
+#content .product-section h2.title-product .list-child ul li {
+    display: inline-block;
+    margin-left: 20px
+}
+
+#content .product-section h2.title-product .list-child ul li a {
+    font-size: 14px;
+    color: #333
+}
+
+#content .item-product {
+    margin-bottom: 15px
+}
+
+#content .item-product .thumb {
+    position: relative;
+    overflow: hidden
+}
+
+#content .item-product .thumb img {
+    width: 100%
+}
+
+#content .item-product .thumb img:hover {
+    opacity: .8
+}
+
+#content .item-product .thumb .sale {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    line-height: 14px;
+    background: #ffc107;
+    border-radius: 50%;
+    padding-top: 6px;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    font-size: 12px
+}
+
+#content .item-product .thumb .action {
+    position: absolute;
+    width: 100%;
+    bottom: -50px;
+    transition: all .3s
+}
+
+#content .item-product .thumb .action a {
+    float: left;
+    width: 50%;
+    display: inline-block;
+    padding: 7px 0;
+    text-align: center;
+    background: rgba(0, 123, 255, 0.6);
+    color: #fff
+}
+
+#content .item-product .thumb .action a .fa {
+    margin-right: 3px
+}
+
+#content .item-product .thumb .action a:hover {
+    background: #007bff
+}
+
+#content .item-product .thumb .action a.like {
+    background: rgba(255, 193, 7, 0.6)
+}
+
+#content .item-product .thumb .action a.like:hover {
+    background: #ffc107
+}
+
+#content .item-product .thumb:hover .action {
+    transition: all .3s;
+    bottom: 5px
+}
+
+#content #product-container .item-product .info-product h4 {
+    text-align: left;
+    margin-left: 5px;
+}
+
+#content #product-container .item-product .info-product h4 a {
+    margin-top: 8px;
+    overflow: hidden;
+    line-height: 150%;
+    font-weight: 400;
+    font-size: 12px;
+    white-space: break-spaces;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    color: rgb(39, 39, 42);
+    word-break: break-word;
+}
+
+#content #product-container .item-product .info-product a:hover {
+    color: #2196f3;
+    cursor: pointer
+}
+
+#content .item-product .info-product h6 {
+    color: rgb(128, 128, 137);
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 150%;
+    margin-left: 5px;
+}
+
+#content #product-container .item-product .info-product .price {
+    color: #e00;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    line-height: 150%;
+}
+
+#content #product-container .item-product .info-product .price span {
+    display: inline-block;
+    margin: 0 5px
+}
+
+#content #product-container .item-product .info-product .price span.price-old {
+    color: #222;
+    font-size: 16px;
+    font-weight: 100;
+    text-decoration: line-through;
+    line-height: 150%;
+}
+
+#content #product-container .item-product .info-product a.view-more {
+    display: block;
+    width: 150px;
+    background: #2196f3;
+    text-align: center;
+    margin: 0 auto;
+    padding: 7px;
+    color: #ffff;
+    margin-top: 8px;
+    border-radius: 3px
+}
+
+#content #product-container .item-product .info-product a.view-more:hover {
+    background: #0066b7
+}
+
+#content .bar-menu {
+    display: none
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    padding-top: 40px
+}
+
+
+footer .box-footer{
+    background: #333;
+}
+
+footer .box-footer h3 {
+    background: #333;
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 25px
+}
+
+footer .box-footer strong {
+    background: #333;
+    font-weight: 500;
+    color: #2196f3
+}
+
+footer .box-footer p {
+    background: #333;
+    margin-bottom: 10px
+}
+
+footer .content-list ul{
+    background: #333;
+}
+
+footer .content-list li {
+    margin-bottom: 15px
+}
+
+footer .content-list li .fa {
+    color: #2196f3
+}
+
+footer .content-list li a {
+    color: #fff
+}
+
+footer .content-contact .form-control {
+    max-height: 80px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    box-shadow: none !important;
+    border-radius: 2px;
+    border: 1px solid #888888;
+    background: #333
+}
+
+footer button.btn-contact {
+    border-radius: 30px;
+    border: 0;
+    padding: 5px 20px;
+    color: #fff;
+    background: #2196f3
+}
+
+footer .copyright {
+    text-align: center;
+    padding: 10px;
+    background: #4c4c4c;
+    margin-top: 40px
+}
+
+footer .copyright p {
+    margin-bottom: 0
+}
+
+.flexContain {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    z-index: 5;
+
+}
+
+.container .container-Img .row .col-1 {
+    margin: 0 auto;
+}
+
+.container .container-Img {
+    padding-right: 5%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.img-Company {
+    min-width: 130px;
+    border-radius: 10px;
+    padding: 5;
+    transition: background-color 0.5s, transform 0.5s;
+    cursor: pointer;
+}
+
+.img-Company:hover {
+    transform: scale(1.5); /* Hiệu ứng phóng to 110% khi hover vào ảnh */
+}

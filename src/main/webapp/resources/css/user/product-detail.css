@@ -1,0 +1,283 @@
+table tr td{
+    border: none;
+    padding-left: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.titleproduct {
+
+    padding-left: 20px;
+}
+h3,p{
+    background-color: white;
+}
+
+.titleproduct p {
+    font-weight: 400;
+    font-size: 25px;
+    margin-top: 10px;
+}
+.star-icon {
+margin-left: 2%;
+}
+.danhgia-sao{
+    display: flex;
+    align-items: center;
+}
+
+.star-icon .fa-star {
+    color: #ea9d02;
+}
+.mau{
+    display: flex;
+}
+.hinhanh{
+    height: 30px;
+    padding: 3px;
+    display: contents;
+    border: 1px solid #989696;
+    border-radius: 3px;
+}
+.chonmau .mau .hinhanh:hover{
+    border: 2px solid blue;
+    border-radius: 3px;
+
+}
+/*.hinhanh1{*/
+/*    height: 30px;*/
+/*    padding: 3px;*/
+/*    display: contents;*/
+/*    border: 1px solid #989696;*/
+/*    border-radius: 3px;*/
+/*}*/
+/*.chonmau .mau .hinhanh1:hover{*/
+/*    border-radius: 3px;*/
+
+/*}*/
+.selected {
+    border: 2px solid blue; /* Style border for the selected element */
+}
+
+/*css product*/
+.product {
+    display: flex;
+}
+.buy-product {
+}
+
+.product-price p {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.khuyenmai {
+    border-style: solid;
+    border-width: thin;
+    border-color: #ddd;
+    padding-top: 10px;
+}
+
+.khuyenmai-text, .chitietkhuyemai {
+    padding-left: 4%;
+}
+
+.khuyenmai-text {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.fa-circle-check {
+    color: #48bb78;
+}
+
+.chitietkhuyemai {
+    display: flex;
+
+}
+
+.chitietkhuyemai p {
+    margin-left: 10px;
+}
+
+.muatructiep-btn, .themgiohang-btn {
+    width: 100%;
+    height: 50px;
+    background-color: #fa7d11;
+    margin-top: 5px;
+    border-radius: 5px;
+    border-style: none;
+    color: white;
+}
+
+.them {
+    display: flex;
+    align-content: center;
+
+    justify-content: center;
+    margin-top: 10px;
+
+}
+
+.fa-cart-shopping {
+    color: white;
+}
+
+.them p {
+    margin-left: 10px;
+}
+
+.motasanpham {
+    display: flex;
+    margin-top: 10px;
+}
+
+.mota {
+    flex-basis: 40%;
+    margin-right: 5%;
+}
+
+.thongsokythuat {
+    flex-basis: 45%;
+}
+
+
+/*themhieuunghovercho2button*/
+.button-buy .muatructiep-btn:hover {;
+    background-color: #c45c06; /* Đổi màu nền khi hover */
+}
+
+.button-buy .themgiohang-btn:hover {
+    background-color: #c45c06; /* Đổi màu nền khi hover */
+}
+
+.icon-star{
+    color: #ea9d02 ;
+}
+.progress{
+    width: 70%;
+}
+
+.soluong-sao{
+    display: flex;
+}
+.danhgia{
+    padding: 10px;
+}
+
+
+.progress, .icon-star{
+    margin-left: 1%;
+}
+
+.thumbnail{
+    width: 100%;
+    height: 100%;
+}
+
+
+.thumbnail img{
+    object-fit:cover ;
+    width: 100%;
+    height: 100%;
+}
+
+.image-product .imageProductOrder{
+    display: flex;
+    margin-top: 10px;
+}
+
+.image-product .imageProductOrder .imageOrder{
+    cursor: pointer;
+    display: inline-block;
+    width: 54px;
+    height: 54px;
+    padding: 4px;
+    border-radius: 4px;
+    margin-right: 6px;
+    border: 1px solid rgb(235, 235, 240);
+    overflow: hidden;
+}
+
+.image-product .imageProductOrder .imageOrder img{
+    object-fit:cover ;
+    width: 100%;
+    height: 100%;
+}
+
+.border_gr_bg_white{
+    border-style: solid;
+    border-color: #eef0f2;
+    border-width: thin;
+    border-radius: 15px;
+    background-color: white;
+}
+.uudaii{
+    display: flex;
+    align-items: center;
+}
+.magiamgia{
+    margin-left: 50%;
+    display: flex;
+    align-items: center;
+
+}
+.magiam{
+
+    color: blue;
+    font-size: 15px;
+    border: 1px solid #b0b0b0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 550;
+    padding: 10px;
+    margin-left: 10px;
+
+}
+.input-group{
+    display: flex;
+    align-items: center;
+}
+.btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #918e8e; /* Thêm border cho button */
+}
+.quantity-input {
+    width: 50px;
+
+    text-align: center;
+    border: 1px solid #918e8e; /* Thêm border cho input */
+    margin: 0 5px; /* Tạo khoảng cách 2px giữa các phần tử */
+}
+.contai-left, .contai-right{
+    position: sticky;
+    top: 20px;
+    height: min-content;
+}
+.contai-right{
+    padding-bottom: 20px;
+}
+.chonDungluong input{
+    margin-left: 10px;
+    width: 15px;
+    height: 15px;
+}
+.chonDungluong label{
+    margin-left: 10px;
+    font-size: 15px;
+}
+.dl{
+    display: flex;
+    background-color: #dcd9d9;
+    padding-top: 10px;
+    padding-right: 10px;
+    border-radius: 2px;
+}
+.chonDungluong .dl:hover{
+   background-color: #b9b7b7;
+}
+.motachitiet ul li{
+    background-color: white;
+}
+
