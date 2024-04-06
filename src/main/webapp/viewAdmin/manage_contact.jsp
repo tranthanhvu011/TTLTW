@@ -167,15 +167,15 @@
                                     if (contacts.getAction() == 0) {
                                     %>
                                     <p style="color: red;width:200px; font-weight: 600">
-                                    Đang sữ lý </p>
+                                    Đang Xử Lý </p>
                                     <%}else{%>
                                     <p style="color: #4CAF50;width:200px; font-weight: 600 ">
-                                    Đã sữ lý</p>
+                                    Đã Xử Lý</p>
                                     <%}%>
                                 </td>
                                 <td>
                                     <button class="btn-process" data-id="<%= contacts.getId() %>"style="width: 150px; border: 2px solid #0c5460; border-radius: 5px; background-color: yellow" >
-                                        Đã Xữ lý
+                                        Đã Xử Lý
                                     </button>
                                     <button class="btn-delete" data-id="<%= contacts.getId() %>" style="width: 150px; border: 2px solid #0c5460; border-radius: 5px; background-color: red ">
                                         Xóa Liên Hệ

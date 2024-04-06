@@ -13,10 +13,9 @@ import java.util.Optional;
 
 public class UserDAO {
 
-    public List<Account> getAllUsers(   int limit, int offset) {
+    public List<Account> getAllUsers(int limit, int offset) {
 
         String query = "SELECT * FROM accounts limit ? offset ?";
-
         List<Account> users = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query)
                         .bind(0, limit)
@@ -28,7 +27,7 @@ public class UserDAO {
 
 
     public Account findUserByEmailAndPassword(String email, String password) {
-        String query = "SELECT * FROM Accounts WHERE email = ?";
+        String query = "SELECT * FROM Accounts WHERE email = ? ";
         try {
             Optional<Account> user = JDBIConnector.me().withHandle(handle -> {
                 return handle.createQuery(query)

@@ -109,7 +109,7 @@ CREATE TABLE `capacities` (
 -- Đang đổ dữ liệu cho bảng `capacities`
 --
 
-INSERT INTO `capacities` (`id`, name) VALUES
+INSERT INTO `capacities` (`id`, `capacity_name`) VALUES
 (1, '64 GB'),
 (2, '128 GB'),
 (3, '256 GB'),
@@ -136,7 +136,7 @@ CREATE TABLE `colors` (
 -- Đang đổ dữ liệu cho bảng `colors`
 --
 
-INSERT INTO `colors` (`id`, name) VALUES
+INSERT INTO `colors` (`id`, `color_name`) VALUES
 (1, 'Đỏ'),
 (2, 'Xanh dương'),
 (3, 'Xanh lá'),
@@ -2461,3 +2461,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+telephone_shop
