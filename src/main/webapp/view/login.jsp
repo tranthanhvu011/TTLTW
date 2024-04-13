@@ -132,10 +132,12 @@
                         </button>
                     </div>
                     <div class="col-4">
-                        <button class="btn-google m-b-20" id="google">
-                            <img src="../resources/assets/icon/google_icon.png" alt="GOOGLE">
-                            Google
-                        </button>
+<%--                        <button href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force" class="btn-google m-b-20" id="google">--%>
+<%--                            <img src="../resources/assets/icon/google_icon.png" alt="GOOGLE">--%>
+<%--                            Google--%>
+<%--                        </button>--%>
+    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force">
+        Login With Google</a>
                     </div>
                 </div>
             </div>
