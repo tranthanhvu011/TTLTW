@@ -67,8 +67,15 @@ public class UserService {
         }
         return null;
     }
-    public List<Account> finUserByEmail(String email) throws SQLException {
-        return userDAO.findUserByEmail(email);
+    public List<Account> findUserByEmail(String email){
+        userDAO = new UserDAO();
+        List<Account> list = null;
+        try {
+            list = userDAO.findUserByEmail(email);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 
     public boolean save(Account user) throws  SQLException {
