@@ -7,7 +7,9 @@
     <version>1.0-SNAPSHOT</version>
     <name>TelephoneShop Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
     <dependencies>
+<!--        Rest Google-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -19,7 +21,13 @@
             <artifactId>fluent-hc</artifactId>
             <version>4.5.14</version>
         </dependency>
-
+<!-- Paypal REST SDK-->
+        <dependency>
+                <groupId>com.paypal.sdk</groupId>
+                <artifactId>rest-api-sdk</artifactId>
+                <version>1.14.0</version>
+        </dependency>
+<!--        end paypal rest sdk-->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
@@ -86,6 +94,7 @@
         </dependency>
 
     </dependencies>
+<!--    end -->
     <build>
         <finalName>TelephoneShop</finalName>
         <plugins>
