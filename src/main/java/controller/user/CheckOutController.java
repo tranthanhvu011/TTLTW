@@ -40,6 +40,7 @@ public class CheckOutController extends HttpServlet {
                 CartProduct cartProduct = cart.getData().get(id);
                 if (cartProduct != null) {
                     is_success = OrderProductVariantDAO.createOrderProductVariant(id, order.getId(), cartProduct.getQuantity(), inforTransport.getId(), cartProduct.getQuantity() * cartProduct.getProductVariant().getPrice(), 1);
+                    cart.getData().remove(id);
                 }
             }
         }

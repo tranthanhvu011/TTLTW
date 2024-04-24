@@ -46,7 +46,7 @@ public class DiscountController extends HttpServlet {
                 boolean is_discount = DiscountDAO.isDiscount(productVariant.getProduct().getId(), discount.getId());
 
                 if (is_discount) {
-                    double discountedPrice = productVariant.getPrice() * discount.getCost();
+                    double discountedPrice = productVariant.getPrice() - discount.getCost();
                     productVariant.setPrice(discountedPrice);
 
                     if (cart.getData().containsKey(productVariant.getId())) {
