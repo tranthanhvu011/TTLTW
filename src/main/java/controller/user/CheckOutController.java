@@ -31,19 +31,33 @@ public class CheckOutController extends HttpServlet {
         Account account = (Account) req.getSession().getAttribute("account");
         boolean is_success = false;
         Cart cart = (Cart) req.getSession().getAttribute("cart");
+        String isPaypal = req.getParameter("flexRadioDefault");
         List<Integer> listID = (List<Integer>) req.getSession().getAttribute("selectedProductIds");
         InforTransport inforTransport = transportDAO.findInfoTransportByAccountId(account.getId());
         Order order = OrderProductVariantDAO.findOrderByID_AccountModel(account.getId());
+        System.out.println("isPaypal: " + isPaypal);
+        System.out.println("listID: " + listID);
+        System.out.println("inforTransport: " + inforTransport);
+        System.out.println("order: " + order);
+        if ("optionPaypal".equals(isPaypal)) {
+            // Nếu người dùng chọn PayPal, chuyển hướng đến servlet AuthorizePaymentServlet
+            String redirectUrl = req.getContextPath() + "/authorize_payment";
+            resp.sendRedirect(redirectUrl);
+            return; // Kết thúc phương thức để ngăn chặn việc chuyển hướng đến trang checkout
+        }
 
-        if (listID != null && !listID.isEmpty()) {
-            for (int id : listID) {
-                CartProduct cartProduct = cart.getData().get(id);
-                if (cartProduct != null) {
-                    is_success = OrderProductVariantDAO.createOrderProductVariant(id, order.getId(), cartProduct.getQuantity(), inforTransport.getId(), cartProduct.getQuantity() * cartProduct.getProductVariant().getPrice(), 1);
-                    cart.getData().remove(id);
+            if (listID != null && !listID.isEmpty()) {
+                for (int id : listID) {
+                    CartProduct cartProduct = cart.getData().get(id);
+                    if (cartProduct != null) {
+                        is_success = OrderProductVariantDAO.createOrderProductVariant(id, order.getId(), cartProduct.getQuantity(), inforTransport.getId(), cartProduct.getQuantity() * cartProduct.getProductVariant().getPrice(), 1);
+                        cart.getData().remove(id);
+                    }
                 }
             }
-        }
+
+
+
 
         if (is_success) {
             resp.sendRedirect("/home");
@@ -51,6 +65,7 @@ public class CheckOutController extends HttpServlet {
             // Xử lý nếu có lỗi khi thêm vào cơ sở dữ liệu
             resp.getWriter().println("Error occurred while processing orders.");
         }
+
     }
 
 

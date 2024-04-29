@@ -260,13 +260,15 @@ session.removeAttribute("message-discount");
             <div class="payment_methods border_gr_bg_white" style="padding: 10px;border-radius: 7px">
                 <h3 class="black_18_700" style="margin-top: 5px;font-weight: 550">Chọn hình thức thanh toán</h3>
                 <div class="payment">
+                    <form method="post" action="/checkout">
                     <div class="form-check">
-                        <input onclick="showVisaForm()" class="form-check-input" type="radio"
+                        <input onclick="hideVisaForm()" class="form-check-input" type="radio"
                                name="flexRadioDefault" id="flexRadioDefault2"
                                checked>
                         <label class="black_14_400">
                             Thanh toán trực tiếp khi nhận hàng
                         </label>
+                        </input>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio"
@@ -276,22 +278,18 @@ session.removeAttribute("message-discount");
                             Thanh toán bằng Visa
                             <img style="width: 40px;margin-left: 10px" src="../resources/assets/images/visa.png" alt="">
                         </label>
+                        </input>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="optionPaypal"
                                name="flexRadioDefault" id="flexRadioDefault1" onclick="showVisaForm()">
-                        <label class="form-check-label" for="flexRadioDefault1" onclick="showVisaForm()">
+                        <label class="form-check-label" for="flexRadioDefault1" >
                             Thanh toán bằng Paypal
                             <img style="width: 40px;margin-left: 10px" src="../resources/assets/images/paypal.png" alt="">
                         </label>
+                        </input>
                     </div>
-                    <div id="paypalForm"
-                         style="display: none;margin-top: 20px;border-radius: 5px;border: solid lightgrey 1px">
-                        <input style="width: 100%;height: 40px;padding-left: 10px" type="text"
-                               id="pay-by-email-paypal" placeholder="Paypal email address">
-                        <span style="" id="paypalError"
-                              class="error-message">Vui lòng không để trống thông tin</span>
-                    </div>
+
                     <div id="visaForm" style="display: none ">
                         <div class="card" style="margin: 30px 0 0 0">
                             <div id="collapseOne" class="collapse show"
@@ -333,6 +331,8 @@ session.removeAttribute("message-discount");
                             </div>
                         </div>
                     </div>
+                        <input type="submit" value="Select" class="btn-order" style="color: white;" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -368,26 +368,26 @@ session.removeAttribute("message-discount");
                 <hr style="width: 100%;margin-top: 10px;margin-bottom: 10px">
                 <div style="display: flex;justify-content: space-between">
                     <p id="price" class="grey_10_400">Tạm tính</p>
-                    <p id="value_price" class="grey_10_400"><%=NumberUtils.formatNumberWithCommas(total)%></p>
+                    <p id="value_price" class="grey_10_400" name="value_price"><%=NumberUtils.formatNumberWithCommas(total)%></p>
                 </div>
                 <div style="display: flex;justify-content: space-between">
                     <p id="transport_fee" class="grey_10_400">Phí vận chuyển</p>
-                    <p id="value_transport_fee" class="grey_10_400">42.000 đ</p>
+                    <p id="value_transport_fee" name="value_transport_fee" class="grey_10_400">42.000 đ</p>
                 </div>
                 <div style="display: flex;justify-content: space-between">
                     <p id="discount_ts_fee" class="grey_10_400">Giảm giá vận chuyển</p>
-                    <p id="value_discount_ts_fee" class="grey_10_400">12.000 đ</p>
+                    <p id="value_discount_ts_fee" name="value_discount_ts_fee" class="grey_10_400">12.000 đ</p>
                 </div>
                 <hr style="width: 100%;margin-top: 10px;margin-bottom: 10px">
                 <div style="display: flex;justify-content: space-between">
                     <p id="total_price" class="grey_10_400">Tổng tiền</p>
-                    <p id="value_total_price" class="grey_10_400" style="font-size: 18px;color: red"><%=NumberUtils.formatNumberWithCommas(total)%></p>
+                    <p id="value_total_price" name="value_total_price" class="grey_10_400" style="font-size: 18px;color: red"><%=NumberUtils.formatNumberWithCommas(total)%></p>
                 </div>
-                <div>
-                    <button type="submit" onclick="validateForm()" class="btn-order" style="margin-top: 10px">
-                        <a id="page_order" href="${pageContext.request.contextPath}/checkout" style="color: white">Đặt hàng</a>
-                    </button>
-                </div>
+<%--                <div>--%>
+<%--                    <button type="submit" onclick="validateForm()" class="btn-order" style="margin-top: 10px">--%>
+<%--                        <a id="page_order" href="${pageContext.request.contextPath}/checkout" style="color: white">Đặt hàng</a>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
