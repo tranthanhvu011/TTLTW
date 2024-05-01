@@ -16,6 +16,7 @@ public class OrderDetail {
         this.total = parseFloat(total);
     }
 
+
     public String getProductName() {
         return "Điện thoại";
     }

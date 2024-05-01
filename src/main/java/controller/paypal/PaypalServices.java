@@ -32,8 +32,8 @@ public class PaypalServices {
 
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName("William")
-                .setLastName("Peterson")
-                .setEmail("william.peterson@company.com");
+                .setLastName("Doe")
+                .setEmail("teleshop@personal.example.com");
 
         payer.setPayerInfo(payerInfo);
 
@@ -42,8 +42,8 @@ public class PaypalServices {
 
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/home");
-        redirectUrls.setReturnUrl("http://localhost:8080/payment");
+        redirectUrls.setCancelUrl("http://localhost:8080/payment");
+        redirectUrls.setReturnUrl("http://localhost:8080/checkout");
 
         return redirectUrls;
     }
@@ -52,6 +52,7 @@ public class PaypalServices {
         Details details = new Details();
         details.setShipping(orderDetail.getShipping());
         details.setSubtotal(orderDetail.getSubtotal());
+        details.setTax("0");
         details.setShippingDiscount(orderDetail.getDiscountShip());
 
         Amount amount = new Amount();

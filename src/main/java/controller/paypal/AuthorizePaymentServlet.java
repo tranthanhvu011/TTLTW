@@ -21,22 +21,32 @@ public class AuthorizePaymentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String subtotal = request.getParameter("value_price");
-        String shipping = request.getParameter("value_transport_fee");
-        String discountShip = request.getParameter("value_discount_ts_fee");
-        String total = request.getParameter("value_total_price");
+        String isPaypal = request.getParameter("flexRadioDefault");
+        String subtotal = request.getParameter("value_price1");
+        String shipping = request.getParameter("value_transport_fee1");
+        String discountShip = request.getParameter("value_discount_ts_fee1");
+        String total = request.getParameter("value_total_price1");
         OrderDetail orderDetail = new OrderDetail(subtotal, shipping, discountShip, total);
+        System.out.println(subtotal);
+        System.out.println(shipping);
+        System.out.println(discountShip);
+        System.out.println(total);
+        System.out.println(orderDetail);
 
-        try {
-            PaypalServices paymentServices = new PaypalServices();
-            String approvalLink = paymentServices.authorizePayment(orderDetail);
+        if ("optionPaypal".equals(isPaypal)) {
+            try {
+                PaypalServices paymentServices = new PaypalServices();
+                String approvalLink = paymentServices.authorizePayment(orderDetail);
 
-            response.sendRedirect(approvalLink);
+                response.sendRedirect(approvalLink);
 
-        } catch (PayPalRESTException ex) {
-            request.setAttribute("errorMessage", ex.getMessage());
-            ex.printStackTrace();
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            } catch (PayPalRESTException ex) {
+                request.setAttribute("errorMessage", ex.getMessage());
+                ex.printStackTrace();
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } else {
+            response.sendRedirect("/checkout");
         }
     }
 
