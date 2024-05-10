@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="../resources/css/user/mainheader.css">
     <link rel="stylesheet" href="../resources/css/user/fontstyle.css">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <style>
     body {
@@ -95,21 +96,22 @@
     <div class="card card-4" style="width: 550px">
         <div class="card-body">
             <h2 class="title" style="background-color: white">Đăng nhập</h2>
-            <form method="post" action="${pageContext.request.contextPath}/login">
+            <form id="login-form" method="post" action="${pageContext.request.contextPath}/login">
                 <div class="row row-space">
                     <div class="input-group" style="width: 100%">
                         <label class="label">Tên đăng nhập</label>
-                        <input class="input--style-4" type="text" name="email" id="email">
+                        <input class="input--style-4" type="text" name="email" id="email" required>
                     </div>
                 </div>
                 <div class="row row-space">
                     <div class="input-group" style="width: 100%">
                         <label class="label">Mật khẩu</label>
-                        <input class="input--style-4 mb-1" type="password" id="pass" name="password"
+                        <input class="input--style-4 mb-1" type="password" id="pass" name="password" required
                                style="width: 100%">
                         <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
                     </div>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
                 <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
                     <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
                         khẩu?</a>
@@ -153,5 +155,8 @@
 </div>
 <%@include file="/common/footer.jsp" %>
 <%@include file="/common/libraries_js.jsp" %>
+<script>
+
+</script>
 </body>
 </html>
