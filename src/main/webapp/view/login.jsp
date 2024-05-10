@@ -112,12 +112,13 @@
                     </div>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
+                <div style="color: red" id="captchaError"></div>
                 <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
                     <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
                         khẩu?</a>
                 </div>
                 <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="submit" style="width: 100%">Đăng nhập</button>
+                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
                 </div>
             </form>
             <div>
@@ -153,10 +154,20 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function checkCaptcha(){
+        var form = document.getElementById("login-form");
+        var captchaError = document.getElementById("captchaError");
+        const response = grecaptcha.getResponse();
+        if(response){
+            form.submit();
+        } else{
+            captchaError.textContent = "Vui lòng xác thực reCAPTCHA!";
+        }
+
+    }
+</script>
 <%@include file="/common/footer.jsp" %>
 <%@include file="/common/libraries_js.jsp" %>
-<script>
-
-</script>
 </body>
 </html>
