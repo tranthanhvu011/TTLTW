@@ -47,8 +47,8 @@
 <div class="container" style="margin-bottom: 30px;">
     <div class="col">
         <%
-            List<OrderProductVariant> listor = (List<OrderProductVariant>) request.getAttribute("order_Account");
-            if (listor==null){
+        List<OrderProductVariant> listor = (List<OrderProductVariant>) request.getAttribute("order_Account");
+        if (listor==null){
         %>
         <div style="margin-top: 30px;">
             <h2 style="color: red">Chưa có đơn hàng nào!</h2>

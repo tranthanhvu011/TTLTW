@@ -23,7 +23,10 @@ public class ProductDAO {
 
         Optional<ProductDB> product = JDBIConnector.me().withHandle(handle -> {
             String query = "SELECT * FROM Products WHERE id = ?";
-            return handle.createQuery(query).bind(0, productId).mapToBean(ProductDB.class).findOne();
+            return handle.createQuery(query)
+                    .bind(0, productId)
+                    .mapToBean(ProductDB.class)
+                    .findOne();
         });
         return product.orElse(null);
     }

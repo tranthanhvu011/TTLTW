@@ -11,24 +11,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class UserDAO {
+public class    UserDAO {
 
-    public List<Account> getAllUsers(   int limit, int offset) {
+    public List<Account> getAllUsers(int limit, int offset) {
 
-        String query = "SELECT * FROM accounts limit ? offset ?";
-
-        List<Account> users = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery(query)
-                        .bind(0, limit)
-                        .bind(1, offset)
-                        .mapToBean(Account.class)
-                        .list());
+        String query = "SELECT * FROM accounts LIMIT ? OFFSET ?";
+        List<Account> users = JDBIConnector.me().withHandle(handle -> {
+            return handle.createQuery(query)
+                    .bind(0, limit)
+                    .bind(1, offset)
+                    .mapToBean(Account.class).list();
+        });
         return users.isEmpty() ? null : users;
     }
-
-
     public Account findUserByEmailAndPassword(String email, String password) {
-        String query = "SELECT * FROM Accounts WHERE email = ?";
+        String query = "SELECT * FROM Accounts WHERE email = ? ";
         try {
             Optional<Account> user = JDBIConnector.me().withHandle(handle -> {
                 return handle.createQuery(query)

@@ -92,7 +92,7 @@ public class ProductDeltailDAO {
                                     "p.name, s.bluetooth, s.camera_after,s.battery_capacity, s.camera_before, s.cart_slot, s.chip_set, s.cpu_speed, p.description," +
                                     "s.dimensions, s.display_type, s.port_sac, s.ram, s.rom, s.the_sim, m.NAME as manufacturerName, " +
                                     "info.time_warranty, info.address_warranty, info.term_waranty," + // Add other product fields here
-                                    "c.name as colorName, cap.name as capacityValue " +
+                                    "c.color_name as colorName, cap.capacity_name as capacityValue " +
                                     "FROM productvariants pv " +
                                     "INNER JOIN colors c ON pv.color_id = c.id " +
                                     "INNER JOIN capacities cap ON pv.capacity_id = cap.id " +
@@ -117,7 +117,7 @@ public class ProductDeltailDAO {
                                     "p.name, p.description, " +
                                     "s.*, m.NAME as manufacturerName, " +
                                     "info.*, " +
-                                    "c.name as colorName, cap.name as capacityValue " +
+                                    "c.color_name as colorName, cap.capacity_name as capacityValue " +
                                     "FROM productvariants pv " +
                                     "INNER JOIN colors c ON pv.color_id = c.id " +
                                     "INNER JOIN capacities cap ON pv.capacity_id = cap.id " +

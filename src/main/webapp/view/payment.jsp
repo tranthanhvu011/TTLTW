@@ -108,7 +108,6 @@
     message = (message == null) ? "" : message;
     String messagediscount = (String) session.getAttribute("message-discount");
     messagediscount = (messagediscount==null) ? "" : messagediscount;
-
 %>
 <%if (message != null) {%>
 <%session.removeAttribute("message");
@@ -225,7 +224,6 @@ session.removeAttribute("message-discount");
                                    style="padding-left:10px ;width: 100%;border-radius: 2px;border: solid lightgrey 1px;margin-left: 10px"
                                  placeholder="Nhập code khuyến mãi"   required>
                             <button style="width: 130px;margin-left: 10px;" class="btn btn-success" type="submit">Xác nhận</button>
-
                         </form>
                     </div>
 
@@ -255,18 +253,19 @@ session.removeAttribute("message-discount");
                     }
                 %>
 
-
             </div>
             <div class="payment_methods border_gr_bg_white" style="padding: 10px;border-radius: 7px">
                 <h3 class="black_18_700" style="margin-top: 5px;font-weight: 550">Chọn hình thức thanh toán</h3>
                 <div class="payment">
+                    <form method="post" action="/authorize_payment">
                     <div class="form-check">
-                        <input onclick="showVisaForm()" class="form-check-input" type="radio"
+                        <input onclick="hideVisaForm()" class="form-check-input" type="radio"
                                name="flexRadioDefault" id="flexRadioDefault2"
                                checked>
                         <label class="black_14_400">
                             Thanh toán trực tiếp khi nhận hàng
                         </label>
+                        </input>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio"
@@ -276,22 +275,18 @@ session.removeAttribute("message-discount");
                             Thanh toán bằng Visa
                             <img style="width: 40px;margin-left: 10px" src="../resources/assets/images/visa.png" alt="">
                         </label>
+                        </input>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" value="optionPaypal"
                                name="flexRadioDefault" id="flexRadioDefault1" onclick="showVisaForm()">
-                        <label class="form-check-label" for="flexRadioDefault1" onclick="showVisaForm()">
+                        <label class="form-check-label" for="flexRadioDefault1" >
                             Thanh toán bằng Paypal
                             <img style="width: 40px;margin-left: 10px" src="../resources/assets/images/paypal.png" alt="">
                         </label>
+                        </input>
                     </div>
-                    <div id="paypalForm"
-                         style="display: none;margin-top: 20px;border-radius: 5px;border: solid lightgrey 1px">
-                        <input style="width: 100%;height: 40px;padding-left: 10px" type="text"
-                               id="pay-by-email-paypal" placeholder="Paypal email address">
-                        <span style="" id="paypalError"
-                              class="error-message">Vui lòng không để trống thông tin</span>
-                    </div>
+
                     <div id="visaForm" style="display: none ">
                         <div class="card" style="margin: 30px 0 0 0">
                             <div id="collapseOne" class="collapse show"
@@ -333,6 +328,13 @@ session.removeAttribute("message-discount");
                             </div>
                         </div>
                     </div>
+                        <input type="hidden" id="value_price1" name="value_price1" value="0">
+                        <input type="hidden" id="value_transport_fee1" name="value_transport_fee1" value="0">
+                        <input type="hidden" id="value_discount_ts_fee1" name="value_discount_ts_fee1" value="0">
+                        <input type="hidden" id="value_total_price1" name="value_total_price1" value="0">
+
+                        <input type="submit" value="Select" class="btn-order" style="color: white;" />
+                    </form>
                 </div>
             </div>
         </div>
@@ -368,34 +370,51 @@ session.removeAttribute("message-discount");
                 <hr style="width: 100%;margin-top: 10px;margin-bottom: 10px">
                 <div style="display: flex;justify-content: space-between">
                     <p id="price" class="grey_10_400">Tạm tính</p>
-                    <p id="value_price" class="grey_10_400"><%=NumberUtils.formatNumberWithCommas(total)%></p>
+                    <p id="value_price" class="grey_10_400" name="value_price"><%=NumberUtils.formatNumberWithCommas(total)%></p>
                 </div>
                 <div style="display: flex;justify-content: space-between">
                     <p id="transport_fee" class="grey_10_400">Phí vận chuyển</p>
-                    <p id="value_transport_fee" class="grey_10_400">42.000 đ</p>
+                    <p id="value_transport_fee" name="value_transport_fee" class="grey_10_400" >42,000</p>
                 </div>
                 <div style="display: flex;justify-content: space-between">
                     <p id="discount_ts_fee" class="grey_10_400">Giảm giá vận chuyển</p>
-                    <p id="value_discount_ts_fee" class="grey_10_400">12.000 đ</p>
+                    <p id="value_discount_ts_fee" name="value_discount_ts_fee" class="grey_10_400">12,000</p>
                 </div>
                 <hr style="width: 100%;margin-top: 10px;margin-bottom: 10px">
                 <div style="display: flex;justify-content: space-between">
                     <p id="total_price" class="grey_10_400">Tổng tiền</p>
-                    <p id="value_total_price" class="grey_10_400" style="font-size: 18px;color: red"><%=NumberUtils.formatNumberWithCommas(total)%></p>
+                    <p id="value_total_price" name="value_total_price" value="100" class="grey_10_400" style="font-size: 18px;color: red"><%=NumberUtils.formatNumberWithCommas(total)%></p>
                 </div>
-                <div>
-                    <button type="submit" onclick="validateForm()" class="btn-order" style="margin-top: 10px">
-                        <a id="page_order" href="${pageContext.request.contextPath}/checkout" style="color: white">Đặt hàng</a>
-                    </button>
-                </div>
+<%--                <div>--%>
+<%--                    <button type="submit" onclick="validateForm()" class="btn-order" style="margin-top: 10px">--%>
+<%--                        <a id="page_order" href="${pageContext.request.contextPath}/checkout" style="color: white">Đặt hàng</a>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
             </div>
         </div>
     </div>
+
 </div>
 <%@include file="/common/footer.jsp" %>
 <script src="../resources/js/user/payment.js"></script>
 <%@include file="/common/libraries_js.jsp" %>
 <script>
+    // Lấy thẻ input và thẻ p bằng cách sử dụng id của chúng
+    var p_subtotal = document.getElementById('value_price');
+    var p_shipping = document.getElementById('value_transport_fee');
+    var p_discountShip = document.getElementById('value_discount_ts_fee');
+    var p_total = document.getElementById('value_total_price');
+
+    var input_subtotal = document.getElementById('value_price1');
+    var input_shipping = document.getElementById('value_transport_fee1');
+    var input_discountShip = document.getElementById('value_discount_ts_fee1');
+    var input_total = document.getElementById('value_total_price1');
+
+    input_subtotal.value = p_subtotal.textContent.replaceAll(",","");
+    input_shipping.value = p_shipping.textContent.replaceAll(",","");
+    input_discountShip.value = p_discountShip.textContent.replaceAll(",","");
+    input_total.value = p_total.textContent.replaceAll(",","")*1 + input_shipping.value*1 - input_discountShip.value*1;
+
     function isNumeric(value) {
         return /^\d+$/.test(value);
     }
@@ -451,21 +470,41 @@ session.removeAttribute("message-discount");
             var selectedOption = document.querySelector('input[name="fav_language"]:checked');
             if (selectedOption) {
                 if (selectedOption.id === 'giao_hang_tiet_kiem') {
-                    transportFeeElement.innerText = '12.000 đ'; // Adjust the value accordingly
+                    transportFeeElement.innerText = '12,000'; // Adjust the value accordingly
                 } else if (selectedOption.id === 'giao_hang_buu_dien') {
-                    transportFeeElement.innerText = '42.000 đ'; // Adjust the value accordingly
+                    transportFeeElement.innerText = '42,000'; // Adjust the value accordingly
                 }
             }
-        }
 
+        }
+        function updateTotal() {
+            var p_subtotal = document.getElementById('value_price');
+            var p_shipping = document.getElementById('value_transport_fee');
+            var p_discountShip = document.getElementById('value_discount_ts_fee');
+            var p_total = document.getElementById('value_total_price');
+
+            var input_subtotal = document.getElementById('value_price1');
+            var input_shipping = document.getElementById('value_transport_fee1');
+            var input_discountShip = document.getElementById('value_discount_ts_fee1');
+            var input_total = document.getElementById('value_total_price1');
+
+            var chagre = 1/25000;
+            input_subtotal.value = p_subtotal.textContent.replaceAll(",","")*chagre;
+            input_shipping.value = p_shipping.textContent.replaceAll(",","")*chagre;
+            input_discountShip.value = p_discountShip.textContent.replaceAll(",","")*chagre;
+            input_total.value = (input_subtotal.value*1 + input_shipping.value*1 - input_discountShip.value*1);
+            p_total.textContent = ((input_total.value)*25000).toLocaleString('en-US');
+        }
         // Add event listeners to update transport fee when the radio buttons are clicked
         var radioButtons = document.querySelectorAll('input[name="fav_language"]');
         radioButtons.forEach(function (radioButton) {
             radioButton.addEventListener('click', updateTransportFee);
+            radioButton.addEventListener('click', updateTotal);
         });
 
         // Set the initial transport fee on page load
         updateTransportFee();
+
     }
 
     // Ensure this function is called on page load to set the initial transport fee

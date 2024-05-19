@@ -69,11 +69,22 @@ public class ProductVariantDAO {
     }
 
     public ProductVariantDB findProductVariantById(int id) {
-        String query = "SELECT * FROM ProductVariants WHERE id = :id";
-        Optional<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery(query).bind("id", id).mapToBean(ProductVariantDB.class).findOne()
-        );
-
+//        String query = "SELECT * FROM ProductVariants WHERE id = :id";
+//        Optional<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle -> {
+//            return handle.createQuery(query)
+//                    .bind("id", id)
+//                    .mapToBean(ProductVariantDB.class)
+//                    .findOne();
+//        });
+//
+//        return productVariantDB.orElse(null);
+        Optional<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle -> {
+            String query = "SELECT * FROM ProductVariants WHERE id = :id";
+            return handle.createQuery(query)
+                    .bind("id", id)
+                    .mapToBean(ProductVariantDB.class)
+                    .findOne();
+        });
         return productVariantDB.orElse(null);
     }
 
@@ -89,9 +100,9 @@ public class ProductVariantDAO {
                 "pv.product_id, " +
                 "p.name AS product_name, " +
                 "pv.color_id, " +
-                "c.name, " +
+                "c.color_name, " +
                 "pv.capacity_id, " +
-                "cap.name, " +
+                "cap.capacity_name, " +
                 "pv.price, " +
                 "pv.state, " +
                 "i.image_url " +
@@ -106,7 +117,7 @@ public class ProductVariantDAO {
                 ProductVariant pv = new ProductVariant();
                 Product product = new Product();
                 Color color = new Color();
-                color.setName(rs.getString("name"));
+                color.setName(rs.getString("color_name"));
                 ProductImage productImage = new ProductImage();
                 List<ProductImage> images = new ArrayList<>();
                 pv.setId(rs.getInt("id"));
@@ -116,7 +127,7 @@ public class ProductVariantDAO {
                 productImage.setImage_url(rs.getString("image_url"));
                 pv.setColor(color);
                 Capacity capacity = new Capacity();
-                capacity.setName(rs.getString("name"));
+                capacity.setName(rs.getString("capacity_name"));
                 pv.setCapacity(capacity);
                 images.add(productImage);
                 pv.setProductImages(images);

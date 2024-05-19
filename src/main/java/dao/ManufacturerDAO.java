@@ -9,7 +9,7 @@ import java.util.Optional;
 public class ManufacturerDAO {
     public Manufacturer findManufacturerById(int manufacturerId) {
         Optional<Manufacturer> manufacturer = JDBIConnector.me().withHandle(handle -> {
-            String query = "SELECT * FROM Manufacturers WHERE id = ?";
+            String query = "SELECT * FROM manufacturers WHERE id = ?";
             return handle.createQuery(query).bind(0, manufacturerId).mapToBean(Manufacturer.class).findOne();
         });
         return manufacturer.orElse(null);

@@ -70,7 +70,7 @@ public class DiscountDAO {
         String query = "SELECT * FROM discounts WHERE code = ?";
         Optional<Discount> result = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query)
-                        .bind(0, code)
+                        .bind(0,code)
                         .map((ResultSet rs, StatementContext ctx) -> {
                             Discount discount = new Discount();
                             discount.setId(rs.getInt("id"));
