@@ -26,7 +26,7 @@ public class ManageCapacityController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("capacities", capacityService.getAllCapacities());
-        doPost(request, response);
+        request.getRequestDispatcher("/viewAdmin/manage_capacity.jsp").forward(request, response);
     }
 
     @Override

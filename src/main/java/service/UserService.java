@@ -28,8 +28,7 @@ public class UserService {
     private OrderDAO orderDAO;
 
     public List<Account> getAllUsers(int limit, int offset) {
-        List<Account> users;
-        users = userDAO.getAllUsers(limit, offset);
+        List<Account> users = userDAO.getAllUsers(limit, offset);
         return users.isEmpty() ? null : users;
     }
 

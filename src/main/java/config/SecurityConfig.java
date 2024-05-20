@@ -26,7 +26,6 @@ public class SecurityConfig {
         roleUsers.add("/user/info-account*");
 
 
-
         List<String> roleManages = new ArrayList<>();
         roleUsers.forEach(r -> roleManages.add(r));
         roleManages.add("/admin/revenue-statistics*");

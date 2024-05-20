@@ -14,7 +14,6 @@ if (cart==null) cart = new Cart();
 
     <script>
         var contextPath = "${pageContext.request.contextPath}";
-
         $(document).ready(function () {
             $('#autocomplete').autocomplete({
                 source: '${pageContext.request.contextPath}/autocomplete',
@@ -22,10 +21,8 @@ if (cart==null) cart = new Cart();
                     //$( "#autocomplete" ).val( ui.item.id + ' - ' +  ui.item.name);
                     return false;
                 }
-
             })
                 .autocomplete("instance")._renderItem = function (ul, item) {
-
                 return $("<li style='background-color: white; width: 420px;'>")
                     .append("<div><a style='color: black;' href='${pageContext.request.contextPath}/product-detail?id=" + item.id + " '> <img src='" + contextPath + "/resources/assets/images/thumball/" + item.thumbnail_url + "' height='50' width='50'> &nbsp;" + item.name + " </a></div>")
                     .appendTo(ul);

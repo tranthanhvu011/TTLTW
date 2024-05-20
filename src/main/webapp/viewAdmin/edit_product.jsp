@@ -21,7 +21,7 @@
     <title>Sửa sản phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/common/admin_library_css.jsp" %>
-    <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/css/admin/model.css" rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
 </head>
