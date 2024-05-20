@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--link den css-->
     <%@include file="/common/admin_library_css.jsp" %>
-    <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/css/admin/model.css" rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.css"
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.min.css"

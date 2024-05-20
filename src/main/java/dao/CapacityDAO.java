@@ -7,13 +7,13 @@ import model.Manufacturer;
 import java.util.List;
 
 public class CapacityDAO {
-static CapacityDAO instance;
-public static CapacityDAO getInstance(){
-    if (instance==null){
-      instance=  new CapacityDAO();
+    static CapacityDAO instance;
+    public static CapacityDAO getInstance(){
+        if (instance==null){
+            instance=  new CapacityDAO();
+        }
+        return instance;
     }
-    return instance;
-}
     public Capacity findCapacityById(int capacityId) {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT * FROM Capacities WHERE id = :id")
@@ -26,7 +26,7 @@ public static CapacityDAO getInstance(){
 
     public Capacity findCapacityByName(String capacityName) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM Capacities WHERE capacity_name = ?")
+                handle.createQuery("SELECT * FROM Capacities WHERE name = ?")
                         .bind(0, capacityName)
                         .mapToBean(Capacity.class)
                         .findFirst()
@@ -48,7 +48,7 @@ public static CapacityDAO getInstance(){
 
     public List<Capacity> findCapacityWithKeyword(String keyword) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM capacities WHERE capacity_name LIKE ?")
+                handle.createQuery("SELECT * FROM capacities WHERE name LIKE ?")
                         .bind(0, "%" + keyword + "%")
                         .mapToBean(Capacity.class)
                         .list());
@@ -56,14 +56,14 @@ public static CapacityDAO getInstance(){
 
     public int insertCapacity(String name) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate("INSERT INTO capacities(capacity_name) VALUES (?)")
+                handle.createUpdate("INSERT INTO capacities(name) VALUES (?)")
                         .bind(0, name)
                         .execute());
     }
 
     public boolean alertCapacity(int idCapacity, String nameCapacity) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate("UPDATE capacities SET capacity_name = ? WHERE id = ?")
+                handle.createUpdate("UPDATE capacities SET name = ? WHERE id = ?")
                         .bind(0, nameCapacity)
                         .bind(1, idCapacity)
                         .execute()) > 0;

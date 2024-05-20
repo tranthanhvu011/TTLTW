@@ -216,8 +216,6 @@
                     }
                 });
             });
-
-
             $('input[name="brand"]').click(function () {
                 var s = '';
                 var value = $(this).val();
@@ -398,8 +396,6 @@
                     </div>
 
                 </div>
-
-
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10 order-lg-1 order-0">
                     <div class="product-section">
                         <h2 class="title-product">
@@ -411,7 +407,6 @@
                         </h2>
                         <div class="content-product-box">
                             <% ProductDAO productDAO = new ProductDAO();%>
-
                             <div class="row" id="product-container">
                                 <!-- Sản phẩm sẽ được thêm vào đây -->
                                 <%for (Product p : products) {%>

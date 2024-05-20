@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 21, 2024 lúc 07:31 AM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th5 20, 2024 lúc 02:35 PM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,14 +41,14 @@ CREATE TABLE `accounts` (
   `is_active` tinyint(1) NOT NULL DEFAULT 0,
   `last_login` date DEFAULT NULL,
   `create_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `accounts`
 --
 
 INSERT INTO `accounts` (`id`, `email`, `first_name`, `last_name`, `password`, `address`, `gender`, `dob`, `phone_number`, `role`, `is_active`, `last_login`, `create_at`) VALUES
-(1, 'phone_service@gmail.com', 'admin', 'admin', 'admin123', '', 1, '0000-00-00', '', 'admin', 1, '2023-10-02', '2022-11-01'),
+(1, 'phone_service@gmail.com', 'admin', 'admin', 'admin123', '103 duong 4', 1, '2024-01-24', '056215265', 'admin', 1, '2023-10-02', '2022-11-01'),
 (2, 'phucthanh@gmail.com', 'Nguyễn', 'Thành', '123', '213 Tăng Nhơn Phú B Quận 9 TP Hồ Chí Minh', 1, '2003-04-21', '833301234', 'user', 1, '2023-11-28', '2023-11-27'),
 (3, 'truongthinh@gmail.com', 'Nguyễn', 'Thịnh', '99999', '100 Huỳnh Tấn Phát Quận 7 TP Hồ Chí Minh', 1, '2003-08-11', '90688181', 'user', 1, '2023-11-28', '2022-09-17'),
 (4, 'ducthien@gmail.com', 'Đỗ', 'Thiện', 'ducthien1', 'Khu phố Nhị Đồng 2 TP Dĩ An Bình Dương', 1, '2003-08-06', '883456123', 'user', 1, '2023-01-22', '2022-09-10'),
@@ -85,14 +85,17 @@ INSERT INTO `accounts` (`id`, `email`, `first_name`, `last_name`, `password`, `a
 (76, 'lethicuba1004@gmail.com', 'vu', 'tran thanh', '$2a$10$6bLMQ4ZD6nbBPSuKzxEmZeHv1tCQ3oPJuUEeX63THvr/84CnNWfQi', 'Binh Duong', 1, '2023-12-13', '+84379886918', 'user', 0, NULL, '2023-12-19'),
 (77, 'lethicuba1004@gmail.com', 'vu', 'tran thanh', '$2a$10$RksylvoFlxZu7d8gr66RAugUVNE4foNaQeL39rdAj4zdFzP4FoY3y', 'Binh Duong', 1, '2023-12-08', '+84379886918', 'user', 0, NULL, '2023-12-19'),
 (89, 'vutranorhilsun@gmail.com', 'vu', 'tran thanh', '$2a$10$d0QZpm7QjgIZrtYwzXwwYO9WfD.n4mWVWeAdAWvDomhyfjDJof7NG', 'Binh Duong', 1, '2023-12-13', '+84379886918', 'user', 1, NULL, '2023-12-19'),
-(91, 'tranthanhvu10044@gmail.com', 'tran', 'thanh', '$2a$10$TVO4WBnn8HftxiNEFHZUh.XJlUSSJcMopRm.DYciAlo0o4MGpK60e', 'viet nam', 1, '2023-12-07', '0379886918', 'user', 1, NULL, '2023-12-20'),
+(91, 'tranthanhvu10044@gmail.com', 'tran', 'thanh', '$2a$10$ZLCULaAG7KeOl/K.88D3fuFwLXMcBBp5faejwwvXZjmUyQfc3UGcG', 'viet nam', 1, '2023-12-07', '0379886918', 'user', 1, NULL, '2023-12-20'),
 (92, '12345@gmail.com', 'tran', 'thanh', '$2a$10$vq.KS/KDOjqtLC3g/9byEO0qx/jzF9z5q2REGumzJeJRZWOdPqJqa', '1234512512', 1, '2023-12-06', '0379886918', 'user', 1, NULL, '2023-12-23'),
 (93, '123@gmail.com', 'tran', 'vu', '$2a$10$o0UNkTJtnYDmoPIa3h9hMe2rYPGIkGNHmHfYHGGEz2WD3Hnxze9.S', '12312321312', 1, '2023-12-15', '0379886918', 'user', 1, NULL, '2023-12-23'),
 (94, 'vudeptrai@gmail.com', '12321', '312321', '$2a$10$Ik/3qXSAHdBo6.u.nouuMON/GbKb6yB3foeuejrYy8iXJ.1GLEXHS', '2312321312', 1, '2023-12-08', '123213123', 'user', 1, NULL, '2023-12-23'),
 (95, 'ngusidandon@gmail.com', 'Trần vu dep trai412412421', 'Thanh Vũ', '$2a$10$vApx5xsfMrJ.jtHq6uXk5eG3Bo7JDX605HD4cR8SKxv7BLoUHrsf6', '12321312412421421', 1, '2003-07-22', '0379886918', 'user', 1, NULL, '2023-12-23'),
 (96, 'tranvu@gmail.com', 'vu', 'tran thanh', '$2a$10$89xNnPRU/yelT6Mz/MxqpeU13pWGAJASPTUgGfCiRLY0pNKfGX9A.', 'Binh Duong', 1, '2024-01-17', '+84379886918', 'user', 1, NULL, '2024-01-01'),
 (97, 'vutranorhilsun123@gmail.com', 'tran', 'thanh', '$2a$10$Ff4JfnAv2MsSa1oJ5nZQ0OdaugE2xeUI/yNGzOUctwCdRj.I4VbEq', '41241241421', 1, '2024-01-11', '0379886918', 'user', 1, NULL, '2024-01-20'),
-(98, 'ngusi@gmail.com', 'tran', 'vu', '$2a$10$IODFRWOyb7zz3fv8yf8L7.61Y..rj3/3729M3GqPJhMokzVUfI2Ei', '12312412', 1, '2024-01-11', '034512514', 'user', 1, NULL, '2024-01-20');
+(99, 'nguyennhutoan722003@gmail.com', 'Nguyen', 'Toan', '$2a$10$PL0CUeJKfXtWslFvMqw3mOllWzQULGEebutMmX35m.u0m5GagKg0W', 'Dương Thủy-Lệ Thủy', 1, '2024-01-19', '0836851972', 'admin', 1, NULL, '2024-01-22'),
+(100, '21130568@st.hcmuaf.edu.vn', 'Nguyen', 'Toan', '$2a$10$5PIO9YLSl3IRL/rWMRRTbu2BszqlpH5hV6ioqt.yhE4pvFAtlyytW', 'Dương Thủy-Lệ Thủy', 1, '2024-01-11', '512451314', 'admin', 1, NULL, '2024-01-22'),
+(101, 'ngusidan123@gmail.com', 'tran', 'vu', '$2a$10$LQIVHNTZnJb7MAZAnUUKqOkM5FCkU2YxiE20zj69QCNsRpvbCFDNy', '4124124', 1, '2024-04-07', 'l', 'user', 1, NULL, '2024-04-09'),
+(102, '21130616@st.hcmuaf.edu.vn', 'Trần Thanh Vũ', '', '$2a$10$5xDFtcWcZDsvJjtyqs5ldu38s0sC5ON7uy9Enrw2IqZxi4cZLQapO', NULL, 0, NULL, '', 'user', 0, NULL, '2024-04-14');
 
 -- --------------------------------------------------------
 
@@ -102,14 +105,14 @@ INSERT INTO `accounts` (`id`, `email`, `first_name`, `last_name`, `password`, `a
 
 CREATE TABLE `capacities` (
   `id` int(11) NOT NULL,
-  `capacity_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `capacities`
 --
 
-INSERT INTO `capacities` (`id`, `capacity_name`) VALUES
+INSERT INTO `capacities` (`id`, `name`) VALUES
 (1, '64 GB'),
 (2, '128 GB'),
 (3, '256 GB'),
@@ -129,14 +132,14 @@ INSERT INTO `capacities` (`id`, `capacity_name`) VALUES
 
 CREATE TABLE `colors` (
   `id` int(11) NOT NULL,
-  `color_name` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `colors`
 --
 
-INSERT INTO `colors` (`id`, `color_name`) VALUES
+INSERT INTO `colors` (`id`, `name`) VALUES
 (1, 'Đỏ'),
 (2, 'Xanh dương'),
 (3, 'Xanh lá'),
@@ -223,20 +226,13 @@ CREATE TABLE `contacts` (
   `title` varchar(255) DEFAULT NULL,
   `content` longtext DEFAULT NULL,
   `create_at` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `contacts`
 --
 
 INSERT INTO `contacts` (`id`, `full_name`, `email_address`, `phone_number`, `title`, `content`, `create_at`) VALUES
-(1, 'vu tran thanh', 'vutranorhilsun@gmail.com', '+84379886918', '12345512', '                    412412412412                ', '2023-12-20 12:54:53'),
-(2, '', '', '', '', '                                    ', '2023-12-20 13:01:33'),
-(3, '', '', '', '', '                                    ', '2023-12-20 13:01:34'),
-(4, '', '', '', '', '                                    ', '2023-12-20 13:01:36'),
-(5, 'DOAN QUOC ANH', 'dfasfasfas@gmail.com', '0379886918', 'fasfasjk', 'fdasjbfaskfbaksbfsakfbafasfsfasfasfas                                    ', '2023-12-20 13:07:08'),
-(6, '', '', '', '', '                                    ', '2023-12-20 13:08:33'),
-(7, '424124', '21421421@gmail.com', '4812412', '8412784y12', '8742184127421784782146782142121412421                                    ', '2023-12-20 13:32:45'),
 (8, '', '', '', '', '                                    ', '2023-12-20 13:32:52'),
 (9, '412421421', '', '', '', '                                    ', '2023-12-20 13:34:09'),
 (10, '', '', '', '', '                                    ', '2023-12-20 13:36:17'),
@@ -261,7 +257,7 @@ CREATE TABLE `discountproduct` (
   `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `discount_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `discountproduct`
@@ -270,7 +266,11 @@ CREATE TABLE `discountproduct` (
 INSERT INTO `discountproduct` (`id`, `product_id`, `discount_id`) VALUES
 (1, 1, 1),
 (2, 48, 1),
-(3, 23, 1);
+(3, 23, 1),
+(4, 1, 17),
+(7, 1, 22),
+(10, 1, 23),
+(11, 11, 15);
 
 -- --------------------------------------------------------
 
@@ -286,7 +286,7 @@ CREATE TABLE `discounts` (
   `is_active` tinyint(1) DEFAULT NULL,
   `start_at` datetime NOT NULL,
   `end_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `discounts`
@@ -335,7 +335,7 @@ CREATE TABLE `infotransports` (
   `address_reciver` varchar(500) DEFAULT NULL,
   `name_reciver` varchar(255) DEFAULT NULL,
   `account_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `infotransports`
@@ -356,7 +356,9 @@ INSERT INTO `infotransports` (`id`, `name`, `time_delivery`, `cost`, `phone_reci
 (12, 'L', 3, 55000, '0354752847', '33 đường 8 Quận Thủ Đức TP Hồ Chí Minh', 'Lê Đình Văn', NULL),
 (13, 'M', 7, 11000, '0867878268', '71 Lã Xuân Oai Quận 9 TP Hồ Chí Minh', 'Trần Thanh Trí', NULL),
 (14, 'N', 6, 45000, '0835169543', '216 Lê Đức Thọ Quận Gò Vấp TP Hồ Chí Minh', 'Lê Chí Trường', NULL),
-(15, 'O', 8, 11000, '0911427335', '69 Phường Tân Bình TP Dĩ An Bình Dương', 'Lưu Bị', NULL);
+(15, 'O', 8, 11000, '0911427335', '69 Phường Tân Bình TP Dĩ An Bình Dương', 'Lưu Bị', NULL),
+(16, 'vu', 30, 30000, 'l', '4124124', 'vu', 101),
+(19, 'Toan', 30, 30000, '512451314', 'Dương Thủy-Lệ Thủy', 'Toan', 100);
 
 -- --------------------------------------------------------
 
@@ -369,7 +371,7 @@ CREATE TABLE `infowarranties` (
   `time_warranty` varchar(255) DEFAULT NULL,
   `address_warranty` varchar(255) DEFAULT NULL,
   `term_waranty` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `infowarranties`
@@ -391,13 +393,27 @@ INSERT INTO `infowarranties` (`id`, `time_warranty`, `address_warranty`, `term_w
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `inventory`
+--
+
+CREATE TABLE `inventory` (
+  `id` int(11) NOT NULL,
+  `product` longtext NOT NULL,
+  `idEmployee` int(11) NOT NULL,
+  `dateInsert` timestamp NOT NULL DEFAULT current_timestamp(),
+  `dateUpdate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `manufacturers`
 --
 
 CREATE TABLE `manufacturers` (
   `id` int(11) NOT NULL,
   `NAME` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `manufacturers`
@@ -436,23 +452,23 @@ CREATE TABLE `news` (
   `update_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `index` int(11) NOT NULL,
   `url_image` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `news`
 --
 
 INSERT INTO `news` (`id`, `title`, `content`, `create_at`, `update_at`, `index`, `url_image`) VALUES
-(1, 'thanhvu', 'thanhvudeptrai', '2024-01-02 04:08:09', '2024-01-02 05:24:43', 1, '../resources/assets/images/Doogee-V30-Pro-1.png'),
-(2, 'Trần Thanh Vũ Đẹp Trai', '412', '2024-01-02 04:50:50', '2024-01-02 09:41:08', 1, '../resources/assets/images/Doogee-V30-Pro-1.png'),
-(3, '4', '4124', '2024-01-02 05:47:11', '2024-01-02 10:07:20', 2, '../resources/assets/images/sp.png'),
-(4, '421412', '4124124', '2024-01-02 05:47:21', '2024-01-02 10:07:23', 3, '../resources/assets/images/sp.png'),
-(5, '412412', '412412', '2024-01-02 05:47:24', '2024-01-02 10:07:24', 4, '../resources/assets/images/sp.png'),
-(6, '412412412', '412412412421', '2024-01-02 05:47:39', '2024-01-02 10:07:25', 5, '../resources/assets/images/sp.png'),
-(7, '412421', '4124214214', '2024-01-02 05:47:47', '2024-01-02 10:07:26', 6, '../resources/assets/images/sp.png'),
-(8, '412421', '412412', '2024-01-02 05:48:05', '2024-01-02 10:07:27', 7, '../resources/assets/images/sp.png'),
-(9, '421412', '4124', '2024-01-02 05:48:11', '2024-01-02 10:07:28', 8, '../resources/assets/images/sp.png'),
-(10, '4412', '412412', '2024-01-02 05:48:26', '2024-01-02 10:07:29', 9, '../resources/assets/images/sp.png');
+(1, 'thanhvu', 'thanhvudeptrai', '2024-01-01 21:08:09', '2024-01-01 22:24:43', 1, '../resources/assets/images/Doogee-V30-Pro-1.png'),
+(2, 'Trần Thanh Vũ Đẹp Trai', '412', '2024-01-01 21:50:50', '2024-01-02 02:41:08', 1, '../resources/assets/images/Doogee-V30-Pro-1.png'),
+(3, '4', '4124', '2024-01-01 22:47:11', '2024-01-02 03:07:20', 2, '../resources/assets/images/sp.png'),
+(4, '421412', '4124124', '2024-01-01 22:47:21', '2024-01-02 03:07:23', 3, '../resources/assets/images/sp.png'),
+(5, '412412', '412412', '2024-01-01 22:47:24', '2024-01-02 03:07:24', 4, '../resources/assets/images/sp.png'),
+(6, '412412412', '412412412421', '2024-01-01 22:47:39', '2024-01-02 03:07:25', 5, '../resources/assets/images/sp.png'),
+(7, '412421', '4124214214', '2024-01-01 22:47:47', '2024-01-02 03:07:26', 6, '../resources/assets/images/sp.png'),
+(8, '412421', '412412', '2024-01-01 22:48:05', '2024-01-02 03:07:27', 7, '../resources/assets/images/sp.png'),
+(9, '421412', '4124', '2024-01-01 22:48:11', '2024-01-02 03:07:28', 8, '../resources/assets/images/sp.png'),
+(10, '4412', '412412', '2024-01-01 22:48:26', '2024-01-02 03:07:29', 9, '../resources/assets/images/sp.png');
 
 -- --------------------------------------------------------
 
@@ -471,6 +487,21 @@ CREATE TABLE `orderproductvariant` (
   `status` int(11) DEFAULT NULL COMMENT '2:đang giao , 3:đã nhận hàng , 0:đã hủy,1:đang chuẩn bị hàng'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci ROW_FORMAT=DYNAMIC;
 
+--
+-- Đang đổ dữ liệu cho bảng `orderproductvariant`
+--
+
+INSERT INTO `orderproductvariant` (`id`, `product_variant_id`, `order_id`, `quantity`, `transport_id`, `buy_at`, `total_price`, `status`) VALUES
+(6, 272, 1, 675, 2, '2009-12-01', 281.52, 503),
+(7, 171, 1, 931, 13, '2017-09-28', 306.83, 651),
+(8, 132, 1, 309, 1, '2000-03-27', 288.82, 950),
+(9, 113, 1, 32, 5, '2006-10-03', 661.49, 31),
+(10, 289, 1, 344, 11, '2023-08-26', 244.88, 931),
+(11, 301, 2, 6, 16, '2024-04-09', 113400000, 1),
+(12, 301, 2, 6, 16, '2024-04-09', 113400000, 1),
+(13, 301, 2, 6, 16, '2024-04-09', 113400000, 1),
+(14, 302, 2, 1, 16, '2024-04-09', 2990000, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -480,14 +511,16 @@ CREATE TABLE `orderproductvariant` (
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `account_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
 INSERT INTO `orders` (`id`, `account_id`) VALUES
-(1, 2);
+(1, 2),
+(5, 100),
+(2, 101);
 
 -- --------------------------------------------------------
 
@@ -500,7 +533,7 @@ CREATE TABLE `passwordresetcodes` (
   `email` varchar(255) NOT NULL,
   `code` varchar(6) DEFAULT NULL,
   `expiration_time` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
@@ -512,17 +545,13 @@ CREATE TABLE `productimages` (
   `id` int(11) NOT NULL,
   `product_variant_id` int(11) NOT NULL,
   `image_url` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `productimages`
 --
 
 INSERT INTO `productimages` (`id`, `product_variant_id`, `image_url`) VALUES
-(1, 1, '252073087_1.jpg'),
-(2, 1, '252073087_2.jpg'),
-(3, 2, '252073087_3.jpg'),
-(4, 2, '252073087_4.jpg'),
 (5, 3, '252073087_4.jpg'),
 (6, 4, '242712931_1.jpg'),
 (7, 4, '242712931_3.jpg'),
@@ -1428,14 +1457,14 @@ CREATE TABLE `products` (
   `info_warranty_id` int(11) NOT NULL,
   `specification_id` int(11) NOT NULL,
   `priceNew` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `manufacturer_id`, `sell_quantity`, `remaning_quantity`, `thumbnail_url`, `price`, `description`, `info_warranty_id`, `specification_id`, `priceNew`) VALUES
-(1, 'Điện thoại Itel A26 (2G/32g) - Hàng Chính Hãng', 16, 50, 3, '252073087.jpg', 14500000, '<p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, bộ sạc, cáp USB, dụng cụ lấy sim, sách hướng dẫn, ốp lưng điện thoại.</p> <p> </p> <p>Màn hình tràn viền, sắc nét</p> <p>- OPPO trang bị cho máy màn hình IPS LCD kích thước 6.56 inch, hỗ trợ độ phân giải HD+ (720 x 1612 pixels), mật độ điểm ảnh khoảng 269 PPI.</p> <p>-  Khung viền còn được vát phẳng tạo cảm giác sang trọng khi cầm trên tay.</p> <p> </p> <p>Bộ 3 camera sau AI lưu lại khoảnh khắc đáng nhớ</p> <p>- Camera chính cảm biến đến 13 MP, cảm biến độ sâu 2 MP chuyên chụp ảnh chân dung và đèn flash LED để hỗ trợ chụp trong những tình huống thiếu sáng.</p> <p>- Giúp người dùng có thể chụp gần hơn mọi vật thể, mọi chi tiết nhỏ sẽ được nhìn rõ mà mắt thường khó nhìn thấy, để bạn thỏa sức chụp và lưu lại những điều thú vị xung quanh.</p> <p>- Camera trước 8 MP với tính năng để chụp ảnh selfie.</p> <p> </p> <p>Hiệu năng mạnh mẽ</p> <p>- Oppo A57 mang cho mình sức mạnh MediaTek Helio G35 8 nhân, với con chip này đem đến cho người dùng trải nghiệm lướt web, đọc báo, xem youtube ổn định.</p> <p> </p> <p>Thời lượng pin ấn tượng</p> <p>- Oppo A57 trang bị dung lượng pin khủng 5000mAh đáp ứng được những nhu cầu sử dụng hằng ngày như học tập, giải trí, chơi </p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p> </p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.</p> <p>- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ)</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>#điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng #hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_oppo #oppo #oppo_a57</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 15, 13500000),
+(1, 'Điện thoại Itel A26 (2G/32g) - Hàng Chính Hãng', 16, 500, 35, '72ced2200beb4215a3c834e576c71ea6.png', 150000000, '<p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, bộ sạc, cáp USB, dụng cụ lấy sim, sách hướng dẫn, ốp lưng điện thoại.</p> <p> </p> <p>Màn hình tràn viền, sắc nét</p> <p>- OPPO trang bị cho máy màn hình IPS LCD kích thước 6.56 inch, hỗ trợ độ phân giải HD+ (720 x 1612 pixels), mật độ điểm ảnh khoảng 269 PPI.</p> <p>-  Khung viền còn được vát phẳng tạo cảm giác sang trọng khi cầm trên tay.</p> <p> </p> <p>Bộ 3 camera sau AI lưu lại khoảnh khắc đáng nhớ</p> <p>- Camera chính cảm biến đến 13 MP, cảm biến độ sâu 2 MP chuyên chụp ảnh chân dung và đèn flash LED để hỗ trợ chụp trong những tình huống thiếu sáng.</p> <p>- Giúp người dùng có thể chụp gần hơn mọi vật thể, mọi chi tiết nhỏ sẽ được nhìn rõ mà mắt thường khó nhìn thấy, để bạn thỏa sức chụp và lưu lại những điều thú vị xung quanh.</p> <p>- Camera trước 8 MP với tính năng để chụp ảnh selfie.</p> <p> </p> <p>Hiệu năng mạnh mẽ</p> <p>- Oppo A57 mang cho mình sức mạnh MediaTek Helio G35 8 nhân, với con chip này đem đến cho người dùng trải nghiệm lướt web, đọc báo, xem youtube ổn định.</p> <p> </p> <p>Thời lượng pin ấn tượng</p> <p>- Oppo A57 trang bị dung lượng pin khủng 5000mAh đáp ứng được những nhu cầu sử dụng hằng ngày như học tập, giải trí, chơi </p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p> </p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.</p> <p>- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ)</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>#điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng #hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_oppo #oppo #oppo_a57</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 15, 149000000),
 (2, 'Điện thoại Samsung Galaxy S23 Ultra 512GB - Hàng chính hãng', 2, 30, 120, '242712931.jpg', 36990000, '<article class=\\\"4ever-article\\\"><ul><li> <div>Màn hình: Dynamic AMOLED 2X 6.8\\\", 2K+ (1440 x 3088 Pixels)</div> </li> <li> <div>Hệ điều hành: Android 13</div> </li> <li> <div>Camera sau: 200 MP + 12 MP + 10 MP + 10 MP</div> </li> <li> <div>Camera trước: 12 MP</div> </li> <li> <div>Chipset: Snapdragon 8 Gen 2 8 nhân</div> </li> <li> <div>RAM: 8 GB</div> </li> <li> <div>Bộ nhớ trong: 256 GB</div> </li> <li> <div>Cổng kết nối/sạc: USB-C</div> </li> <li> <div>Dung lượng pin: 5000 mAh, sạc nhanh 45W</div> </li> <li> <div>Bộ sản phẩm gồm: Hộp, thân máy, cáp sạc, giấy hướng dẫn,</div> </li> </ul><p> </p> <article class=\\\"4ever-article\\\"><p>LƯU Ý KHI MUA HÀNG: Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p> </p> <p> </p> <p>Áp dụng sản phẩm Mobile/Tablet/Laptop</p> <p>️ Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành bảo điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>️ Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>️ Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trung tâm bảo hành ủy quyền để thẩm định lỗi.</p> <p>️ Sản phẩm đổi-trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>️ Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>️ Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành theo qui định của nhà sản xuất kể từ ngày mua (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành).</p> <p> </p> <p> Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p> Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p> Vì lượng hàng hoá nhiều shop không nhận đổi trả trong trường hợp khách không thích, không ưng màu, chất liệu; quý khách vui lòng đọc kĩ mô tả và xem hình ảnh cụ thể; nếu cần hãy chat với shop để được tư vấn.</p> </article></article><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 14, 36990000),
 (3, 'Điện Thoại Realme C30s 2GB/32GB - Hàng Chính Hãng', 9, 20, 100, '263047875.jpg', 2490000, '<article class=\\\"4ever-article\\\"><p>Điện Thoại Realme C30s 2GB/32GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, sạc, cáp USB, dụng cụ lấy sim, sách hướng dẫn sử dụng.</p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/d0/5f/9d/7b6615fc862919763ab016c88ca9372b.jpg\\\" width=\\\"750\\\" height=\\\"419\\\" alt=\\\"d05f9d82d4723a36533e87917a50e9d5.jpg\\\" /></p> <p>Giải trí thoải mái trên màn hình rộng</p> <p>- Trang bị tấm nền IPS LCD và đi kèm độ phân giải HD+ (720 x 1600 Pixels), giúp tái hiện hình ảnh có màu sắc trung thực, trường nhìn rộng và nội dung hiển thị rõ ràng.</p> <p>- Với màn hình có kích thước 6.5 inch giúp cho mọi tác vụ giải trí như xem phim hay chơi game của bạn trở nên thích thú, dễ dàng hơn.</p> <p> </p> <p>Hỗ trợ chụp ảnh quay phim rõ nét</p> <p>- Ở mặt lưng sẽ là cụm camera đơn có độ phân giải 8 MP được bố trí bên trên góc trái. Đi kèm với đó sẽ là hàng loạt các tính năng để bạn có thể thỏa sức chụp ảnh như: Ban đêm (Night Mode), bộ lọc màu, chuyên nghiệp (Pro), HDR, xóa phông,...</p> <p>- Mặt trước được trang bị camera selfie 5 MP giúp cho người dùng có được những bức ảnh tự chụp ưng ý hơn hay nâng cao chất lượng hình ảnh trên những cuộc gọi video.</p> <p> </p> <p>Hiệu Năng Ổn Định</p> <p>- Điện thoại Realme này được trạng bị chip Unisoc SC9863A1 8 nhân xử lý tốt các tác vụ cơ bản mang lại hiệu năng ổn định trong tầm giá.</p> <p> </p> <p>Tràn đầy năng lượng cả ngày</p> <p>- Với viên pin 5000 mAh nên người dùng không cần quá lo lắng đến việc thiết bị sẽ tắt nguồn giữa ngày dài làm việc,.</p> <p>Điện Thoại Realme C30s 2GB/32GB - Hàng Chính Hãng</p> <p> </p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.</p> <p>- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ)</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account…Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Realme C30s 2GB/32GB - Hàng Chính Hãng</p> <p>#honghanhmobile #honghanhmobilemall #hhm #dienthoaichinhhanghonghanh #realme_c30s#c30s#điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng #hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_realme #realme</p> </article><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 13, 2490000),
 (4, 'Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng', 4, 40, 12, '205846229.jpg', 4690000, '<p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, bộ sạc, cáp USB, dụng cụ lấy sim, sách hướng dẫn, ốp lưng điện thoại.</p> <p><img src=\\\"https://vn-live-01.slatic.net/p/060bea0873697c4f73a7e32b9418e133.jpg\\\" alt=\\\"060bea0873697c4f73a7e32b9418e133.jpg\\\" /></p> <p>Màn hình tràn viền, sắc nét</p> <p>- OPPO trang bị cho máy màn hình IPS LCD kích thước 6.56 inch, hỗ trợ độ phân giải HD+ (720 x 1612 pixels), mật độ điểm ảnh khoảng 269 PPI.</p> <p>-  Khung viền còn được vát phẳng tạo cảm giác sang trọng khi cầm trên tay.</p> <p> </p> <p>Bộ 3 camera sau AI lưu lại khoảnh khắc đáng nhớ</p> <p>- Camera chính cảm biến đến 13 MP, cảm biến độ sâu 2 MP chuyên chụp ảnh chân dung và đèn flash LED để hỗ trợ chụp trong những tình huống thiếu sáng.</p> <p>- Giúp người dùng có thể chụp gần hơn mọi vật thể, mọi chi tiết nhỏ sẽ được nhìn rõ mà mắt thường khó nhìn thấy, để bạn thỏa sức chụp và lưu lại những điều thú vị xung quanh.- Camera trước 8 MP với tính năng để chụp ảnh selfie.Hiệu năng mạnh mẽ</p> <p>- Oppo A57 mang cho mình sức mạnh MediaTek Helio G35 8 nhân, với con chip này đem đến cho người dùng trải nghiệm lướt web, đọc báo, xem youtube ổn định.</p> <p> </p> <p>Thời lượng pin ấn tượng</p> <p>- Oppo A57 trang bị dung lượng pin khủng 5000mAh đáp ứng được những nhu cầu sử dụng hằng ngày</p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p> </p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quýkhách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ)</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account…Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Oppo A57 4GB/128GB - Hàng Chính Hãng</p> <p>#honghanhmobile #honghanhmobilemall #hhm #dienthoaichinhhanghonghanh #oppo_a57 #a57 #điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng #hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_oppo #oppo</p> \r\n<p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng)..... </p></p>', 11, 12, 4690000),
@@ -1445,7 +1474,7 @@ INSERT INTO `products` (`id`, `name`, `manufacturer_id`, `sell_quantity`, `reman
 (8, 'Điện thoại Xiaomi Redmi 9A - Hàng chính hãng', 6, 20, 100, '181699053.jpg', 2088000, '<h2><strong>Cùng Viettel Store đánh giá nhanh Redmi 9A – chiếc smartphone mới trong phân khúc giá rẻ được trang bị con chip mới chuyên game của nhà sản xuất MediaTek, với mức giá chỉ dưới 2 triệu đồng bạn nhé…</strong></h2> <h3><strong>1. Đánh giá thiết kế Redmi 9A</strong></h3> <p><strong><img class=\\\"wp-image-45014\\\" src=\\\"https://salt.tikicdn.com/ts/product/2c/71/c1/e2598ed6219a8d28c015920abd17d3b0.jpg\\\" alt=\\\"Màn hình lớn cho độ sáng cao và khả năng hiển thị tốt ngoài trời\\\" /></strong></p> <p>Đánh giá nhanh Xiaomi Redmi 9A, có thể nói độ hoàn thiện của sản phẩm khá tốt dù chỉ trong tầm giá dưới 2 triệu đồng, với các góc đều được bo cong khá mượt. Máy có mặt lưng được làm từ chất liệu nhựa nhám với các đường vân tinh tế, giúp hạn chế bám vân tay, và đạt độ thẩm mỹ cao hơn so với chất liệu nhựa giả kính.</p> <p> Bên cạnh đó, mặt lưng này còn được trang bị cụm camera xếp dọc với dải camera trơn phá cách, mang đến sự độc đáo cho người dùng. Xiaomi Redmi 9A có 3 phiên bản màu sắc là Xanh Thiên Thanh, Xám Khoáng Thạch và Xanh Khổng Tước.</p> <h3><strong>2. Đánh giá m</strong><strong>àn hình Redmi 9A</strong></h3> <p><strong><img class=\\\"wp-image-45016\\\" src=\\\"https://salt.tikicdn.com/ts/product/67/19/04/15bd91c74bfd9b759a17f776e643f2c1.jpg\\\" alt=\\\"Máy cho tốc độ phản hồi chấp nhận được ở những tác vụ thường\\\" /></strong></p> <p> Về thiết kế, Redmi 9A được trang bị màn hình giọt nước với kích thước 6.53 inch, sử dụng tấm nền LCD IPS với độ phân giải HD+. Màn hình smartphone còn được chứng nhận ánh sáng xanh thấp từ TÜV Rheinland Đức và chế độ Đọc sách 2.0 mang lại cảm giác thoải mái, thân thiện với mắt người dùng. Độ sáng 400 nits và tỷ lệ tương phản cao 1500:</p> <p><img class=\\\"wp-image-45013\\\" src=\\\"https://salt.tikicdn.com/ts/product/8b/e6/4e/af072908b0ee034fe87e210c392bf1a0.jpg\\\" alt=\\\"Thiết kế máy trở nên đẹp hơn nhờ không có cảm biến vân tay ở mặt lưng\\\" /></p> <p> Ngoài ra, Redmi 9A không được tích hợp cảm biến vân tay, thay vào đó người dùng chỉ có thể mở máy bằng công nghệ nhận diện khuôn mặt. Đặc điểm này cũng khá phù hợp với những người muốn sở hữu một chiếc smartphone không có khuyết điểm mặt lưng.</p> <h3><strong>3. </strong><strong>Redmi 9A trang bị vi xử lý MediaTek Helio G25</strong></h3> <p> Về cấu hình, Redmi 9A được trang bị vi xử lý MediaTek Helio G25 tám nhân Cortex - A53 tốc độ xung nhịp 2.0 GHz và nhân đồ họa PowerVR GE8320 tốc độ 650 MHz. Đây là vi xử lý mới của Mediatek được thiết kế dành cho các smartphone giá rẻ nhưng hỗ trợ công nghệ HyperEngine để cải thiện trải nghiệm chơi </p> <p><img class=\\\"wp-image-45015\\\" src=\\\"https://salt.tikicdn.com/ts/product/38/92/c1/445aba51887c7a5a74cb866227342a02.jpg\\\" alt=\\\"Được trang bị giao diện MIUI 12 mới nhất\\\" /></p> <p> Điểm nhấn nổi bật nhất ở điện thoại này là sở hữu viên pin dung lượng 5000 mAh hỗ trợ sạc thường 10W. Xiaomi cho biết viên pin của Redmi 9A có khả năng sạc đầy lên đến 900 chu kỳ không làm chai pin, tăng tuổi thọ pin lên 2,5 năm nếu sử dụng ở mức cơ bả</p> <h3><strong>4. </strong><strong>Về camera</strong></h3> <p> Redmi 9A được trang bị camera đơn mặt sau 13MP và camera selfie 5MP, cả 2 camera này đều được hỗ trợ công nghệ AI thông minh. Nhờ vậy, thiết bị có thể mang đến những tấm hình được tùy chỉnh tốt nhất từ ánh sáng, màu sắc,… đáp ứng tốt trong phân khúc giá rẻ. Mặc dù chỉ có một camera duy nhất song máy vẫn có thể chụp xóa phông cũng như làm mờ hậu cảnh và nổi bật chủ thể khá hiệu quả.</p> <p><img class=\\\"wp-image-45011\\\" src=\\\"https://salt.tikicdn.com/ts/product/0a/54/00/660402bd3e8dbf382acec160cbc5fa81.jpg\\\" alt=\\\"Đánh giá chi tiết Xiaomi Redmi 9A về thiết kế và màn hình\\\" /></p> <p> Rõ ràng Redmi 9A là một lựa chọn khá ổn với nhiều tính năng hấp dẫn từ màn hình lớn, con chip mới, pin trâu… Hứa hẹn mang đến sức cạnh tranh vượt trội sô với các đối thủ trong cùng phân khúc.</p> <p><strong>Kết luận:</strong> Trong phân khúc smartphone giá rẻ chỉ 2 triệu đồng. Redmi 9A sở hữu:</p> <ul><li>Màn hình IPS LCD 16 triệu màu, HD+</li> <li>Chipset MediaTek Helio G25 được thiết kế dành riêng cho các smartphone giá rẻ</li> <li>Pin 5000mAh</li> <li>RAM 2GB, ROM 32GB hỗ trợ thẻ nhớ Micro SD tối đa 512GB</li> </ul><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 8, 2088000),
 (9, 'Điện thoại Samsung Galaxy S23 Ultra 12GB/1TB Tím - Hàng chính hãng', 2, 40, 90, '225235791.jpg', 42000000, '<p><img src=\\\"https://salt.tikicdn.com/ts/product/87/70/d6/054eae5e56d6ebec4505e985e2d15f1a.jpg\\\" alt=\\\"Điện thoại Samsung Galaxy S23 Ultra 12GB/1TB Tím\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/df/0a/b7/abc6f818e05110ab79caa39d51d3ef4c.png\\\" alt=\\\"\\\" width=\\\"696\\\" height=\\\"522\\\" /></p> <table class=\\\"productSpecification_table\\\"><caption class=\\\"productSpecification_title\\\">Đặc điểm sản phẩm</caption> <tbody class=\\\"popup\\\"><tr><td class=\\\"title\\\">Model:</td> <td class=\\\"value\\\">S918</td> </tr><tr><td class=\\\"title\\\">Màu sắc:</td> <td class=\\\"value\\\">Tím</td> </tr><tr><td class=\\\"title\\\">Nhà sản xuất:</td> <td class=\\\"value\\\">Samsung</td> </tr><tr><td class=\\\"title\\\">Xuất xứ:</td> <td class=\\\"value\\\">Việt Nam</td> </tr><tr><td class=\\\"title\\\">Năm ra mắt :</td> <td class=\\\"value\\\">T2. 2023</td> </tr><tr><td class=\\\"title\\\">Thời gian bảo hành:</td> <td class=\\\"value\\\">12 Tháng</td> </tr><tr><td class=\\\"title\\\">Địa điểm bảo hành:</td> <td class=\\\"value\\\">Nguyễn Kim</td> </tr><tr><td class=\\\"title\\\">RAM:</td> <td class=\\\"value\\\">12GB</td> </tr><tr><td class=\\\"title\\\">Bộ nhớ trong:</td> <td class=\\\"value\\\">1TB</td> </tr><tr><td class=\\\"title\\\">Hệ điều hành:</td> <td class=\\\"value\\\">Android 13, One UI 5.1</td> </tr><tr><td class=\\\"title\\\">CPU:</td> <td class=\\\"value\\\">Octa-core (8 nhân)</td> </tr><tr><td class=\\\"title\\\">Chipset:</td> <td class=\\\"value\\\">Snapdragon 8 Gen 2 Mobile Platform</td> </tr><tr><td class=\\\"title\\\">Loại màn hình:</td> <td class=\\\"value\\\">Edge Quad HD+</td> </tr><tr><td class=\\\"title\\\">Kích thước màn hình:</td> <td class=\\\"value\\\">6.8 \\\"</td> </tr><tr><td class=\\\"title\\\">Tần số quét màn hình:</td> <td class=\\\"value\\\">120 Hz</td> </tr><tr><td class=\\\"title\\\">Độ phân giải màn hình:</td> <td class=\\\"value\\\">1440 x 3088 pixels</td> </tr><tr><td class=\\\"title\\\">Camera trước:</td> <td class=\\\"value\\\">12 MP</td> </tr><tr><td class=\\\"title\\\">Camera sau:</td> <td class=\\\"value\\\">200MP, 12MP, 10MP, 10MP (Zoom quang học 3x và 10x, Zoom Kỹ thuật số lên tới 100x1)</td> </tr><tr><td class=\\\"title\\\">Đèn Flash:</td> <td class=\\\"value\\\">LED Flash</td> </tr><tr><td class=\\\"title\\\">Mạng 5G:</td> <td class=\\\"value\\\">Kết nối 5G</td> </tr><tr><td class=\\\"title\\\">Loại SIM:</td> <td class=\\\"value\\\">Nano</td> </tr><tr><td class=\\\"title\\\">Số khe SIM:</td> <td class=\\\"value\\\">2</td> </tr><tr><td class=\\\"title\\\">WIFI:</td> <td class=\\\"value\\\">6 GHz, Dual-band (2.4 GHz/5 GHz), Wi-Fi 802.11 a/b/g/n/ac/ax, Wi-Fi Direct</td> </tr><tr><td class=\\\"title\\\">Bluetooth:</td> <td class=\\\"value\\\">v5.3</td> </tr><tr><td class=\\\"title\\\">GPS:</td> <td class=\\\"value\\\">Có</td> </tr><tr><td class=\\\"title\\\">USB:</td> <td class=\\\"value\\\">Type-C</td> </tr><tr><td class=\\\"title\\\">Dung lượng Pin:</td> <td class=\\\"value\\\">5000mAh</td> </tr><tr><td class=\\\"title\\\">Hỗ trợ sạc tối đa:</td> <td class=\\\"value\\\">45 W</td> </tr><tr><td class=\\\"title\\\">Mở khóa nhanh:</td> <td class=\\\"value\\\">Mở khoá khuôn mặt, Mở khoá vân tay dưới màn hình</td> </tr><tr><td class=\\\"title\\\">Thiết kế:</td> <td class=\\\"value\\\">Nguyên khối</td> </tr><tr><td class=\\\"title\\\">Chất liệu:</td> <td class=\\\"value\\\">Khung nhôm &amp; Mặt lưng kính cường lực</td> </tr><tr><td class=\\\"title\\\">Ghi âm:</td> <td class=\\\"value\\\">Ghi âm mặc định, Ghi âm cuộc gọi</td> </tr><tr><td class=\\\"title\\\">Chống nước:</td> <td class=\\\"value\\\">IP68</td> </tr><tr><td class=\\\"title\\\">Kích thước sản phẩm:</td> <td class=\\\"value\\\">163.4 x 78.1 x 8.9 mm</td> </tr></tbody></table><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 7, 42000000),
 (10, 'Điện Thoại Samsung Galaxy A04e (3GB/64GB) - Hàng Chính Hãng - Đã kích hoạt bảo hành điện tử', 2, 25, 4, '244173959.jpg', 2712000, '<p><strong>Chiếc điện thoại Samsung Galaxy A04e mới ra mắt của hãng Samsung đang là một trong những lựa chọn yêu thích của người dùng. Bộ vi xử lý Octa-core 8 lõi kết hợp với ram 3GB và bộ nhớ trong 64GB chính là chìa khóa cho sự bứt phá của chiếc điện thoại này so với những anh em cùng tầm giá. Tấm nền màn hình có kích thước 6.5 inch kết hợp cùng camera cảm biến với độ phân giải 13MP chắc chắn sẽ thỏa mãn nhu cầu của những tín đồ đam mê nhiếp ảnh</strong></p> <p><strong>Samsung Galaxy A04e - Tận hưởng nhu cầu giải trí bất tận mỗi ngày</strong></p> <p>Tiếp nối thành công Samsung Galaxy A04 - dòng samsung giá rẻ nhất thì nhà sản xuất đã cho ra mắt phiên bản anh em là Samsung Galaxy A04e với dự kiến sẽ có giá vô cùng ưu đãi nhưng vẫn thỏa mãn nhu cầu giải trí bất tận của người dùng với thiết kế thông minh. Vậy để hiểu rõ hơn về những gì mà Samsung Galaxy A04e mang lại thì hãy cùng đọc bài viết dưới đây nhé.</p> <p><strong>Siêu mỏng trong thiết kế, nhẹ nhàng cùng các gam màu pastel</strong></p> <p>Samsung Galaxy A04e với kích thước 164.2 x 75.9 x 9.1 mm có thiết kế tinh xảo liền mạch với các đường cong góc nhẹ nhàng giúp người dùng có thể thoải mái sử dụng trong thời gian dài mà không gây mỏi. Mặt sau máy là cụm camera không viền tạo lên cảm giác thanh lịch thời thượng, mặt trước là thiết kế thông minh với màn hình tràn viền Infinity-V 6.5 inch.</p> <p><img src=\\\"https://salt.tikicdn.com/ts/tmp/22/3d/96/8dbc9ec3940e43e40f8a14c3f228e1a5.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"427\\\" /></p> <p>Màn hình hỗ trợ công nghệ HD+ khiến người dùng thoải mái chìm đắm trong các chương trình giải trí hay bộ phim với hình ảnh sắc nét. Ngoài ra Samsung Galaxy A04e được nhà sản xuất ưu ái khi có 3 màu sắc pastel thời thượng là đồng ánh hồng, xanh lam và đen vẫn giúp người dùng tự tin khoe cá tính.</p> <p><strong>Cấu hình linh hoạt cùng tính năng RAM Plus</strong></p> <p>Samsung Galaxy A04e được trang bị vi xử lý Octa-core kết hợp cùng RAM 3BG giúp máy có thể thoải mái xử lý các tác vụ giải trí mượt mà. Ngoài ra tính năng RAM Plus khiến máy có thể biến hóa mở rộng Ram linh hoạt bằng cách sử dụng bộ nhớ lưu trữ làm bộ nhớ ảo từ đây khiến cho dung lượng Ram có thể được mở rộng thêm lên đến 4GB. Người dùng có thể thoải mái bật nhiều ứng dụng một lúc nhưng không phải lo đến vấn đề giật lag.</p> <p><img src=\\\"https://salt.tikicdn.com/ts/tmp/d5/55/2e/84af1150c6a8f51a217ee6ee6a1e9b98.jpg\\\" alt=\\\"\\\" width=\\\"744\\\" height=\\\"734\\\" /></p> <p><strong>Tự tin sáng tạo các hình ảnh chân dung nghệ thuật</strong></p> <p>Được trang bị cụm camera mặt sau máy gồm 1 camera chính 13MP kết hợp cùng một camera điều chỉnh độ sâu 2MP. Giờ đây người dùng có thể thoải mái sáng tạo nên các bức ảnh chân dung nghệ thuật bằng việc điều chỉnh độ sâu ảnh, xóa phông nền hay làm mờ hậu cảnh làm nổi bật hình ảnh bản thân trong mỗi khung hình.</p> <p><img src=\\\"https://salt.tikicdn.com/ts/tmp/8e/e6/d1/45a67a66af07d9e6b90db302111d5dfb.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"359\\\" /></p> <p><strong>Dung lượng pin 5.000mAh nổi bật</strong></p> <p>Samsung Galaxy A04e được trang bị viên pin khủng với dung lượng 5.000mAh giúp người dùng có thể thoải mái trải nghiệm các ứng dụng giải trí liền mạch lên đến 2 ngày. Ngoài ra máy được trang bị công nghệ quản lý pin thông minh (AIPower) giúp cho mọi hoạt động của máy đều được tối ưu từ đó giúp thời gian sử dụng pin được kéo dài hơn. Giờ đây người dùng có thể yên tâm thoải mái trải nghiệm các ứng dụng, chương trình giải trí mà không lo hết điện giữa chừng.</p> <p><img src=\\\"https://salt.tikicdn.com/ts/tmp/a0/9a/4e/d44e4b36d5b84492b91540918105c20d.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"372\\\" /></p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 6, 2712000),
-(11, 'Điện Thoại Xiaomi Redmi 10 4GB/64GB - Hàng Chính Hãng', 6, 50, 150, '120782084.jpg', 3552000, '<p><strong>Camera</strong></p> <p>- 50MP camera chính</p> <p>- Sử dụng camera chính 50MP để ngắm nhìn thế giới với họa tiết đầy đủ và khám phá tiềm năng sáng tạo của bạn.</p> <p>- Camera góc siêu rộng 8 MP sẽ mở rộng góc nhìn giúp bạn thu lại được nhiều chi tiết hơn rất phù hợp để bạn ghi lại cảnh thiên nhiên hùng vĩ hay chỉ đơn giản là ảnh chụp nhóm đông người.</p> <p>- Camera macro và camera độ sâu đều có cùng độ phân giải 2 MP, với chức năng chụp ảnh cận giúp bạn khám phá những điều thú vị của thế giới vi mô hay chức năng xoá phông tạo độ sâu cho bức ảnh.</p> <p>- 8MP camera trước</p> <p>- Hỗ trợ nhiều tính năng như làm đẹp, xoá phông, hứa hẹn sẽ đáp ứng tốt nhu cầu thích chụp ảnh selfie của bạn được tốt hơn.</p> <p><strong>Thiết kế</strong></p> <p>- Màn hình giọt nước 6.5\\\" Full HD+</p> <p>- hỗ trợ tần số quét 90 Hz</p> <p>Hiệu năng</p> <p>- Bộ vi xử lý được trang bị trên điện thoại là chip Helio G88 hoàn toàn mới của MediaTek và đây cũng là chiếc điện thoại đầu tiên trên thế giới sở hữu con chip này.</p> <p>- Khả dụng lớn nhất: 4GB+64GB</p> <p>- Hỗ trợ khe cắm thẻ nhớ MicroSD tối đa 512 GB</p> <p><strong>Pin và cổng sạc</strong></p> <p>Pin 5000mAh</p> <p>- Hỗ trợ sạc nhanh 18W</p> <p>- Sạc kèm trong hộp 18W</p> <p><strong>Bảo mật</strong></p> <p>- Redmi 10 còn hỗ trợ bảo mật vân tay đặt ở cạnh viền giúp cho thao tác mở khóa trở nên dễ dàng, thuận tiện hơn. Mở khóa điện thoại cực nhanh.</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 5, 3552000),
+(11, 'Điện Thoại Xiaomi Redmi 10 4GB/64GB - Hàng Chính Hãng', 6, 50, 150, '654d24e22a234491984e5b27202e4aff.png', 3552000, '<p><strong>Camera</strong></p> <p>- 50MP camera chính</p> <p>- Sử dụng camera chính 50MP để ngắm nhìn thế giới với họa tiết đầy đủ và khám phá tiềm năng sáng tạo của bạn.</p> <p>- Camera góc siêu rộng 8 MP sẽ mở rộng góc nhìn giúp bạn thu lại được nhiều chi tiết hơn rất phù hợp để bạn ghi lại cảnh thiên nhiên hùng vĩ hay chỉ đơn giản là ảnh chụp nhóm đông người.</p> <p>- Camera macro và camera độ sâu đều có cùng độ phân giải 2 MP, với chức năng chụp ảnh cận giúp bạn khám phá những điều thú vị của thế giới vi mô hay chức năng xoá phông tạo độ sâu cho bức ảnh.</p> <p>- 8MP camera trước</p> <p>- Hỗ trợ nhiều tính năng như làm đẹp, xoá phông, hứa hẹn sẽ đáp ứng tốt nhu cầu thích chụp ảnh selfie của bạn được tốt hơn.</p> <p><strong>Thiết kế</strong></p> <p>- Màn hình giọt nước 6.5\\\" Full HD+</p> <p>- hỗ trợ tần số quét 90 Hz</p> <p>Hiệu năng</p> <p>- Bộ vi xử lý được trang bị trên điện thoại là chip Helio G88 hoàn toàn mới của MediaTek và đây cũng là chiếc điện thoại đầu tiên trên thế giới sở hữu con chip này.</p> <p>- Khả dụng lớn nhất: 4GB+64GB</p> <p>- Hỗ trợ khe cắm thẻ nhớ MicroSD tối đa 512 GB</p> <p><strong>Pin và cổng sạc</strong></p> <p>Pin 5000mAh</p> <p>- Hỗ trợ sạc nhanh 18W</p> <p>- Sạc kèm trong hộp 18W</p> <p><strong>Bảo mật</strong></p> <p>- Redmi 10 còn hỗ trợ bảo mật vân tay đặt ở cạnh viền giúp cho thao tác mở khóa trở nên dễ dàng, thuận tiện hơn. Mở khóa điện thoại cực nhanh.</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 5, 2802000),
 (12, 'Điện thoại Oppo Reno8 Z 5G (8GB/256GB) - Hàng chính hãng', 4, 30, 120, '196953614.jpg', 8644000, '<article class=\\\"4ever-article\\\"><ul><li> <div>Màn hình: AMOLED 6.43\\\", Full HD+ (1080 x 2400 Pixels)</div> </li> <li> <div>Hệ điều hành: Android 12</div> </li> <li> <div>Camera sau: 64 MP + 2 MP + 2 MP</div> </li> <li> <div>Camera trước: 16 MP</div> </li> <li> <div>Chipset: Snapdragon 695 5G 8 nhân</div> </li> <li> <div>RAM: 8 GB</div> </li> <li> <div>Bộ nhớ trong: 256 GB</div> </li> <li> <div>Cổng kết nối/sạc: USB-C</div> </li> <li> <div>Dung lượng pin: 4500 mAh, sạc nhanh 33W</div> </li> <li> <div>Bộ sản phẩm gồm: Thân máy, cáp sạc, giấy hướng dẫn,...</div> </li> </ul><p> </p> <article class=\\\"4ever-article\\\"><p>LƯU Ý KHI MUA HÀNG: Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p> </p> <p> </p> <p>Áp dụng sản phẩm Mobile/Tablet/Laptop</p> <p>️ Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành bảo điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>️ Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>️ Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trung tâm bảo hành ủy quyền để thẩm định lỗi.</p> <p>️ Sản phẩm đổi-trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>️ Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>️ Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành theo qui định của nhà sản xuất kể từ ngày mua (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành).</p> <p> </p> <p> Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p> Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p> Vì lượng hàng hoá nhiều shop không nhận đổi trả trong trường hợp khách không thích, không ưng màu, chất liệu; quý khách vui lòng đọc kĩ mô tả và xem hình ảnh cụ thể; nếu cần hãy chat với shop để được tư vấn.</p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/e7/31/5d/826f871f996239b22f980111d6699f63.png\\\" alt=\\\"e7315d21ab3eecfbea739eec5fa6b43a.png\\\" /></p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/2e/6c/e5/eec32b1a5098c78de12fec8fdea89a9f.png\\\" alt=\\\"2e6ce578f18b021cc3051a5a5f232fe9.png\\\" /></p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/82/6b/fb/1a3cec2a384fbc975d820816c7091dea.png\\\" alt=\\\"826bfb2072074c7aed881b7829246c17.png\\\" /></p> <p> </p> <p> </p> <p> </p> </article></article><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 4, 8644000),
 (13, 'Điện Thoại Oppo A54 4GB/128GB - Hàng Chính Hãng', 4, 20, 100, '137562237.jpg', 3912000, '<p>Điện Thoại Oppo A54 4GB/128GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, bộ sạc, cáp USB, dụng cụ lấy sim, sách hướng dẫn, ốp lưng điện thoại.</p> <p>Màn hình tràn viền, sắc nét</p> <p>- Được trang bị màn hình kích thước lớn 6.51 inch  cùng viền hai bên được làm mỏng mang đến một không gian rộng lớn khi sử dụng.</p> <p>- Cảm biến vân tay cũng được ẩn giấu trong nút nguồn, giúp bạn mở khóa nhanh ngay khi vừa mở sáng màn hình.</p> <p> </p> <p>Bộ 3 camera sau AI lưu lại khoảnh khắc đáng nhớ</p> <p>- Camera chính 13MP, camera macro 2 MP, camera xoá phông 2 MP</p> <p>- Giúp người dùng có thể chụp gần hơn mọi vật thể, mọi chi tiết nhỏ sẽ được nhìn rõ mà mắt thường khó nhìn thấy, để bạn thỏa sức chụp và lưu lại những điều thú vị xung quanh.</p> <p>- Camera trước có độ phân giải 16MP tích hợp AI Beauty tự động điều chỉnh màu da và ánh sáng xung quanh sẵn sàng giúp bạn trở nên rạng rỡ hơn hoặc lưu lại những khoảnh khắc vui vẻ cùng với bạn bè trong những bức ảnh selfie sống động và đầy màu sắc.</p> <p> </p> <p>Hiệu năng mạnh mẽ</p> <p>- Oppo A54 mang cho mình sức mạnh Helio P35 8 nhân, với con chip này đem đến cho người dùng trải nghiệm lướt web, đọc báo, xem youtube ổn định.</p> <p> </p> <p>Thời lượng pin ấn tượng</p> <p>- Oppo A54 trang bị dung lượng pin khủng 5000mAh đáp ứng được những nhu cầu sử dụng hằng ngày như học tập, giải trí, chơi </p> <p>- Kết hợp cùng công nghệ sạc nhanh 18 W giúp bạn tiết kiệm được một khoảng thời gian chờ đợi đầy pin cho máy.</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 3, 3912000),
 (14, 'Điện thoại Ulefone note 16 pro', 15, 40, 90, '261964853.jpg', 5990000, '<p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/8c/11/8c/33b4d337831d89c235a8ab7580688d1f.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/4a/e7/82/06f87ec0205e35a45f5dec835802178b.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/89/e4/91/5e549d3c4f0dbc584f7aa0f257143213.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/f7/3a/97/ea7079d4c6d4ca1d27031af5cef6bbc5.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"462\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/a3/5e/64/da044d7d469131c082af5fa840987fb7.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/b0/ee/02/014f607006598613556d22dc07bc9ade.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/f8/66/a0/9474d739a90cc9d2ab3e034d2e1eb268.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"421\\\" /></p> <p><img title=\\\"\\\" src=\\\"https://salt.tikicdn.com/ts/tmp/7f/2f/a2/673d7b5834903a3e00e14b227e8f596a.jpg\\\" alt=\\\"\\\" width=\\\"750\\\" height=\\\"567\\\" /></p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 11, 2, 5990000),
@@ -1638,15 +1667,13 @@ CREATE TABLE `productvariants` (
   `capacity_id` int(11) NOT NULL,
   `price` float NOT NULL,
   `state` smallint(6) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `productvariants`
 --
 
 INSERT INTO `productvariants` (`id`, `product_id`, `color_id`, `capacity_id`, `price`, `state`) VALUES
-(1, 1, 4, 10, 1490000, 1),
-(2, 1, 9, 10, 1490000, 1),
 (3, 1, 23, 10, 1490000, 1),
 (4, 2, 4, 4, 36990000, 1),
 (5, 2, 18, 4, 36990000, 1),
@@ -1663,7 +1690,7 @@ INSERT INTO `productvariants` (`id`, `product_id`, `color_id`, `capacity_id`, `p
 (16, 8, 2, 10, 2088000, 1),
 (17, 9, 8, 5, 42000000, 1),
 (18, 10, 4, 1, 2712000, 1),
-(19, 11, 22, 1, 3552000, 1),
+(19, 11, 20, 3, 3552000, 1),
 (20, 12, 4, 3, 8644000, 1),
 (21, 13, 4, 2, 3912000, 1),
 (22, 14, 4, 2, 5990000, 1),
@@ -1985,7 +2012,7 @@ CREATE TABLE `specifications` (
   `ram` varchar(45) DEFAULT NULL,
   `rom` varchar(100) DEFAULT NULL,
   `the_sim` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Đang đổ dữ liệu cho bảng `specifications`
@@ -2165,10 +2192,7 @@ INSERT INTO `specifications` (`id`, `bluetooth`, `camera_after`, `battery_capaci
 (171, 'Có', '64 MP', '3700mAh', '32MP', 'Có', 'MediaTek Helio G35 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Micro USB', '4GB', '128GB', '2 sim'),
 (172, 'Có', '2 camera 12 MP', '3700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'Micro USB', '4GB', '128GB', '2 sim'),
 (173, 'Có', '64 MP', '4700mAh', '5MP', 'Có', 'MediaTek Helio G35 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCDInfinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '32GB', '128GB', '2 sim'),
-(174, 'Có', '2 camera 12 MP', '4700mAh', '5MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '128GB', '2 sim'),
-(177, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(178, '', '', '', '', '', '', '', '', '', '', '', '', ''),
-(179, '', '', '', '', '', '', '', '', '', '', '', '', '');
+(174, 'Có', '2 camera 12 MP', '4700mAh', '5MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '128GB', '2 sim');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -2178,64 +2202,70 @@ INSERT INTO `specifications` (`id`, `bluetooth`, `camera_after`, `battery_capaci
 -- Chỉ mục cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `capacities`
 --
 ALTER TABLE `capacities`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `colors`
 --
 ALTER TABLE `colors`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `contacts`
 --
 ALTER TABLE `contacts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `discountproduct`
 --
 ALTER TABLE `discountproduct`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `discount_id` (`discount_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `product_id` (`product_id`) USING BTREE,
+  ADD KEY `discount_id` (`discount_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `discounts`
 --
 ALTER TABLE `discounts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `infotransports`
 --
 ALTER TABLE `infotransports`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `account_id` (`account_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `account_id` (`account_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `infowarranties`
 --
 ALTER TABLE `infowarranties`
+  ADD PRIMARY KEY (`id`) USING BTREE;
+
+--
+-- Chỉ mục cho bảng `inventory`
+--
+ALTER TABLE `inventory`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `manufacturers`
 --
 ALTER TABLE `manufacturers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `news`
 --
 ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `orderproductvariant`
@@ -2250,41 +2280,41 @@ ALTER TABLE `orderproductvariant`
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `account_id` (`account_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `account_id` (`account_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `passwordresetcodes`
 --
 ALTER TABLE `passwordresetcodes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_email` (`email`),
-  ADD KEY `idx_code` (`code`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `idx_email` (`email`) USING BTREE,
+  ADD KEY `idx_code` (`code`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `productimages`
 --
 ALTER TABLE `productimages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_variant_id` (`product_variant_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `product_variant_id` (`product_variant_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `manufacturer_id` (`manufacturer_id`),
-  ADD KEY `specification_id` (`specification_id`),
-  ADD KEY `info_warranty_id` (`info_warranty_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `manufacturer_id` (`manufacturer_id`) USING BTREE,
+  ADD KEY `specification_id` (`specification_id`) USING BTREE,
+  ADD KEY `info_warranty_id` (`info_warranty_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `productvariants`
 --
 ALTER TABLE `productvariants`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `color_id` (`color_id`),
-  ADD KEY `capacity_id` (`capacity_id`);
+  ADD PRIMARY KEY (`id`) USING BTREE,
+  ADD KEY `product_id` (`product_id`) USING BTREE,
+  ADD KEY `color_id` (`color_id`) USING BTREE,
+  ADD KEY `capacity_id` (`capacity_id`) USING BTREE;
 
 --
 -- Chỉ mục cho bảng `rates`
@@ -2298,7 +2328,7 @@ ALTER TABLE `rates`
 -- Chỉ mục cho bảng `specifications`
 --
 ALTER TABLE `specifications`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -2308,7 +2338,7 @@ ALTER TABLE `specifications`
 -- AUTO_INCREMENT cho bảng `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT cho bảng `capacities`
@@ -2332,7 +2362,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT cho bảng `discountproduct`
 --
 ALTER TABLE `discountproduct`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `discounts`
@@ -2344,13 +2374,19 @@ ALTER TABLE `discounts`
 -- AUTO_INCREMENT cho bảng `infotransports`
 --
 ALTER TABLE `infotransports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `infowarranties`
 --
 ALTER TABLE `infowarranties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT cho bảng `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `manufacturers`
@@ -2368,19 +2404,19 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT cho bảng `orderproductvariant`
 --
 ALTER TABLE `orderproductvariant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `passwordresetcodes`
 --
 ALTER TABLE `passwordresetcodes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `productimages`
@@ -2392,25 +2428,25 @@ ALTER TABLE `productimages`
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT cho bảng `productvariants`
 --
 ALTER TABLE `productvariants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=308;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
 
 --
 -- AUTO_INCREMENT cho bảng `rates`
 --
 ALTER TABLE `rates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `specifications`
 --
 ALTER TABLE `specifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -2420,14 +2456,22 @@ ALTER TABLE `specifications`
 -- Các ràng buộc cho bảng `discountproduct`
 --
 ALTER TABLE `discountproduct`
-  ADD CONSTRAINT `discountproduct_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `discountproduct_ibfk_2` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`);
+  ADD CONSTRAINT `dp_fk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `dp_fk_2` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`);
 
 --
 -- Các ràng buộc cho bảng `infotransports`
 --
 ALTER TABLE `infotransports`
   ADD CONSTRAINT `infotransports_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
+
+--
+-- Các ràng buộc cho bảng `orderproductvariant`
+--
+ALTER TABLE `orderproductvariant`
+  ADD CONSTRAINT `opv_fk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `productvariants` (`id`),
+  ADD CONSTRAINT `opv_fk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `opv_fk_3` FOREIGN KEY (`transport_id`) REFERENCES `infotransports` (`id`);
 
 --
 -- Các ràng buộc cho bảng `orders`
@@ -2439,26 +2483,32 @@ ALTER TABLE `orders`
 -- Các ràng buộc cho bảng `productimages`
 --
 ALTER TABLE `productimages`
-  ADD CONSTRAINT `productimages_ibfk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `productvariants` (`id`);
+  ADD CONSTRAINT `pi_fk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `productvariants` (`id`);
 
 --
 -- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`id`),
-  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`info_warranty_id`) REFERENCES `infowarranties` (`id`);
+  ADD CONSTRAINT `p_fk_1` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`),
+  ADD CONSTRAINT `p_fk_2` FOREIGN KEY (`info_warranty_id`) REFERENCES `infowarranties` (`id`),
+  ADD CONSTRAINT `p_fk_3` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`id`);
 
 --
 -- Các ràng buộc cho bảng `productvariants`
 --
 ALTER TABLE `productvariants`
-  ADD CONSTRAINT `productvariants_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `productvariants_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`),
-  ADD CONSTRAINT `productvariants_ibfk_3` FOREIGN KEY (`capacity_id`) REFERENCES `capacities` (`id`);
+  ADD CONSTRAINT `pv_fk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `pv_fk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`),
+  ADD CONSTRAINT `pv_fk_3` FOREIGN KEY (`capacity_id`) REFERENCES `capacities` (`id`);
+
+--
+-- Các ràng buộc cho bảng `rates`
+--
+ALTER TABLE `rates`
+  ADD CONSTRAINT `rate_fk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `rate_fk_a1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-telephone_shop

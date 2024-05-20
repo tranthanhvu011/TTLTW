@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--link den css-->
     <%@include file="/common/admin_library_css.jsp" %>
-    <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/css/admin/model.css" rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.css"
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.min.css"
@@ -189,19 +189,19 @@
                     </div>
                     <div class="modal-body">
                         <form id="formAddUser" method="post" action="/admin/user/manage_user?action=add">
-                            <div class="row row-space">
+                            <div class="row1 row-space1">
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Họ</label>
-                                        <input class="input--style-4" type="text" name="first_name" id="f_name">
+                                    <div class="input-group1">
+                                        <label class="label1">Họ</label>
+                                        <input class="input--style-41" type="text" name="first_name" id="f_name">
                                         <span class="error" id="er-f-name"
                                               style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Tên</label>
-                                        <input class="input--style-4" type="text" name="last_name" id="l-name">
+                                    <div class="input-group1">
+                                        <label class="label1">Tên</label>
+                                        <input class="input--style-41" type="text" name="last_name" id="l-name">
                                         <span class="error" id="er-l-name"
                                               style="color: red;font-size: 10px"></span>
                                     </div>
@@ -209,19 +209,19 @@
                             </div>
                             <div class="row row-space">
                                 <div class="col-6">
-                                    <div class="input-group">
+                                    <div class="input-group1">
                                         <label class="label">Ngày sinh</label>
-                                        <div class="input-group-icon" style="width: 100%">
-                                            <input class="input--style-4 js-datepicker" type="text" name="dob"
+                                        <div class="input-group-icon1" style="width: 100%">
+                                            <input class="input--style-41 js-datepicker" type="text" name="dob"
                                                    id="dob" style="width: 100%;">
                                         </div>
                                         <span class="error" id="er-dob" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Giới tính</label>
-                                        <div class="input-group-icon" style="width: 100%;display: flex">
+                                    <div class="input-group1">
+                                        <label class="label1">Giới tính</label>
+                                        <div class="input-group-icon1" style="width: 100%;display: flex">
                                             <input id="nam"
                                                    style="width: 50px;margin-right: 20px;border: greenyellow solid 1px;border-radius: 5px"
                                                    class="btn" type="button" value="Nam"
@@ -235,60 +235,60 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-space">
+                            <div class="row1 row-space1">
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Email</label>
-                                        <input class="input--style-4" id="email" name="email">
+                                    <div class="input-group1">
+                                        <label class="label1">Email</label>
+                                        <input class="input--style-41" id="email" name="email">
                                         <span class="error" id="er-email" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Số điện thoại</label>
-                                        <input class="input--style-4" id="phone" name="phone_number">
+                                    <div class="input-group1">
+                                        <label class="label1">Số điện thoại</label>
+                                        <input class="input--style-41" id="phone" name="phone_number">
                                         <span class="error" id="er-phone" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-space">
-                                <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Role</label>
-                                        <input class="input--style-4" id="role" name="role" type="number" max="3"
+                            <div class="row1 row-space1">
+                                <div class="col-61">
+                                    <div class="input-group1">
+                                        <label class="label1">Role</label>
+                                        <input class="input--style-41" id="role" name="role" type="number" max="3"
                                                min="0">
                                         <span class="error" id="er-role" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Kích hoạt</label>
-                                        <input class="input--style-4" id="is_active" type="number" name="is_active"
+                                    <div class="input-group1">
+                                        <label class="label1">Kích hoạt</label>
+                                        <input class="input--style-41" id="is_active" type="number" name="is_active"
                                                max="1" min="0">
                                         <span class="error" id="er-active"
                                               style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-space">
+                            <div class="row1 row-space1">
                                 <div class="col-6">
-                                    <div class="input-group">
-                                        <label class="label">Password</label>
-                                        <input class="input--style-4" id="pass" name="pass" type="password">
+                                    <div class="input-group1">
+                                        <label class="label1">Password</label>
+                                        <input class="input--style-41" id="pass" name="pass" type="password">
                                         <span class="error" id="er-pass" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                                 <div class="col-6" style="display: none">
-                                    <div class="input-group">
-                                        <label class="label">Kích hoạt</label>
-                                        <input class="input--style-4">
+                                    <div class="input-group1">
+                                        <label class="label1">Kích hoạt</label>
+                                        <input class="input--style-41">
                                         <span class="error" style="color: red;font-size: 10px"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-space">
-                                <label class="label" style="margin-left: 15px">Địa chỉ</label>
-                                <input class="input--style-4" type="text" name="address"
+                            <div class="row1 row-space1">
+                                <label class="label1" style="margin-left: 15px">Địa chỉ</label>
+                                <input class="input--style-41" type="text" name="address"
                                        style="width: 100%;margin-left: 15px;margin-right: 15px" id="address">
                                 <span class="error" id="er-address"
                                       style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>

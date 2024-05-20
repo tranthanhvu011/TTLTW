@@ -33,7 +33,6 @@ public class Autocomplete extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		request.setCharacterEncoding("utf-8");
 		String term = request.getParameter("term");
-	
 		PrintWriter printWriter = response.getWriter();
 		Gson gson = new Gson();
 		ProductDAO productDAO = new ProductDAO();

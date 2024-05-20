@@ -18,7 +18,7 @@ public class ColorDAO {
     }
     public Color findColorByName(String name) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM Colors WHERE color_name = ?")
+                handle.createQuery("SELECT * FROM Colors WHERE name = ?")
                         .bind(0, name)
                         .mapToBean(Color.class)
                         .findFirst()
@@ -37,7 +37,7 @@ public class ColorDAO {
 
     public List<Color> findColorWithKeyWord(String keyword) {
         List<Color> colors = JDBIConnector.me().withHandle(handle ->
-                handle.createQuery("SELECT * FROM telephone.colors WHERE colors.color_name LIKE ? or colors.id LIKE ?")
+                handle.createQuery("SELECT * FROM telephone.colors WHERE colors.name LIKE ? or colors.id LIKE ?")
                         .bind(0, "%" + keyword + "%")
                         .bind(1, "%" + keyword + "%")
                         .mapToBean(Color.class)
@@ -47,7 +47,7 @@ public class ColorDAO {
 
     public boolean insertColor(String name) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate("INSERT INTO Colors(color_name) VALUES (?)")
+                handle.createUpdate("INSERT INTO Colors(name) VALUES (?)")
                         .bind(0, name)
                         .execute()
         ) > 0;
@@ -55,7 +55,7 @@ public class ColorDAO {
 
     public boolean editColor(int idColor, String nameColor) {
         return JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate("UPDATE Colors SET color_name = ? WHERE id = ?")
+                handle.createUpdate("UPDATE Colors SET name = ? WHERE id = ?")
                         .bind(0, nameColor)
                         .bind(1, idColor)
                         .execute()

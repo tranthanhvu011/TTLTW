@@ -36,6 +36,18 @@
         font-size: 14px;
         font-family: Inter, Helvetica, Arial, sans-serif;
     }
+    .article {
+        margin: 0 auto; /* Giúp căn giữa phần tử */
+        padding: 1rem; /* Đảm bảo không có padding quá lớn */
+        width: 100%; /* Đảm bảo chiều rộng phù hợp */
+        max-width: 800px; /* Đặt chiều rộng tối đa nếu cần */
+    }
+
+    .p {
+        margin: 0 0 1rem 0; /* Đảm bảo margin dưới phù hợp */
+        padding: 0; /* Đảm bảo không có padding không cần thiết */
+    }
+
 </style>
 <body>
 <%@include file="/common/header.jsp" %>
