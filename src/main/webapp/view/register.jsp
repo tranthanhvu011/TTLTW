@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2023-11-19
@@ -46,9 +46,19 @@
             <c:if test="${not empty requestScope.emailNotNull}">
                 <div class="error error-message text-center" style="color: red">${requestScope.emailNotNull}</div>
             </c:if>
-            <c:if test="${not empty requestScope.passwordNo}">
-                <div class="error error-message text-center" style="color: red">${requestScope.passwordNo}</div>
+            <c:if test="${not empty requestScope.getDOB}">
+                <div class="error error-message text-center" style="color: red">${requestScope.getDOB}</div>
             </c:if>
+            <c:if test="${not empty requestScope.address}">
+                <div class="error error-message text-center" style="color: red">${requestScope.address}</div>
+            </c:if>
+            <c:if test="${not empty requestScope.lastName}">
+                <div class="error error-message text-center" style="color: red">${requestScope.lastName}</div>
+            </c:if>
+            <c:if test="${not empty requestScope.firstName}">
+                <div class="error error-message text-center" style="color: red">${requestScope.firstName}</div>
+            </c:if>
+
             <form method="post" action="/register"  id="formRegister">
                 <div class="row row-space">
                     <div class="col-6">
@@ -136,6 +146,14 @@
                     <button id="onSubmit" value="Register" type="submit">Đăng ký</button>
                 </div>
             </form>
+            <% List<String> errors = (List<String>) request.getAttribute("errors");
+                if (errors != null && !errors.isEmpty()) {
+                    for (String error : errors) {
+            %>
+            <h1> <%= error%></h1>
+            <%
+                    }
+                }%>
         </div>
     </div>
 </div>
