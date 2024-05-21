@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2023-11-21
@@ -121,6 +121,14 @@
                     <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
                 </div>
             </form>
+            <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
+                if (errorMessage != null) {
+                    for (String eString : errorMessage) {
+            %>
+            <h1><%=eString%></h1>
+            <%
+                    }
+                }%>
             <div>
                 <div class="row-space" style="display: flex;align-items: center;padding-bottom: 14px;margin-top: 25px">
                     <div class="line"></div>
