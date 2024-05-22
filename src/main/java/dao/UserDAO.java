@@ -2,10 +2,10 @@ package dao;
 
 import config.JDBIConnector;
 import model.Account;
-import org.jdbi.v3.core.Jdbi;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -13,15 +13,16 @@ import java.util.Optional;
 
 public class    UserDAO {
 
-    public List<Account> getAllUsers(int limit, int offset) {
+    public List<Account> getAllUsers(   int limit, int offset) {
 
-        String query = "SELECT * FROM accounts LIMIT ? OFFSET ?";
-        List<Account> users = JDBIConnector.me().withHandle(handle -> {
-            return handle.createQuery(query)
-                    .bind(0, limit)
-                    .bind(1, offset)
-                    .mapToBean(Account.class).list();
-        });
+        String query = "SELECT * FROM accounts limit ? offset ?";
+
+        List<Account> users = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind(0, limit)
+                        .bind(1, offset)
+                        .mapToBean(Account.class)
+                        .list());
         return users.isEmpty() ? null : users;
     }
     public Account findUserByEmailAndPassword(String email, String password) {
@@ -137,13 +138,13 @@ public class    UserDAO {
         );
     }
 
-//    public static void main(String[] args) {
-//        UserDAO userDAO = new UserDAO();
-//        try {
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void main(String[] args) {
+        UserDAO userDAO = new UserDAO();
+        try {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public int deleteUserById(int idUser) {
         String query = "DELETE FROM Accounts WHERE id = ?";

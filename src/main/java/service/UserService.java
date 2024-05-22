@@ -9,12 +9,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import static java.lang.String.valueOf;
 
 public class UserService {
 
@@ -28,8 +24,8 @@ public class UserService {
     private OrderDAO orderDAO;
 
     public List<Account> getAllUsers(int limit, int offset) {
-        List<Account> users;
-        users = userDAO.getAllUsers(limit, offset);
+        userDAO = new UserDAO();
+        List<Account> users = userDAO.getAllUsers(limit, offset);
         return users.isEmpty() ? null : users;
     }
 
