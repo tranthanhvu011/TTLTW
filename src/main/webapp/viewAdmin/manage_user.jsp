@@ -529,8 +529,6 @@
                 </div>
             </div>
         </form>
-
-
         <!-- Paging -->
         <%if (numberPage > 1) {%>
         <div class="row">
