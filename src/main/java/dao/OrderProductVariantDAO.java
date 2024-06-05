@@ -7,13 +7,11 @@ import modelDB.ProductVariantDB;
 import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.NumberFormat;
+import java.util.*;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 public class OrderProductVariantDAO {
 
@@ -35,6 +33,22 @@ public class OrderProductVariantDAO {
         );
 
         return res > 0;
+    }
+    public static Double sumTotalPrice() {
+        String query = "select sum(total_price) from orderproductvariant where status = 3";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .mapTo(Double.class)
+                        .one()
+        );
+    }
+    public static int sumQuantity() {
+        String query = "select sum(quantity) from orderproductvariant where status = 3";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .mapTo(Integer.class)
+                        .one()
+        );
     }
 
 
@@ -70,7 +84,6 @@ public class OrderProductVariantDAO {
                         .list()
         );
         List<OrderProductVariant> orders = lists.stream().map(this::mapData).toList();
-
         return orders.isEmpty() ? null : orders;
 
     }
@@ -235,6 +248,13 @@ public class OrderProductVariantDAO {
         orderProductVariant.setInforTransport(transportDAO.findInfoTransportById(orderProductVariantDB.getTransport_id()));
         return orderProductVariant;
     }
+    public static List<OrderProductVariantDB> orderProductVariantDBList() {
+        String query = "select * from orderproductvariant";
+        List<OrderProductVariantDB> productVariantDBList = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query).mapToBean(OrderProductVariantDB.class)
+                        .list());
+        return productVariantDBList;
+    }
 
     public int findOrderProductVariantById(int getID) {
         final String query = "SELECT status FROM orderproductvariant WHERE id = ?";
@@ -339,5 +359,17 @@ public class OrderProductVariantDAO {
         }
 
 
+    }
+
+    public static void main(String[] args) {
+        String format = formatToVND(sumTotalPrice());
+        OrderProductVariantDAO orderProductVariantDAO = new OrderProductVariantDAO();
+        System.out.print(orderProductVariantDAO.orderProductVariantDBList());
+//       System.out.print(sumQuantity());
+    }
+
+    public static String formatToVND(double amount) {
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return vndFormat.format(amount);
     }
 }

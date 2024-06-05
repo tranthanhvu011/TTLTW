@@ -18,6 +18,11 @@
     <title>Contact</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@include file="/common/admin_library_css.jsp"%>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
 <style>
     body {
@@ -61,48 +66,33 @@
     <div class="loader">
     </div>
 </div>
-<div class="page-container">
-    <%@include file="/common/admin_sidebar.jsp"%>
-    <div class="main-content">
-        <!-- header area start -->
-        <div class="header-area">
-            <div class="row align-items-center">
-                <div class="col-md-6 col-sm-8 clearfix">
-                    <div class="nav-btn pull-left">
-                        <span></span> <span></span> <span></span>
-                    </div>
-                    <div class="search-box pull-left">
-                        <form action="#">
-                            <input type="text" name="search" placeholder="Search..." required>
-                            <i class="fas fa-search"></i>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-4 clearfix">
-                    <ul class="notification-area pull-right">
-                    </ul>
+        <div class="page-container">
+            <%@include file="/common/admin_sidebar.jsp" %>
+            <div class="col-md-6 col-sm-8 clearfix">
+                <div class="nav-btn pull-left">
+                    <span></span> <span></span> <span></span>
                 </div>
             </div>
-        </div>
-
-        <div class="page-title-area">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Home</h4>
-                        <ul class="breadcrumbs pull-left">
-                            <li><a href="${base }/admin">Home</a></li>
-                            <li><span>Home</span></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 clearfix">
-                    <div class="user-profile pull-right">
-                        <img class="avatar user-thumb" src="../resources/assets/images/batman.png"
-                             alt="avatar">
-                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                            NHÓM 4 <i class="fa fa-angle-down"></i>
-                        </h4>
+            <div class="main-content">
+                <div class="page-title-area">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="breadcrumbs-area clearfix">
+                                <h4 class="page-title pull-left">Home</h4>
+                                <ul class="breadcrumbs pull-left">
+                                    <li><a href="${pageContext.request.contextPath}/admin/revenue-statistics">Home</a></li>
+                                    <li><span>Home</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 clearfix">
+                            <div class="user-profile pull-right">
+                                <img class="avatar user-thumb"
+                                     src="${pageContext.request.contextPath}/resources/assets/images/batman.png"
+                                     alt="avatar">
+                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
+                                    NHÓM 4 <i class="fa fa-angle-down"></i>
+                                </h4>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Message</a> <a
                                 class="dropdown-item" href="${base }/login">Log Out</a>
@@ -111,31 +101,13 @@
                 </div>
             </div>
         </div>
-        <form class="list" action="${base }/admin/contacts/manage_contacts" method="get">
-            <div class="main-content-inner">
-
-                <div class="card-body"
-                     style="display: flex; justify-content: space-between">
-                    <div style="display: flex; padding-right: 15px">
-                        <input type="hidden" id="page" name="page" class="form-control">
-                        <input type="text" id="keyword" name="keyword"
-                               class="form-control" placeholder="Search"
-                               value=""
-                               style="margin-right: 5px; height: 46px;">
-
-
-                        <button type="submit" id="btnSearch" name="btnSearch"
-                                value="Search" class="btn btn-flat btn-outline-secondary mb-3">Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="single-table"
-                 style="margin: 0px 30px; padding-bottom: 15px">
-                <div class="table-responsive">
-                    <table class="table text-center">
-                        <thead class="text-uppercase bg-primary">
-                        <tr class="text-white">
+               <br>
+                <br>
+                <br>
+                <div class="single-table" style="width: 95%; margin: 0 auto">
+                    <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                        <thead >
+                        <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Họ Và Tên</th>
                             <th scope="col">Địa Chỉ Email</th>
@@ -174,10 +146,10 @@
                                     <%}%>
                                 </td>
                                 <td>
-                                    <button class="btn-process" data-id="<%= contacts.getId() %>"style="width: 150px; border: 2px solid #0c5460; border-radius: 5px; background-color: yellow" >
+                                    <button type="button" class="btn btn-success" data-id="<%= contacts.getId() %>">
                                         Đã Xử Lý
                                     </button>
-                                    <button class="btn-delete" data-id="<%= contacts.getId() %>" style="width: 150px; border: 2px solid #0c5460; border-radius: 5px; background-color: red ">
+                                    <button type="button" class="btn btn-danger" data-id="<%= contacts.getId() %>" >
                                         Xóa Liên Hệ
                                     </button>
                                 </td>
@@ -186,7 +158,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+                <script>
+                    new DataTable('#example');
+                </script>
             <!-- Paging -->
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">

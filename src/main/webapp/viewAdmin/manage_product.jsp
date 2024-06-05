@@ -29,6 +29,11 @@
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
 <style>
     body {
@@ -150,125 +155,85 @@
         </div>
         <div class="main-content-inner">
             <!-- Taskbar -->
-            <div class="card-body" style="display: flex; justify-content: space-between">
-                <form id="formSearch" method="post">
-                    <div style="display: flex; padding-right: 15px">
-                        <input type="hidden" id="page" name="page" class="form-control">
-                        <input type="text" id="keyword" name="keyword"
-                               class="form-control" placeholder="Search"
-                               style="margin-right: 5px; height: 35px;">
-                        <button type="button" id="btnSearch"
-                                class="btn btn-flat btn-outline-secondary mb-3" style="" onclick="onSubmitSearch()">
-                            Search
-                        </button>
-                    </div>
-                </form>
-                <div>
                     <a class="btn btn-primary" style="background-color: lawngreen"
                        href="${pageContext.request.contextPath}/admin/product/add_product">
                         Thêm sản phẩm
                     </a>
                 </div>
-            </div>
-        </div>
+
         <!-- Table data -->
-        <div class="single-table"
-             style="margin: 0px 30px; padding-bottom: 15px">
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead class="text-uppercase bg-primary">
-                    <tr class="text-white">
-                        <th scope="col">ID</th>
-                        <th scope="col">Tên Sản Phẩm</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Hãng Sản Xuất</th>
-                        <th scope="col">Màu sắc</th>
-                        <th scope="col">Trạng thái</th>
-                        <th scope="col">Ảnh</th>
-                        <th scope="col">Dung lượng</th>
-                        <th scope="col">Đã bán</th>
-                        <th scope="col">Còn lại</th>
-                        <th scope="col">Action</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%for (ProductVariant productVariant : productVariants) {%>
-                    <%Product product = productVariant.getProduct();%>
-                    <tr>
-                        <th scope="row"><%=productVariant.getId()%>
-                        </th>
-                        <td>
-                            <%--                                <fmt:setLocale value="vi_VN" scope="session"/> --%>
-                            <%--                                <fmt:formatNumber value="${product.price }" type="currency"/>--%>
-                            <%=product.getName()%>
-                        </td>
-                        <td><%=Formater.formatCurrency(productVariant.getPrice())%>
-                        </td>
-                        <td><%=product.getManufacturer().getNAME()%>
-                        </td>
-                        <td><%=productVariant.getColor().getName()%>
-                        </td>
-                        <%if (productVariant.getState() == 1) {%>
-                        <td>
-                            Còn hàng
-                        </td>
-                        <%} else {%>
-                        <td>
-                            Hết hàng
-                        </td>
-                        <%}%>
-                        <%if (!productVariant.getProductImages().isEmpty()) {%>
-                        <td>
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <%for (ProductImage image : productVariant.getProductImages()) {%>
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100"
-                                             src="${pageContext.request.contextPath}/<%=URLConfig.URL_SAVE_IMAGE%>/<%=image.getImage_url().trim()%>"
-                                             alt="">
-                                    </div>
-                                    <%}%>
+        <div class="single-table" style="width: 95%; margin: 0 auto">
+            <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Hãng Sản Xuất</th>
+                    <th scope="col">Màu sắc</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Dung lượng</th>
+                    <th scope="col">Đã bán</th>
+                    <th scope="col">Còn lại</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (ProductVariant productVariant : productVariants) { %>
+                <% Product product = productVariant.getProduct(); %>
+                <tr>
+                    <th scope="row"><%= productVariant.getId() %></th>
+                    <td><%= product.getName() %></td>
+                    <td><%= Formater.formatCurrency(productVariant.getPrice()) %></td>
+                    <td><%= product.getManufacturer().getNAME() %></td>
+                    <td><%= productVariant.getColor().getName() %></td>
+                    <td><%= productVariant.getState() == 1 ? "Còn hàng" : "Hết hàng" %></td>
+                    <td>
+                        <% if (!productVariant.getProductImages().isEmpty()) { %>
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <% for (ProductImage image : productVariant.getProductImages()) { %>
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="${pageContext.request.contextPath}/<%= URLConfig.URL_SAVE_IMAGE %>/<%= image.getImage_url().trim() %>" alt="">
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                   data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                   data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                                <% } %>
                             </div>
-                        </td>
-                        <%} else {%>
-                        <td>
-                            <img src="${pageContext.request.contextPath}/resources/assets/images/error.jpg"
-                                 width="200" height="200">
-                        </td>
-                        <%}%>
-                        <td><%=productVariant.getCapacity().getName()%>
-                        </td>
-                        <td><%=product.getSellQuantity()%>
-                        </td>
-                        <td><%=product.getRemaningQuantity()%>
-                        </td>
-                        <td><a class="btn btn-primary"
-                               href="${pageContext.request.contextPath}/admin/product/edit_product?id=<%=productVariant.getProduct().getId()%>"
-                               role="button">Sua</a>
-                            <button class="btn btn-danger" role="button"
-                                    onclick="openModalDeleteUser(<%=productVariant.getId()%>)">
-                                Xoa
-                            </button>
-                        </td>
-                    </tr>
-                    <%}%>
-                    </tbody>
-                </table>
-            </div>
+                        </div>
+                        <% } else { %>
+                        <img src="${pageContext.request.contextPath}/resources/assets/images/error.jpg" width="200" height="100">
+                        <% } %>
+                    </td>
+                    <td><%= productVariant.getCapacity().getName() %></td>
+                    <td><%= product.getSellQuantity() %></td>
+                    <td><%= product.getRemaningQuantity() %></td>
+                    <td>
+                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/product/edit_product?id=<%= productVariant.getProduct().getId() %>" role="button">Sửa</a>
+                        <button class="btn btn-danger" role="button" onclick="openModalDeleteUser(<%= productVariant.getId() %>)">Xoá</button>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
         </div>
+        <script>
+            new DataTable('#example');
+        </script>
 
+        <!-- Pagination controls -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <%= currentIndex == 1 ? "disabled" : "" %>">
+                    <a class="page-link" href="?index=<%= currentIndex - 1 %>" tabindex="-1">Previous</a>
+                </li>
+                <% for (int i = 1; i <= numberPage; i++) { %>
+                <li class="page-item <%= currentIndex == i ? "active" : "" %>"><a class="page-link" href="?index=<%= i %>"><%= i %></a></li>
+                <% } %>
+                <li class="page-item <%= currentIndex == numberPage ? "disabled" : "" %>">
+                    <a class="page-link" href="?index=<%= currentIndex + 1 %>">Next</a>
+                </li>
+            </ul>
+        </nav>
 
         <!-- Modal to notify delete user -->
         <form id="formDeleteUser" method="post">
@@ -292,30 +257,30 @@
 
 
         <!-- Paging -->
-        <%if (numberPage > 1) {%>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <button id="previousPage" class="page-link" style="<%=currentIndex == 1 ? "pointer-events: none" : ""%>" onclick="pPage(<%=currentIndex%>)">Previous</button>
-                        </li>
-                        <%
-                            for (int i = 1; i <= numberPage; i++) {
-                        %>
-                        <li class="page-item"><a class="page-link" style="<%=i == currentIndex ? "background-color: blue; color: black" : ""%>"
-                                                 href="${pageContext.request.contextPath}/admin/product/manage_product?index=<%=i%>"><%=i%>
-                        </a></li>
-                        <%}%>
-                        <li class="page-item">
-                            <button id="nextPage" class="page-link" style="<%=currentIndex == numberPage ? "pointer-events: none" : ""%>" onclick="nPage(<%=currentIndex%>)">Next</button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <%}%>
-    </div>
+<%--        <%if (numberPage > 1) {%>--%>
+<%--        <div class="row">--%>
+<%--            <div class="col-12 d-flex justify-content-center">--%>
+<%--                <nav aria-label="Page navigation example">--%>
+<%--                    <ul class="pagination">--%>
+<%--                        <li class="page-item">--%>
+<%--                            <button id="previousPage" class="page-link" style="<%=currentIndex == 1 ? "pointer-events: none" : ""%>" onclick="pPage(<%=currentIndex%>)">Previous</button>--%>
+<%--                        </li>--%>
+<%--                        <%--%>
+<%--                            for (int i = 1; i <= numberPage; i++) {--%>
+<%--                        %>--%>
+<%--                        <li class="page-item"><a class="page-link" style="<%=i == currentIndex ? "background-color: blue; color: black" : ""%>"--%>
+<%--                                                 href="${pageContext.request.contextPath}/admin/product/manage_product?index=<%=i%>"><%=i%>--%>
+<%--                        </a></li>--%>
+<%--                        <%}%>--%>
+<%--                        <li class="page-item">--%>
+<%--                            <button id="nextPage" class="page-link" style="<%=currentIndex == numberPage ? "pointer-events: none" : ""%>" onclick="nPage(<%=currentIndex%>)">Next</button>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                </nav>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <%}%>--%>
+<%--    </div>--%>
 
     <!-- main content area end -->
     <!-- footer area start-->

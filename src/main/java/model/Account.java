@@ -15,8 +15,45 @@ public class Account {
     private String role;
     private int is_active;
     private Date dob;
-    private Date created_at;
-    private Date last_login;
+    private String created_at;
+    private String last_login;
+    private String lastIPLogin;
+    private String countryLoginByIp;
+
+    public Account(String email, String first_name, String last_name, String phone_number, String address, String password, int gender, String role, int is_active, Date dob, String lastIPLogin, String countryLoginByIp) {
+        this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.password = password;
+        this.gender = gender;
+        this.role = role;
+        this.is_active = is_active;
+        this.dob = dob;
+        this.lastIPLogin = lastIPLogin;
+        this.countryLoginByIp = countryLoginByIp;
+    }
+
+    public Account() {
+
+    }
+
+    public String getLastIPLogin() {
+        return lastIPLogin;
+    }
+
+    public void setLastIPLogin(String lastIPLogin) {
+        this.lastIPLogin = lastIPLogin;
+    }
+
+    public String getCountryLoginByIp() {
+        return countryLoginByIp;
+    }
+
+    public void setCountryLoginByIp(String countryLoginByIp) {
+        this.countryLoginByIp = countryLoginByIp;
+    }
 
     public int getId() {
         return id;
@@ -106,19 +143,19 @@ public class Account {
         this.dob = dob;
     }
 
-    public Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
-    public Date getLast_login() {
+    public String getLast_login() {
         return last_login;
     }
 
-    public void setLast_login(Date last_login) {
+    public void setLast_login(String last_login) {
         this.last_login = last_login;
     }
 }
