@@ -39,7 +39,6 @@
     }
 </style>
 <%
-
     Boolean status = (Boolean) session.getAttribute("status");
     String message = (String) session.getAttribute("message");
 %>

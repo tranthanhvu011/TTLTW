@@ -5,6 +5,7 @@ import config.JDBIConnector;
 import model.*;
 import model.Product;
 import model.ProductVariant;
+import modelDB.OrderProductVariantDB;
 import modelDB.ProductDB;
 import modelDB.ProductVariantDB;
 import org.jdbi.v3.core.statement.StatementContext;
@@ -170,6 +171,7 @@ public class ProductVariantDAO {
         );
     }
 
+
     public List<ProductVariantDB> getAllProductVariantByIdProduct(int idProduct) {
         String query = "SELECT * FROM ProductVariants WHERE product_id = :id";
         List<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle ->
@@ -177,7 +179,20 @@ public class ProductVariantDAO {
         );
         return productVariantDB.isEmpty() ? null : productVariantDB;
     }
-
+    public static ProductVariant getColorAndCapacityProductVariantByID(int idVariant) {
+        String query = "SELECT productvariants.color_id AS colorId, productvariants.capacity_id AS capacityId, productvariants.price, colors.name as nameColor, capacities.name as nameCapacity, products.name as nameProduct FROM productvariants " +
+                "inner join colors on productvariants.color_id = colors.id " +
+                "inner join capacities on productvariants.capacity_id = capacities.id " +
+                "inner join products on productvariants.product_id = products.id " +
+                " WHERE productvariants.id = ?";
+        ProductVariant productVariant = JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind(0, idVariant)
+                        .mapToBean(ProductVariant.class)
+                        .findOne()
+                        .orElse(null));
+        return productVariant;
+    }
     public List<ProductVariant> getProductVariantByColorIDProductID(int idProduct, int colorID) {
         String query = "SELECT * FROM ProductVariants WHERE product_id = ? and color_id = ?";
         List<ProductVariant> productVariant = JDBIConnector.me().withHandle(handle ->
@@ -223,6 +238,7 @@ public class ProductVariantDAO {
         return productVariantIDs.isEmpty() ? null : productVariantIDs;
     }
 
+
     public List<Integer> findProductVariantByColorId(int id) {
         String query = "SELECT id FROM productvariants WHERE color_id = ?";
         List<Integer> productVariantIDs = JDBIConnector.me().withHandle(handle ->
@@ -230,6 +246,7 @@ public class ProductVariantDAO {
         );
         return productVariantIDs.isEmpty() ? null : productVariantIDs;
     }
+
 
     public void deleteProductVariantByProductId(Integer idP) {
         JDBIConnector.me().withHandle(
@@ -245,5 +262,9 @@ public class ProductVariantDAO {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query).mapTo(Integer.class).one()
         );
+    }
+
+    public static void main(String[] args) {
+        System.out.print(getColorAndCapacityProductVariantByID(83));
     }
 }

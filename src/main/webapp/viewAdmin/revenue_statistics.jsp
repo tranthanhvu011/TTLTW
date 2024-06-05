@@ -1,5 +1,10 @@
 <%@ page import="java.util.List" %>
-<%@ page import="model.*" %><%--
+<%@ page import="model.*" %>
+<%@ page import="dao.OrderProductVariantDAO" %>
+<%@ page import="modelDB.OrderProductVariantDB" %>
+<%@ page import="modelDB.ProductVariantDB" %>
+<%@ page import="dao.ProductVariantDAO" %>
+<%@ page import="dao.ProductDAO" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2024-01-21
@@ -22,6 +27,11 @@
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
 <style>
     body {
@@ -122,7 +132,11 @@
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h4><a href="${pageContext.request.contextPath}/admin/revenue-statistics">Home</a></h4>
+                        <h4 class="page-title pull-left">Home</h4>
+                        <ul class="breadcrumbs pull-left">
+                            <li><a href="${pageContext.request.contextPath}/admin/revenue-statistics">Home</a></li>
+                            <li><span>Home</span></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 clearfix">
@@ -180,29 +194,26 @@
                 </div>
             </div>
         </div>
-        <%if (totalNumber != 0 && totalMoney != 0) {%>
+        <% OrderProductVariantDAO orderProductVariantDAO = new OrderProductVariantDAO();
+        int sumQuantity = orderProductVariantDAO.sumQuantity();
+        Double sumTotalPrice = orderProductVariantDAO.sumTotalPrice();%>
         <div class="container">
             <div style=" padding: 20px; text-align: center; font-weight: 900; font-size: 18px;" class="row">
                 <div class="col-md-6">
                     TỔNG SỐ LƯỢNG ĐÃ BÁN
-                    <div class="text-danger"><%=totalNumber%> SẢN PHẨM</div>
+                    <div class="text-danger"><%=sumQuantity%> SẢN PHẨM</div>
                 </div>
-
-
                 <div class="col-md-6">
                     TỔNG DOANH THU ĐÃ BÁN
-                    <div class="text-danger"><%=totalMoney%> VNĐ</div>
+                    <div class="text-danger"><%=sumTotalPrice%> VNĐ</div>
                 </div>
             </div>
         </div>
-        <%}%>
-        <div class="single-table"
-             style="padding-bottom: 15px">
+        <div class="single-table" style="width: 95%; margin: 0 auto">
 
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead class="text-uppercase bg-primary">
-                    <tr class="text-white">
+                <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
                         <th scope="col">Mã đơn Hàng</th>
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Màu Sắc</th>
@@ -216,65 +227,62 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% if (orderProductVariants != null) {
-                        for (OrderProductVariant o : orderProductVariants) {
-                            ProductVariant productVariant = o.getProductVariant();
-                            Order order = o.getOrder();
-                            InforTransport inforTransport = o.getInforTransport();
-                    %>
+<%--                    <% if (orderProductVariants != null) {--%>
+<%--                        for (OrderProductVariant o : orderProductVariants) {--%>
+<%--                            ProductVariant productVariant = o.getProductVariant();--%>
+<%--                            Order order = o.getOrder();--%>
+<%--                            InforTransport inforTransport = o.getInforTransport();--%>
+<%--                    %>--%>
+<% List<OrderProductVariantDB> productVariantDBList = orderProductVariantDAO.orderProductVariantDBList();
+    ProductVariantDAO productVariantDAO = new ProductVariantDAO();
+    ProductVariant productVariants = new ProductVariant();
+    ProductDAO productDAO = new ProductDAO();
+for (OrderProductVariantDB productVariant: productVariantDBList) {
+    productVariants = productVariantDAO.getColorAndCapacityProductVariantByID(productVariant.getProduct_variant_id());
+    if (productVariant.getStatus() < 3) {
+        continue;
+    }
+%>
                     <tr>
-                        <td><%= o.getId() %>
+                        <td><%= productVariant.getId() %>
                         </td>
                         <td id="id_product_variant">
-                            <%= productVariant.getProduct().getName()%>
+                            <%= productVariants.getNameProduct()%>
                         </td>
-                        <td><%= productVariant.getColor().getName()%>
+                        <td><%= productVariants.getNameColor()%>
                         </td>
-                        <td><%= productVariant.getCapacity().getName()%>
+                        <td><%= productVariants.getNameCapacity()%>
                         </td>
-                        <td><%= productVariant.getPrice()%>
+                        <td><%= productVariants.getPrice()%>
                         </td>
-                        <td><%= o.getQuantity()%>
+                        <td><%= productVariant.getQuantity()%>
                         </td>
-                        <td><%= o.getTotal_price()%>
+                        <td><%=productVariant.getBuy_at()%>
                         </td>
-                        <td><%= o.getBuy_at()%>
+                        <td><%= productVariant.getTotal_price()%>
                         <td>
-                            <label for="status" style="display: none"></label>
-                            <select class="form-control" name="status" id="status">
-                                <option value="0">
-                                    Đã hủy
-                                </option>
-                                <option value="1">
-                                    Đang chuẩn bị hàng
-                                </option>
-                                <option value="2">
-                                    Đang giao hàng
-                                </option>
-                                <option value="3">
-                                    Đã giao hàng
-                                </option>
-                            </select>
+                        <% if (productVariant.getStatus() == 3) {%>
+                        Đã Giao Hàng Thành Công
+                        <% }%>
                         </td>
-                        <script>
-                            document.getElementById('status').value =
-                            <%= o.getStatus()%>
-                        </script>
                         <td style="display: flex">
-                            <button class="btn btn-primary" type="button" onclick="showDetail(<%=o.getId()%>)">
+                            <button class="btn btn-primary" type="button" onclick="showDetail(<%=productVariant.getId()%>)">
                                 Chi tiet
                             </button>
                         </td>
+                        <% } %>
                     </tr>
-                    <%
-                            }
-                        }
-                    %>
+<%--                    <%--%>
+<%--                            }--%>
+<%--                        }--%>
+<%--                    %>--%>
                     </tbody>
                 </table>
+            <script>
+                new DataTable('#example');
+            </script>
             </div>
         </div>
-    </div>
 </div>
 <%@include file="/common/admin_footer.jsp" %>
 <%@include file="/common/admin_library_js.jsp" %>

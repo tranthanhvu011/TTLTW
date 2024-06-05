@@ -18,6 +18,17 @@ public class ProductDAO {
         });
         return products.isEmpty() ? null : products;
     }
+    public static String getNameProductByIDProductVariant(int idProductVariant) {
+        String query = "select name from products where id = ?";
+        String nameProduct = JDBIConnector.me().withHandle(
+                handle ->
+                        String.valueOf(handle.createQuery(query)
+                                .bind(0, idProductVariant)
+                                .mapTo(String.class)
+                                .findOne())
+        );
+        return nameProduct;
+    }
 
     public ProductDB findProductById(int productId) {
 
@@ -133,10 +144,8 @@ public class ProductDAO {
     }
 
 
-//    public static void main(String[] args) {
-//        ProductDAO productDAO = new ProductDAO();
-//        ProductDB productDB = productDAO.findProductById(74);
-//        System.out.print(productDAO.updateNewPrice(1666,1));
-//
-//    }
+    public static void main(String[] args) {
+      System.out.print(getNameProductByIDProductVariant(34));
+
+    }
 }

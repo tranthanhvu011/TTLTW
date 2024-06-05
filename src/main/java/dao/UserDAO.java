@@ -2,9 +2,9 @@ package dao;
 
 import config.JDBIConnector;
 import model.Account;
-import org.jdbi.v3.core.Jdbi;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.servlet.http.HttpServlet;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +26,22 @@ public class UserDAO {
         return users.isEmpty() ? null : users;
     }
 
+    public static boolean checkLogin(String email, String password) {
+        String query = "select password from accounts where email = :email";
+        try {
+            String hashedPassword = JDBIConnector.me().withHandle(handle ->
+                    handle.createQuery(query)
+                            .bind("email", email)
+                            .mapTo(String.class)
+                            .one()
+            );
+            // Kiểm tra mật khẩu đã nhập với hash mật khẩu trong cơ sở dữ liệu
+            return BCrypt.checkpw(password, hashedPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public Account findUserByEmailAndPassword(String email, String password) {
         String query = "SELECT * FROM Accounts WHERE email = ?";
@@ -45,7 +61,6 @@ public class UserDAO {
         }
         return null;
     }
-
     public List<Account> findUserByEmail(String email) throws SQLException {
         String query = "SELECT * FROM accounts WHERE email = ?";
         List<Account> users = JDBIConnector.me().withHandle(handle -> {
@@ -56,9 +71,20 @@ public class UserDAO {
         });
         return users.isEmpty() ? null : users;
     }
+    public boolean updateIPAndCountry(String ip, String country, String userEmail) {
+        String query = "update accounts set lastIPLogin = ?, countryLoginByIp = ?,last_login = CURRENT_TIMESTAMP where email = ?";
+        int count = JDBIConnector.me().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind(0, ip)
+                        .bind(1, country)
+                        .bind(2, userEmail)
+                        .execute()
+        );
+        return count > 0;
+    }
 
     public static boolean save(Account user) throws SQLException {
-        String query = "INSERT INTO Accounts (email,first_name,last_name,password,address,gender,dob,phone_number,role,is_active,create_at) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?,?)";
+        String query = "INSERT INTO Accounts (email,first_name,last_name,password,address,gender,dob,phone_number,role,is_active, lastIPLogin, countryLoginByIp) VALUES (?,?,?, ?, ?, ?,?, ?, ?, ?, ?,?)";
         int rowUpdated = 0;
         if (user.getRole() == null) {
             user.setRole("user");
@@ -75,7 +101,9 @@ public class UserDAO {
                     .bind(7, user.getPhone_number())
                     .bind(8, user.getRole())
                     .bind(9, user.getIs_active())
-                    .bind(10, Date.valueOf(LocalDate.now())).execute();
+                    .bind(10, user.getLastIPLogin())
+                    .bind(11, user.getCountryLoginByIp())
+                    .execute();
         });
         return rowUpdated > 0;
     }
