@@ -1,5 +1,6 @@
 package controller.user;
 
+import com.google.gson.JsonObject;
 import com.mysql.cj.Session;
 import dao.CapacityDAO;
 import dao.ProductVariantDAO;
@@ -48,8 +49,19 @@ public class CartController extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             boolean is_success = cart.add(productID,quantity);
             if (is_success) {
+                session.setAttribute("message","Thêm vào giỏ hàng thành công");
+                session.setAttribute("status",true);
                 session.setAttribute("cart", cart);
-                response.sendRedirect(referer);
+//                response.sendRedirect(referer);
+                int total = cart.getTotal();
+                JsonObject jsonResponse = new JsonObject();
+                jsonResponse.addProperty("total", total);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                // Gửi đối tượng JSON về client
+                PrintWriter out = response.getWriter();
+                out.print(jsonResponse);
+                out.flush();
             } else {
                 session.setAttribute("message", "không thể add");
                 response.sendRedirect("/product-detail");
