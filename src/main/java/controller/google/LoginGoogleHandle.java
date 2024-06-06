@@ -1,5 +1,6 @@
 package controller.google;
 
+import dao.LoggingLogin;
 import helper.CookieUtils;
 import model.Account;
 import service.UserService;
@@ -29,6 +30,9 @@ public class LoginGoogleHandle extends HttpServlet {
       String name = googlePojo.getName();
       String email = googlePojo.getEmail();
       UserService userService = new UserService();
+    LoggingLogin loggingLogin = new LoggingLogin();
+    String lastIPLogin = request.getRemoteAddr();
+    String countryLoginByIp = loggingLogin.getCountryFromIP(lastIPLogin);
       List<Account> accountList = userService.findUserByEmail(email);
       if(accountList!=null){
         request.getSession().setAttribute("account", accountList.get(0));
@@ -40,6 +44,8 @@ public class LoginGoogleHandle extends HttpServlet {
         account.setLast_name("");
         account.setPhone_number("");
         account.setRole("user");
+        account.setCountryLoginByIp(countryLoginByIp);
+        account.setLastIPLogin(lastIPLogin);
         try {
           userService.save(account);
           request.getSession().setAttribute("account", account);
