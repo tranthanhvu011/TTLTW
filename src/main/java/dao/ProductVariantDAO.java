@@ -100,9 +100,9 @@ public class ProductVariantDAO {
                 "pv.product_id, " +
                 "p.name AS product_name, " +
                 "pv.color_id, " +
-                "c.color_name, " +
+                "c.name, " +
                 "pv.capacity_id, " +
-                "cap.capacity_name, " +
+                "cap.name, " +
                 "pv.price, " +
                 "pv.state, " +
                 "i.image_url " +
@@ -117,17 +117,17 @@ public class ProductVariantDAO {
                 ProductVariant pv = new ProductVariant();
                 Product product = new Product();
                 Color color = new Color();
-                color.setName(rs.getString("color_name"));
+                color.setName(rs.getString("name"));
                 ProductImage productImage = new ProductImage();
                 List<ProductImage> images = new ArrayList<>();
                 pv.setId(rs.getInt("id"));
                 pv.setPrice(rs.getDouble("price"));
-                product.setName(rs.getString("product_name"));
+                product.setName(rs.getString("name"));
                 product.setId(rs.getInt("product_id"));
                 productImage.setImage_url(rs.getString("image_url"));
                 pv.setColor(color);
                 Capacity capacity = new Capacity();
-                capacity.setName(rs.getString("capacity_name"));
+                capacity.setName(rs.getString("name"));
                 pv.setCapacity(capacity);
                 images.add(productImage);
                 pv.setProductImages(images);

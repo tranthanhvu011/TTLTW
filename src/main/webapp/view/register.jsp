@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2023-11-19
@@ -20,6 +20,7 @@
     <link href="../resources/libs/datepicker/css/bootstrap/zebra_datepicker.min.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
     <script src="<c:url value="../resources/js/user/auth/register.js"/>"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <style>
     body {
@@ -46,9 +47,19 @@
             <c:if test="${not empty requestScope.emailNotNull}">
                 <div class="error error-message text-center" style="color: red">${requestScope.emailNotNull}</div>
             </c:if>
-            <c:if test="${not empty requestScope.passwordNo}">
-                <div class="error error-message text-center" style="color: red">${requestScope.passwordNo}</div>
+            <c:if test="${not empty requestScope.getDOB}">
+                <div class="error error-message text-center" style="color: red">${requestScope.getDOB}</div>
             </c:if>
+            <c:if test="${not empty requestScope.address}">
+                <div class="error error-message text-center" style="color: red">${requestScope.address}</div>
+            </c:if>
+            <c:if test="${not empty requestScope.lastName}">
+                <div class="error error-message text-center" style="color: red">${requestScope.lastName}</div>
+            </c:if>
+            <c:if test="${not empty requestScope.firstName}">
+                <div class="error error-message text-center" style="color: red">${requestScope.firstName}</div>
+            </c:if>
+
             <form method="post" action="/register"  id="formRegister">
                 <div class="row row-space">
                     <div class="col-6">
@@ -131,14 +142,36 @@
                     <span class="error" id="er-address"
                           style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
+                <div style="color: red" id="captchaError"></div>
                 <div class="btn btn--radius-2 btn--blue pt-2"
                      style="width: 100%;background-color: #3868cd;margin-top: 20px">
-                    <button id="onSubmit" value="Register" type="submit">Đăng ký</button>
+                    <button id="onSubmit" value="Register" type="submit" onclick="checkCaptcha()">Đăng ký</button>
                 </div>
             </form>
+            <% List<String> errors = (List<String>) request.getAttribute("errors");
+                if (errors != null && !errors.isEmpty()) {
+                    for (String error : errors) {
+            %>
+            <h1> <%= error%></h1>
+            <%
+                    }
+                }%>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function checkCaptcha(){
+        var form = document.getElementById("login-form");
+        var captchaError = document.getElementById("captchaError");
+        const response = grecaptcha.getResponse();
+        if(response){
+            form.submit();
+        } else{
+            captchaError.textContent = "Vui lòng xác thực reCAPTCHA!";
+        }
+    }
+</script>
 <%@include file="/common/footer.jsp" %>
 <%@include file="/common/libraries_js.jsp" %>
 <script src="../resources/libs/datepicker/zebra_datepicker.min.js"></script>

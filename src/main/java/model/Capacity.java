@@ -4,7 +4,6 @@ import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Capacity {
     private int id;
-    @ColumnName("capacity_name")
     private String name;
     public int getId() {
         return id;
