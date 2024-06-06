@@ -1,6 +1,7 @@
 package controller.auth;
 
 import dao.DatabaseCleanupScheduler;
+import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,7 +16,11 @@ public class AppContextListener implements ServletContextListener {
     }
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        // Cleanup resources or shut down executor service if needed
         System.out.println("Application is shutting down.");
+
+            AbandonedConnectionCleanupThread.checkedShutdown();
+
     }
+
 }
+
