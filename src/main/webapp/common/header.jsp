@@ -57,7 +57,7 @@ if (cart==null) cart = new Cart();
                        href="${pageContext.request.contextPath}/cart?action=view-cart" class="icon-cart">
                         <div class="icon">
                             <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #808089"></i>
-                            <span><%=cart.getTotal()%></span>
+                            <span id="quantity-cart"><%=cart.getTotal()%></span>
                         </div>
                         <div style="width: 80px;text-align: center" class="info-cart">
                             <p id="gioHang"

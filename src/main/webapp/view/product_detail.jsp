@@ -24,6 +24,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/product-detail.css">
     <%@include file="/common/libraries.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <script src="https://code.jquery.com/jquery-3.7.1.js"
             integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
@@ -51,7 +52,21 @@
 </style>
 <body>
 <%@include file="/common/header.jsp" %>
-
+<div id="toast" class="toast">
+    <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
+             viewBox="0 0 20 20">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"></path>
+        </svg>
+        <div class="message">
+            <span class="text text-1" style="color: greenyellow">Thêm vào giỏ hàng thành công!!!</span>
+        </div>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+    <div class="progress"></div>
+</div>
+<script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
 <div class="container">
     <div class="gutters"
          style=" display: flex;justify-content: space-evenly;margin-top: 30px;margin-bottom: 40px">
@@ -597,11 +612,27 @@
                             });
                         });
                         $('#addToCart').click(function () {
-                            var attrSoluong = $('#addToCart').attr('href');
-                            $('#addToCart').attr('href', attrSoluong + '&quantity=' + $('#soluong').val());
 
-                            // console.log(attrSoluong);
-                            // console.log($('#addToCart').attr('href'));
+                            // var attrSoluong = $('#addToCart').attr('href');
+                            // $('#addToCart').attr('href', attrSoluong + '&quantity=' + $('#soluong').val());
+                            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ a
+                            var quantity = $('#soluong').val();
+                            var addToCartUrl = $(this).attr('href');
+                            addToCartUrl += '&quantity=' + quantity;
+                            $.ajax({
+                                type: 'GET',
+                                url: addToCartUrl,
+                                success: function (response) {
+                                    $('#quantity-cart').text(response.total);
+                                    showToast();
+                                    setTimeout(() => document.querySelector(".toast").style.display = "none", 5000);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Failed to add product to cart:', error);
+
+                                }
+                            });
+
                         });
                         $('#buynow').click(function () {
                             var attrMuangay = $('#buynow').attr('href');
