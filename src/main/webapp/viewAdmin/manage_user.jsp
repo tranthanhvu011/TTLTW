@@ -26,6 +26,11 @@
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
 <style>
     body {
@@ -123,14 +128,15 @@
         </div>
     </div>
     <div class="main-content">
-
         <div class="page-title-area">
             <div class="row align-items-center">
                 <div class="col-sm-6">
                     <div class="breadcrumbs-area clearfix">
-                        <h3 class="page-title pull-left" style="background: white">
-                            <a href="${pageContext.request.contextPath}/admin/admin/user/manage_user">Quản lý người dùng</a>
-                        </h3>
+                        <h4 class="page-title pull-left">Home</h4>
+                        <ul class="breadcrumbs pull-left">
+                            <li><a href="${pageContext.request.contextPath}/admin/revenue-statistics">Home</a></li>
+                            <li><span>Home</span></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 clearfix">
@@ -153,27 +159,13 @@
 
         <!-- taskbar -->
         <div class="main-content-inner">
-            <div class="card-body" style="display: flex; justify-content: space-between">
-                <form id="formSearch" method="post">
-                    <div style="display: flex; padding-right: 15px">
-                        <input type="hidden" id="page" name="page" class="form-control">
-                        <input type="text" id="keyword" name="keyword"
-                               class="form-control" placeholder="Search"
-                               style="margin-right: 5px; height: 35px;">
-                        <button type="button" id="btnSearch"
-                                class="btn btn-flat btn-outline-secondary mb-3" style="" onclick="onSubmitSearch()">
-                            Search
-                        </button>
-                    </div>
-                </form>
-                <div>
+
                     <button type="button" class="btn btn-primary" style="background-color: lawngreen"
                             data-toggle="modal" data-target="#modalRegisterUser" onclick="openModalRegister()">
                         Thêm Mới
                     </button>
                 </div>
-            </div>
-        </div>
+
 
 
         <!-- Modal to register -->
@@ -306,13 +298,10 @@
             </div>
         </div>
 
-        <!-- Dark table start -->
-        <div class="single-table"
-             style="margin: 0px 30px; padding-bottom: 15px">
-            <div class="table-responsive">
-                <table class="table text-center">
-                    <thead class="text-uppercase bg-primary">
-                    <tr class="text-white">
+        <div class="single-table" style="width: 95%; margin: 0 auto">
+                <table id="example" class="table table-striped table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Email</th>
                         <th scope="col">Name</th>
@@ -376,9 +365,11 @@
                     <%}%>
                     </tbody>
                 </table>
-            </div>
-        </div>
+    </div>
 
+<script>
+    new DataTable('#example');
+</script>
 
         <!-- Modal to alter user -->
         <% if (userAlter != null) {%>
@@ -529,40 +520,38 @@
                 </div>
             </div>
         </form>
-
-
         <!-- Paging -->
-        <%if (numberPage > 1) {%>
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <button id="previousPage" class="page-link"
-                                    style="<%=currentIndex == 1 ? "pointer-events: none" : ""%>"
-                                    onclick="pPage(<%=currentIndex%>)">Previous
-                            </button>
-                        </li>
-                        <%
-                            for (int i = 1; i <= numberPage; i++) {
-                        %>
-                        <li class="page-item"><a class="page-link"
-                                                 style="<%=i == currentIndex ? "background-color: blue; color: black" : ""%>"
-                                                 href="${pageContext.request.contextPath}/admin/user/manage_user?index=<%=i%>"><%=i%>
-                        </a></li>
-                        <%}%>
-                        <li class="page-item">
-                            <button id="nextPage" class="page-link"
-                                    style="<%=currentIndex == numberPage ? "pointer-events: none" : ""%>"
-                                    onclick="nPage(<%=currentIndex%>)">Next
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <%}%>
-    </div>
+<%--        <%if (numberPage > 1) {%>--%>
+<%--        <div class="row">--%>
+<%--            <div class="col-12 d-flex justify-content-center">--%>
+<%--                <nav aria-label="Page navigation example">--%>
+<%--                    <ul class="pagination">--%>
+<%--                        <li class="page-item">--%>
+<%--                            <button id="previousPage" class="page-link"--%>
+<%--                                    style="<%=currentIndex == 1 ? "pointer-events: none" : ""%>"--%>
+<%--                                    onclick="pPage(<%=currentIndex%>)">Previous--%>
+<%--                            </button>--%>
+<%--                        </li>--%>
+<%--                        <%--%>
+<%--                            for (int i = 1; i <= numberPage; i++) {--%>
+<%--                        %>--%>
+<%--                        <li class="page-item"><a class="page-link"--%>
+<%--                                                 style="<%=i == currentIndex ? "background-color: blue; color: black" : ""%>"--%>
+<%--                                                 href="${pageContext.request.contextPath}/admin/user/manage_user?index=<%=i%>"><%=i%>--%>
+<%--                        </a></li>--%>
+<%--                        <%}%>--%>
+<%--                        <li class="page-item">--%>
+<%--                            <button id="nextPage" class="page-link"--%>
+<%--                                    style="<%=currentIndex == numberPage ? "pointer-events: none" : ""%>"--%>
+<%--                                    onclick="nPage(<%=currentIndex%>)">Next--%>
+<%--                            </button>--%>
+<%--                        </li>--%>
+<%--                    </ul>--%>
+<%--                </nav>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <%}%>--%>
+<%--    </div>--%>
     <%@include file="/common/admin_footer.jsp" %>
 </div>
 <script>
@@ -739,10 +728,8 @@
     }
 </script>
 <%@include file="/common/admin_library_js.jsp" %>
-<%@include file="/common/libraries_js.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/libs/datepicker/zebra_datepicker.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/libs/datepicker/zebra_datepicker.src.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/user/datepicker.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/admin/slide_show.js"></script>
 </body>
 </html>
 

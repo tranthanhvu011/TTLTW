@@ -153,7 +153,7 @@
                 if (errors != null && !errors.isEmpty()) {
                     for (String error : errors) {
             %>
-            <h1> <%= error%></h1>
+            <h4 style="background: transparent"> <%= error%></h4>
             <%
                     }
                 }%>

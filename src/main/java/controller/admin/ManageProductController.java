@@ -23,24 +23,21 @@ public class ManageProductController extends HttpServlet {
     String action, id;
     int idP = 0;
     boolean isSuccess;
-    int limit = 20;
-
+    int limit = 10;  // Set a reasonable limit for products per page
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int offset = 0;
         int numberProduct = productVariantService.countNumberPage();
-        int numberPage = (numberProduct / limit) + 1;
+        int numberPage = (numberProduct / limit) + ((numberProduct % limit == 0) ? 0 : 1);
         int index = request.getParameter("index") != null ? Integer.parseInt(request.getParameter("index")) : 1;
         offset += (index-1) * limit;
-        List<ProductVariant> productVariants = productVariantService.getAllProductVariant(limit,offset);
+        List<ProductVariant> productVariants = productVariantService.getAllProductVariant(limit, offset);
         request.setAttribute("currentIndex", index);
         request.setAttribute("numberPage", numberPage);
         request.setAttribute("productVariants", productVariants);
         request.getRequestDispatcher("/viewAdmin/manage_product.jsp").forward(request, response);
     }
-
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,7 +54,6 @@ public class ManageProductController extends HttpServlet {
                     if (isSuccess) {
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Xóa sản phẩm thành công");
-                        response.sendRedirect(request.getContextPath() + "/admin/product/manage_product");
                     } else {
                         request.getSession().setAttribute("status", false);
                         request.getSession().setAttribute("message", "Xóa sản phẩm thất bại");

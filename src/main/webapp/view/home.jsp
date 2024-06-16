@@ -2,7 +2,8 @@
 <%@ page import="model.Product" %>
 <%@ page import="config.Formater" %>
 <%@ page import="config.URLConfig" %>
-<%@ page import="dao.ProductDAO" %><%--
+<%@ page import="dao.ProductDAO" %>
+<%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2023-11-20
@@ -39,7 +40,6 @@
     }
 </style>
 <%
-
     Boolean status = (Boolean) session.getAttribute("status");
     String message = (String) session.getAttribute("message");
 %>

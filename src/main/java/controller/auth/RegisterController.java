@@ -1,6 +1,7 @@
 package controller.auth;
 
 import Utils.ValidationUtils;
+import dao.LoggingLogin;
 import service.EmailSender;
 import service.EmailService;
 import service.PasswordResetService;
@@ -52,21 +53,33 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            LoggingLogin loggingLogin = new LoggingLogin();
+            String lastIPLogin = req.getRemoteAddr();
+            String countryLoginByIp = loggingLogin.getCountryFromIP(lastIPLogin);
             String dobParam = req.getParameter("dob");
-
             Account user = new Account();
+            user.setEmail(req.getParameter("email"));
             user.setFirst_name(req.getParameter("first_name"));
             user.setLast_name(req.getParameter("last_name"));
-            user.setEmail(req.getParameter("email"));
-            user.setPhone_number(req.getParameter("phone_number"));
+            user.setPassword(req.getParameter("password"));
             user.setAddress(req.getParameter("address"));
             user.setGender(parseInt(req.getParameter("gender")));
-            user.setPassword(req.getParameter("password"));
+            user.setDob(Date.valueOf(dobParam));
+            user.setPhone_number(req.getParameter("phone_number"));
+            user.setRole("user");
+            user.setIs_active(0);
+            user.setLastIPLogin(lastIPLogin);
+            user.setCountryLoginByIp(countryLoginByIp);
             String re_password = req.getParameter("re-password");
+            System.out.print(user.getEmail());
+            System.out.print(user.getPassword());
             System.out.print(user.getFirst_name());
             System.out.print(user.getLast_name());
             System.out.print(user.getDob());
             System.out.print(user.getAddress());
+            System.out.print(user.getPhone_number());
+            System.out.print(user.getGender());
+
             List<String> errors = new ArrayList<>();
 
             if (!ValidationUtils.isValidEmail(user.getEmail())) {
@@ -103,7 +116,6 @@ public class RegisterController extends HttpServlet {
                 if (!user.getPassword().equals(re_password)) {
                     req.setAttribute("passwordNo", "Mật Khẩu Không Trùng Nhau Vui Lòng Nhập Lại");
                     hasErrors = true;
-
                 }
                 if (!userService.checkUserEmail(user.getEmail())) {
                     req.setAttribute("emailNotNull", "Email đã có người đăng ký");

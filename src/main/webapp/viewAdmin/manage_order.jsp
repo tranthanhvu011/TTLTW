@@ -37,6 +37,11 @@
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
 </head>
 <style>
@@ -183,28 +188,12 @@
 
         <!-- taskbar -->
         <div class="main-content-inner">
-            <div class="card-body" style="display: flex; justify-content: space-between">
-                <form id="formSearch" method="post">
-                    <div style="display: flex; padding-right: 15px">
-                        <input type="hidden" id="page" name="page" class="form-control">
-                        <label for="keyword" style="display: none"></label>
-                        <input type="text" id="keyword" name="keyword"
-                               class="form-control" placeholder="Search"
-                               style="margin-right: 5px; height: 35px;">
-                        <button type="button" id="btnSearch"
-                                class="btn btn-flat btn-outline-secondary mb-3" style="" onclick="onSubmitSearch()">
-                            Search
-                        </button>
-                    </div>
-                </form>
-            </div>
+
         </div>
 
         <!-- Table -->
-        <div class="single-table"
-             style="margin: 0px 30px; padding-bottom: 15px">
-            <div class="table-responsive">
-                <table class="table text-center">
+        <div class="single-table" style="width: 95%; margin: 0 auto">
+            <table id="example" class="table table-striped table-bordered" style="width: 100%">
                     <thead class="text-uppercase bg-primary">
                     <tr class="text-white">
                         <th scope="col">ID</th>
@@ -218,69 +207,51 @@
                         <th scope="col">Hành động</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <% for (OrderProductVariant o : list) {
-                        ProductVariant productVariant = o.getProductVariant();
-                        Order order = o.getOrder();
-                        InforTransport inforTransport = o.getInforTransport();
-                    %>
+
                     <form id="formEditStatus" method="post">
+                        <tbody>
+                        <% for (OrderProductVariant o : list) {
+                            ProductVariant productVariant = o.getProductVariant();
+                            Order order = o.getOrder();
+                            InforTransport inforTransport = o.getInforTransport();
+                        %>
                         <tr>
-                            <td><%= o.getId() %>
-                            </td>
-                            <td id="id_product_variant">
-                                <%= productVariant.getId()%>
-                            </td>
-                            <td><%= order.getId()%>
-                            </td>
-                            <td><%= o.getQuantity()%>
-                            </td>
-                            <td><%= inforTransport.getId()%>
-                            </td>
-                            <td><%= o.getBuy_at()%>
-                            </td>
-                            <td><%= o.getTotal_price()%>
-                            </td>
+                            <td><%= o.getId() %></td>
+                            <td id="id_product_variant"><%= productVariant.getId() %></td>
+                            <td><%= order.getId() %></td>
+                            <td><%= o.getQuantity() %></td>
+                            <td><%= inforTransport.getId() %></td>
+                            <td><%= o.getBuy_at() %></td>
+                            <td><%= o.getTotal_price() %></td>
                             <td>
-                                <label for="status" style="display: none"></label>
-                                <select class="form-control" name="status" id="status">
-                                    <option value="0">
-                                        Đã hủy
+                                <label for="status<%= o.getId() %>" style="display: none"></label>
+                                <select class="form-control" name="status<%= o.getId() %>" id="status<%= o.getId() %>">
+                                    <option value="<%= o.getStatus() %>">
+                                        <% if (o.getStatus() == 0) {%>Đã hủy<% } else if (o.getStatus() == 1) {%>Đang chuẩn bị hàng<% } else if (o.getStatus() == 2) {%>Đang giao hàng<% } else if (o.getStatus() == 3) {%>Đã giao hàng<% } %>
                                     </option>
-                                    <option value="1">
-                                        Đang chuẩn bị hàng
+                                    <% for (int i = 0; i < 4; i++) { %>
+                                    <% if (i == o.getStatus()) { continue; } %>
+                                    <option value="<%= i %>">
+                                        <% if (i == 0) {%>Đã hủy<% } else if (i == 1) {%>Đang chuẩn bị hàng<% } else if (i == 2) {%>Đang giao hàng<% } else if (i == 3) {%>Đã giao hàng<% } %>
                                     </option>
-                                    <option value="2">
-                                        Đang giao hàng
-                                    </option>
-                                    <option value="3">
-                                        Đã giao hàng
-                                    </option>
+                                    <% } %>
                                 </select>
                             </td>
-                            <script>
-                                document.getElementById('status').value =
-                                <%= o.getStatus()%>
-                            </script>
                             <td style="display: flex">
-                                <button type="button" class="btn btn-danger" style="margin-right: 5px"
-                                        onclick="openModalDeleteUser(<%=o.getId()%>)">Xoá
-                                </button>
-                                <button style="margin-right: 5px" class="btn btn-primary" type="button"
-                                        onclick="editStatus(<%=o.getId()%>)">
-                                    Cập nhật trạng thái
-                                </button>
-                                <button class="btn btn-primary" type="button" onclick="showDetail(<%=o.getId()%>)">
-                                    Chi tiet
-                                </button>
+                                <button type="button" class="btn btn-danger" style="margin-right: 5px" onclick="openModalDeleteUser(<%= o.getId() %>)">Xoá</button>
+                                <button style="margin-right: 5px" class="btn btn-primary" type="button" onclick="editStatus(<%= o.getId() %>)">Cập nhật trạng thái</button>
+                                <button class="btn btn-primary" type="button" onclick="showDetail(<%= o.getId() %>)">Chi tiet</button>
                             </td>
                         </tr>
+                        <% } %>
+                        </tbody>
                     </form>
-                    <%}%>
-                    </tbody>
+
                 </table>
-            </div>
         </div>
+        <script>
+            new DataTable('#example');
+        </script>
 
 
         <!-- Modal to notify delete order -->
@@ -370,10 +341,11 @@
 
     function editStatus(x) {
         var form = document.getElementById("formEditStatus");
-        form.action = "/admin/manage_order?action=editStatus&id=" + x;
+        var statusSelect = document.getElementById("status" + x);
+        var status = statusSelect.value;
+        form.action = "/admin/manage_order?action=editStatus&id=" + x + "&status=" + status;
         form.submit();
     }
-
     function showDetail(x) {
         var form = document.getElementById("formEditStatus");
         form.action = "/admin/manage_order?action=showDetail&id=" + x;

@@ -75,4 +75,21 @@ public class OrderProductVariantDB {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public OrderProductVariantDB() {
+    }
+
+    @Override
+    public String toString() {
+        return "OrderProductVariantDB{" +
+                "id=" + id +
+                ", product_variant_id=" + product_variant_id +
+                ", order_id=" + order_id +
+                ", quantity=" + quantity +
+                ", transport_id=" + transport_id +
+                ", buy_at=" + buy_at +
+                ", total_price=" + total_price +
+                ", status=" + status +
+                '}';
+    }
 }

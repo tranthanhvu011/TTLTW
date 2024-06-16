@@ -26,6 +26,11 @@
           rel="stylesheet" media="all">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
 <style>
     body {
@@ -150,27 +155,13 @@
 
         <!-- taskbar -->
         <div class="main-content-inner">
-            <div class="card-body" style="display: flex; justify-content: space-between">
-                <form id="formSearch" method="post">
-                    <div style="display: flex; padding-right: 15px">
-                        <input type="hidden" id="page" name="page" class="form-control">
-                        <label for="keyword" style="display: none"></label>
-                        <input type="text" id="keyword" name="keyword"
-                               class="form-control" placeholder="Search"
-                               style="margin-right: 5px; height: 35px;">
-                        <button type="button" id="btnSearch"
-                                class="btn btn-flat btn-outline-secondary mb-3" style="" onclick="onSubmitSearch()">
-                            Search
-                        </button>
-                    </div>
-                </form>
+
                 <div>
                     <button type="button" class="btn btn-primary" style="background-color: lawngreen"
                             data-toggle="modal" data-target="#modalRegisterManufacturer" onclick="openModalRegister()">
                         Thêm Mới
                     </button>
                 </div>
-            </div>
         </div>
 
 
@@ -212,10 +203,8 @@
         </div>
 
         <!-- Dark table start -->
-        <div class="single-table"
-             style="margin: 0 30px; padding-bottom: 15px">
-            <div class="table-responsive">
-                <table class="table text-center">
+        <div class="single-table" style="width: 95%; margin: 0 auto">
+            <table id="example" class="table table-striped table-bordered" style="width: 100%">
                     <thead class="text-uppercase bg-primary">
                     <tr class="text-white">
                         <th scope="col">ID</th>
@@ -243,10 +232,10 @@
                     <%}%>
                     </tbody>
                 </table>
-            </div>
         </div>
-
-
+        <script>
+            new DataTable('#example');
+        </script>
         <!-- Modal to alter user -->
         <%if(capacityEdit != null){%>
         <div class="modal" id="modalAlterManufacturer" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
