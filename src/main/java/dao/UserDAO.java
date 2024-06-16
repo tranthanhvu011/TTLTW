@@ -3,7 +3,8 @@ package dao;
 import config.JDBIConnector;
 import model.Account;
 import org.mindrot.jbcrypt.BCrypt;
-
+import java.sql.Date;
+import java.sql.SQLException;
 import javax.servlet.http.HttpServlet;
 import java.sql.*;
 import java.time.LocalDate;
@@ -168,13 +169,13 @@ public class UserDAO {
         );
     }
 
-//    public static void main(String[] args) {
-//        UserDAO userDAO = new UserDAO();
-//        try {
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void main(String[] args) {
+        UserDAO userDAO = new UserDAO();
+        try {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public int deleteUserById(int idUser) {
         String query = "DELETE FROM Accounts WHERE id = ?";

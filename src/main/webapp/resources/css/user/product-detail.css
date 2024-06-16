@@ -280,4 +280,46 @@ margin-left: 2%;
 .motachitiet ul li{
     background-color: white;
 }
-
+#comments{
+    background-color: white;
+}
+h5{
+    background-color: #F5F5FA;
+    padding: 10px;
+    margin-bottom: 0;
+}
+.comment_avatar{
+    border-radius: 50%;
+    max-width: 100%;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+#comment_textarea{
+    width: 100%;
+    min-height: 100px;
+    border-radius: 10px;
+    padding: 5px;
+}
+#comment_submit{
+    margin: 5px 0px;
+    padding: 3px;
+    width: 80px;
+}
+.comment_item{
+    padding: 15px;
+    border-radius: 10px;
+    border: #00000063 solid 1px;
+}
+.comment_item > p:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.comment_item > p:first-child a{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-weight: bold;
+}
