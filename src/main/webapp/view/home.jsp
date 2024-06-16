@@ -219,7 +219,6 @@
 
              if (tongSoTrang > 1) {
                  var html = '';
-
                  html += '<li class="page-item ' + (trangHienTai === 1 ? 'disabled' : '') + '">';
                  html += '<a class="page-link trang-truoc" href="#" aria-label="Previous">';
                  html += '<span aria-hidden="true">&laquo;</span>';
@@ -258,8 +257,6 @@
              updatePagination(data.length);
              hienThiSoSanPhamTrenTrang();
          }
-
-
          function buildProductHTML(item) {
              var s = '';
              s += '<div class="col-xs-12 col-md-3 col-lg-3 col-sm-6">';
