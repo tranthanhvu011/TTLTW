@@ -38,6 +38,37 @@
         font-size: 14px;
         font-family: Inter, Helvetica, Arial, sans-serif;
     }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .page-item {
+        margin: 0 0.25rem;
+    }
+
+    .page-item .page-link {
+        color: #007bff;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        text-decoration: none;
+    }
+
+    .page-item.active .page-link {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .page-item.disabled .page-link {
+        color: #6c757d;
+        pointer-events: none;
+        cursor: not-allowed;
+        background-color: #e9ecef;
+        border-color: #dee2e6;
+    }
+
 </style>
 <%
     Boolean status = (Boolean) session.getAttribute("status");
@@ -177,128 +208,135 @@
         </div>
     </div>
     <% List<Product> products = (List<Product>) request.getAttribute("products");%>
-    <script>
-        $(document).ready(function () {
-            $('input[name="price"]').click(function () {
-                var s = '';
-                var value = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: 'searchByPrice',
-                    data: {
-                        value : value
-                    },
+ <script>
+     $(document).ready(function ($) {
+         var soSanPhamTrenTrang = 16;
+         var trangHienTai = 1;
+         var pagination = $('#pagination');
 
-                    success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            s+= ' <div class="col-xs-12 col-md-3 col-lg-3 col-sm-6">';
-                            s+= '<div class="item-product" style="background-color: white;padding: 5px;border-radius: 7px"> <div class="thumb">';
-                            s+= '<a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"><img src="${pageContext.request.contextPath}/resources/assets/images/thumball/' + data[i].thumbnailURL + '" alt=""></a>';
-                            s+= '<div class="action">';
-                            s+= '<a href="${pageContext.request.contextPath}/payment" class="buy"><i class="fa fa-cart-plus"></i> Mua ngay</a>';
-                            s+= ' <a href="${pageContext.request.contextPath}/cart" class="like black_14_400"><i class="fa fa-heart"></i> Yêu thích</a>';
-                            s+= '<div class="clear"></div> </div> </div>';
-                            s+= ' <div class="info-product">';
-                            s+= '<h4><a> ' + data[i].name + ' </a></h4>';
-                            s+= '  <h6> Số Lượng Đã Bán: ' + data[i].sellQuantity + '  </h6>';
-                            s += '<div class="price">';
-                            s += '<span class="price-current">' + data[i].priceNew + '&#x20AB;</span>';
-                            if (!(data[i].priceNew == data[i].price)) {
-                                s += '<span class="price-old">' + data[i].price + '&#x20AB;</span>';
-                                // }else{
-                                //     s += '<span class="price-old">' + 0 + '&#x20AB;</span>';
-                            }
-                            s += '</div>';
-                            s+= ' <a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"class="view-more">Xem chi tiết</a>';
-                            s+= ' </div>  </div> </div>';
-                        }
-                        $('#product-container').html(s);
-                    }
-                });
-            });
-            $('input[name="brand"]').click(function () {
-                var s = '';
-                var value = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: 'searchByBrand',
-                    data: {
-                        value : value
-                    },
-                    success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            s+= ' <div class="col-xs-12 col-md-3 col-lg-3 col-sm-6">';
-                            s+= '<div class="item-product" style="background-color: white;padding: 5px;border-radius: 7px"> <div class="thumb">';
-                            s+= '<a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"><img src="${pageContext.request.contextPath}/resources/assets/images/thumball/' + data[i].thumbnailURL + '" alt=""></a>';
-                            s+= '<div class="action">';
-                            s+= '<a href="${pageContext.request.contextPath}/payment" class="buy"><i class="fa fa-cart-plus"></i> Mua ngay</a>';
-                            s+= ' <a href="${pageContext.request.contextPath}/cart" class="like black_14_400"><i class="fa fa-heart"></i> Yêu thích</a>';
-                            s+= '<div class="clear"></div> </div> </div>';
-                            s+= ' <div class="info-product">';
-                            s+= '<h4><a> ' + data[i].name + ' </a></h4>';
-                            s+= '  <h6> Số Lượng Đã Bán: ' + data[i].sellQuantity + '  </h6>';
-                            s += '<div class="price">';
-                            s += '<span class="price-current">' + data[i].priceNew + '&#x20AB;</span>';
-                            if (!(data[i].priceNew == data[i].price)) {
-                                s += '<span class="price-old">' + data[i].price + '&#x20AB;</span>';
-                                // }else{
-                                //     s += '<span class="price-old">' + 0 + '&#x20AB;</span>';
-                            }
-                            s+= '</div>';
-                            s+= ' <a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"class="view-more">Xem chi tiết</a>';
-                            s+= ' </div>  </div> </div>';
-                        }
-                        $('#product-container').html(s);
-                    }
-                });
-            });
+         function updatePagination(tongSanPham) {
+             var tongSoTrang = Math.ceil(tongSanPham / soSanPhamTrenTrang);
+             pagination.find('.pagination').empty(); // Clear existing pagination
 
-            <%--<div className="price">--%>
-            <%--    <span className="price-current"><%=Formater.formatCurrency(p.getNewPrice())%>&#x20AB;</span>--%>
-            <%--    <%if (!(p.getNewPrice() == p.getPrice())) {%>--%>
-            <%--    <span className="price-old"><%=Formater.formatCurrency(p.getPrice())%>&#x20AB;</span>--%>
-            <%--    <%}%>--%>
-            <%--</div>--%>
-            $('.img-Company').click(function () {
-                var s = '';
-                var value = $(this).attr('data-id');
-                $.ajax({
-                    type: 'GET',
-                    url: 'searchByBrand',
-                    data: {
-                        value : value
-                    },
-                    success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            s+= ' <div class="col-xs-12 col-md-3 col-lg-3 col-sm-6">';
-                            s+= '<div class="item-product" style="background-color: white;padding: 5px;border-radius: 7px"> <div class="thumb">';
-                            s+= '<a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"><img src="${pageContext.request.contextPath}/resources/assets/images/thumball/' + data[i].thumbnailURL + '" alt=""></a>';
-                            s+= '<div class="action">';
-                            s+= '<a href="${pageContext.request.contextPath}/payment" class="buy"><i class="fa fa-cart-plus"></i> Mua ngay</a>';
-                            s+= ' <a href="${pageContext.request.contextPath}/cart" class="like black_14_400"><i class="fa fa-heart"></i> Yêu thích</a>';
-                            s+= '<div class="clear"></div> </div> </div>';
-                            s+= ' <div class="info-product">';
-                            s+= '<h4><a> ' + data[i].name + ' </a></h4>';
-                            s+= '  <h6> Số Lượng Đã Bán: ' + data[i].sellQuantity + '  </h6>';
-                            s += '<div class="price">';
-                            s += '<span class="price-current">' + data[i].priceNew + '&#x20AB;</span>';
-                            if (data[i].priceNew != data[i].price) {
-                                s += '<span class="price-old">' + data[i].price + '&#x20AB;</span>';
-                                // }else{
-                                //     s += '<span class="price-old">' + 0 + '&#x20AB;</span>';
+             if (tongSoTrang > 1) {
+                 var html = '';
 
-                            }
-                            s += '</div>';
-                            s+= ' <a href="${pageContext.request.contextPath}/product-detail?id=' + data[i].id + '"class="view-more">Xem chi tiết</a>';
-                            s+= ' </div>  </div> </div>';
-                        }
-                        $('#product-container').html(s);
-                    }
-                });
-            });
-        });
+                 html += '<li class="page-item ' + (trangHienTai === 1 ? 'disabled' : '') + '">';
+                 html += '<a class="page-link trang-truoc" href="#" aria-label="Previous">';
+                 html += '<span aria-hidden="true">&laquo;</span>';
+                 html += '<span class="sr-only">Previous</span>';
+                 html += '</a></li>';
 
-    </script>
+                 for (let i = 1; i <= tongSoTrang; i++) {
+                     html += '<li class="page-item ' + (i === trangHienTai ? 'active' : '') + '">';
+                     html += '<a class="page-link chon-trang" data-page="' + i + '" href="#">' + i + '</a>';
+                     html += '</li>';
+                 }
+
+                 html += '<li class="page-item ' + (trangHienTai === tongSoTrang ? 'disabled' : '') + '">';
+                 html += '<a class="page-link trang-sau" href="#" aria-label="Next">';
+                 html += '<span aria-hidden="true">&raquo;</span>';
+                 html += '<span class="sr-only">Next</span>';
+                 html += '</a></li>';
+
+                 pagination.find('.pagination').html(html);
+                 pagination.show();
+             } else {
+                 pagination.hide();
+             }
+         }
+         function hienThiSoSanPhamTrenTrang() {
+             var startIndex = (trangHienTai - 1) * soSanPhamTrenTrang;
+             var endIndex = startIndex + soSanPhamTrenTrang;
+             $('#product-container .item-product').hide().slice(startIndex, endIndex).show();
+         }
+         function handleSearch(data) {
+             var s = '';
+             $.each(data, function (i, item) {
+                 s += buildProductHTML(item);
+             });
+             $('#product-container').html(s);
+             updatePagination(data.length);
+             hienThiSoSanPhamTrenTrang();
+         }
+
+
+         function buildProductHTML(item) {
+             var s = '';
+             s += '<div class="col-xs-12 col-md-3 col-lg-3 col-sm-6">';
+             s += '<div class="item-product" style="background-color: white; padding: 5px; border-radius: 7px">';
+             s += '<div class="thumb">';
+             s += '<a href="${pageContext.request.contextPath}/product-detail?id=' + item.id + '">';
+             s += '<img src="${pageContext.request.contextPath}/resources/assets/images/thumball/' + item.thumbnailURL + '" alt=""></a>';
+             s += '<div class="action">';
+             s += '<a href="${pageContext.request.contextPath}/payment" class="buy"><i class="fa fa-cart-plus"></i> Mua ngay</a>';
+             s += '<a href="${pageContext.request.contextPath}/cart" class="like black_14_400"><i class="fa fa-heart"></i> Yêu thích</a>';
+             s += '<div class="clear"></div>';
+             s += '</div>';
+             s += '</div>';
+             s += '<div class="info-product">';
+             s += '<h4><a>' + item.name + '</a></h4>';
+             s += '<h6> Số Lượng Đã Bán: ' + item.sellQuantity + '</h6>';
+             s += '<div class="price">';
+             s += '<span class="price-current">' + item.priceNew + '&#x20AB;</span>';
+             if (item.priceNew != item.price) {
+                 s += '<span class="price-old">' + item.price + '&#x20AB;</span>';
+             }
+             s += '</div>'; // Close price
+             s += '<a href="${pageContext.request.contextPath}/product-detail?id=' + item.id + '" class="view-more">Xem chi tiết</a>';
+             s += '</div>';
+             s += '</div>';
+             s += '</div>';
+             return s;
+         }
+
+
+         $(document).on('click', '.page-link', function (e) {
+             e.preventDefault();
+             var $this = $(this);
+             var newPage = parseInt($this.data('page'));
+
+             if ($this.hasClass('trang-truoc')) {
+                 newPage = Math.max(1, trangHienTai - 1);
+             } else if ($this.hasClass('trang-sau')) {
+                 var maxPage = Math.ceil($('#product-container .item-product').length / soSanPhamTrenTrang);
+                 newPage = Math.min(maxPage, trangHienTai + 1);
+             }
+
+             if (newPage !== trangHienTai) {
+                 trangHienTai = newPage;
+                 updatePagination($('#product-container .item-product').length);
+                 hienThiSoSanPhamTrenTrang();
+                 $('html, body').animate({ scrollTop: $('#product-container').offset().top }, '600'); // Scroll to the top of the product container
+
+             }
+         });
+         var dataAll = $('#product-container .item-product').length;
+         updatePagination(dataAll);
+         hienThiSoSanPhamTrenTrang();
+         $('input[name="price"], input[name="brand"], .img-Company').click(function () {
+             var value = $(this).val() || $(this).attr('data-id');
+             var url = $(this).hasClass('img-Company') ? 'searchByBrand' : ($(this).attr('name') === 'price' ? 'searchByPrice' : 'searchByBrand');
+             trangHienTai = 1;
+             $.ajax({
+                 type: 'GET',
+                 url: url,
+                 data: { value: value },
+                 success: function (data) {
+                     handleSearch(data);
+                     $('html, body').animate({ scrollTop: $('#product-container').offset().top }, '600'); // Scroll to the top of the product container
+
+                 }
+             });
+         });
+
+         $('.bar-menu').click(function (event) {
+             $(this).next('.list-child').slideToggle(300);
+         });
+     });
+
+ </script>
+
     <div class="product-box">
         <div class="container">
             <div class="row">
@@ -465,7 +503,6 @@
 </div>
 <div id="fb-root"></div>
 <%@include file="/common/footer.jsp" %>
-<script src="../resources/js/user/main.js"></script>
 <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0"></script>
 <%@include file="/common/libraries_js.jsp" %>
