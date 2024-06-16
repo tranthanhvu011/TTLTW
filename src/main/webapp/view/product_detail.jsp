@@ -49,6 +49,51 @@
         padding: 0; /* Đảm bảo không có padding không cần thiết */
     }
 
+    #comments{
+        background-color: white;
+        border-radius: 10px;
+    }
+    h5{
+        background-color: #F5F5FA;
+        padding: 10px;
+        margin-bottom: 0;
+    }
+    .comment_avatar{
+        border-radius: 50%;
+        max-width: 100%;
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+    }
+    #comment_textarea{
+        width: 100%;
+        min-height: 100px;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    #comment_submit{
+        margin: 5px 0px;
+        padding: 3px;
+        width: 80px;
+    }
+    .comment_item{
+        padding: 15px;
+        border-radius: 10px;
+        border: #00000063 solid 1px;
+        margin-bottom: 10px;
+    }
+    .comment_item > p:first-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+    }
+    .comment_item > p:first-child a{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        font-weight: bold;
+    }
 </style>
 <body>
 <%@include file="/common/header.jsp" %>
@@ -476,6 +521,37 @@
             <div class="motachitiet border_gr_bg_white" style="padding: 10px;margin-top: 10px;background-color: white">
                 <div class="container">
                     <%= firstVariant.getProduct().getDescription()%>
+                </div>
+            </div>
+            <h5>Bình luận (2)</h5>
+            <div id="comments">
+                <div class="comment_input">
+                    <textarea
+                    id="comment_textarea"
+                    placeholder="Bình luận của bạn"></textarea>
+                    <button id="comment_submit">Gửi</button>
+                </div>
+                <div class="comment_wrapper">
+                    <div class="comment_item">
+                        <p>
+                            <a>
+                                <img class="comment_avatar" src="/resources/assets/images/elonmusk.jpg">
+                                <span>Username</span>
+                            </a>
+                            <span>16/06/2024 | 12:28 PM</span>
+                        </p>
+                        <p>Sản phẩm tốt, tôi rất thích.</p>
+                    </div>
+                    <div class="comment_item">
+                        <p>
+                            <a>
+                                <img class="comment_avatar" src="/resources/assets/images/elonmusk.jpg">
+                                <span>Username</span>
+                            </a>
+                            <span>16/06/2024 | 12:28 PM</span>
+                        </p>
+                        <p>Tôi rất hài lòng với điện thoại này. Thiết kế đẹp mắt, màn hình OLED 6.5 inch cực kỳ sắc nét, và hiệu năng mạnh mẽ nhờ chip Snapdragon 888. Camera 108MP chụp ảnh rất rõ nét, ngay cả trong điều kiện ánh sáng yếu. Thời lượng pin lâu, sạc nhanh 65W là một điểm cộng lớn. Tuy nhiên, kích thước khá lớn và giá thành cao có thể là điểm trừ với một số người. Tổng thể, đây là một sản phẩm tuyệt vời, đáng để đầu tư.</p>
+                    </div>
                 </div>
             </div>
         </div>
