@@ -8,10 +8,16 @@
 <%Cart cart = (Cart) session.getAttribute("cart");
 if (cart==null) cart = new Cart();
 %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <header>
-
-
+    <%
+        String lang = "vi"; // Ngôn ngữ mặc định
+        if (session.getAttribute("lang") != null) {
+            lang = (String) session.getAttribute("lang");
+        }
+        request.setAttribute("javax.servlet.jsp.jstl.fmt.locale.request", lang);
+    %>
     <script>
         var contextPath = "${pageContext.request.contextPath}";
         $(document).ready(function () {
@@ -31,12 +37,17 @@ if (cart==null) cart = new Cart();
 
     </script>
     <div class="main-header" style="background-color: white">
+
         <div class="container">
             <div class="row">
-                <div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-0 order-0">
+                <div class="col-6 col-xs-6 col-sm-5 col-md-3 col-lg-3 order-md-0 order-0">
                     <div class="logo">
                         <a href="${pageContext.request.contextPath}/home"><img src="../resources/assets/images/logo.png" alt=""></a>
-                        <h1>Website bán hàng</h1>
+                        <fmt:setLocale value="${lang}" scope="session" />
+                        <fmt:bundle basename="messages">
+                            <h1>
+                                <fmt:message key="website" /></h1>
+                        </fmt:bundle>
                     </div>
                 </div>
                 <div class="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 order-md-1 order-2">
@@ -60,9 +71,11 @@ if (cart==null) cart = new Cart();
                             <span id="quantity-cart"><%=cart.getTotal()%></span>
                         </div>
                         <div style="width: 80px;text-align: center" class="info-cart">
-                            <p id="gioHang"
-                               style="color: #808089;font-weight: 400;font-size: 14px;line-height: 150%;background-color: unset">
-                                Giỏ hàng</p>
+                            <fmt:setLocale value="${lang}" scope="session" />
+                            <fmt:bundle basename="messages">
+                                <p id="gioHang" style="color: #808089; font-weight: 400; font-size: 14px; line-height: 150%; background-color: unset">
+                                    <fmt:message key="cart" /></p>
+                            </fmt:bundle>
                         </div>
                     </a>
                     <a style="display: flex; flex-direction: column"
@@ -75,9 +88,12 @@ if (cart==null) cart = new Cart();
                         %>
                         <div style="width: 80px; text-align: center" class="info-cart">
                             <% if (accountName == null) { %>
-                            <p id="taiKhoan"
-                               style="color: #808089; font-weight: 400; font-size: 14px; line-height: 150%; background-color: unset">
-                                Tài Khoản</p>
+
+                            <fmt:setLocale value="${lang}" scope="session" />
+                            <fmt:bundle basename="messages">
+                                <p  style="color: #808089; font-weight: 400; font-size: 14px; line-height: 150%; background-color: unset">
+                                    <fmt:message key="account" /></p>
+                            </fmt:bundle>
                             <% } else { %>
                             <p id="taiKhoan"
                                style="color: #808089; font-weight: 400; font-size: 14px; line-height: 150%; background-color: unset">
@@ -86,30 +102,95 @@ if (cart==null) cart = new Cart();
                             <% } %>
                         </div>
                     </a>
-
-                    <span class="clear"></span>
+                    <a style="display: flex;flex-direction: column"
+                       href="${pageContext.request.contextPath}/home?lang=en" class="icon-cart">
+                        <div class="icon">
+                           <img style="width: 20px; height: 20px " src="../resources/assets/icon/5619782.png">
+                        </div>
+                        <div style="width: 80px;text-align: center" class="info-cart">
+                            <p id="english"
+                               style="color: #808089;font-weight: 400;font-size: 14px;line-height: 150%;background-color: unset">
+                                English</p>
+                        </div>
                     </a>
-
+                    <a style="display: flex;flex-direction: column"
+                       href="${pageContext.request.contextPath}/home?lang=vi" class="icon-cart">
+                        <div class="icon">
+                            <img style="width: 20px; height: 20px " src="../resources/assets/icon/323319.png">
+                        </div>
+                        <div style="width: 80px;text-align: center" class="info-cart">
+                            <fmt:setLocale value="${lang}" scope="session" />
+                            <fmt:bundle basename="messages">
+                                <p  id="vietnamese" style="color: #808089; font-weight: 400; font-size: 14px; line-height: 150%; background-color: unset">
+                                    <fmt:message key="language" /></p>
+                            </fmt:bundle>
+                        </div>
+                    </a>
                 </div>
+
             </div>
+
         </div>
     </div>
     <div class="main-menu-header">
         <div class="container">
             <div id="nav-menu">
                 <ul>
-                    <li><a href="/home">Trang chủ</a></li>
-                    <li><a href="${pageContext.request.contextPath}/view/introduce.jsp">Giới Thiệu</a></li>
                     <li>
-                        <a href="#">Sản phẩm</a>
+                        <fmt:setLocale value="${lang}" scope="session" />
+                        <fmt:bundle basename="messages">
+                            <a href="/home" >
+                                <fmt:message key="home" /></a>
+                        </fmt:bundle>
+                    <li>
+                    <fmt:setLocale value="${lang}" scope="session" />
+                    <fmt:bundle basename="messages">
+                        <a href="${pageContext.request.contextPath}/view/introduce.jsp">
+                            <fmt:message key="introduce" /></a>
+                    </fmt:bundle>
+                </li>
+                    <li>
+                        <fmt:setLocale value="${lang}" scope="session" />
+                        <fmt:bundle basename="messages">
+                            <a>
+                                <fmt:message key="product" /></a>
+                        </fmt:bundle>
                         <ul>
-                            <li><a href="#">Sản Phẩm Mới Ra Mắt</a></li>
-                            <li><a href="#">Sản Phẩm Đang Khuyễn Mãi</a></li>
-                            <li><a href="#">Sản Phẩm Giảm Giá</a></li>
+                            <li>
+                                <fmt:setLocale value="${lang}" scope="session" />
+                                <fmt:bundle basename="messages">
+                                    <a>
+                                        <fmt:message key="newproductlaunch" /></a>
+                                </fmt:bundle>
+                            </li>
+                            <li>
+                                <fmt:setLocale value="${lang}" scope="session" />
+                                <fmt:bundle basename="messages">
+                                    <a>
+                                        <fmt:message key="promotionalproducts" /></a>
+                                </fmt:bundle>
+                            </li>
+                            <li>  <fmt:setLocale value="${lang}" scope="session" />
+                                <fmt:bundle basename="messages">
+                                    <a>
+                                        <fmt:message key="discountproducts" /></a>
+                                </fmt:bundle></li>
                         </ul>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/page/news">Tin tức</a></li>
-                    <li><a href="${pageContext.request.contextPath}/view/contact.jsp">Liên hệ</a></li>
+                    <li>
+                        <fmt:setLocale value="${lang}" scope="session" />
+                        <fmt:bundle basename="messages">
+                            <a href="${pageContext.request.contextPath}/page/news">
+                                <fmt:message key="news" /></a>
+                        </fmt:bundle>
+                      </li>
+                    <li>
+                        <fmt:setLocale value="${lang}" scope="session" />
+                        <fmt:bundle basename="messages">
+                            <a href="${pageContext.request.contextPath}/view/contact.jsp">
+                                <fmt:message key="contact"/></a>
+                        </fmt:bundle>
+                    </li>
                 </ul>
                 <div class="clear"></div>
             </div>

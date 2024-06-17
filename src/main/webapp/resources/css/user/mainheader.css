@@ -76,7 +76,7 @@ header .main-header .form-seach-product .input-seach input {
     height: 35px;
     width: 60%; /* Đặt chiều rộng của input là 70% */
     border: 1px solid #2196f3;
-    padding-right: 20px; /* Điều chỉnh padding nếu cần */
+    padding-right: 10px; /* Điều chỉnh padding nếu cần */
     box-shadow: none;
     background: #fff;
     font-size: 14px;
@@ -91,7 +91,7 @@ header .main-header .form-seach-product .input-seach button {
     color: #fff; /* Màu chữ cho button */
     border-radius: 0 5px 5px 0; /* Chỉ làm tròn các góc bên phải */
     cursor: pointer;
-    margin-left: 3; /* Đẩy button sang phải */
+    margin-left: 2; /* Đẩy button sang phải */
 }
 
 
