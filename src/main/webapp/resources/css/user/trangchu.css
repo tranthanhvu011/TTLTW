@@ -1,3 +1,6 @@
+body{
+    overflow: hidden;
+}
 .companyMenu {
     margin: 10px 0 30px;
 }

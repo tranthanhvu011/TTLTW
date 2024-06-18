@@ -94,6 +94,19 @@
         align-items: center;
         font-weight: bold;
     }
+    .hinhanh{
+        height: 70px;
+        padding: 5px;
+        border: 1px solid #989696;
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        margin-right: 5px;
+        align-items: center;
+        justify-content: center;
+        /* align-content: center; */
+        flex-wrap: nowrap;
+    }
 </style>
 <body>
 <%@include file="/common/header.jsp" %>
@@ -264,10 +277,10 @@
                         <div class="hinhanh">
                             <span id="colorID" hidden="hidden"><%= colorDAO.findColorByName(colorName).getId()%></span>
                             <input type="hidden" value="<%= productID1 %>" id="productID">
-                            <img style="height: 20px"
+                            <img style="height: 40px"
                                  src="${pageContext.request.contextPath}/<%=URLConfig.URL_SAVE_IMAGE%>/<%=imageUrl.trim()%>"
                                  alt="<%= colorName %>">
-                            <span class="black_14_400" style="font-size: 12px;margin-left: 5px"> <%= colorName %></span>
+                            <span class="black_14_400" style="font-size: 12px;margin-left: 0px"><%=colorName%></span>
                         </div>
                         <% } %>
                     </div>
@@ -277,9 +290,9 @@
                             <% List<String> capacities = (List<String>) request.getAttribute("capacities");
                                 for (String capa : capacities) {
                             %>
-                            <div class="dl 64gb">
+                            <div class="dl 64gb" style="display: flex; background-color: #dcd9d9; border-radius: 5px; padding: 5px; margin-right: 5px; align-items: center;">
                                 <input type="radio" id="option1" name="options" value="<%=capa%>">
-                                <label for="option1"><%=capa%>
+                                <label for="option1" style="margin-bottom: 0px; margin-right: 10px"><%=capa%>
                                 </label>
                             </div>
                             <% }%>
@@ -559,11 +572,11 @@
             .
             <div class="hinhanh" style="border: none;height: 150%;">
 
-                <img id="currentImage" style="width: 50px; height: 50px;"
+                <img id="currentImage" style="height: 100px;"
                      src="${pageContext.request.contextPath}/<%=URLConfig.URL_SAVE_IMAGE%>/<%=firstVariant.getProductImages().get(0).getImage_url() %>"
                      alt="">
                 <span id="currentColor"
-                      style="margin-top: 15%;margin-left: 5px;"> <%= firstVariant.getColor().getName() %></span>
+                      style="margin-top: 15%;margin-left: 0px;"> <%= firstVariant.getColor().getName() %></span>
             </div>
             <input type="hidden" id="quantity" value="<%=listproduct.get(0).getProduct().getRemaningQuantity()%>">
             <div class="soluong">

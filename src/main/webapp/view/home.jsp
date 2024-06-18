@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/mainheader.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/responsive.css">
     <script src="${pageContext.request.contextPath}/resources/libs/jquery-3.4.1.min.js"></script>
+    <%@include file="/common/libraries.jsp" %>
 </head>
 <style>
     body {
@@ -76,7 +77,7 @@
     String message = (String) session.getAttribute("message");
 %>
 
-<body>
+<body style="overflow-x: hidden">
 
 <% if (status != null && status) {%>
 <div class="toast">

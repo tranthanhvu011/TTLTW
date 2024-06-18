@@ -56,18 +56,18 @@ if (cart==null) cart = new Cart();
                             <div class="input-seach">
                                 <input id="autocomplete" class="form-control"
                                        placeholder="Nhập tên điện thoại cần tìm">
-                                <button type="submit" class="btn-search-pro"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn-search-pro" style="display: flex;margin-left: 0;align-items: center;justify-content: center;"><i class="fa fa-search"></i></button>
                             </div>
                         </form>
                         <div class="clearfix"></div> <!-- Đã thay đổi class để clear float -->
                     </div>
                 </div>
                 <div class="col-6 col-xs-6 col-sm-6 col-md-3 col-lg-3 order-md-2 order-1"
-                     style="text-align: right; display: flex;">
+                     style="text-align: right; display: flex; align-items: flex-end; right: 0;">
                     <a style="display: flex;flex-direction: column"
                        href="${pageContext.request.contextPath}/cart?action=view-cart" class="icon-cart">
                         <div class="icon">
-                            <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #808089"></i>
+                            <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #808089; font-size: 20px;"></i>
                             <span id="quantity-cart"><%=cart.getTotal()%></span>
                         </div>
                         <div style="width: 80px;text-align: center" class="info-cart">
@@ -81,7 +81,7 @@ if (cart==null) cart = new Cart();
                     <a style="display: flex; flex-direction: column"
                        href="${pageContext.request.contextPath}/user/info-account" class="icon-cart">
                         <div class="icon">
-                            <i class="fa fa-user" aria-hidden="true" style="color: #808089"></i>
+                            <i class="fa fa-user" aria-hidden="true" style="color: #808089; font-size: 20px"></i>
                         </div>
                         <%
                             String accountName = (String) session.getAttribute("nameAccount");
