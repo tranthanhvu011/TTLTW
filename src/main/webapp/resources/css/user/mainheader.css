@@ -91,7 +91,6 @@ header .main-header .form-seach-product .input-seach button {
     color: #fff; /* Màu chữ cho button */
     border-radius: 0 5px 5px 0; /* Chỉ làm tròn các góc bên phải */
     cursor: pointer;
-    margin-left: 2; /* Đẩy button sang phải */
 }
 
 
@@ -670,7 +669,7 @@ footer .copyright p {
 .img-Company {
     min-width: 130px;
     border-radius: 10px;
-    padding: 5;
+    padding: 5px;
     transition: background-color 0.5s, transform 0.5s;
     cursor: pointer;
 }

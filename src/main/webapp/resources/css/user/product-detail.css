@@ -33,11 +33,17 @@ margin-left: 2%;
     display: flex;
 }
 .hinhanh{
-    height: 30px;
-    padding: 3px;
-    display: contents;
+    height: 70px;
+    padding: 5px;
     border: 1px solid #989696;
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 5px;
+    align-items: center;
+    justify-content: center;
+    /* align-content: center; */
+    flex-wrap: nowrap;
 }
 .chonmau .mau .hinhanh:hover{
     border: 2px solid blue;
