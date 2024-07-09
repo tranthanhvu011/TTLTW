@@ -114,17 +114,20 @@
 <div class="container" style="margin-bottom: 50px;margin-top: 50px">
     <div class="card card-4" style="width: 550px">
         <div class="card-body">
-            <h2 class="title" style="background-color: white">Đăng nhập</h2>
+            <fmt:setLocale value="${lang}" scope="session" />
+            <fmt:bundle basename="messages">
+            <h2 class="title" style="background-color: white"><fmt:message key="Login"/></h2>
             <form id="login-form" method="post" action="${pageContext.request.contextPath}/login">
                 <div class="row row-space">
+
                     <div class="input-group" style="width: 100%">
-                        <label class="label">Tên đăng nhập</label>
+                        <label class="label"><fmt:message key="username"/></label>
                         <input class="input--style-4" type="text" name="email" id="email" required>
                     </div>
                 </div>
                 <div class="row row-space">
                     <div class="input-group" style="width: 100%">
-                        <label class="label">Mật khẩu</label>
+                        <label class="label"><fmt:message key="Password"/></label>
                         <input class="input--style-4 mb-1" type="password" id="pass" name="password" required
                                style="width: 100%">
                         <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
@@ -133,11 +136,10 @@
                 <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
                 <div style="color: red" id="captchaError"></div>
                 <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
-                    <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
-                        khẩu?</a>
+                    <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1"><fmt:message key="Forgotpassword"/></a>
                 </div>
                 <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
+                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%"><fmt:message key="Login"/></button>
                 </div>
             </form>
             <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
@@ -151,7 +153,7 @@
             <div>
                 <div class="row-space" style="display: flex;align-items: center;padding-bottom: 14px;margin-top: 25px">
                     <div class="line"></div>
-                    <span class="txt1" style="margin: 0px 20px 0px 20px;color: #dbdbdb">HOẶC</span>
+                    <span class="txt1" style="margin: 0px 20px 0px 20px;color: #dbdbdb"><fmt:message key="Or"/></span>
                     <div class="line"></div>
                 </div>
                 <div class="row" style="margin-top: 20px;justify-content: space-between">
@@ -163,21 +165,20 @@
                     </div>
                     <div class="col-4">
 <%--                        <button href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force" class="btn-google m-b-20" id="google">--%>
-<%--                            <img src="../resources/assets/icon/google_icon.png" alt="GOOGLE">--%>
 <%--                            Google--%>
 <%--                        </button>--%>
     <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force">
-        Login With Google</a>
+        <img style="width: 50%" src="../resources/assets/icon/google_icon.png" alt="GOOGLE"></a>
                     </div>
                 </div>
             </div>
             <div class="p-t-55" style="width: 100%">
-                <span class="txt1" style="float: unset;font-size: 16px">Bạn chưa có tài khoản?</span>
+                <span class="txt1" style="float: unset;font-size: 16px"><fmt:message key="Donothaveanaccount?Registernow"/></span>
                 <a href="${pageContext.request.contextPath}/register?action=register" class="txt1"
-                   style="float: unset;font-size: 16px;text-decoration: underline">Đăng
-                    ký
-                    ngay</a>
+                   style="float: unset;font-size: 16px;text-decoration: underline"><fmt:message key="Registernow"/>
+                    </a>
             </div>
+            </fmt:bundle>
         </div>
     </div>
 </div>

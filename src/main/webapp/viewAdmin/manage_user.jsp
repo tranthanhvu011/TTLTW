@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Account" %>
+<%@ page import="dao.UserDAO" %>
 <%@include file="/common/taglib.jsp" %>
 <%--
   Created by IntelliJ IDEA.
@@ -67,6 +68,8 @@
     String message = (String) session.getAttribute("message");
     int numberPage = (int) request.getAttribute("numberPage");
     int currentIndex = (int) request.getAttribute("currentIndex");
+    UserDAO userDAO = new UserDAO();
+
 %>
 <body>
 <h1>${pageContext.request.contextPath}</h1>
@@ -357,9 +360,15 @@
                             <a class="btn btn-primary" href="/admin/user/manage_user?id=<%=user.getId()%>&action=alter">
                                 Sửa
                             </a>
+                            <% if (userDAO.countUserInOrders(user.getId()) > 0) {%>
+                            <button class="btn btn-warning">
+                                Không Thể Xóa
+                            </button>
+                            <% }else{%>
                             <button class="btn btn-danger" onclick="openModalDeleteUser(<%=user.getId()%>)">
                                 Xóa
                             </button>
+                            <%}%>
                         </td>
                     </tr>
                     <%}%>

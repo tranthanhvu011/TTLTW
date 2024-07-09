@@ -11,38 +11,42 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="box-footer info-contact">
-                    <h3 class="white_16_500">Thông tin liên hệ</h3>
+                    <fmt:setLocale value="${lang}" scope="session" />
+                    <fmt:bundle basename="messages">
+                    <h3 class="white_16_500"><fmt:message key="CONTACTINFO"/></h3>
                     <div class="content-contact">
-                        <p class="white_13_400" style="font-size: 17px">Website chuyên cung cấp thiết bị điện tử hàng đầu Việt Nam</p>
+                        <p class="white_13_400" style="font-size: 17px"><fmt:message key="WebsitespecializinginprovidingleadingelectronicequipmentinVietnam"/></p>
                         <p>
-                            <strong class="white_13_400">Địa chỉ:</strong> 203 Linh Trung, Thủ Đức, Tp.HCM
+                            <strong class="white_13_400"><fmt:message key="Address"/>: </strong> 203 Linh Trung, Thủ Đức, Tp.HCM
                         </p>
                         <p>
                             <strong class="white_13_400">Email: </strong> nhom4store@gmail.com
                         </p>
                         <p>
-                            <strong class="white_13_400">Điện thoại: </strong> 0836452145
+                            <strong class="white_13_400"><fmt:message key="Phone"/>: </strong> 0836452145
                         </p>
                         <p>
                             <strong class="white_13_400">Website: </strong> https://nhom4store.com
                         </p>
+
+
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="box-footer info-contact">
-                    <h3 class="white_16_500">Thông tin khác</h3>
+                    <h3 class="white_16_500"><fmt:message key="OTHERINFORMATION"/></h3>
                     <div class="content-list">
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách bảo hành</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> Chính sách đổi trả</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i> <fmt:message key="WarrantyPolicy"/></a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i> <fmt:message key="Returnpolicy"/></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div class="box-footer info-contact">
-                    <h3 class="white_16_500">THÔNG TIN PHẢN HỒI</h3>
+                    <h3 class="white_16_500"><fmt:message key="FEEDBACK"/></h3>
                     <div class="content-contact">
                         <form action="/" method="GET" role="form">
                             <div class="row">
@@ -61,8 +65,10 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <textarea name="" id="submit_form" cols="30" rows="10" class="form-control"></textarea>
                                 </div>
+
                             </div>
-                            <button type="submit" class="btn-contact">Liên hệ ngay</button>
+                            <button type="submit" class="btn-contact"><fmt:message key="Contactnow"/></button>
+                            </fmt:bundle>
                         </form>
                     </div>
                 </div>

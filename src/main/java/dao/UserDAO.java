@@ -184,6 +184,16 @@ public class UserDAO {
                         bind(0, idUser).
                         execute());
     }
+    public int countUserInOrders(int idAccount) {
+        String query = "SELECT count(*) FROM orders WHERE account_id = ?";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind(0, idAccount)
+                        .mapTo(int.class)
+                        .findOnly()
+        );
+    }
+
 
     public List<Account> searchUserWithCondition(String keyword) {
 
