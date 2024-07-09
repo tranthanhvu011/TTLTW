@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/mainheader.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/responsive.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin/slide_show.css">
     <script src="${pageContext.request.contextPath}/resources/libs/jquery-3.4.1.min.js"></script>
     <%@include file="/common/libraries.jsp" %>
 </head>
@@ -128,14 +127,18 @@
 <%@include file="/common/header.jsp" %>
 <div id="content">
     <div class="container">
-        <div class="slider" style="width: auto; height: auto">
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="position: relative; opacity: 1; transition: opacity 1s; width: auto; height: auto; margin-top: 0;">
+        <div class="slider">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/assets/images/banner-01.png" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/assets/images/banner-02.png" alt="Second slide">
+                        <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/assets/images/banner
+
+
+
+                        -02.png" alt="Second slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -512,7 +515,7 @@
                         <h2 class="title-product">
                             <fmt:setLocale value="${lang}" scope="session" />
                             <fmt:bundle basename="messages">
-                            <a href="#" class="title"><fmt:message key="allproducts"/>/ <a href="#" class="title text-danger"><fmt:message key="featuredproducts"/>/ </a> <a style="color: chocolate;" href="#" class="title "> <fmt:message key="hugediscount"/></a></a>
+                                <a href="#" class="title"><fmt:message key="allproducts"/>/ <a href="#" class="title text-danger"><fmt:message key="featuredproducts"/>/ </a> <a style="color: chocolate;" href="#" class="title "> <fmt:message key="hugediscount"/></a></a>
                             </fmt:bundle>
 
                             <div class="bar-menu"><i class="fa fa-bars"></i></div>

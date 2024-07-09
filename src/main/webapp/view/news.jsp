@@ -32,7 +32,11 @@
 <div class="container">
 <div class="news-container" style="background-color: #eee;">
     <div class="container" style="background-color: white;margin-top: -10px;width: 1230px;">
-        <p style="color: #6c757d;font-size: 50px;font-weight: 500;margin-top: 10px;">Tin mới</p>
+        <fmt:setLocale value="${lang}" scope="session" />
+        <fmt:bundle basename="messages">
+        <p style="color: #6c757d;font-size: 50px;font-weight: 500;margin-top: 10px;"><fmt:message key="News"/></p>
+        </fmt:bundle>
+
         <div class="row news-main  ">
 <div class="news-left col-md-6">
     <%

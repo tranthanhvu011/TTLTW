@@ -36,11 +36,14 @@
     }
 %>
 <%@include file="/common/header.jsp" %>
+<fmt:setLocale value="${lang}" scope="session" />
+<fmt:bundle basename="messages">
+
 <div class="container">
     <main role="main">
         <div class="container mt-2">
-            <h1 class="text-center" style="margin-bottom: 20px;margin-top: 10px;font-size: 30px">Liên hệ với chúng tôi
-                !</h1>
+            <h1 class="text-center" style="margin-bottom: 20px;margin-top: 10px;font-size: 30px">  <fmt:message key="Contactus"/>
+            </h1>
             <c:if test="${not empty requestScope.thanhCongContacts}">
                 <div class="error error-message text-center" style="color: red">${requestScope.thanhCongContacts}</div>
             </c:if>
@@ -57,22 +60,26 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <input style="border: 1px solid grey" type="text" name="name" id="full_name"
-                                       class="form-control" placeholder="Họ và Tên">
+                                       class="form-control" placeholder="  <fmt:message key="Firstandlastname"/>
+">
                                 <br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                                 <input style="border: 1px solid grey;" type="email" name="email_address" id="email"
-                                       class="form-control" placeholder="Địa chỉ mail">
+                                       class="form-control" placeholder="  <fmt:message key="Mailingaddress"/>
+">
 
                                 <br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                                 <input style="border: 1px solid grey;" type="text" name="phone_number" id="phone"
-                                       class="form-control" placeholder="Số điện thoại">
+                                       class="form-control" placeholder="  <fmt:message key="Phonenumber"/>
+">
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <input style="border: 1px solid grey;" type="text" name="title" id="title"
-                                       class="form-control" placeholder="Tiêu đề">
+                                       class="form-control" placeholder="  <fmt:message key="Title"/>
+">
                                 <br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -82,12 +89,13 @@
                             </div>
                         </div>
                         <button style="border-radius: 5px; width: 100px; height: 30px;border: 1px solid grey;margin-top: 7px"
-                                type="submit" class="">Liên hệ ngay
+                                type="submit" class="">  <fmt:message key="Contactnow"/>
                         </button>
 
                     </form>
                 </div>
                 <br>
+                </fmt:bundle>
                 <div class="col col-md-12" style="margin-top: 50px">
                     <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7235485722294!2d105.78061631523369!3d10.039656175103817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a062a768a8090b%3A0x4756d383949cafbb!2zMTMwIFjDtCBWaeG6v3QgTmdo4buHIFTEqW5oLCBBbiBI4buZaSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1556697525436!5m2!1svi!2s"
