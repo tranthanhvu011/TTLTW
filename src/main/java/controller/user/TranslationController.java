@@ -19,7 +19,7 @@ public class TranslationController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String lang = request.getParameter("lang");
         if (lang == null || lang.isEmpty()) {
-            lang = "en"; // default language
+            lang = "en";
         }
 
         ResourceBundle bundle = ResourceBundle.getBundle("messages", new Locale(lang));

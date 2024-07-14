@@ -5,17 +5,16 @@ import model.*;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
+import org.jdbi.v3.core.statement.Update;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDeltailDAO {
     private static final Jdbi jdbi = JDBIConnector.me();
-
-
-
     public static List<ProductVariant> getAllProductVariant(int productId) {
         return jdbi.withHandle(handle -> {
             // Custom RowMapper for ProductVariant
@@ -134,6 +133,55 @@ public class ProductDeltailDAO {
                     .orElse(null);
         });
     }
+
+
+    public boolean insertComment(JSONObject newComment, int idProduct) {
+        try {
+            // Bước 1: Lấy JSON hiện tại từ cơ sở dữ liệu
+            String commentsJson = jdbi.withHandle(handle ->
+                    handle.createQuery("SELECT comment FROM products WHERE id = ?")
+                            .bind(0, idProduct)
+                            .mapTo(String.class)
+                            .findFirst()
+                            .orElse("[]")  // Nếu không có bình luận, trả về một mảng rỗng
+            );
+
+            JSONArray comments = new JSONArray(commentsJson);
+            int maxId = 0;
+
+            // Tìm ID lớn nhất
+            for (int i = 0; i < comments.length(); i++) {
+                JSONObject comment = comments.getJSONObject(i);
+                int id = comment.getInt("id");
+                if (id > maxId) {
+                    maxId = id;
+                }
+            }
+
+            // Bước 2: Tạo bình luận mới với ID tăng
+            newComment.put("id", maxId + 1);  // Set ID cho bình luận mới
+            comments.put(newComment);  // Thêm bình luận mới vào mảng
+
+            // Bước 3: Cập nhật cơ sở dữ liệu với JSON mới
+            String updatedCommentsJson = comments.toString();
+            String query = "UPDATE products SET comment = ? WHERE id = ?";
+
+            return jdbi.withHandle(handle -> {
+                int success = handle.createUpdate(query)
+                        .bind(0, updatedCommentsJson)  // Gán chuỗi JSON mới vào câu truy vấn
+                        .bind(1, idProduct) // Gán ID sản phẩm
+                        .execute();
+                return success > 0; // Trả về true nếu có ít nhất một hàng được cập nhật
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
 
     public static void main(String[] args) {
         List<ProductVariant> productVariantList = getAllProductVariant(2);

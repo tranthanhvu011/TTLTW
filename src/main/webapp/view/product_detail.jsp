@@ -108,24 +108,76 @@
         flex-wrap: nowrap;
     }
 </style>
+<%
+    Boolean status = (Boolean) session.getAttribute("status");
+    String message = (String) session.getAttribute("message");
+    if (message  == null) {
+    }
+%>
+
 <body>
 <%@include file="/common/header.jsp" %>
-<div id="toast" class="toast">
+<% if (status == null) {%>
+<div class="toast">
     <div class="toast-content">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
              viewBox="0 0 20 20">
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
-            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"></path>
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
         </svg>
+        <% if (message != null) {%>
         <div class="message">
-            <span class="text text-1" style="color: greenyellow">Thêm vào giỏ hàng thành công!!!</span>
+            <span class="text text-1" style="color: greenyellow">Thành công</span>
+            <span class="text text-2" style="color: greenyellow"><%=message%></span>
         </div>
+        <%    session.removeAttribute("message");
+            session.removeAttribute("status");%>
+        <% } else{%>
+        <div class="message">
+            <span class="text text-1" style="color: greenyellow">Thành công</span>
+            <span class="text text-2" style="color: greenyellow">Thêm vào giỏ hàng thành công</span>
+        </div>
+        <% }%>
     </div>
     <i class="fa-solid fa-xmark close"></i>
     <div class="progress"></div>
 </div>
+<%} else {%>
+<%--<div class="toast">--%>
+<%--    <div class="toast-content">--%>
+<%--        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"--%>
+<%--             class="bi bi-exclamation-circle-fill" viewBox="0 0 20 20">--%>
+<%--            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>--%>
+<%--        </svg>--%>
+<%--        <div class="message">--%>
+<%--            <span class="text text-1 text-danger">Thất bại</span>--%>
+<%--            <span class="text text-2 text-danger"><%=message%></span>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--    <i class="fa-solid fa-xmark close"></i>--%>
+<%--    <div class="progress"></div>--%>
+<%--</div>--%>
+<%}%>
 <script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
+<%if (message != null) {%>
+<script>
+    showToast();
+    setTimeout(() => document.querySelector(".toast").style.display = "none", 5000);
+</script>
+
+<%
+    session.removeAttribute("message");
+    session.removeAttribute("status");
+%>
+<%}%>
 <div class="container">
+<%--    <% if (session.getAttribute("messages") != null) { %>--%>
+<%--    <div class="alert alert-success" role="alert">--%>
+<%--        <%= session.getAttribute("messages") %>--%>
+<%--    </div>--%>
+<%--    <% session.removeAttribute("messages"); %>--%>
+<%--    <% } %>--%>
+
     <div class="gutters"
          style=" display: flex;justify-content: space-evenly;margin-top: 30px;margin-bottom: 40px">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 ">
@@ -188,6 +240,7 @@
                     } // End of images check
                 } // End of product variants check
             %>
+
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
                 <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
                 <div class="">
@@ -536,38 +589,59 @@
                     <%= firstVariant.getProduct().getDescription()%>
                 </div>
             </div>
-            <h5>Bình luận (2)</h5>
-            <div id="comments">
-                <div class="comment_input">
-                    <textarea
-                    id="comment_textarea"
-                    placeholder="Bình luận của bạn"></textarea>
-                    <button id="comment_submit">Gửi</button>
+            <div class="">
+                <div class="">
+                    <h5 class="card-title">Bình luận</h5>
+                    <form action="/product-detail" method="post" id="myForm">
+                        <div class="form-group">
+                            <textarea name="content" class="form-control" rows="3" placeholder="Nhận xét về sản phẩm"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <input name="nameComment" type="text" class="form-control" placeholder="Họ và tên">
+                            </div>
+                            <div class="col">
+                                <input name="phoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
+                            </div>
+                            <input name="idProduct" type="text" class="form-control" placeholder="Số điện thoại" value="<%= productID %>" hidden>
+                            <input type="hidden" id="timestamp" name="timestamp" value="">
+
+                        </div>
+                        <button type="submit" class="btn btn-danger mt-3">Gửi</button>
+                    </form>
                 </div>
-                <div class="comment_wrapper">
-                    <div class="comment_item">
-                        <p>
-                            <a>
-                                <img class="comment_avatar" src="/resources/assets/images/elonmusk.jpg">
-                                <span>Username</span>
-                            </a>
-                            <span>16/06/2024 | 12:28 PM</span>
-                        </p>
-                        <p>Sản phẩm tốt, tôi rất thích.</p>
-                    </div>
-                    <div class="comment_item">
-                        <p>
-                            <a>
-                                <img class="comment_avatar" src="/resources/assets/images/elonmusk.jpg">
-                                <span>Username</span>
-                            </a>
-                            <span>16/06/2024 | 12:28 PM</span>
-                        </p>
-                        <p>Tôi rất hài lòng với điện thoại này. Thiết kế đẹp mắt, màn hình OLED 6.5 inch cực kỳ sắc nét, và hiệu năng mạnh mẽ nhờ chip Snapdragon 888. Camera 108MP chụp ảnh rất rõ nét, ngay cả trong điều kiện ánh sáng yếu. Thời lượng pin lâu, sạc nhanh 65W là một điểm cộng lớn. Tuy nhiên, kích thước khá lớn và giá thành cao có thể là điểm trừ với một số người. Tổng thể, đây là một sản phẩm tuyệt vời, đáng để đầu tư.</p>
+            </div>
+            <script>
+                document.getElementById('myForm').onsubmit = function() {
+                    var date = new Date();
+                    var formattedDateTime = date.toLocaleString(); // Định dạng ngày giờ dễ đọc
+                    document.getElementById('timestamp').value = formattedDateTime; // Cập nhật trường ẩn
+                };
+            </script>
+
+            <div class="media mt-4">
+                <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png"
+                     class="mr-3 rounded-circle" alt="User Avatar">
+                <div class="media-body">
+                    <h6 class="mt-0">Huyền <small class="text-muted">10/06/2024 21:40:08</small></h6>
+                    iphone 15 promax 512 GB màu titan xanh có về lại hàng nữa không ạ
+                    <div class="media mt-3">
+                        <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png" class="mr-3 rounded-circle" alt="Admin Avatar">
+                        <div class="media-body">
+                            <h6 class="mt-0">Quản Trị Viên</h6>
+                            Di Động Việt xin chào Chị Huyền ạ!
+                            <p>Dạ sản phẩm Chị quan tâm đang tạm hết hàng và chưa có thời gian dự kiến về hàng lại ạ, Chị tham khảo sản phẩm APPLE IPHONE 15 Pro Max 512GB (CTY) - Titan Tự Nhiên - New: 34,990,000 đang có sẵn hàng ạ.</p>
+                            <p>Ngoài ra còn có các ưu đãi kèm máy ạ.<br>
+                                Chuyển khoản: Giảm thêm đến 500.000đ<br>
+                                Trả góp: Giảm thêm đến 500.000đ<br>
+                                Thu cũ đổi mới: Tặng thêm đến 2.000.000đ</p>
+                            <p>Để được tư vấn chi tiết hơn, Chị vui lòng liên hệ tổng đài 1800 6018 (miễn phí). Trân trọng!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="contai-right col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 border_gr_bg_white h-100">
             .
             <div class="hinhanh" style="border: none;height: 150%;">

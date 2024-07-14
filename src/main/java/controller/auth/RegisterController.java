@@ -2,6 +2,8 @@ package controller.auth;
 
 import Utils.ValidationUtils;
 import dao.LoggingLogin;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import service.EmailSender;
 import service.EmailService;
 import service.PasswordResetService;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,11 +62,21 @@ public class RegisterController extends HttpServlet {
             String countryLoginByIp = loggingLogin.getCountryFromIP(lastIPLogin);
             String dobParam = req.getParameter("dob");
             Account user = new Account();
+            String tinhThanh = req.getParameter("tinhThanh");
+            String huyen = req.getParameter("huyen");
+            String xa = req.getParameter("xa");
+            String nameTinhThanh = findNameWithType(tinhThanh, getServletContext().getRealPath("/") + "json/provinces.json");
+            String nameHuyen = findNameWithType(huyen, getServletContext().getRealPath("/") + "json/districts.json");
+            String nameXa = findNameWithType(xa, getServletContext().getRealPath("/") + "json/wards.json");
+            System.out.println("Tỉnh/Thành: " + nameTinhThanh);
+            System.out.println("Huyện: " + nameHuyen);
+            System.out.println("Xã: " + nameXa);
+            String xaHuyenTinh = nameTinhThanh + " " + nameHuyen + " " + nameXa;
             user.setEmail(req.getParameter("email"));
             user.setFirst_name(req.getParameter("first_name"));
             user.setLast_name(req.getParameter("last_name"));
             user.setPassword(req.getParameter("password"));
-            user.setAddress(req.getParameter("address"));
+            user.setAddress(xaHuyenTinh);
             user.setGender(parseInt(req.getParameter("gender")));
             user.setDob(Date.valueOf(dobParam));
             user.setPhone_number(req.getParameter("phone_number"));
@@ -141,6 +155,22 @@ public class RegisterController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public String findNameWithType(String code, String jsonFilePath) {
+        try {
+            String jsonData = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
+            JSONArray jsonArray = new JSONArray(jsonData);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getString("code").equals(code)) {
+                    return jsonObject.getString("name_with_type");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 
