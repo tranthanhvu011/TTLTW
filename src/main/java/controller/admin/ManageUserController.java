@@ -88,7 +88,7 @@ public class ManageUserController extends HttpServlet {
                     if (isSuccess) {
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Đã xóa một người dùng");
-                        response.sendRedirect(request.getContextPath() + "/admin/user/manage_user");
+                                response.sendRedirect(request.getContextPath() + "/admin/user/manage_user");
                     } else {
                         request.getSession().setAttribute("status", false);
                         request.getSession().setAttribute("message", "Lỗi!");
