@@ -1,16 +1,18 @@
 package controller.user;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
-import com.mysql.cj.xdevapi.JsonArray;
-
+import com.google.gson.JsonArray;
 import dao.CapacityDAO;
 import dao.ProductImageDAO;
 import dao.ProductVariantDAO;
+import dao.ProductDeltailDAO;
+
 import model.Capacity;
 import model.Color;
 import model.ProductImage;
 import model.ProductVariant;
+
+import org.json.JSONObject;
 import service.ProductDetalService;
 
 import javax.servlet.ServletException;
@@ -21,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 @WebServlet(urlPatterns = {"/product-detail"})
 public class ProductDetailController extends HttpServlet {
@@ -96,10 +100,28 @@ public class ProductDetailController extends HttpServlet {
         printWriter.print(gson.toJson(productVariantDAO.getProductVariantByCapacityIDProductID(Integer.parseInt(productID), capacityID1, Integer.parseInt(colorID))));
     }
 
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        JSONObject commentProductDetail = new JSONObject();
+        commentProductDetail.put("content", request.getParameter("content"));
+        commentProductDetail.put("nameComment", request.getParameter("nameComment"));
+        commentProductDetail.put("phoneNumber", request.getParameter("phoneNumber"));
+        commentProductDetail.put("idProduct", request.getParameter("idProduct"));
+        commentProductDetail.put("isActive", 0);
+        commentProductDetail.put("timestamp", request.getParameter("timestamp"));
+        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
+        JsonArray commentProductArray = new JsonArray();
+        commentProductArray.add(String.valueOf(commentProductDetail));
+        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+        String jsonString = commentProductDetail.toString();
+        System.out.println(jsonString);
+
+        boolean result = productDeltailDAO.insertComment(commentProductDetail,idProduct );
+        if (result) {
+            request.getSession().setAttribute("message", "Bình luận của bạn đã được gửi và đang đợi xét duyệt.");
+        }
+        response.sendRedirect("/product-detail?id=" + idProduct);
+
     }
 
 }

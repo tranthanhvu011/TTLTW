@@ -1,0 +1,44 @@
+package controller.API;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class DistrictServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONParser parser = new JSONParser();
+        String provinceCode = request.getParameter("provinceCode");
+
+        try {
+            FileReader reader = new FileReader(getServletContext().getRealPath("/") + "json/districts.json");
+            Object obj = parser.parse(reader);
+            JSONArray jsonArray = (JSONArray) obj;
+            JSONArray filteredArray = new JSONArray();
+
+            for (Object district : jsonArray) {
+                JSONObject jsonDistrict = (JSONObject) district;
+                if (jsonDistrict.get("parent_code").equals(provinceCode)) {
+                    filteredArray.add(jsonDistrict);
+                }
+            }
+
+            String jsonString = filteredArray.toJSONString();
+            System.out.println(jsonString);
+            out.print(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            out.flush();
+        }
+    }
+}

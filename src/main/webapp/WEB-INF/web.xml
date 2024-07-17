@@ -32,6 +32,31 @@
         <filter-name>SecurityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <servlet>
+        <servlet-name>ProvinceServlet</servlet-name>
+        <servlet-class>controller.API.ProvinceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProvinceServlet</servlet-name>
+        <url-pattern>/ProvinceServlet</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DistrictServlet</servlet-name>
+        <servlet-class>controller.API.DistrictServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DistrictServlet</servlet-name>
+        <url-pattern>/DistrictServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WardServlet</servlet-name>
+        <servlet-class>controller.API.WardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WardServlet</servlet-name>
+        <url-pattern>/WardServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

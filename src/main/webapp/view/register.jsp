@@ -135,13 +135,36 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row row-space">
-                    <label class="label" style="margin-left: 15px">Địa chỉ</label>
-                    <input class="input--style-4" type="text" name="address"
-                           style="width: 100%;margin-left: 15px;margin-right: 15px" id="address">
-                    <span class="error" id="er-address"
-                          style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>
+                    <div class="form-group">
+                        <label for="provinceSelect">Chọn Tỉnh/ Thành Phố:</label>
+                        <select name="tinhThanh" style="height: 100%
+    " class="form-control"  id="provinceSelect" onchange="loadDistricts()">
+                            <option value="">Chọn Tỉnh/ Thành Phố</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="districtSelect">Chọn Huyện:</label>
+                        <select name="huyen" style="height: 100%
+    " class="form-control" id="districtSelect" onchange="loadWards()">
+                            <option value="">Chọn Huyện</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="wardSelect">Chọn Xã:</label>
+                        <select name="xa" style="height: 100%
+    " class="form-control"   id="wardSelect">
+                            <option value="">Chọn Xã</option>
+                        </select>
+                    </div>
+<%--                    <input class="input--style-4" type="text" name="address"--%>
+<%--                           style="width: 100%;margin-left: 15px;margin-right: 15px" id="address">--%>
+<%--                    <span class="error" id="er-address"--%>
+<%--                          style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>--%>
                 </div>
+                <br>
+                <br>
                 <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
                 <div style="color: red" id="captchaError"></div>
                 <div class="btn btn--radius-2 btn--blue pt-2"
@@ -171,6 +194,60 @@
             captchaError.textContent = "Vui lòng xác thực reCAPTCHA!";
         }
     }
+</script>
+<script>
+    window.onload = function() {
+        loadData('ProvinceServlet', 'provinceSelect', 'name_with_type');
+    };
+
+    function loadData(servletName, selectId, textProperty) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", servletName, true);
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+                    if (Array.isArray(data)) {
+                        populateDropdown(selectId, data, textProperty);
+                    } else {
+                        console.error('Expected an array but got: ', data);
+                    }
+                } catch (e) {
+                    console.error('Failed to parse JSON: ', e);
+                }
+            } else {
+                console.error('Failed to fetch data: ', xhr.statusText);
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Request error.');
+        };
+        xhr.send();
+    }
+
+    function populateDropdown(selectId, data, textProperty) {
+        let select = document.getElementById(selectId);
+        select.innerHTML = `<option value="">Chọn Tỉnh/ Thành Phố ${selectId.replace('Select', '')}</option>`; // Reset
+        data.forEach(item => {
+            let option = new Option(item[textProperty], item.code);
+            select.appendChild(option);
+        });
+    }
+
+    function loadDistricts() {
+        const provinceCode = document.getElementById('provinceSelect').value;
+        if (provinceCode) {
+            loadData('DistrictServlet?provinceCode=' + provinceCode, 'districtSelect', 'name_with_type');
+        }
+    }
+
+    function loadWards() {
+        const districtCode = document.getElementById('districtSelect').value;
+        if (districtCode) {
+            loadData('WardServlet?districtCode=' + districtCode, 'wardSelect', 'name_with_type');
+        }
+    }
+
 </script>
 <%@include file="/common/footer.jsp" %>
 <%@include file="/common/libraries_js.jsp" %>

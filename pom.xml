@@ -9,7 +9,7 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-<!--        Rest Google-->
+        <!--        Rest Google-->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
@@ -26,13 +26,13 @@
             <artifactId>fluent-hc</artifactId>
             <version>4.5.14</version>
         </dependency>
-<!-- Paypal REST SDK-->
+        <!-- Paypal REST SDK-->
         <dependency>
-                <groupId>com.paypal.sdk</groupId>
-                <artifactId>rest-api-sdk</artifactId>
-                <version>1.14.0</version>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>1.14.0</version>
         </dependency>
-<!--        end paypal rest sdk-->
+        <!--        end paypal rest sdk-->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
@@ -110,9 +110,20 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.4</version>
+        </dependency>
 
     </dependencies>
-<!--    end -->
+    <!--    end -->
     <build>
         <finalName>TelephoneShop</finalName>
         <plugins>
