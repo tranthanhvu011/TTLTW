@@ -49,20 +49,7 @@ margin-left: 2%;
     border: 2px solid blue;
     border-radius: 3px;
 }
-.chonmau .mau .hinhanh:hover img{
-    scale: 1.3;
-}
-/*.hinhanh1{*/
-/*    height: 30px;*/
-/*    padding: 3px;*/
-/*    display: contents;*/
-/*    border: 1px solid #989696;*/
-/*    border-radius: 3px;*/
-/*}*/
-/*.chonmau .mau .hinhanh1:hover{*/
-/*    border-radius: 3px;*/
 
-/*}*/
 .selected {
     border: 2px solid blue; /* Style border for the selected element */
 }
@@ -121,10 +108,8 @@ margin-left: 2%;
 .them {
     display: flex;
     align-content: center;
-
     justify-content: center;
-    margin-top: 10px;
-
+    align-items: center;
 }
 
 .fa-cart-shopping {
@@ -330,4 +315,13 @@ h5{
     gap: 20px;
     align-items: center;
     font-weight: bold;
+}
+.store{
+   padding-bottom: 10px;
+}
+.store span{
+    color: red;
+}
+.motachitiet .container ul{
+    padding-left: 0;
 }

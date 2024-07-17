@@ -133,13 +133,14 @@
                         <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
                     </div>
                 </div>
+                <input type="hidden" id="myAddress" name="myAddress" value="0">
                 <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
                 <div style="color: red" id="captchaError"></div>
                 <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
                     <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1"><fmt:message key="Forgotpassword"/></a>
                 </div>
                 <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%"><fmt:message key="Login"/></button>
+                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" onclick="find()" style="width: 100%"><fmt:message key="Login"/></button>
                 </div>
             </form>
             <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
@@ -192,8 +193,23 @@
         } else{
             captchaError.textContent = "Vui lòng xác thực reCAPTCHA!";
         }
-
     }
+</script>
+<script>
+    const http = new XMLHttpRequest();
+    const bdcAPI = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
+    var myAddr = document.getElementById('myAddress');
+    function findMyAddress(){
+        http.open("GET", bdcAPI);
+        http.send();
+        http.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){
+            const results = JSON.parse(this.responseText);
+            myAddr.value = results.locality + ', ' + results.city;
+            }
+        }
+    }
+
 </script>
 <%@include file="/common/footer.jsp" %>
 <%@include file="/common/libraries_js.jsp" %>

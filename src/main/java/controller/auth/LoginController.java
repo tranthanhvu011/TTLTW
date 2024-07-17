@@ -1,13 +1,9 @@
 package controller.auth;
 
 import Utils.ValidationUtils;
-
 import dao.LoggingLogin;
 import dao.UserDAO;
 import model.Account;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.mindrot.jbcrypt.BCrypt;
 import service.UserService;
 
 import javax.inject.Inject;
@@ -16,12 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +36,7 @@ public class LoginController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         List<String> error = new ArrayList<>();
+//        String country = request.getParameter("myAddress");
 
         if (!ValidationUtils.isValidEmail(email)) {
             error.add("Email không hợp lệ ");

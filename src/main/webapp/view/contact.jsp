@@ -83,9 +83,7 @@
                                 <br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <textarea style="border: 1px solid grey;" name="content" id="content" cols="30" rows="7"
-                                              class="form-control">
-                                    </textarea>
+                                    <textarea style="border: 1px solid grey;" name="content" id="content" cols="30" rows="7" class="form-control"></textarea>
                             </div>
                         </div>
                         <button style="border-radius: 5px; width: 100px; height: 30px;border: 1px solid grey;margin-top: 7px"
@@ -97,9 +95,7 @@
                 <br>
                 </fmt:bundle>
                 <div class="col col-md-12" style="margin-top: 50px">
-                    <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.7235485722294!2d105.78061631523369!3d10.039656175103817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a062a768a8090b%3A0x4756d383949cafbb!2zMTMwIFjDtCBWaeG6v3QgTmdo4buHIFTEqW5oLCBBbiBI4buZaSwgTmluaCBLaeG7gXUsIEPhuqduIFRoxqEsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1556697525436!5m2!1svi!2s"
-                            width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1385.300027922494!2d106.79069226474218!3d10.870851498433494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527602e9022ef%3A0x4447d13418a1f75b!2zVGjGsCB2aeG7h24gVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOw7RuZyBMw6JtIFRQLkhDTQ!5e0!3m2!1svi!2s!4v1720548287984!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>

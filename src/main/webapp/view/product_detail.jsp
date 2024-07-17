@@ -25,8 +25,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/product-detail.css">
     <%@include file="/common/libraries.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <style>
     body {
@@ -262,7 +263,40 @@
                         </p>
                     </div>
                 </div>
+                <!-- Button trigger modal -->
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
+                    Xem cửa hàng còn sản phẩm
+                </button>
 
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" style="width: fit-content">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách cửa hàng</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+<%--                            Danh sách chi nhánh ở đây--%>
+                            <div class="modal-body" id="listStore">
+                                <div class="store">
+                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div><div>còn <span>6</span> sản phẩm</div>
+                                </div>
+                                <div class="store">
+                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
+                                    <div>còn <span>8</span> sản phẩm</div>
+                                </div>
+                                <div class="store">
+                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
+                                    <div>còn <span>16</span> sản phẩm</div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<%--               --%>
                 <div class="chonmau">
                     <p style="font-size: 15px">Màu sắc:</p>
                     <div class="mau" style="cursor: pointer;">
@@ -521,7 +555,7 @@
                 </table>
             </div>
             <div class="uudaikhac border_gr_bg_white" style="margin-top: 10px;">
-                <p style="font-size: 14px;line-height: 150%;font-weight: 600;margin-left: 10px;padding-top: 10px;">Ưu
+                <p style="font-size: 14px;line-height: 150%;font-weight: 600;margin-left: 10px;padding-top: 10px; border-top-right-radius: 15px;">Ưu
                     đãi khác</p>
                 <div class="uudaii" style="padding-bottom: 10px;">
                     <span style="margin-left: 10px;font-size: 20px">2 mã giảm giá</span>
@@ -785,8 +819,8 @@
                 </a>
                 <a href="#" id="addToCart">
                     <button class="themgiohang-btn">
-                        <span class="them"><i class="fa-solid fa-cart-shopping"></i><p
-                                style=" background-color: transparent;">Thêm vào giỏ hàng</p></span>
+                        <span class="them"><i class="fa-solid fa-cart-shopping"></i>
+                            <p style=" background-color: transparent; margin-bottom: 0">Thêm vào giỏ hàng</p></span>
                     </button>
                 </a>
             </div>
