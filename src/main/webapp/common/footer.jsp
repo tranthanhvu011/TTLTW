@@ -51,19 +51,19 @@
                         <form action="/" method="GET" role="form">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <input type="text" name="" id="full_name" class="form-control" placeholder="Họ và Tên">
+                                    <input type="text" name="" id="full_name" class="form-control" placeholder="Họ và Tên" style="color: white;">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                                    <input type="email" name="" id="email" class="form-control" placeholder="Địa chỉ mail">
+                                    <input type="email" name="" id="email" class="form-control" placeholder="Địa chỉ mail" style="color: white">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                                    <input type="text" name="" id="phone" class="form-control" placeholder="Số điện thoại">
+                                    <input type="text" name="" id="phone" class="form-control" placeholder="Số điện thoại" style="color: white">
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <input type="text" name="" id="title_report" class="form-control" placeholder="Tiêu đề">
+                                    <input type="text" name="" id="title_report" class="form-control" placeholder="Tiêu đề" style="color: white" >
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <textarea name="" id="submit_form" cols="30" rows="10" class="form-control"></textarea>
+                                    <textarea name="" id="submit_form" cols="30" rows="10" class="form-control" style="color: white"></textarea>
                                 </div>
 
                             </div>
