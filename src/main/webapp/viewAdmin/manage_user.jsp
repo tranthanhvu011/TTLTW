@@ -362,7 +362,7 @@
                             </a>
                             <% if (userDAO.countUserInOrders(user.getId()) > 0) {%>
                             <button class="btn btn-warning">
-                                Không Thể Xóa
+                                Xóa
                             </button>
                             <% }else{%>
                             <button class="btn btn-danger" onclick="openModalDeleteUser(<%=user.getId()%>)">

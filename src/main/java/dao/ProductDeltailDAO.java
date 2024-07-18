@@ -2,6 +2,7 @@ package dao;
 
 import config.JDBIConnector;
 import model.*;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
@@ -133,11 +134,8 @@ public class ProductDeltailDAO {
                     .orElse(null);
         });
     }
-
-
     public boolean insertComment(JSONObject newComment, int idProduct) {
         try {
-            // Bước 1: Lấy JSON hiện tại từ cơ sở dữ liệu
             String commentsJson = jdbi.withHandle(handle ->
                     handle.createQuery("SELECT comment FROM products WHERE id = ?")
                             .bind(0, idProduct)
@@ -148,49 +146,114 @@ public class ProductDeltailDAO {
 
             JSONArray comments = new JSONArray(commentsJson);
             int maxId = 0;
-
-            // Tìm ID lớn nhất
             for (int i = 0; i < comments.length(); i++) {
                 JSONObject comment = comments.getJSONObject(i);
                 int id = comment.getInt("id");
                 if (id > maxId) {
                     maxId = id;
                 }
-            }
+            }newComment.put("id", maxId + 1);
+            comments.put(newComment);
 
-            // Bước 2: Tạo bình luận mới với ID tăng
-            newComment.put("id", maxId + 1);  // Set ID cho bình luận mới
-            comments.put(newComment);  // Thêm bình luận mới vào mảng
-
-            // Bước 3: Cập nhật cơ sở dữ liệu với JSON mới
             String updatedCommentsJson = comments.toString();
             String query = "UPDATE products SET comment = ? WHERE id = ?";
 
             return jdbi.withHandle(handle -> {
                 int success = handle.createUpdate(query)
-                        .bind(0, updatedCommentsJson)  // Gán chuỗi JSON mới vào câu truy vấn
-                        .bind(1, idProduct) // Gán ID sản phẩm
+                        .bind(0, updatedCommentsJson)
+                        .bind(1, idProduct)
                         .execute();
-                return success > 0; // Trả về true nếu có ít nhất một hàng được cập nhật
+                return success > 0;
             });
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+    public static JSONArray getAllCommentProduct() {
+        String query = "SELECT comment FROM products";
+        JSONArray allComments = new JSONArray();
+        try {
+            List<String> commentsJsonList = jdbi.withHandle(handle ->
+                    handle.createQuery(query)
+                            .mapTo(String.class)
+                            .list()
+            );
+
+            // Duyệt qua từng chuỗi JSON trong danh sách và thêm vào JSONArray
+            for (String commentsJson : commentsJsonList) {
+                JSONArray comments = new JSONArray(commentsJson);
+                for (int i = 0; i < comments.length(); i++) {
+                    allComments.put(comments.getJSONObject(i));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allComments;
+    }
 
 
-
-
-
+    public static JSONArray getActiveCommentsByProductId(int productId) {
+        String query = "SELECT comment FROM products WHERE id = ?";
+        JSONArray activeComments = new JSONArray();
+        try  {
+            String commentsJson = jdbi.withHandle(handle -> handle.createQuery(query)
+                    .bind(0, productId)
+                    .mapTo(String.class)
+                    .findOnly());
+            JSONArray comments = new JSONArray(commentsJson);
+            for (int i = 0; i < comments.length(); i++) {
+                JSONObject comment = comments.getJSONObject(i);
+                if (comment.getInt("isActive") == 1) {
+                    activeComments.put(comment);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return activeComments;
+    }
+public static boolean isActiveComment(int idProduct, int idComment) {
+        String updateComment = "select comment from products where id = ?";
+        try {
+                String commentsJson = jdbi.withHandle(handle ->
+                        handle.createQuery(updateComment).
+                        bind(0, idProduct)
+                                .mapTo(String.class)
+                                .findOnly());
+                JSONArray jsonArray = new JSONArray(commentsJson);
+                boolean update = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getInt("id") == idComment) {
+                    jsonObject.put("isActive", 1);
+                    update = true;
+                    break;
+                }
+            }
+          if (update) {
+              String updateQuery = "UPDATE products SET comment = ? WHERE id = ?";
+              jdbi.withHandle(handle ->
+                      handle.createUpdate(updateQuery)
+                              .bind(0, jsonArray.toString())
+                              .bind(1, idProduct)
+                              .execute());
+          }
+            return update;
+        } catch (Exception e) {
+           e.printStackTrace();
+            return false;
+        }
+}
     public static void main(String[] args) {
-        List<ProductVariant> productVariantList = getAllProductVariant(2);
-        for (ProductVariant variant : productVariantList) {
-            System.out.println(variant);
+       JSONArray jsonArray = getAllCommentProduct();
+//       boolean trueOrFalse = isActiveComment(161, 1);
+       System.out.print(jsonArray);
         }
     }
 
-}
+
 
 
 
