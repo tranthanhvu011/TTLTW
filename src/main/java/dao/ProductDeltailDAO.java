@@ -245,11 +245,80 @@ public static boolean isActiveComment(int idProduct, int idComment) {
            e.printStackTrace();
             return false;
         }
-}
+
+    }
+    public static boolean isNotActiveComment(int idProduct, int idComment) {
+        String updateComment = "select comment from products where id = ?";
+        try {
+            String commentsJson = jdbi.withHandle(handle ->
+                    handle.createQuery(updateComment).
+                            bind(0, idProduct)
+                            .mapTo(String.class)
+                            .findOnly());
+            JSONArray jsonArray = new JSONArray(commentsJson);
+            boolean update = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.getInt("id") == idComment) {
+                    jsonObject.put("isActive", 0);
+                    update = true;
+                    break;
+                }
+            }
+            if (update) {
+                String updateQuery = "UPDATE products SET comment = ? WHERE id = ?";
+                jdbi.withHandle(handle ->
+                        handle.createUpdate(updateQuery)
+                                .bind(0, jsonArray.toString())
+                                .bind(1, idProduct)
+                                .execute());
+            }
+            return update;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean deleteComment(int idProduct, int idComment) {
+        String query = "select comment from products where id = ?";
+        String updateQuery = "UPDATE products SET comment = :comment WHERE id = :idProduct";
+
+        try {
+            String commentArray = jdbi.withHandle(handle -> handle.createQuery(query)
+                    .bind(0, idProduct)
+                    .mapTo(String.class)
+                    .findOnly());
+            JSONArray jsonArray = new JSONArray(commentArray);
+            boolean found = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.optInt("id") == idComment) {
+                    jsonArray.remove(i);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+            String updatedCommentArray = jsonArray.toString();
+            int rowsUpdated = jdbi.withHandle(handle -> handle.createUpdate(updateQuery)
+                    .bind("comment", updatedCommentArray)
+                    .bind("idProduct", idProduct)
+                    .execute());
+            return rowsUpdated > 0;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }}
     public static void main(String[] args) {
-       JSONArray jsonArray = getAllCommentProduct();
+//       JSONArray jsonArray = getAllCommentProduct();
 //       boolean trueOrFalse = isActiveComment(161, 1);
-       System.out.print(jsonArray);
+//       System.out.print(jsonArray);
+        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+        System.out.print(productDeltailDAO.deleteComment(174,4));
         }
     }
 

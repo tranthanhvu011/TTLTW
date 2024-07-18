@@ -24,7 +24,14 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Bình luận Sản Phẩm</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@include file="/common/admin_library_css.jsp"%>
+    <%@include file="/common/admin_library_css.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/css/admin/model.css" rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.css"
+          rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.min.css"
+          rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
+    <%@include file="/common/libraries.jsp" %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
 
@@ -67,12 +74,114 @@
     .my-table td, .my-table th {
         border: none; /* Xóa viền cho các ô cụ thể */
     }
+    .modal {
+        display: none; /* Ẩn modal mặc định */
+        position: fixed; /* Cố định modal */
+        z-index: 1; /* Hiển thị trên cùng */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0); /* Màu nền đen với độ mờ */
+        background-color: rgba(0,0,0,0.4); /* Độ mờ */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-buttons {
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
 </style>
 <body>
 <div id="preloader">
     <div class="loader">
     </div>
 </div>
+<% String message = (String) session.getAttribute("message");
+    Boolean status = true;%>
+<!-- Toast -->
+<% if (status != null && status) {%>
+<div class="toast">
+    <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
+             viewBox="0 0 20 20">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+        </svg>
+        <div class="message">
+            <span class="text text-1" style="color: greenyellow">Thành công</span>
+            <span class="text text-2" style="color: greenyellow"><%=message%></span>
+        </div>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+    <div class="progress"></div>
+</div>
+<%} else {%>
+<div class="toast">
+    <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+             class="bi bi-exclamation-circle-fill" viewBox="0 0 20 20">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+        </svg>
+        <div class="message">
+            <span class="text text-1 text-danger">Thất bại</span>
+            <span class="text text-2 text-danger"><%=message%></span>
+        </div>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+    <div class="progress"></div>
+</div>
+<%}%>
+<script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
+<%if (message != null) {%>
+<script>
+    showToast();
+    setTimeout(() => document.querySelector(".toast").style.display = "none", 5000);
+</script>
+<%
+    session.removeAttribute("message");
+    session.removeAttribute("status");
+%>
+<%}%>
 <div class="page-container">
     <%@include file="/common/admin_sidebar.jsp" %>
     <div class="col-md-6 col-sm-8 clearfix">
@@ -126,8 +235,8 @@
                     <th scope="col">Thời Gian Bình Luận</th>
                     <th scope="col">Sản Phẩm Bình Luận</th>
                     <th scope="col">Phê Duyệt</th>
-                    <th scope="col">Chọn Sữ Lý</th>
-                    <th scope="col">Chọn Sữ Lý</th>
+                    <th scope="col">Hành Động</th>
+                    <th scope="col">Hành Động</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -153,14 +262,18 @@
                     Chưa Duyệt
                     <% } %>
                     <td>
-                    <a href="${pageContext.request.contextPath}/admin/manage_comment_product_detail?action=active&id=<%=jsonObject.optInt("id")%>&idProduct=<%=jsonObject.optInt("idProduct")%>">
-                        <button type="button" class="btn btn-success" >
+                    <% if (jsonObject.optInt("isActive") == 1) {%>
+                    <button type="button" class="btn btn-warning" onclick="showModal('notActive', <%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
+                        Tắt Phê Duyệt
+                    </button>
+                    <% }else{%>
+                    <button type="button" class="btn btn-success" onclick="showModal('active', <%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
                         Phê Duyệt
-                    </button> </a>
-
+                    </button>
+                    <% } %>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-danger" >
+                        <button type="button" class="btn btn-danger" onclick="showModal('delete', <%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
                             Xóa Bình Luận
                         </button>
 
@@ -170,6 +283,59 @@
                 </tbody>
             </table>
         </div>
+        <div id="confirmModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p id="modalMessage">Bạn có chắc chắn muốn thực hiện hành động này?</p>
+                <div class="modal-buttons">
+                    <button id="confirmBtn" class="btn btn-danger">Xác Nhận</button>
+                    <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showModal(action, idComment, idProduct) {
+                var modal = document.getElementById("confirmModal");
+                var modalMessage = document.getElementById("modalMessage");
+                var confirmBtn = document.getElementById("confirmBtn");
+
+                if (action === 'delete') {
+                    modalMessage.textContent = "Bạn có chắc chắn muốn xóa bình luận này?";
+                    confirmBtn.className = "btn btn-danger";
+                    confirmBtn.textContent = "Xóa";
+                    confirmBtn.onclick = function() {
+                        window.location.href = "${pageContext.request.contextPath}/admin/manage_comment_product_detail?action=delete&id=" + idComment + "&idProduct=" + idProduct;
+                    };
+                } else if (action === 'active') {
+                    modalMessage.textContent = "Bạn có chắc chắn muốn phê duyệt bình luận này?";
+                    confirmBtn.className = "btn btn-success";
+                    confirmBtn.textContent = "Duyệt";
+                    confirmBtn.onclick = function() {
+                        window.location.href = "${pageContext.request.contextPath}/admin/manage_comment_product_detail?action=active&id=" + idComment + "&idProduct=" + idProduct;
+                    };
+                }else if (action === 'notActive') {
+                    modalMessage.textContent = "Bạn có chắc chắn muốn tắt phê duyệt bình luận này?";
+                    confirmBtn.className = "btn btn-warning";
+                    confirmBtn.textContent = "Duyệt";
+                    confirmBtn.onclick = function() {
+                        window.location.href = "${pageContext.request.contextPath}/admin/manage_comment_product_detail?action=notActive&id=" + idComment + "&idProduct=" + idProduct;
+                    };
+                }
+                modal.style.display = "block";
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("confirmModal");
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                var modal = document.getElementById("confirmModal");
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
         <script>
             new DataTable('#example');
         </script>

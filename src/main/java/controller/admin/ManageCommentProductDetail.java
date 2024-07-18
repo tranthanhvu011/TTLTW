@@ -20,27 +20,48 @@ public class ManageCommentProductDetail extends HttpServlet {
         }
         if (action.equalsIgnoreCase("active")) {
             doGet_Active(req, resp);
-        } else {
-            req.getRequestDispatcher("/viewAdmin/manage_comment_product_detail.jsp").forward(req, resp);
-        }}
+        } else if (action.equalsIgnoreCase("delete")){
+            doGet_Delete(req, resp);
+        } else if (action.equalsIgnoreCase("notActive")) {
+            doGet_Not_Active(req, resp);
+        }
+    }
 
     protected void doGet_Delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String idComment = req.getParameter("id");
+        String idProduct = req.getParameter("idProduct");
+        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+        if (productDeltailDAO.deleteComment(Integer.parseInt(idProduct), Integer.parseInt(idComment))) {
+            req.getSession().setAttribute("message", "Xóa thành công bình luận");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
+        }else{
+            req.getSession().setAttribute("message", "Xóa thất bại bình luận");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
+        }
     }
     protected void doGet_Active(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idComment = req.getParameter("id");
-        System.out.print(" co cl gi ma khoc " + idComment);
         String idProduct = req.getParameter("idProduct");
-        System.out.print(" co cl gi ma khoc " + idProduct);
-
         ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
         if (productDeltailDAO.isActiveComment(Integer.parseInt(idProduct), Integer.parseInt(idComment))) {
-            req.getSession().setAttribute("message", "Active tài khoản thành công");
-            req.getRequestDispatcher("/viewAdmin/manage_comment_product_detail.jsp").forward(req, resp);
+            req.getSession().setAttribute("message", "Duyệt bình luận thành công");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
         }else{
-            req.setAttribute("message", "Active tài khoản thất bại");
-            req.getRequestDispatcher("/viewAdmin/manage_comment_product_detail.jsp").forward(req, resp);
+            req.getSession().setAttribute("message", "Duyệt bình luận thất bại");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
         }
 
+    }
+    protected void doGet_Not_Active(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String idComment = req.getParameter("id");
+        String idProduct = req.getParameter("idProduct");
+        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+        if (productDeltailDAO.isNotActiveComment(Integer.parseInt(idProduct), Integer.parseInt(idComment))) {
+            req.getSession().setAttribute("message", "Tắt bình luận thành công");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
+        }else{
+            req.getSession().setAttribute("message", "Tắt bình luận thất bại");
+            resp.sendRedirect("/admin/manage_comment_product_detail");
+        }
     }
 }
