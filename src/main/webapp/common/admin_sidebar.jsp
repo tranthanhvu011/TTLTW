@@ -27,6 +27,11 @@
                                     <span>Quản Lý Tài Khoản </span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_comment_product_detail">
+                                    <span>Quản Lý Bình Luận </span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
