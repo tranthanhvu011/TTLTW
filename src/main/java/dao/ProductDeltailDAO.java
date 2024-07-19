@@ -372,12 +372,40 @@ public static boolean isActiveComment(int idProduct, int idComment) {
         }
         return maxId + 1;
     }
+    public static JSONArray getReplyByComment(int idProduct, int idComment) {
+        String query = "SELECT comment FROM products WHERE id = ?";
+        JSONArray replies = new JSONArray();
+        try {
+            String commentProduct = jdbi.withHandle(handle ->
+                    handle.createQuery(query)
+                            .bind(0, idProduct)
+                            .mapTo(String.class)
+                            .findOnly()
+            );
+
+            JSONArray comments = new JSONArray(commentProduct);
+            for (int i = 0; i < comments.length(); i++) {
+                JSONObject comment = comments.getJSONObject(i);
+                if (comment.optInt("id") == idComment) {
+                    if (comment.has("replies")) {
+                        replies = comment.getJSONArray("replies");
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return replies;
+    }
     public static void main(String[] args) {
 //       JSONArray jsonArray = getAllCommentProduct();
 //       boolean trueOrFalse = isActiveComment(161, 1);
 //       System.out.print(jsonArray);
         ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
-        System.out.print(addReply(174, 2, "aivaynhfasfasfi", "concasattaone"));
+//        System.out.print(addReply(174, 2, "aivaynhfasfasfi", "concasattaone"));
+//        System.out.print(getReplyByComment(174,1));
+        System.out.print(getActiveCommentsByProductId(174));
         }
     }
 
