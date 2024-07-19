@@ -1,14 +1,12 @@
 package controller.user;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
-import com.mysql.cj.xdevapi.JsonArray;
+import com.google.gson.JsonArray;
+import dao.*;
 
-import dao.CapacityDAO;
-import dao.ProductImageDAO;
-import dao.ProductVariantDAO;
-import dao.RateDAO;
 import model.*;
+
+import org.json.JSONObject;
 import service.ProductDetalService;
 
 import javax.servlet.ServletException;
@@ -19,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 @WebServlet(urlPatterns = {"/product-detail"})
 public class ProductDetailController extends HttpServlet {
@@ -35,15 +35,12 @@ public class ProductDetailController extends HttpServlet {
         }
     }
     protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         ProductDetalService productDetalService = new ProductDetalService();
         String productID = request.getParameter("id");
-        RateDAO rateDAO = new RateDAO();
-
         int id = Integer.parseInt(productID);
-        List<Rate> rates = rateDAO.getRatesByProductId(id);
         List<ProductVariant> listProductVariant = productDetalService.getAllProductVariant(id);
-
+        RateDAO rateDAO = new RateDAO();
+        List<Rate> rates = rateDAO.getRatesByProductId(id);
         Map<String, String> colorImageMap = new LinkedHashMap<>();
         for (ProductVariant variant : listProductVariant) {
             String colorName = variant.getColor().getName();
@@ -99,10 +96,47 @@ public class ProductDetailController extends HttpServlet {
         printWriter.print(gson.toJson(productVariantDAO.getProductVariantByCapacityIDProductID(Integer.parseInt(productID), capacityID1, Integer.parseInt(colorID))));
     }
 
-
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Thu thập dữ liệu từ form
+        String content = request.getParameter("content");
+        String nameComment = request.getParameter("nameComment");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String timestamp = request.getParameter("timestamp");
+        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
+
+        if (content.isEmpty() || nameComment.isEmpty() || phoneNumber.isEmpty()) {
+            if (content.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập nội dung");
+            } else if (nameComment.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập tên");
+            } else if (phoneNumber.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập số điện thoại");
+            }
+            response.sendRedirect("/product-detail?id=" + idProduct);
+            return;
+        }
+        JSONObject commentProductDetail = new JSONObject();
+        commentProductDetail.put("content", content);
+        commentProductDetail.put("nameComment", nameComment);
+        commentProductDetail.put("phoneNumber", phoneNumber);
+        commentProductDetail.put("idProduct", idProduct);
+        commentProductDetail.put("isActive", 0);
+        commentProductDetail.put("timestamp", timestamp);
+
+        ProductDeltailDAO productDetailDAO = new ProductDeltailDAO();
+        boolean result = productDetailDAO.insertComment(commentProductDetail, idProduct);
+        if (result) {
+            request.getSession().setAttribute("status", true);
+            request.getSession().setAttribute("message", "Bình luận của bạn đã được gửi và đang đợi xét duyệt.");
+        } else {
+            request.getSession().setAttribute("status", false);
+            request.getSession().setAttribute("message", "Đã có lỗi xảy ra khi đăng bình luận.");
+        }
+        response.sendRedirect("/product-detail?id=" + idProduct);
     }
 
 }
