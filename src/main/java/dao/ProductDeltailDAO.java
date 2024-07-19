@@ -12,6 +12,8 @@ import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ProductDeltailDAO {
@@ -313,12 +315,69 @@ public static boolean isActiveComment(int idProduct, int idComment) {
             e.printStackTrace();
             return false;
         }}
+    public static boolean addReply(int idProduct, int commentId, String replierName, String replyContent) {
+        // Các câu truy vấn SQL
+        String query = "SELECT comment FROM products WHERE id = ?";
+        String updateQuery = "UPDATE products SET comment = :comment WHERE id = :idProduct";
+
+        // Lấy JSON hiện tại từ cơ sở dữ liệu
+        String existingCommentsJson = jdbi.withHandle(handle -> handle.createQuery(query)
+                .bind(0, idProduct)
+                .mapTo(String.class)
+                .findOnly());
+
+        JSONArray comments = new JSONArray(existingCommentsJson);
+        boolean updated = false;
+
+        for (int i = 0; i < comments.length(); i++) {
+            JSONObject comment = comments.getJSONObject(i);
+            if (comment.getInt("id") == commentId) {
+                JSONArray replies = comment.optJSONArray("replies");
+                if (replies == null) {
+                    replies = new JSONArray();
+                    comment.put("replies", replies);
+                }
+                JSONObject reply = new JSONObject();
+                reply.put("id", getNextReplyId(replies));
+                reply.put("nameComment", replierName);
+                reply.put("content", replyContent);
+                reply.put("timestamp", new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date()));
+                replies.put(reply);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            return false;
+        }
+
+        // Cập nhật JSON trong cơ sở dữ liệu
+        String updatedCommentsJson = comments.toString();
+        int rowsUpdated = jdbi.withHandle(handle -> handle.createUpdate(updateQuery)
+                .bind("comment", updatedCommentsJson)
+                .bind("idProduct", idProduct)
+                .execute());
+
+        return rowsUpdated > 0;
+    }
+
+    private static int getNextReplyId(JSONArray replies) {
+        int maxId = 0;
+        for (int i = 0; i < replies.length(); i++) {
+            int currentId = replies.getJSONObject(i).getInt("id");
+            if (currentId > maxId) {
+                maxId = currentId;
+            }
+        }
+        return maxId + 1;
+    }
     public static void main(String[] args) {
 //       JSONArray jsonArray = getAllCommentProduct();
 //       boolean trueOrFalse = isActiveComment(161, 1);
 //       System.out.print(jsonArray);
         ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
-        System.out.print(productDeltailDAO.deleteComment(174,4));
+        System.out.print(addReply(174, 2, "aivaynhfasfasfi", "concasattaone"));
         }
     }
 
