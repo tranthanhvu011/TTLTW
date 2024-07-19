@@ -4,6 +4,11 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.*" %>
 <%@ page import="config.URLConfig" %>
+<%@ page import="dao.ProductDeltailDAO" %>
+<%@ page import="com.google.gson.JsonArray" %>
+<%@ page import="org.json.JSONArray" %>
+<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="org.json.JSONObject" %>
 <%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
@@ -111,6 +116,9 @@
 </style>
 <%
     Boolean status = (Boolean) session.getAttribute("status");
+    if (status == null) {
+        status = true;
+    }
     String message = (String) session.getAttribute("message");
     if (message  == null) {
     }
@@ -118,7 +126,6 @@
 
 <body>
 <%@include file="/common/header.jsp" %>
-<% if (status == null) {%>
 <div class="toast">
     <div class="toast-content">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
@@ -126,11 +133,18 @@
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
         </svg>
-        <% if (message != null) {%>
+        <% if (message != null ) {%>
+        <% if (status == true) {%>
         <div class="message">
             <span class="text text-1" style="color: greenyellow">Thành công</span>
             <span class="text text-2" style="color: greenyellow"><%=message%></span>
         </div>
+        <% }else{%>
+        <div class="message">
+            <span class="text text-1 text-danger">Thất bại</span>
+            <span class="text text-2 text-danger"><%=message%></span>
+        </div>
+        <%}%>
         <%    session.removeAttribute("message");
             session.removeAttribute("status");%>
         <% } else{%>
@@ -143,7 +157,6 @@
     <i class="fa-solid fa-xmark close"></i>
     <div class="progress"></div>
 </div>
-<%} else {%>
 <%--<div class="toast">--%>
 <%--    <div class="toast-content">--%>
 <%--        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"--%>
@@ -158,7 +171,6 @@
 <%--    <i class="fa-solid fa-xmark close"></i>--%>
 <%--    <div class="progress"></div>--%>
 <%--</div>--%>
-<%}%>
 <script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
 <%if (message != null) {%>
 <script>
@@ -652,28 +664,30 @@
                     document.getElementById('timestamp').value = formattedDateTime; // Cập nhật trường ẩn
                 };
             </script>
-
+<% ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+    JSONArray jsonArray = productDeltailDAO.getActiveCommentsByProductId(Integer.parseInt(productID));%>
+            <% for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);%>
             <div class="media mt-4">
-                <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png"
+                <img style="width: 60px; height: 50px" src="../resources/assets/images/nguoidung.jpg"
                      class="mr-3 rounded-circle" alt="User Avatar">
                 <div class="media-body">
-                    <h6 class="mt-0">Huyền <small class="text-muted">10/06/2024 21:40:08</small></h6>
-                    iphone 15 promax 512 GB màu titan xanh có về lại hàng nữa không ạ
+                    <h6 class="mt-0"><%= jsonObject.optString("nameComment")%> <small class="text-muted"><%= jsonObject.optString("timestamp")%></small></h6>
+                    <%= jsonObject.optString("content")%>
+                    <% JSONArray jsonArray1 = productDeltailDAO.getReplyByComment(Integer.parseInt(productID), jsonObject.optInt("id"));%>
+                    <% for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject1 = jsonArray1.getJSONObject(j);%>
                     <div class="media mt-3">
-                        <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png" class="mr-3 rounded-circle" alt="Admin Avatar">
+                        <img style="width: 60px; height: 50px" src="../resources/assets/images/qtv.webp" class="mr-3 rounded-circle" alt="Admin Avatar">
                         <div class="media-body">
-                            <h6 class="mt-0">Quản Trị Viên</h6>
-                            Di Động Việt xin chào Chị Huyền ạ!
-                            <p>Dạ sản phẩm Chị quan tâm đang tạm hết hàng và chưa có thời gian dự kiến về hàng lại ạ, Chị tham khảo sản phẩm APPLE IPHONE 15 Pro Max 512GB (CTY) - Titan Tự Nhiên - New: 34,990,000 đang có sẵn hàng ạ.</p>
-                            <p>Ngoài ra còn có các ưu đãi kèm máy ạ.<br>
-                                Chuyển khoản: Giảm thêm đến 500.000đ<br>
-                                Trả góp: Giảm thêm đến 500.000đ<br>
-                                Thu cũ đổi mới: Tặng thêm đến 2.000.000đ</p>
-                            <p>Để được tư vấn chi tiết hơn, Chị vui lòng liên hệ tổng đài 1800 6018 (miễn phí). Trân trọng!</p>
+                            <h6 class="mt-0">Quản Trị Viên: <%=jsonObject1.optString("nameComment")%> <small class="text-muted"><%= jsonObject1.optString("timestamp")%></small></h6>
+                                <%=jsonObject1.optString("content")%>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
+            <% } %>
         </div>
 
         <div class="contai-right col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 border_gr_bg_white h-100">

@@ -234,7 +234,7 @@
                     <th style="width: 30%" scope="col">Nội Dung</th>
                     <th scope="col">Thời Gian Bình Luận</th>
                     <th scope="col">Sản Phẩm Bình Luận</th>
-                    <th scope="col">Phê Duyệt</th>
+                    <th scope="col">Tình trạng</th>
                     <th scope="col">Hành Động</th>
                     <th scope="col">Trả lời</th>
                     <th scope="col">Hành Động</th>
