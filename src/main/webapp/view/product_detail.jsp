@@ -45,11 +45,16 @@
             crossorigin="anonymous"></script>
     <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/product-detail.css">
-    <%@include file="/common/libraries.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<%--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/bootstrap/css/bootstrap.min.css">--%>
+<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/font-awesome/css/font-awesome.css">--%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/mainheader.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/responsive.css">
+    <%@include file="/common/libraries.jsp" %>
 </head>
 <style>
     body {

@@ -93,6 +93,9 @@ header .main-header .form-seach-product .input-seach button {
     cursor: pointer;
 }
 
+#ui-id-1{
+    width: fit-content;
+}
 
 /* Thêm class này để clear float sau các elements */
 .clearfix::after {
