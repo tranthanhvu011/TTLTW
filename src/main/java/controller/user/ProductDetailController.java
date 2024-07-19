@@ -2,15 +2,9 @@ package controller.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import dao.CapacityDAO;
-import dao.ProductImageDAO;
-import dao.ProductVariantDAO;
-import dao.ProductDeltailDAO;
+import dao.*;
 
-import model.Capacity;
-import model.Color;
-import model.ProductImage;
-import model.ProductVariant;
+import model.*;
 
 import org.json.JSONObject;
 import service.ProductDetalService;
@@ -45,7 +39,8 @@ public class ProductDetailController extends HttpServlet {
         String productID = request.getParameter("id");
         int id = Integer.parseInt(productID);
         List<ProductVariant> listProductVariant = productDetalService.getAllProductVariant(id);
-
+        RateDAO rateDAO = new RateDAO();
+        List<Rate> rates = rateDAO.getRatesByProductId(id);
         Map<String, String> colorImageMap = new LinkedHashMap<>();
         for (ProductVariant variant : listProductVariant) {
             String colorName = variant.getColor().getName();
@@ -60,6 +55,7 @@ public class ProductDetailController extends HttpServlet {
             capacitiesSet.add(variant.getCapacity().getName());
         }
         List<String> capacitiesList = new LinkedList<>(capacitiesSet);
+        request.setAttribute("rates",rates);
         request.setAttribute("colorImageMap", colorImageMap);
         request.setAttribute("capacities", capacitiesList);
         request.setAttribute("productVariant", listProductVariant);

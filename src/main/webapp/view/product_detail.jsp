@@ -9,6 +9,12 @@
 <%@ page import="org.json.JSONArray" %>
 <%@ page import="com.google.gson.JsonObject" %>
 <%@ page import="org.json.JSONObject" %>
+<%@ page import="dao.UserDAO" %>
+<%@ page import="service.UserService" %>
+<%
+    List<Rate> rateList = (List<Rate>) request.getAttribute("rates");
+    if (rateList == null) rateList = new ArrayList<>();
+%>
 <%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
@@ -26,6 +32,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/product-detail.css">
     <%@include file="/common/libraries.jsp" %>
@@ -303,6 +320,50 @@
                         <p class="black_14_400">2</p>
                     </div>
                 </div>
+                <!-- Nút để mở modal -->
+                <!-- Button trigger modal -->
+                <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
+                    Xem đánh giá
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modelrate" tabindex="-1" role="dialog"
+                     aria-labelledby="modelrateLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="height: 600px; margin-top: 40px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modelrateLabel" style="margin-left: 20px;">Đánh giá sản phẩm</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="max-height: 600px; overflow: auto">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    for (Rate rate : rateList) {
+                                        Account account = userDAO.getUserById(rate.getAccount_id());
+                                %>
+                                <div style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column;">
+                                    <p style="font-weight: bold; margin-bottom: 8px;"><%= "Tên người dùng: " + account.getFirst_name() + " " + account.getLast_name() %></p>
+                                    <p style="margin-bottom: 8px;">Chất lượng: <%= rate.getNumber_rate() %> sao
+                                        <% for (int i = 0; i < rate.getNumber_rate(); i++) { %>
+                                        <i class="fa-solid fa-star icon-star" style="color: #ffc107; font-size: 18px;"></i>
+                                        <% } %>
+                                    </p>
+                                    <p style="color: #555;"><%= "Nhận xét: " + rate.getComment() %></p>
+                                </div>
+                                <%
+                                    }
+                                %>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <% ProductVariant firstVariant = listproduct.get(0);%>
