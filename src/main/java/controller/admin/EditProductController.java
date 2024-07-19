@@ -1,8 +1,12 @@
 package controller.admin;
 
 import config.URLConfig;
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import dao.ProductVariantDAO;
 import helper.FileHelper;
 import helper.UploadHelper;
+import model.Account;
 import model.Product;
 import model.ProductVariant;
 import model.Specification;
@@ -58,6 +62,8 @@ public class EditProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         String action = request.getParameter("action");
         Product product = productService.findDetailProductById(idProduct);
         List<ProductVariant> productVariants = productVariantService.getAllProductVariantByIdProduct(idProduct);
@@ -129,9 +135,22 @@ public class EditProductController extends HttpServlet {
                     productVariantDB.setState(state);
                     productVariantDB.setColor_id(color);
                     productVariantDB.setCapacity_id(capacity);
+                    ProductVariant productVariant = ProductVariantDAO.getInstance().findProductVariant(idProductVariant);
+                    String beforeData = "id: " + productVariant.getId() +
+                            ", name: " + productVariant.getName() +
+                            ", colorId: " + productVariant.getColorId() +
+                            ", price: " + productVariant.getPrice() +
+                            ", state: " + productVariant.getState();
 
+                    String afterData = "id: " + idProductVariant +
+                            ", color: " + color +
+                            ", capacity: " + capacity +
+                            ", price: " + priceVariant +
+                            ", state: " + state;
                     boolean isUpdate = productVariantService.update(productVariantDB) > 0;
                     if (isUpdate) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.WARNING.toString(),beforeData,afterData ,"Sửa thông tin sản phẩm");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thay dổi thông tin chi tiết sản phẩm thành công");
                         response.sendRedirect(request.getContextPath() + "/admin/product/edit_product?id=" + idProduct);

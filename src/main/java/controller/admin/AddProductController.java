@@ -1,7 +1,9 @@
 package controller.admin;
 
 import config.URLConfig;
+import controller.enums.LogLevel;
 import dao.DiscountProductDAO;
+import dao.LogDAO;
 import helper.UploadHelper;
 import model.*;
 import modelDB.ProductDB;
@@ -57,6 +59,8 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         if (action != null) {
             switch (action) {
                 case "addParentProduct":
@@ -109,6 +113,8 @@ public class AddProductController extends HttpServlet {
                             request.getSession().setAttribute("message", "Thêm sản phẩm thành công");
                             request.getSession().setAttribute("product", product);
                             request.getRequestDispatcher("/viewAdmin/add_product.jsp").forward(request, response);
+                            LogDAO logDAO = new LogDAO();
+                            logDAO.insertLog(account.getId(),ip, LogLevel.WARNING.toString(),"null",product.toString(),"Thêm sản phẩm");
                         } else {
                             request.getSession().setAttribute("status", false);
                             request.getSession().setAttribute("message", "Không thể thêm sản phẩm");

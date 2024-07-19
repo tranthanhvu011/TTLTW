@@ -108,7 +108,12 @@
                         </a>
 
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
+                                Lịch sử hoạt động   </span>
+                        </a>
 
+                    </li>
 
                 </ul>
             </nav>
