@@ -31,6 +31,7 @@
         font-size: 14px;
         font-family: Inter, Helvetica, Arial, sans-serif;
     }
+
     #onSubmit:hover {
         color: red;
     }
@@ -60,7 +61,7 @@
                 <div class="error error-message text-center" style="color: red">${requestScope.firstName}</div>
             </c:if>
 
-            <form method="post" action="/register"  id="formRegister">
+            <form method="post" action="/register" id="formRegister">
                 <div class="row row-space">
                     <div class="col-6">
                         <div class="input-group">
@@ -140,7 +141,7 @@
                     <div class="form-group">
                         <label for="provinceSelect">Chọn Tỉnh/ Thành Phố:</label>
                         <select name="tinhThanh" style="height: 100%
-    " class="form-control"  id="provinceSelect" onchange="loadDistricts()">
+    " class="form-control" id="provinceSelect" onchange="loadDistricts()">
                             <option value="">Chọn Tỉnh/ Thành Phố</option>
                         </select>
                     </div>
@@ -154,14 +155,14 @@
                     <div class="form-group">
                         <label for="wardSelect">Chọn Xã:</label>
                         <select name="xa" style="height: 100%
-    " class="form-control"   id="wardSelect">
+    " class="form-control" id="wardSelect">
                             <option value="">Chọn Xã</option>
                         </select>
                     </div>
-<%--                    <input class="input--style-4" type="text" name="address"--%>
-<%--                           style="width: 100%;margin-left: 15px;margin-right: 15px" id="address">--%>
-<%--                    <span class="error" id="er-address"--%>
-<%--                          style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>--%>
+                    <%--                    <input class="input--style-4" type="text" name="address"--%>
+                    <%--                           style="width: 100%;margin-left: 15px;margin-right: 15px" id="address">--%>
+                    <%--                    <span class="error" id="er-address"--%>
+                    <%--                          style="color: red;font-size: 10px;margin-top: 5px;padding-left: 10px"></span>--%>
                 </div>
                 <br>
                 <br>
@@ -176,7 +177,8 @@
                 if (errors != null && !errors.isEmpty()) {
                     for (String error : errors) {
             %>
-            <h4 style="background: transparent"> <%= error%></h4>
+            <h4 style="background: transparent"><%= error%>
+            </h4>
             <%
                     }
                 }%>
@@ -184,26 +186,26 @@
     </div>
 </div>
 <script type="text/javascript">
-    function checkCaptcha(){
+    function checkCaptcha() {
         var form = document.getElementById("login-form");
         var captchaError = document.getElementById("captchaError");
         const response = grecaptcha.getResponse();
-        if(response){
+        if (response) {
             form.submit();
-        } else{
+        } else {
             captchaError.textContent = "Vui lòng xác thực reCAPTCHA!";
         }
     }
 </script>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         loadData('ProvinceServlet', 'provinceSelect', 'name_with_type');
     };
 
     function loadData(servletName, selectId, textProperty) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", servletName, true);
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
                 try {
                     const data = JSON.parse(xhr.responseText);
@@ -219,7 +221,7 @@
                 console.error('Failed to fetch data: ', xhr.statusText);
             }
         };
-        xhr.onerror = function() {
+        xhr.onerror = function () {
             console.error('Request error.');
         };
         xhr.send();
