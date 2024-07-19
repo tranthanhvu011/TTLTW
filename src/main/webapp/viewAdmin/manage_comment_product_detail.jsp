@@ -225,7 +225,7 @@
 
 
         %>
-        <div class="single-table" style="width: 95%; margin: 0 auto">
+        <div class="single-table" style="width: 100%; margin: 0 auto">
             <table id="example" class="table table-striped table-bordered" style="width: 100%">
                 <thead >
                 <tr>
@@ -236,6 +236,7 @@
                     <th scope="col">Sản Phẩm Bình Luận</th>
                     <th scope="col">Phê Duyệt</th>
                     <th scope="col">Hành Động</th>
+                    <th scope="col">Trả lời</th>
                     <th scope="col">Hành Động</th>
                 </tr>
                 </thead>
@@ -273,6 +274,11 @@
                     <% } %>
                     </td>
                     <td>
+                        <button type="button" class="btn btn-primary" onclick="showReplyModal(<%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
+                            Trả Lời
+                        </button>
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-danger" onclick="showModal('delete', <%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
                             Xóa Bình Luận
                         </button>
@@ -282,6 +288,28 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <!-- Modal dialog cho trả lời -->
+        <div id="replyModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeReplyModal()">&times;</span>
+                <p>Trả lời bình luận</p>
+                <form id="replyForm" method="post" action="${pageContext.request.contextPath}/admin/manage_comment_product_detail?action=reply">
+                    <div class="form-group">
+                        <label>Họ và tên quản trị viên</label>
+                        <input type="text" class="form-control" name="nameQTV" aria-describedby="emailHelp" placeholder="Họ và tên quản trị viên">
+                    </div>
+                    <div class="form-group">
+                    <textarea id="replyContent" name="replyContent" rows="4" cols="60"></textarea>
+                    <input type="hidden" id="replyCommentId" name="idComment">
+                    <input type="hidden" id="replyProductId" name="idProduct">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeReplyModal()">Hủy</button>
+                    </div>
+                </form>
+            </div>
         </div>
         <div id="confirmModal" class="modal">
             <div class="modal-content">
@@ -323,6 +351,18 @@
                 }
                 modal.style.display = "block";
             }
+            // Hiển thị modal trả lời
+            function showReplyModal(idComment, idProduct) {
+                var modal = document.getElementById("replyModal");
+                document.getElementById("replyCommentId").value = idComment;
+                document.getElementById("replyProductId").value = idProduct;
+                modal.style.display = "block";
+            }
+            function closeReplyModal() {
+                var modal = document.getElementById("replyModal");
+                modal.style.display = "none";
+            }
+
 
             function closeModal() {
                 var modal = document.getElementById("confirmModal");
@@ -331,8 +371,12 @@
 
             window.onclick = function(event) {
                 var modal = document.getElementById("confirmModal");
+                var replyModal = document.getElementById("replyModal");
                 if (event.target == modal) {
                     modal.style.display = "none";
+                }
+                if (event.target == replyModal) {
+                    replyModal.style.display = "none";
                 }
             }
         </script>

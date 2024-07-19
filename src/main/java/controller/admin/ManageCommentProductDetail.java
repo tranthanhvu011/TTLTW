@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 @WebServlet(urlPatterns = {"/admin/manage_comment_product_detail"})
 public class ManageCommentProductDetail extends HttpServlet {
     @Override
@@ -63,5 +62,27 @@ public class ManageCommentProductDetail extends HttpServlet {
             req.getSession().setAttribute("message", "Tắt bình luận thất bại");
             resp.sendRedirect("/admin/manage_comment_product_detail");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       String action = req.getParameter("action");
+       if (action.equalsIgnoreCase("reply")) {
+           doPost_Reply(req,resp);
+       }
+    }
+    protected void doPost_Reply(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            String nameQTV = req.getParameter("nameQTV");
+            String replyContent = req.getParameter("replyContent");
+            int idProduct = Integer.parseInt(req.getParameter("idProduct"));
+            int idComment = Integer.parseInt(req.getParameter("idComment"));
+            ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+            if (productDeltailDAO.addReply(idProduct,idComment,nameQTV,replyContent)) {
+                req.getSession().setAttribute("message", "Trả lời bình luận thành công");
+                resp.sendRedirect("/viewAdmin/manage_comment_product_detail.jsp");
+            }else{
+                req.getSession().setAttribute("message", "Trả lời bình luận thất bại");
+                resp.sendRedirect("/viewAdmin/manage_comment_product_detail.jsp");
+            }
     }
 }
