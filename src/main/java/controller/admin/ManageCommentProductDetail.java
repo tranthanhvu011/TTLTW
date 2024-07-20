@@ -103,4 +103,4 @@ public class ManageCommentProductDetail extends HttpServlet {
                 resp.sendRedirect("/viewAdmin/manage_comment_product_detail.jsp");
             }
     }
-}
+    }

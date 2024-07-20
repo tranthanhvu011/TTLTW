@@ -298,10 +298,11 @@
         <div id="showReplyModal" class="modal">
             <input type="hidden" id="showReplyCommentId" name="idComment">
             <input type="hidden" id="showReplyProductId" name="idProduct">
-            <div class="modal-content">
+            <div class="modal-content" id="modal-content">
                 <span class="close" onclick="closeShowReplyModal()">&times;</span>
                 <p>Trả lời về bình luận</p>
-                <form id="showReplyForm" method="post" action="${pageContext.request.contextPath}/admin/manage_comment_product_detail">
+                <h4 id="replyMessage" class=text-success></h4>
+                <form id="showReplyForm">
                     <table class="table-show">
                         <thead>
                         <tr>
@@ -314,11 +315,11 @@
                         <tbody>
                         <tr>
                             <th scope="row">2</th>
-                            <td ><textarea style="width: 100%">fasfasfasfasfasfasfasf</textarea></td>
+                            <td ><textarea id="showRepLyTextArea" style="width: 100%">fasfasfasfasfasfasfasf</textarea></td>
                             <td>Thornton</td>
                             <td>
-                                <button type="submit" name="action" class="btn btn-success" value="changeComment" >Sửa Trả Lời</button>
-                                <button type="submit" name="action" class="btn btn-danger" value="delete">Xóa</button>
+                                <button type="button" class="btn btn-success" >Sửa Trả Lời</button>
+                                <button type="button" class="btn btn-danger">Xóa</button>
                             </td>
                         </tr>
                         </tbody>
@@ -334,7 +335,7 @@
                 <span class="close" onclick="closeModal()">&times;</span>
                 <p id="modalMessage">Bạn có chắc chắn muốn thực hiện hành động này?</p>
                 <div class="modal-buttons">
-                    <button id="confirmBtn" class="btn btn-danger">Xác Nhận</button>
+                    <button  id="confirmBtn" class="btn btn-danger">Xác Nhận</button>
                     <button class="btn btn-secondary" onclick="closeModal()">Hủy</button>
                 </div>
             </div>
@@ -359,23 +360,57 @@
                 const repliesContainer = document.querySelector('#showReplyForm tbody');
                 repliesContainer.innerHTML = '';
                 data.forEach(reply => {
+                    const idReply = reply.id || 'CCo cai nit';
                     const name = reply.nameComment || 'Unknown';
                     const content = reply.content || 'No content available';
                     const timestamp = reply.timestamp || 'No timestamp available';
                     let row = '<tr>' +
+                        '<input type="hidden" id="showReplyReplyCommentId" name="idComment" value="'+idReply+'">'+
                         '<th scope="row">' + name + '</th>' +
-                        '<td><textarea style="width: 100%">' + content + '</textarea></td>' +
+                        '<td><textarea name="textarea" style="width: 100%">' + content + '</textarea></td>' +
                         '<td>' + timestamp + '</td>' +
                         '<td>' +
-                        '<button type="submit" name="action" class="btn btn-success" value="changeComment">Sửa Trả Lời</button>' +
-                        '<button type="submit" name="action" class="btn btn-danger" value="delete">Xóa</button>' +
+                        '<button type="button" class="btn btn-success" onclick="changeReply(\'changeReply\')">Sửa Trả Lời</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="changeReply(\'deleteReply\')">Xóa</button>' +
                         '</td>' +
                         '</tr>';
-                    repliesContainer.innerHTML += row;  // Thêm hàng mới
+                    repliesContainer.innerHTML += row;
                 });
             }
 
 
+            function changeReply(action) {
+                var idProduct = document.getElementById("showReplyProductId").value;
+                var idComment = document.getElementById("showReplyCommentId").value;
+                var idReply = document.getElementById("showReplyReplyCommentId").value;
+                // console.log("idProduct" + idProduct + " Id comment"  + idComment );
+                var content = document.querySelector("textarea[name='textarea']").value;
+                var url = '/admin/manage_comment_product_detail_change_delete';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: action,
+                        idProduct: idProduct,
+                        idComment: idComment,
+                        idReply: idReply,
+                        content: content
+                    })
+                })
+                    .then(response =>{
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+
+                    })
+                    .then(data => {
+                        document.getElementById('replyMessage').textContent = data.message;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
 
 
             function showModal(action, idComment, idProduct) {
@@ -422,6 +457,7 @@
                 var modal = document.getElementById("showReplyModal");
                 modal.style.display = "block";
                 getCommentReply(idProduct, idComment);
+                changeReply();
 
             }
             function closeReplyModal() {
