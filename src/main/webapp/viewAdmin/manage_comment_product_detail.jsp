@@ -411,6 +411,38 @@
                     })
                     .catch(error => console.error('Error:', error));
             }
+            function deleteReply(button) {
+                var row = button.closest('tr');
+                var idProduct = document.getElementById("showReplyProductId").value;
+                var idComment = document.getElementById("showReplyCommentId").value;
+                var idReply = row.querySelector("input[name='idReply']").value;
+                var url = '/admin/manage_comment_product_detail_change_delete';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'deleteReply',
+                        idProduct: idProduct,
+                        idComment: idComment,
+                        idReply: idReply
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('replyMessage').textContent = data.message;
+                        console.log("Updating comments for idProduct: " + idProduct + ", idComment: " + idComment);
+                        getCommentReply(idProduct, idComment);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
             function showModal(action, idComment, idProduct) {
                 var modal = document.getElementById("confirmModal");
                 var modalMessage = document.getElementById("modalMessage");
