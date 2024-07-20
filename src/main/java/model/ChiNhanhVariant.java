@@ -7,6 +7,9 @@ public class ChiNhanhVariant {
     int quantity;
     int idkho;
 
+    public ChiNhanhVariant() {
+    }
+
     public ChiNhanhVariant(int id, int idchinhanh, int idproductvariant, int quantity, int idkho) {
         this.id = id;
         this.idchinhanh = idchinhanh;

@@ -22,7 +22,6 @@ public class ManageInventoryController  extends HttpServlet {
         inventory = inventoryDAO.getAllInventory();
         List<Integer> idProduct = ProductDAO.getAllIdProduct();
         req.setAttribute("inventory",inventory);
-        req.setAttribute("listId",idProduct);
         req.getRequestDispatcher("/viewAdmin/manage_inventory.jsp").forward(req, resp);
     }
 
@@ -46,14 +45,15 @@ public class ManageInventoryController  extends HttpServlet {
             }
         } else if ("edit".equals(action)) {
             String idParam = req.getParameter("id");
-            String productParam = req.getParameter("product");
             String name = req.getParameter("name");
+            String address = req.getParameter("address");
+            String phone = req.getParameter("phone");
+            String mail = req.getParameter("mail");
 
-            if (idParam != null && productParam != null && name != null) {
+            if (idParam != null && name != null && address != null && phone != null && mail != null) {
                 try {
                     int id = Integer.parseInt(idParam);
-                    int productId = Integer.parseInt(productParam);
-                    boolean success = inventoryDAO.updateInventory(id, productId, name);
+                    boolean success = inventoryDAO.updateInventory(id, name, address, phone, mail);
                     resp.sendRedirect("/admin/manage_inventory"); // Redirect to refresh the page
                 } catch (NumberFormatException e) {
                     resp.getWriter().write("error");
@@ -62,15 +62,16 @@ public class ManageInventoryController  extends HttpServlet {
                 resp.getWriter().write("error");
             }
         } else if ("add".equals(action)) {
-            String productParam = req.getParameter("product");
             String name = req.getParameter("name");
+            String address = req.getParameter("address");
+            String phone = req.getParameter("phone");
+            String mail = req.getParameter("mail");
 
-            if (productParam != null && name != null) {
+            if (name != null && address != null && phone != null && mail != null) {
                 try {
-                    int productId = Integer.parseInt(productParam);
-                    boolean success = inventoryDAO.addInventory(productId, name);
+                    boolean success = inventoryDAO.addInventory(name, address, phone, mail);
                     resp.sendRedirect("/admin/manage_inventory"); // Redirect to refresh the page
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     resp.getWriter().write("error");
                 }
             } else {
