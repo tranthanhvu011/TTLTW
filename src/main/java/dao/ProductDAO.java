@@ -142,10 +142,15 @@ public class ProductDAO {
             return handle.createQuery(query).bind(0, id).mapTo(Integer.class).list();
         });
     }
-
+    public static List<Integer> getAllIdProduct() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT id FROM products")
+                        .mapTo(Integer.class)
+                        .list());
+    }
 
     public static void main(String[] args) {
-      System.out.print(getNameProductByIDProductVariant(34));
+     System.out.println(getAllIdProduct());
 
     }
 }

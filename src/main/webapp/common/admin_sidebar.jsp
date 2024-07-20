@@ -114,7 +114,24 @@
                         </a>
 
                     </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true">
+                            <span>Kho hàng</span>
+                        </a>
+                        <ul class="collapse">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_inventory">
+                                    <span>Quản lý kho hàng</span>
+                                </a>
+                            </li>
 
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/contacts/manage_contacts">
+                                    <span>Quản lý chi nhánh</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
