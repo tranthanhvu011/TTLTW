@@ -49,35 +49,9 @@
     }
 
     .modal {
-        display: block;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0);
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: auto;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .my-table {
-        border-collapse: collapse; /* Gộp cạnh của các ô */
-        border: none; /* Xóa viền cho toàn bộ bảng */
-    }
-
-    .my-table td, .my-table th {
-        border: none; /* Xóa viền cho các ô cụ thể */
-    }
-    .modal {
         display: none; /* Ẩn modal mặc định */
         position: fixed; /* Cố định modal */
-        z-index: 1; /* Hiển thị trên cùng */
+        z-index: 3; /* Hiển thị trên cùng */
         left: 0;
         top: 0;
         width: 100%;
@@ -89,13 +63,19 @@
 
     .modal-content {
         background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
+        margin: 10% auto; /* Giảm margin-top để tránh bị tràn khi modal lớn */
+        padding: 10px;
         border: 1px solid #888;
-        width: 80%;
-        max-width: 500px;
+        width: 50%; /* Tăng kích thước width */
+        max-width: none; /* Xóa max-width để cho phép modal mở rộng hơn */
         text-align: center;
     }
+
+    /* Tăng kích thước font cho tất cả phần tử trong modal */
+    .modal-content * {
+        font-size: 14px; /* Tăng kích thước font gấp ba */
+    }
+
 
     .close {
         color: #aaa;
@@ -231,12 +211,12 @@
                 <tr>
                     <th scope="col">Tên Người Bình Luận </th>
                     <th scope="col">Số Điện Thoại Liên Hệ</th>
-                    <th style="width: 30%" scope="col">Nội Dung</th>
+                    <th style="width: 20%" scope="col">Nội Dung</th>
                     <th scope="col">Thời Gian Bình Luận</th>
                     <th scope="col">Sản Phẩm Bình Luận</th>
                     <th scope="col">Tình trạng</th>
                     <th scope="col">Hành Động</th>
-                    <th scope="col">Trả lời</th>
+                    <th scope="col" style="min-width: 230px">Trả lời</th>
                     <th scope="col">Hành Động</th>
                 </tr>
                 </thead>
@@ -248,7 +228,7 @@
                     <td><%= jsonObject.optString("nameComment", "")%></td>
                     <td><%= jsonObject.optString("phoneNumber", "")%></td>
                     <td>
-                        <textarea style="width: 100%"><%= jsonObject.optString("content", "")%> </textarea>
+                        <textarea style="width: 100%;"><%= jsonObject.optString("content", "")%> </textarea>
                     </td>
                     <td>
                         <%= jsonObject.optString("timestamp", "")%>
@@ -277,13 +257,17 @@
                         <button type="button" class="btn btn-primary" onclick="showReplyModal(<%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
                             Trả Lời
                         </button>
+                     <button type="button" class="btn btn-info" onclick="showShowReplyModal(<%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
+                            Xem Trả Lời
+                        </button>
+
                     </td>
                     <td>
                         <button type="button" class="btn btn-danger" onclick="showModal('delete', <%=jsonObject.optInt("id")%>, <%=jsonObject.optInt("idProduct")%>)">
                             Xóa Bình Luận
                         </button>
-
                     </td>
+
                     <% }%>
                 </tr>
                 </tbody>
@@ -311,6 +295,40 @@
                 </form>
             </div>
         </div>
+        <div id="showReplyModal" class="modal">
+            <input type="hidden" id="showReplyCommentId" name="idComment">
+            <input type="hidden" id="showReplyProductId" name="idProduct">
+            <div class="modal-content">
+                <span class="close" onclick="closeShowReplyModal()">&times;</span>
+                <p>Trả lời về bình luận</p>
+                <form id="showReplyForm" method="post" action="${pageContext.request.contextPath}/admin/manage_comment_product_detail">
+                    <table class="table-show">
+                        <thead>
+                        <tr>
+                            <th scope="col">Tên QTV</th>
+                            <th scope="col" style="width: 50%">Nội Dung</th>
+                            <th scope="col" style="width: 10%">Thời Gian</th>
+                            <th scope="col">Hành Động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td ><textarea style="width: 100%">fasfasfasfasfasfasfasf</textarea></td>
+                            <td>Thornton</td>
+                            <td>
+                                <button type="submit" name="action" class="btn btn-success" value="changeComment" >Sửa Trả Lời</button>
+                                <button type="submit" name="action" class="btn btn-danger" value="delete">Xóa</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="closeShowReplyModal()">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div id="confirmModal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -322,6 +340,44 @@
             </div>
         </div>
         <script>
+            function getCommentReply(idProduct, idComment) {
+                var url = '/admin/manage_comment_product_detail?action=getReply&idProduct=' + idProduct + '&idComment=' + idComment;
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        updateModalContent(data);
+                    })
+                    .catch(error => console.error('Error fetching replies:', error));
+            }
+            function updateModalContent(data) {
+                const repliesContainer = document.querySelector('#showReplyForm tbody');
+                repliesContainer.innerHTML = '';
+                data.forEach(reply => {
+                    const name = reply.nameComment || 'Unknown';
+                    const content = reply.content || 'No content available';
+                    const timestamp = reply.timestamp || 'No timestamp available';
+                    let row = '<tr>' +
+                        '<th scope="row">' + name + '</th>' +
+                        '<td><textarea style="width: 100%">' + content + '</textarea></td>' +
+                        '<td>' + timestamp + '</td>' +
+                        '<td>' +
+                        '<button type="submit" name="action" class="btn btn-success" value="changeComment">Sửa Trả Lời</button>' +
+                        '<button type="submit" name="action" class="btn btn-danger" value="delete">Xóa</button>' +
+                        '</td>' +
+                        '</tr>';
+                    repliesContainer.innerHTML += row;  // Thêm hàng mới
+                });
+            }
+
+
+
+
             function showModal(action, idComment, idProduct) {
                 var modal = document.getElementById("confirmModal");
                 var modalMessage = document.getElementById("modalMessage");
@@ -358,11 +414,24 @@
                 document.getElementById("replyProductId").value = idProduct;
                 modal.style.display = "block";
             }
+            function showShowReplyModal(idComment, idProduct) {
+                document.getElementById("showReplyCommentId").value = idComment;
+                document.getElementById("showReplyProductId").value = idProduct;
+                console.log(idComment);
+                console.log(idProduct);
+                var modal = document.getElementById("showReplyModal");
+                modal.style.display = "block";
+                getCommentReply(idProduct, idComment);
+
+            }
             function closeReplyModal() {
                 var modal = document.getElementById("replyModal");
                 modal.style.display = "none";
             }
-
+            function closeShowReplyModal() {
+                var modal = document.getElementById("showReplyModal");
+                modal.style.display = "none";
+            }
 
             function closeModal() {
                 var modal = document.getElementById("confirmModal");
@@ -372,11 +441,15 @@
             window.onclick = function(event) {
                 var modal = document.getElementById("confirmModal");
                 var replyModal = document.getElementById("replyModal");
+                var showReplyModal = document.getElementById("showReplyModal");
                 if (event.target == modal) {
                     modal.style.display = "none";
                 }
                 if (event.target == replyModal) {
                     replyModal.style.display = "none";
+                }
+                if (event.target == showReplyModal) {
+                    showReplyModal.style.display = "none";
                 }
             }
         </script>

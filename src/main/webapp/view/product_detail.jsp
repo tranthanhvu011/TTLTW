@@ -193,7 +193,7 @@
 <%--    <i class="fa-solid fa-xmark close"></i>--%>
 <%--    <div class="progress"></div>--%>
 <%--</div>--%>
-<script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
+ <script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
 <%if (message != null) {%>
 <script>
     showToast();
