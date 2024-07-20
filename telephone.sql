@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 3306
  Source Server Type    : MySQL
  Source Server Version : 100432 (10.4.32-MariaDB)
  Source Host           : localhost:3306
- Source Schema         : telephone_shop
+ Source Schema         : telephone
 
  Target Server Type    : MySQL
  Target Server Version : 100432 (10.4.32-MariaDB)
  File Encoding         : 65001
 
- Date: 17/07/2024 11:41:14
+ Date: 19/07/2024 13:10:26
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `first_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -36,9 +36,8 @@ CREATE TABLE `accounts`  (
   `last_login` timestamp NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp,
   `lastIPLogin` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `countryLoginByIp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 122 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `countryLoginByIp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of accounts
@@ -90,7 +89,7 @@ INSERT INTO `accounts` VALUES (106, 'vualidon123@gmail.com', 'kosao', '123', '$2
 INSERT INTO `accounts` VALUES (107, 'fnakjfbas@gmail.com', 'vu', 'tran thanh', '$2a$10$73c98RQh2x1EZfsRLcsi3esg4cakITvcfVQDJWJsH2IVu5TYjZtPa', 'Binh Duong', 1, '2003-04-10', '0379886918', 'user', 0, '2024-06-05 12:04:26', '2024-06-05 12:04:26', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (108, 'fasfnsafha@gmail.com', 'vu', 'tran thanh', '$2a$10$3PkSxtEwEaN1Oin8vc6NJeNeKPNzcJIJSkSTJY64N3SptSRP1kNrW', 'Binh Duong', 1, '2003-04-10', '0379886918', 'user', 1, '2024-06-05 12:07:18', '2024-06-05 12:06:45', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (109, 'gsafasgjkf@gmail.com', 'fasfsa', 'fafsafasf', '$2a$10$73KYbde2baJPfloXvU5pE.Xh8kXyiVIS4x97B3YRfKGHfE/RduCQq', 'fasfasfas', 1, '2003-06-07', '0379886918', 'user', 1, '2024-06-06 14:19:17', '2024-06-06 13:55:32', '', '');
-INSERT INTO `accounts` VALUES (110, 'ngusidep@gmail.com', 'tran', 'vu', '$2a$10$Cm8POHuAjqQa/ItGHi0Ad.o1.KPcjbuLVLjc.i6IPVj3B/K.FH7.K', 'Dĩ An Bình Dương', 1, '2002-02-10', '0379886918', 'admin', 1, '2024-07-16 13:45:29', '2024-06-18 13:59:26', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
+INSERT INTO `accounts` VALUES (110, 'ngusidep@gmail.com', 'tran', 'vu', '$2a$10$Cm8POHuAjqQa/ItGHi0Ad.o1.KPcjbuLVLjc.i6IPVj3B/K.FH7.K', 'Dĩ An Bình Dương', 1, '2002-02-10', '0379886918', 'admin', 1, '2024-07-19 10:19:58', '2024-06-18 13:59:26', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (111, '4fhashjkf@gmail.com', 'tran', 'thanhvu', '$2a$10$aRp36qZiAF.9MC0oy55D5esCKLHg5F1IjL7pXwI/zVLZE6jbbNH3.', 'null59660', 0, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 16:50:44', '2024-07-14 16:50:44', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (112, 'fasfasfawfas@gmail.com', 'fasfas', 'fasfasf', '$2a$10$WLUk0KnmWH.TWcg9G.C.HeeKDzgclY6V0pakLc3jWz9pyjwdd8Vh.', 'null 919 92', 1, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 16:52:29', '2024-07-14 16:52:29', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (113, 'fasfasjfhasifas@gmail.com', 'tran', '412412412', '$2a$10$3Y9tDyNkeAu7IfYe2BYkyubxu4FMMJMUB8D1aj67PC3NArqhiu8ae', 'null 924 92', 1, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 17:03:35', '2024-07-14 17:03:35', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
@@ -102,16 +101,16 @@ INSERT INTO `accounts` VALUES (118, 'fasfasfasf@gmail.com', 'fasfas', 'fasfasfas
 INSERT INTO `accounts` VALUES (119, '512fasfas5@gmail.com', 'tran', 'fasfasfas', '$2a$10$Fhjo9Pt28lHdc6iKRrnnL.2ijjsgISlfPrgnazLkgYgUQ1NR9c0ba', 'null null null', 1, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 17:23:32', '2024-07-14 17:23:32', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (120, '512512nfnss@gmail.com', 'tran', 'fasfasfas', '$2a$10$Gf40tzbhc08DA7OmicWzmer9VKga17Pn.r.LRaa.Djm8MJN1xANoW', 'Tỉnh Cao Bằng null null', 1, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 17:31:47', '2024-07-14 17:31:47', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
 INSERT INTO `accounts` VALUES (121, 'fiasyubquo3r28@gmail.com', 'fasfasfasfaf', 'fasfasfasfas', '$2a$10$wCkqY0i/9pEI89gInvCy9Ory2T.dJ4a/PDwLXl1IhV7oMIw4PN9yK', 'Tỉnh Đắk Nông Huyện Đắk Song Xã Thuận Hạnh', 1, '2003-04-10', '0379886918', 'user', 0, '2024-07-14 17:35:30', '2024-07-14 17:35:30', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null');
+INSERT INTO `accounts` VALUES (122, 'abcd@gmail.com', 'nguyennnnn', 'trung', '$2a$10$9ZxoNJEVXYNH2HThPLjxgOQJIVM4xk31Kx.GwP7xuTI.aUIhec032', 'Tỉnh Đắk Nông Huyện Đắk Song Xã Nâm N\'Jang', 1, '2024-08-01', '0898654080', 'admin', 1, '2024-07-19 12:42:21', '2024-07-19 12:18:54', '127.0.0.1', 'Thanh pho null Quoc gia null');
 
 -- ----------------------------
 -- Table structure for capacities
 -- ----------------------------
 DROP TABLE IF EXISTS `capacities`;
 CREATE TABLE `capacities`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of capacities
@@ -132,10 +131,9 @@ INSERT INTO `capacities` VALUES (10, '32 GB');
 -- ----------------------------
 DROP TABLE IF EXISTS `colors`;
 CREATE TABLE `colors`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of colors
@@ -217,15 +215,14 @@ INSERT INTO `colors` VALUES (71, 'Đen Chân Trời');
 -- ----------------------------
 DROP TABLE IF EXISTS `contacts`;
 CREATE TABLE `contacts`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `full_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `phone_number` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `create_at` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `create_at` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of contacts
@@ -245,15 +242,10 @@ INSERT INTO `contacts` VALUES (20, 'vu tran thanh', 'vutranorhilsun@gmail.com', 
 -- ----------------------------
 DROP TABLE IF EXISTS `discountproduct`;
 CREATE TABLE `discountproduct`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product_id` int NOT NULL,
-  `discount_id` int NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `product_id`(`product_id` ASC) USING BTREE,
-  INDEX `discount_id`(`discount_id` ASC) USING BTREE,
-  CONSTRAINT `dp_fk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `dp_fk_2` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `discount_id` int NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of discountproduct
@@ -271,15 +263,14 @@ INSERT INTO `discountproduct` VALUES (11, 11, 15);
 -- ----------------------------
 DROP TABLE IF EXISTS `discounts`;
 CREATE TABLE `discounts`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `cost` decimal(10, 2) NULL DEFAULT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `is_active` tinyint(1) NULL DEFAULT NULL,
   `start_at` datetime NOT NULL,
-  `end_at` datetime NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `end_at` datetime NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of discounts
@@ -316,18 +307,15 @@ INSERT INTO `discounts` VALUES (26, 1000000.00, 'Siêu sale cuối năm 12/12', 
 -- ----------------------------
 DROP TABLE IF EXISTS `infotransports`;
 CREATE TABLE `infotransports`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `time_delivery` int NOT NULL,
   `cost` float NOT NULL,
   `phone_reciver` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `address_reciver` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `name_reciver` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `account_id` int NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `account_id`(`account_id` ASC) USING BTREE,
-  CONSTRAINT `infotransports_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `account_id` int NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infotransports
@@ -350,18 +338,18 @@ INSERT INTO `infotransports` VALUES (15, 'O', 8, 11000, '0911427335', '69 Phư�
 INSERT INTO `infotransports` VALUES (16, 'vu', 30, 30000, 'l', '4124124', 'vu', 101);
 INSERT INTO `infotransports` VALUES (19, 'Toan', 30, 30000, '512451314', 'Dương Thủy-Lệ Thủy', 'Toan', 100);
 INSERT INTO `infotransports` VALUES (20, '123', 30, 30000, '0379886918', 'di an', '123', 106);
+INSERT INTO `infotransports` VALUES (21, 'trung', 30, 30000, '0898654080', 'Tỉnh Đắk Nông Huyện Đắk Song Xã Nâm N\'Jang', 'trung', 122);
 
 -- ----------------------------
 -- Table structure for infowarranties
 -- ----------------------------
 DROP TABLE IF EXISTS `infowarranties`;
 CREATE TABLE `infowarranties`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `time_warranty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `address_warranty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `term_waranty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `term_waranty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infowarranties
@@ -383,45 +371,67 @@ INSERT INTO `infowarranties` VALUES (11, '12 tháng', 'Bảo hành chính hãng'
 -- ----------------------------
 DROP TABLE IF EXISTS `inventory`;
 CREATE TABLE `inventory`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `idEmployee` int NOT NULL,
   `dateInsert` timestamp NOT NULL DEFAULT current_timestamp,
-  `dateUpdate` timestamp NOT NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `dateUpdate` timestamp NOT NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inventory
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for log
+-- ----------------------------
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log`  (
+  `id` int NOT NULL,
+  `userID` int NULL DEFAULT NULL,
+  `ipAddress` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `level` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `beforeData` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `afterData` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `time` timestamp NULL DEFAULT current_timestamp
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of log
+-- ----------------------------
+INSERT INTO `log` VALUES (1, 1, 'ddsds', 'ddsds', 'ddsds', 'ddsds', 'ddsds', '2024-07-19 12:40:44');
+INSERT INTO `log` VALUES (2, 1, 'ddsds', 'ddsds', 'ddsds', 'ddsds', 'ddsds', '2024-07-19 12:41:03');
+
+-- ----------------------------
 -- Table structure for logging_login
 -- ----------------------------
 DROP TABLE IF EXISTS `logging_login`;
 CREATE TABLE `logging_login`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `ipUser` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `countryName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 187 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of logging_login
 -- ----------------------------
+INSERT INTO `logging_login` VALUES (233, 'abcd@gmail.com', 'thành công', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null', '2024-07-19 12:23:49');
+INSERT INTO `logging_login` VALUES (234, 'abcd@gmail.com', 'thành công', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null', '2024-07-19 12:24:36');
+INSERT INTO `logging_login` VALUES (235, 'abcd@gmail.com', 'thành công', '0:0:0:0:0:0:0:1', 'Thanh pho null Quoc gia null', '2024-07-19 12:33:30');
+INSERT INTO `logging_login` VALUES (236, 'abcd@gmail.com', 'thành công', '127.0.0.1', 'Thanh pho null Quoc gia null', '2024-07-19 12:42:22');
 
 -- ----------------------------
 -- Table structure for manufacturers
 -- ----------------------------
 DROP TABLE IF EXISTS `manufacturers`;
 CREATE TABLE `manufacturers`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL,
+  `NAME` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of manufacturers
@@ -449,15 +459,14 @@ INSERT INTO `manufacturers` VALUES (17, 'PoCo');
 -- ----------------------------
 DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `title` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp,
   `update_at` timestamp NOT NULL DEFAULT current_timestamp ON UPDATE CURRENT_TIMESTAMP,
   `index` int NOT NULL,
-  `url_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `url_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of news
@@ -478,22 +487,15 @@ INSERT INTO `news` VALUES (10, '4412', '412412', '2024-01-02 05:48:26', '2024-01
 -- ----------------------------
 DROP TABLE IF EXISTS `orderproductvariant`;
 CREATE TABLE `orderproductvariant`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product_variant_id` int NOT NULL,
   `order_id` int NOT NULL,
   `quantity` int NOT NULL DEFAULT 1,
   `transport_id` int NOT NULL,
   `buy_at` date NOT NULL,
   `total_price` float NULL DEFAULT NULL,
-  `status` int NULL DEFAULT NULL COMMENT '2:đang giao , 3:đã nhận hàng , 0:đã hủy,1:đang chuẩn bị hàng',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `transport_id`(`transport_id` ASC) USING BTREE,
-  INDEX `product_variant_id`(`product_variant_id` ASC) USING BTREE,
-  INDEX `order_id`(`order_id` ASC) USING BTREE,
-  CONSTRAINT `opv_fk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `productvariants` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `opv_fk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `opv_fk_3` FOREIGN KEY (`transport_id`) REFERENCES `infotransports` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = DYNAMIC;
+  `status` int NULL DEFAULT NULL COMMENT '2:đang giao , 3:đã nhận hàng , 0:đã hủy,1:đang chuẩn bị hàng'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orderproductvariant
@@ -506,18 +508,16 @@ INSERT INTO `orderproductvariant` VALUES (11, 301, 2, 6, 16, '2024-04-09', 11340
 INSERT INTO `orderproductvariant` VALUES (12, 301, 2, 6, 16, '2024-04-09', 113400000, 1);
 INSERT INTO `orderproductvariant` VALUES (13, 301, 2, 6, 16, '2024-04-09', 113400000, 1);
 INSERT INTO `orderproductvariant` VALUES (14, 302, 2, 1, 16, '2024-04-09', 2990000, 1);
+INSERT INTO `orderproductvariant` VALUES (16, 304, 7, 1, 21, '2024-07-19', 5020000, 3);
 
 -- ----------------------------
 -- Table structure for orders
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `account_id` int NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `account_id`(`account_id` ASC) USING BTREE,
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `id` int NOT NULL,
+  `account_id` int NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
@@ -526,48 +526,32 @@ INSERT INTO `orders` VALUES (1, 2);
 INSERT INTO `orders` VALUES (5, 100);
 INSERT INTO `orders` VALUES (2, 101);
 INSERT INTO `orders` VALUES (6, 106);
+INSERT INTO `orders` VALUES (7, 122);
 
 -- ----------------------------
 -- Table structure for passwordresetcodes
 -- ----------------------------
 DROP TABLE IF EXISTS `passwordresetcodes`;
 CREATE TABLE `passwordresetcodes`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `expiration_time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_email`(`email` ASC) USING BTREE,
-  INDEX `idx_code`(`code` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `expiration_time` timestamp NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of passwordresetcodes
 -- ----------------------------
-INSERT INTO `passwordresetcodes` VALUES (13, '4fhashjkf@gmail.com', '206385', '2024-07-14 17:50:44');
-INSERT INTO `passwordresetcodes` VALUES (14, 'fasfasfawfas@gmail.com', '819560', '2024-07-14 17:52:29');
-INSERT INTO `passwordresetcodes` VALUES (15, 'fasfasjfhasifas@gmail.com', '275570', '2024-07-14 18:03:35');
-INSERT INTO `passwordresetcodes` VALUES (16, 'fasfasfashkfahk@gmail.com', '870368', '2024-07-14 18:05:48');
-INSERT INTO `passwordresetcodes` VALUES (17, 'fasfasfjknasfh@gmail.com', '876331', '2024-07-14 18:09:16');
-INSERT INTO `passwordresetcodes` VALUES (18, 'FASFJNASJKFASJ@gmail.com', '382178', '2024-07-14 18:14:01');
-INSERT INTO `passwordresetcodes` VALUES (19, 'dfasfasfasfasfas@gmail.com', '650685', '2024-07-14 18:16:06');
-INSERT INTO `passwordresetcodes` VALUES (20, 'fasfasfasf@gmail.com', '452002', '2024-07-14 18:18:35');
-INSERT INTO `passwordresetcodes` VALUES (21, '512fasfas5@gmail.com', '378318', '2024-07-14 18:23:32');
-INSERT INTO `passwordresetcodes` VALUES (22, '512512nfnss@gmail.com', '777494', '2024-07-14 18:31:47');
-INSERT INTO `passwordresetcodes` VALUES (23, 'fiasyubquo3r28@gmail.com', '816381', '2024-07-14 18:35:30');
 
 -- ----------------------------
 -- Table structure for productimages
 -- ----------------------------
 DROP TABLE IF EXISTS `productimages`;
 CREATE TABLE `productimages`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product_variant_id` int NOT NULL,
-  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `product_variant_id`(`product_variant_id` ASC) USING BTREE,
-  CONSTRAINT `pi_fk_1` FOREIGN KEY (`product_variant_id`) REFERENCES `productvariants` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 901 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `image_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of productimages
@@ -1311,7 +1295,7 @@ INSERT INTO `productimages` VALUES (894, 306, '262516933_13.jpg');
 -- ----------------------------
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `manufacturer_id` int NOT NULL,
   `sell_quantity` int NOT NULL,
@@ -1322,15 +1306,8 @@ CREATE TABLE `products`  (
   `info_warranty_id` int NOT NULL,
   `specification_id` int NOT NULL,
   `priceNew` float NULL DEFAULT NULL,
-  `comment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `manufacturer_id`(`manufacturer_id` ASC) USING BTREE,
-  INDEX `specification_id`(`specification_id` ASC) USING BTREE,
-  INDEX `info_warranty_id`(`info_warranty_id` ASC) USING BTREE,
-  CONSTRAINT `p_fk_1` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `p_fk_2` FOREIGN KEY (`info_warranty_id`) REFERENCES `infowarranties` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `p_fk_3` FOREIGN KEY (`specification_id`) REFERENCES `specifications` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 179 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `comment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of products
@@ -1495,7 +1472,7 @@ INSERT INTO `products` VALUES (157, 'Ulefone Armor X 5 ( chống nước,chống
 INSERT INTO `products` VALUES (158, 'Redmi Note 12 Cấu Hình Khủng- hàng chính hãng- Giá rẻ', 9, 982, 99, '251930414.jpg', 4490000, '<p>Xiaomi Redmi Note 12 4GB có thể xem là cái tên rất đáng chú ý trong phân khúc điện thoại tầm trung hiện nay với nhiều ưu điểm nổi bật, sở hữu con chip Snapdragon 685 cùng bộ 3 cảm biến máy ảnh có độ phân giải tối đa lên đến 50 MP.</p>    <p>Vẻ ngoài thời trang cùng màu sắc mới mẻ</p>    <p>Redmi Note 12 được tạo hình bằng một vẻ ngoài quen thuộc với các cạnh cùng hai mặt vát phẳng tinh tế, những vị trí giao nhau giữa mặt lưng và bộ khung cũng sẽ được bo cong nhẹ để mang lại cảm giác cầm nắm thoải mái.</p>    <p>Hiệu năng đáp ứng tốt nhiều tác vụ</p>    <p>Về việc đảm bảo hiệu quả cho các tác vụ đa nhiệm thì phiên bản này vẫn mang lại một sự ổn định khá tốt trong tầm giá, bởi đây là mẫu điện thoại RAM 4 GB và còn được bổ sung thêm tính năng mở rộng thêm, nhờ vậy mà bạn có thể an tâm đa nhiệm cùng lúc nhiều ứng dụng như vừa xem phim, vừa trả lời tin nhắn hay video call với bạn bè.</p>    <p>Camera 50 MP nổi bật trong phân khúc</p>    <p>Có thể nói camera là một thế mạnh của chiếc điện thoại Xiaomi Redmi này khi máy được trang bị đầy đủ 3 camera, hỗ trợ chụp ảnh độ phân giải cao thông qua camera chính 50 MP, mở rộng góc chụp với camera góc siêu rộng 8 MP và cuối cùng là khả năng chụp ảnh cận nhờ cảm biến macro 2 MP.</p>    <p>Bên cạnh ưu điểm về hệ thống ống kính ra thì về thuật toán xử lý ảnh của máy cũng rất đáng để chú ý, chất ảnh từ điện thoại Xiaomi chụp ra có màu sắc hài hòa bắt mắt, phối hợp cùng chế độ chân dung được hỗ trợ hiệu ứng bokeh tự nhiên sẽ mang lại cho bạn bức ảnh thêm phần lung linh, huyền ảo.</p>    <p>Màn hình AMOLED kích thước lớn</p>    <p>Tuy máy chỉ là chiếc điện thoại nằm ở mức giá tầm trung nhưng lại được trang bị màn hình 120 Hz và độ sáng tối đa 1200 nits rất ấn tượng, nhờ đó máy mang đến khả năng phản hồi giữa màn hình và thao tác vuốt chạm của người dùng trở nên tốt hơn, tăng cường độ sáng cũng sẽ đem đến tiện ích cho những trường hợp sử dụng máy ở ngoài trời.</p>    <p>Về độ chi tiết mà màn hình mang đến cũng rất ấn tượng khi hỗ trợ chuẩn màn hình Full HD+ (1080 x 2400 Pixels), giúp nâng tổng số điểm ảnh để hiển thị chi tiết mọi nội dung.</p>    <p>Tích hợp pin lớn cùng công nghệ sạc nhanh 33 W</p>    <p>Bên trong máy sẽ là viên pin có dung lượng 5000 mAh với khả năng duy trì việc sử dụng trong nhiều giờ liền mà không cần bận tâm đến vấn đề sạc, theo như hãng đề cập thì máy có thể đảm bảo</p>   <p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 158, 4490000, '[]');
 INSERT INTO `products` VALUES (159, 'Điện thoại Xiaomi 13 Lite (8GB/256GB) - Hàng chính hãng', 6, 982, 2411, '248799307.jpg', 11490000, '<ul><li> <div>Màn hình: AMOLED 6.55\\\", Full HD+ (1080 x 2400 Pixels)</div> </li> <li> <div>Hệ điều hành: Android 13</div> </li> <li> <div>Camera sau: 50 MP + 8 MP + 2 MP</div> </li> <li> <div>Camera trước: 32 MP + 8 MP</div> </li> <li> <div>Chipset: Snapdragon 7 Gen 1 8 nhân</div> </li> <li> <div>RAM: 8 GB</div> </li> <li> <div>Bộ nhớ trong: 256 GB</div> </li> <li> <div>Cổng kết nối/sạc: Type-C</div> </li> <li> <div>Dung lượng pin: 4500 mAh, sạc nhanh 67W</div> </li> <li> <div>Bộ sản phẩm gồm: Thân máy, cáp sạc, củ sạc, giấy hướng dẫn,...</div> </li> </ul><p> </p><p>LƯU Ý KHI MUA HÀNG: Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p> </p> <p> </p> <p>Áp dụng sản phẩm Mobile/Tablet/Laptop</p> <p>️ Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành bảo điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>️ Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>️ Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trung tâm bảo hành ủy quyền để thẩm định lỗi.</p> <p>️ Sản phẩm đổi-trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>️ Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>️ Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành theo qui định của nhà sản xuất kể từ ngày mua (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành).</p> <p> </p> <p> Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p> Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p> Vì lượng hàng hoá nhiều shop không nhận đổi trả trong trường hợp khách không thích, không ưng màu, chất liệu; quý khách vui lòng đọc kĩ mô tả và xem hình ảnh cụ thể; nếu cần hãy chat với shop để được tư vấn.</p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/fd/d4/9c/e5734b484bec8f1677d4df6aa739bbee.png\\\" alt=\\\"fdd49cfe46033728e1833eb687421fd4.png\\\" /></p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/df/17/38/6d1539c6430bb58db21c326b3862de13.png\\\" alt=\\\"df173824a9d3356d446a25ab128b638c.png\\\" /></p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/c4/6a/4c/a4ed20127b3a5805c0fe317dbacc13c6.png\\\" alt=\\\"c46a4c0842e25709e33229e800e1c4be.png\\\" /></p> <p><img src=\\\"https://salt.tikicdn.com/cache/w750/ts/product/f2/66/dd/dfa101e78fd5d67f82d6047d30e39158.png\\\" alt=\\\"f266dd50c020b7a71cb85d638014e2dc.png\\\" /></p> <p> </p> <p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 159, 11490000, '[]');
 INSERT INTO `products` VALUES (160, 'Điện thoại chắc chắn Ulefone Armor X12 Pro(Ram 4GB, Rom 64GB, chống nước,chống va đập,IP68/IP69K, Android 13,CPU  MediaTek Helio G36 Octa Core,MÀN HÌNH  5,45 inch, Mạng: 4G, NFC)-hàng chính hãng', 15, 99, 9, '271727840.jpg', 3490000, 'Điện thoại chắc chắn Ulefone Armor X12 Pro(Ram 4GB, Rom 64GB, chống nước,chống va đập,IP68/IP69K, Android 13,CPU  MediaTek Helio G36 Octa Core,MÀN HÌNH  5,45 inch, Mạng: 4G, NFC)-hàng chính hãng\', 15, 99, 9, \'271727840.jpg\', 3490000, \'<p>Màn hình: 5,45 inch , Độ phân giải: 1440 x 720</p> <p>CPU: MediaTek Helio G36, MediaTek MT6765V/X, Octa Core</p> <p>Hệ điều hành: Android 13</p> <p>Mở khóa bằng khuôn mặt</p> <p>RAM 4GB + ROM 64GB, Thẻ TF lên tới 256GB (không bao gồm)</p> <p>Pin 4860mAh,Sạc nhanh 10W , Giao diện sạc: Type-C</p> <p>Cổng tai nghe: Giắc cắm tai nghe 3,5 mm</p> <p>Camera sau: 13MP, cảm biến IMX214, 1.12um, FOV 81 độ, khẩu độ lớn F2.2, ống kính 5 mảnh</p> <p>Camera trước: Cảm biến 8MP OV8856, khẩu độ lớn F2.0, ống kính 4 mảnh</p> <p>Mạng: 2,3,4G</p> <p>Loại thẻ SIM: Nano SIM + Nano SIM + microSD</p> <p>Dài 157,19mm,Rộng 76,8mm ,dày 14,34mm,Nặng 257g</p> <p>Cảm biến: gia tốc, trọng lực, ánh sáng, tiệm cận, địa từ, La bàn điện tử</p> <p>Đèn thông báo: Hỗ trợ, ánh sáng trắng; Hỗ trợ nhắc nhở sạc</p> <p>NFC: Hỗ trợ Google Pay</p> <p>Định vị: GPS, GLONASS, Galileo, BEIDOU, Hỗ trợ la bàn kỹ thuật số</p> <p>Hỗ trợ gọi VoLTE HD</p> <p>Đa Ngôn ngữ: có tiếng Việt</p> <p>Chống nước IP68/IP69K MIL-STD-810H Chống bụi Chống sốc</p> <p> </p> <p>Danh sách gói hàng</p> <p>ĐT X12 Pro,CỐC SẠT, Cáp sạc,Phim bảo vệ (dán sẵn),chọt sim, Dây ,HDSD,PBH</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 160, 3490000, '[]');
-INSERT INTO `products` VALUES (161, 'Điện thoại Oukitel WP6 (Chống va đập,chống nước,Ram 6Gb,Rom 128Gb,pin 10.000mAh) - Hàng chính hãng', 13, 88, 999, '65091422.jpg', 6990000, '<p style=text-align: center;><iframe style= \"max-width: -webkit-fill-available;\", src=//www.youtube.com/embed/SegAW9hjF5g width=560 height=314 allowfullscreen=allowfullscreen></iframe></p> <p style=text-align: center;><iframe style = \"max-width: -webkit-fill-available;\", src=//www.youtube.com/embed/u17LzvBnTZE width=560 height=314 allowfullscreen=allowfullscreen></iframe></p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/70/bb/8c/429f14b65083ff521eee26683aed02c6.jpg alt= width=750 height=1245 /></p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/06/80/ff/23d9a310b1e890d1bd214cb794220299.jpg alt= width=750 height=351 /></p> <p style=text-align: center;>Pin quái vật 10000mAh, thời gian chờ 30 ngày với một lần sạc Lợi ích từ tối ưu hóa năng lượng của chipset, pin tích hợp 10000 mAh cho phép một lần sạc trong 750 giờ ở chế độ chờ, 52 giờ gọi, 10 giờ video. Trong khi đó, sạc bằng Bộ sạc nhanh 18W nạp lại năng lượng cho pin của bạn trong 3 giờ.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/aa/05/ed/96aecf3aa368ce06b22cba48c0d98d89.jpg alt= width=750 height=427 /></p> <p style=text-align: center;>Máy ảnh ba camera 48M được trang bị 10000 mAh, Chụp cảm biến lớn ngoài trời vô tận trong camera chính thể hiện hình ảnh chi tiết rõ ràng hơn. Thuật toán Al được sử dụng để giúp bạn chụp ảnh được tối ưu hóa tốt hơn trong nhiều môi trường khác nhau từ ban ngày đến giữa đêm.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/5c/44/82/a43f1b8343cbfc9cd8ba84571c69cdc8.jpg alt= width=750 height=507 /></p> <p style=text-align: center;>Màn hình FHD + 6.3 inch, Kính cường lực Corning Gorilla Glass 1.1 mm<br />Wp6 Gorilla Glass dày hơn tất cả các mẫu trước đây. Fried, đặt trên lửa, đá lạnh , nó có thể sống sót!<br />Màn hình độ phân giải 2340 * 1080 của WP6 rõ ràng hơn nhiều so với hầu hết màn hình máy tính 1080p, hiển thị các chi tiết sống động được chụp bởi Camera 48M</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/ae/bd/f1/11b7f28c753257c9fb30e7f4e838960a.jpg alt= width=750 height=527 /></p> <p style=text-align: center;>Máy ảnh phía trước 16MP AI Plus 2.0 Apepure, cung cấp thêm vẻ đẹp cho chế độ làm đẹp trên tường sinh trên toàn thế giới trên WP6 giúp bạn tiết kiệm thời gian của Photoshop. Đặt trước máy ảnh, bạn được công nhận một cách thông minh để sản xuất chuyên gia selfies với độ sáng chính xác và tiếp xúc.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/91/66/b4/77492c97afbd2f9e4143cca4ceabfb1b.jpg alt= width=750 height=421 /></p> <p style=text-align: center;>Điện thoại Oukitel wp6 thích hợp với mọi khó khăn ngoài trời , bất cứ nơi nào bạn đi, WP6 Just Follows Lấy cảm hứng từ Wolfman, WP6 kết hợp Corning Glass, GF, TPI thành một thiết bị lý tưởng vượt qua mọi thử thách khó khăn. Chịu được nhiệt độ cao và băng, va đập, sốc, trầy xước, OUKITEL WP6 giúp bạn liên lạc mọi lúc.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/68/37/42/d815cf11f5a43eccc2b0944c0c8846a4.jpg alt= width=750 height=546 /></p> <p style=text-align: center;>Chống va đập, chống nước,pin xài lâu</p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/2a/97/41/61703dd9d4ddea2ccd81849fac9b3bfe.jpg src=https://salt.tikicdn.com/ts/tmp/2a/97/41/61703dd9d4ddea2ccd81849fac9b3bfe.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/9c/3e/56/703a86979162eaa9223a5ea6a184f50b.jpg src=https://salt.tikicdn.com/ts/tmp/9c/3e/56/703a86979162eaa9223a5ea6a184f50b.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/c6/af/aa/89e849904a0450d1ff71d9c8ab415b48.jpg src=https://salt.tikicdn.com/ts/tmp/c6/af/aa/89e849904a0450d1ff71d9c8ab415b48.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/90/96/6d/d4a57957b95adca774a2bd509938d816.jpg src=https://salt.tikicdn.com/ts/tmp/90/96/6d/d4a57957b95adca774a2bd509938d816.jpg alt= width=750 height=421 /></p> <p style=text-align: center;>Được trang bị bộ vi xử lý Al Master Helio P70 Octa-core, nổi tiếng là bộ xử lý ổn định và mạnh mẽ. Lý tưởng cho hiệu năng cao nhất, chơi game nhanh, ảnh Al-infuse với 8 lõi bao gồm 4 lõi lớn, 4 lõi nhỏ. RAM 6G cho phép xử lý trơn tru hầu hết các tác vụ trong khi ROM 128GB cung cấp đủ không gian cho sử dụng bình thường.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/af/8c/3e/a151a7b0072b6cd7f74d285b167052cd.jpg alt= width=750 height=390 /></p> <p style=text-align: center;>Tối ưu hóa hệ thống hoạt động, cuộc sống nhanh cần điện thoại nhanh</p> <p style=text-align: center;>Duyệt nhanh hơn, ứng dụng nhanh hơn, video nhanh hơn, chơi game nhanh hơn bao gồm một cuộc sống nhanh hơn. WP6 có một hệ thống cải cách nâng cao trải nghiệm cuộc sống số của bạn.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/ae/23/0b/36040e6e2d5ca43c407feda78382c4e9.jpg alt= width=750 height=427 /></p> <p style=text-align: center;>Chế độ siêu đêm, quan sát cảnh đêm như một con mèo</p> <p style=text-align: center;>Al Powered P70 xử lý đêm tối với 48MP và cảm biến hình ảnh lớn thể hiện hình ảnh hoàn hảo. Khi ở chế độ nửa đêm, Oukitel WP6 sẽ tự động cảm nhận cường độ ánh sáng và mang đến cho bạn những bức ảnh rõ ràng và chi tiết thậm chí còn tốt hơn cả mèo.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/aa/2c/b0/0b0438172e8d1eabbb44dc8899e1e3a1.jpg alt= width=750 height=351 /></p> <p style=text-align: center;>0,1 giây Mở khóa bằng khuôn mặt &amp; Mở khóa ID vân tay, quên đi cách mật khẩu.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/da/4e/03/4e5cca8d4661ed70f6d28b17f147507b.jpg alt= width=750 height=442 /></p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 161, 6990000, '[{\"phoneNumber\":\"ầ\",\"nameComment\":\"ầ\",\"idProduct\":\"161\",\"id\":1,\"isActive\":1,\"content\":\"fasf\",\"timestamp\":\"18:42:34 11/7/2024\"}]');
+INSERT INTO `products` VALUES (161, 'Điện thoại Oukitel WP6 (Chống va đập,chống nước,Ram 6Gb,Rom 128Gb,pin 10.000mAh) - Hàng chính hãng', 13, 88, 999, '65091422.jpg', 6990000, '<p style=text-align: center;><iframe style= \"max-width: -webkit-fill-available;\", src=//www.youtube.com/embed/SegAW9hjF5g width=560 height=314 allowfullscreen=allowfullscreen></iframe></p> <p style=text-align: center;><iframe style = \"max-width: -webkit-fill-available;\", src=//www.youtube.com/embed/u17LzvBnTZE width=560 height=314 allowfullscreen=allowfullscreen></iframe></p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/70/bb/8c/429f14b65083ff521eee26683aed02c6.jpg alt= width=750 height=1245 /></p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/06/80/ff/23d9a310b1e890d1bd214cb794220299.jpg alt= width=750 height=351 /></p> <p style=text-align: center;>Pin quái vật 10000mAh, thời gian chờ 30 ngày với một lần sạc Lợi ích từ tối ưu hóa năng lượng của chipset, pin tích hợp 10000 mAh cho phép một lần sạc trong 750 giờ ở chế độ chờ, 52 giờ gọi, 10 giờ video. Trong khi đó, sạc bằng Bộ sạc nhanh 18W nạp lại năng lượng cho pin của bạn trong 3 giờ.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/aa/05/ed/96aecf3aa368ce06b22cba48c0d98d89.jpg alt= width=750 height=427 /></p> <p style=text-align: center;>Máy ảnh ba camera 48M được trang bị 10000 mAh, Chụp cảm biến lớn ngoài trời vô tận trong camera chính thể hiện hình ảnh chi tiết rõ ràng hơn. Thuật toán Al được sử dụng để giúp bạn chụp ảnh được tối ưu hóa tốt hơn trong nhiều môi trường khác nhau từ ban ngày đến giữa đêm.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/5c/44/82/a43f1b8343cbfc9cd8ba84571c69cdc8.jpg alt= width=750 height=507 /></p> <p style=text-align: center;>Màn hình FHD + 6.3 inch, Kính cường lực Corning Gorilla Glass 1.1 mm<br />Wp6 Gorilla Glass dày hơn tất cả các mẫu trước đây. Fried, đặt trên lửa, đá lạnh , nó có thể sống sót!<br />Màn hình độ phân giải 2340 * 1080 của WP6 rõ ràng hơn nhiều so với hầu hết màn hình máy tính 1080p, hiển thị các chi tiết sống động được chụp bởi Camera 48M</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/ae/bd/f1/11b7f28c753257c9fb30e7f4e838960a.jpg alt= width=750 height=527 /></p> <p style=text-align: center;>Máy ảnh phía trước 16MP AI Plus 2.0 Apepure, cung cấp thêm vẻ đẹp cho chế độ làm đẹp trên tường sinh trên toàn thế giới trên WP6 giúp bạn tiết kiệm thời gian của Photoshop. Đặt trước máy ảnh, bạn được công nhận một cách thông minh để sản xuất chuyên gia selfies với độ sáng chính xác và tiếp xúc.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/91/66/b4/77492c97afbd2f9e4143cca4ceabfb1b.jpg alt= width=750 height=421 /></p> <p style=text-align: center;>Điện thoại Oukitel wp6 thích hợp với mọi khó khăn ngoài trời , bất cứ nơi nào bạn đi, WP6 Just Follows Lấy cảm hứng từ Wolfman, WP6 kết hợp Corning Glass, GF, TPI thành một thiết bị lý tưởng vượt qua mọi thử thách khó khăn. Chịu được nhiệt độ cao và băng, va đập, sốc, trầy xước, OUKITEL WP6 giúp bạn liên lạc mọi lúc.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/68/37/42/d815cf11f5a43eccc2b0944c0c8846a4.jpg alt= width=750 height=546 /></p> <p style=text-align: center;>Chống va đập, chống nước,pin xài lâu</p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/2a/97/41/61703dd9d4ddea2ccd81849fac9b3bfe.jpg src=https://salt.tikicdn.com/ts/tmp/2a/97/41/61703dd9d4ddea2ccd81849fac9b3bfe.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/9c/3e/56/703a86979162eaa9223a5ea6a184f50b.jpg src=https://salt.tikicdn.com/ts/tmp/9c/3e/56/703a86979162eaa9223a5ea6a184f50b.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/c6/af/aa/89e849904a0450d1ff71d9c8ab415b48.jpg src=https://salt.tikicdn.com/ts/tmp/c6/af/aa/89e849904a0450d1ff71d9c8ab415b48.jpg alt= width=750 height=421 /></p> <p style=text-align: center;><img id=https://salt.tikicdn.com/ts/tmp/90/96/6d/d4a57957b95adca774a2bd509938d816.jpg src=https://salt.tikicdn.com/ts/tmp/90/96/6d/d4a57957b95adca774a2bd509938d816.jpg alt= width=750 height=421 /></p> <p style=text-align: center;>Được trang bị bộ vi xử lý Al Master Helio P70 Octa-core, nổi tiếng là bộ xử lý ổn định và mạnh mẽ. Lý tưởng cho hiệu năng cao nhất, chơi game nhanh, ảnh Al-infuse với 8 lõi bao gồm 4 lõi lớn, 4 lõi nhỏ. RAM 6G cho phép xử lý trơn tru hầu hết các tác vụ trong khi ROM 128GB cung cấp đủ không gian cho sử dụng bình thường.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/af/8c/3e/a151a7b0072b6cd7f74d285b167052cd.jpg alt= width=750 height=390 /></p> <p style=text-align: center;>Tối ưu hóa hệ thống hoạt động, cuộc sống nhanh cần điện thoại nhanh</p> <p style=text-align: center;>Duyệt nhanh hơn, ứng dụng nhanh hơn, video nhanh hơn, chơi game nhanh hơn bao gồm một cuộc sống nhanh hơn. WP6 có một hệ thống cải cách nâng cao trải nghiệm cuộc sống số của bạn.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/ae/23/0b/36040e6e2d5ca43c407feda78382c4e9.jpg alt= width=750 height=427 /></p> <p style=text-align: center;>Chế độ siêu đêm, quan sát cảnh đêm như một con mèo</p> <p style=text-align: center;>Al Powered P70 xử lý đêm tối với 48MP và cảm biến hình ảnh lớn thể hiện hình ảnh hoàn hảo. Khi ở chế độ nửa đêm, Oukitel WP6 sẽ tự động cảm nhận cường độ ánh sáng và mang đến cho bạn những bức ảnh rõ ràng và chi tiết thậm chí còn tốt hơn cả mèo.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/aa/2c/b0/0b0438172e8d1eabbb44dc8899e1e3a1.jpg alt= width=750 height=351 /></p> <p style=text-align: center;>0,1 giây Mở khóa bằng khuôn mặt &amp; Mở khóa ID vân tay, quên đi cách mật khẩu.</p> <p style=text-align: center;><img src=https://salt.tikicdn.com/ts/tmp/da/4e/03/4e5cca8d4661ed70f6d28b17f147507b.jpg alt= width=750 height=442 /></p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 161, 6990000, '[]');
 INSERT INTO `products` VALUES (162, 'Điện Thoại Xiaomi Redmi 10A 2GB/32GB - Hàng Chính Hãng', 6, 992, 988, '190547041.jpg', 2556000, '<p>Điện Thoại Xiaomi Redmi 10A 2GB/32GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm gồm: Thân máy, pin, sạc, cáp USB C, hướng dẫn, cây tháo sim.</p> <p><img src=https://cf.shopee.vn/file/32041cc4d1e45b5660c9385afc387a9e alt=32041cc4d1e45b5660c9385afc387a9e /></p> <p>Màn hình  với kích thước lớn</p> <p>- Xiaomi Redmi 10A được trang bị cho máy màn hình kích thước lớn lên đến 6.53 inch với độ phân giải HD+ và tỉ lệ khung hình chuẩn 20:9.</p> <p>- Màn hình lớn của thiết bị hứa hẹn sẽ đem đến không gian hiển thị rộng hơn, dễ dàng xem phim một cách rõ nét.</p> <p> </p> <p>Camera chụp ảnh rõ nét</p> <p>- Redmi 10A được trang bị camera chính 13 MP và một camera phụ 2 MP ở mặt lưng, hỗ trợ chụp những bức ảnh một cách rõ nét hơn.</p> <p>- Phía trước thiết bị có ống kính 5 triệu điểm ảnh giúp bức ảnh thêm phần ảo diệu.</p> <p>Pin khủng không lo hết pin</p> <p>- Máy sở hữu pin dung lượng cao lên đến 5000 mAh, Xiaomi hứa hẹn thời gian nghe nhạc lên đến cả tuần, xem phim từ sáng đến tối, giúp đi chơi thoải mái mà không còn lo hết pin.</p> <p>Hiệu năng ổn trong tầm giá</p> <p>- Máy sở hữu một hiệu năng ổn định trong tầm giá khi được trang bị con chip MediaTek Helio G25 cùng với ram 2GB và bộ nhớ trong 32 GB. Máy có thể mở rộng bộ nhớ trong nhờ thẻ MicroSD lên đến 1TB.</p> <p>Điện Thoại Xiaomi Redmi 10A 2GB/32GB - Hàng Chính Hãng</p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.</p> <p>- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Xiaomi Redmi 10A 2GB/32GB - Hàng Chính Hãng</p> <p>#điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng</p> <p>#hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_xiaomi #xiaomi #xiaomi_10a</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 162, 2556000, '[]');
 INSERT INTO `products` VALUES (163, 'Điện thoại OPPO CPH2387 - A57 Xanh - Hàng Chính Hãng', 4, 9982, 999, '191689878.jpg', 4361000, '<p><b>Thiết kế trẻ trung<br /></b>OPPO A57 4G có màn hình giọt nước ở mặt trước. Khung viền còn được vát phẳng tạo cảm giác sang trọng khi cầm trên tay. Thiết bị được giới thiệu với hai màu sắc trẻ trung: Glowing Green và Glowing Black.<br /></p> <p><img src=https://salt.tikicdn.com/cache/w750/ts/product/4e/3c/3d/5d0b09dc9d35b3e7ed0c61f8e635076c.jpg alt=1 /></p> <p>OPPO trang bị cho máy màn hình IPS LCD kích thước 6.56 inch, hỗ trợ độ phân giải HD+ (720 x 1612 pixels), mật độ điểm ảnh khoảng 269 PPI. <br /><b>Hiệu năng ổn định trong tầm giá<br /></b>Bên trong OPPO A57 4G được trang bị bộ vi xử lý Helio G35 đến từ MediaTek, cùng RAM 4 GB và bộ nhớ trong 64 GB. Kết hợp cùng giao diện ColorOS 12.1 dựa trên Android 12 được cài sẵn, thiết bị hứa hẹn hiệu năng ổn định, chạy tốt các tác vụ cơ bản thường dùng.<br /></p> <p><img src=https://salt.tikicdn.com/cache/w750/ts/product/3c/44/33/70821e1a29516ebf4fb55879aa44aa3d.jpg alt=1 /></p> <p>OPPO A57 4G có pin dung lượng 5000 mAh và hỗ trợ sạc siêu nhanh SuperVOOC 33 W. Thiết bị còn hỗ trợ các tính năng kết nối như: 4G VoLTE, Wi-Fi, Bluetooth 5.3, GPS, cổng USB-C và cổng cắm tai nghe 3.5 mm để người dùng dễ dàng thưởng thức âm nhạc.<br /><b>Hỗ trợ chụp ảnh quay phim<br /></b>Thiết bị có một camera 8 MP khẩu độ f/2.0 ở mặt trước để chụp ảnh selfie, mặt lưng có camera chính 13 MP khẩu độ f/2.2, cảm biến độ sâu 2 MP khẩu độ f/2.4 chuyên chụp ảnh chân dung và đèn flash LED để hỗ trợ chụp trong những tình huống thiếu sáng.<br /></p> <p><img src=https://salt.tikicdn.com/cache/w750/ts/product/6b/df/fe/686ad0f7807722c94c6c405f87c0afca.jpg alt=1 /></p> <p>Hệ thống camera trước và sau của OPPO A57 4G đều có thể quay video 1080p ở tốc độ 30 FPS. Ngoài ra máy còn hỗ trợ chụp HDR và chế độ toàn cảnh (panorama).<br />OPPO A57 4G chắc chắn sẽ được đông đảo người tiêu dùng đón nhận do có mức giá rẻ mà sở hữu nhiều thông số kỹ thuật nổi bật. Một chiếc điện thoại giá rẻ đáng để sắm.</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 163, 4361000, '[]');
 INSERT INTO `products` VALUES (164, 'Điện Thoại Oppo A76 (6GB/128G) - Hàng Chính Hãng', 4, 998, 998, '166034907.jpg', 5436000, '<p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 164, 5436000, '[]');
@@ -1508,27 +1485,20 @@ INSERT INTO `products` VALUES (170, 'Điện thoại Xiaomi 12 Pro (12GB/256GB) 
 INSERT INTO `products` VALUES (171, 'Điện thoại Samsung Galaxy A04 (3GB/32GB) - Hàng chính hãng', 2, 2881, 9998, '204066551.jpg', 2990000, '<ul><li> <div>Màn hình: Dynamic AMOLED 2X 6.8\\\", 2K+ (1440 x 3088 Pixels)</div> </li> <li> <div>Hệ điều hành: Android 13</div> </li> <li> <div>Camera sau: 200 MP + 12 MP + 10 MP + 10 MP</div> </li> <li> <div>Camera trước: 12 MP</div> </li> <li> <div>Chipset: Snapdragon 8 Gen 2 8 nhân</div> </li> <li> <div>RAM: 8 GB</div> </li> <li> <div>Bộ nhớ trong: 256 GB</div> </li> <li> <div>Cổng kết nối/sạc: USB-C</div> </li> <li> <div>Dung lượng pin: 5000 mAh, sạc nhanh 45W</div> </li> <li> <div>Bộ sản phẩm gồm: Hộp, thân máy, cáp sạc, giấy hướng dẫn,</div> </li> </ul><p> </p><p>LƯU Ý KHI MUA HÀNG: Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p> </p> <p> </p> <p>Áp dụng sản phẩm Mobile/Tablet/Laptop</p> <p>️ Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành bảo điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>️ Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>️ Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trung tâm bảo hành ủy quyền để thẩm định lỗi.</p> <p>️ Sản phẩm đổi-trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>️ Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>️ Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành theo qui định của nhà sản xuất kể từ ngày mua (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành).</p> <p> </p> <p> Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p> Các sản phẩm bị khóa tài khoản như Gmail, Samsung account… Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p> Vì lượng hàng hoá nhiều shop không nhận đổi trả trong trường hợp khách không thích, không ưng màu, chất liệu; quý khách vui lòng đọc kĩ mô tả và xem hình ảnh cụ thể; nếu cần hãy chat với shop để được tư vấn.</p> p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 171, 2990000, '[]');
 INSERT INTO `products` VALUES (172, 'Điện thoại Xiaomi Redmi A1 (2GB/32GB) - Hàng chính hãng', 6, 9298, 9992, '199902129.jpg', 2190000, '<h3>Mới đây thì chiếc điện thoại Xiaomi Redmi A1 cũng đã được nhà Xiaomi chính thức cho ra mắt cùng một mức giá bán khá ấn tượng, phù hợp với những bạn trẻ thuộc lứa tuổi học sinh - sinh viên và đang mong muốn chọn mua cho mình một thiết bị có giá thành thấp nhằm đáp ứng nhu cầu học tập như tra cứu thông tin, chụp ảnh tài liệu.</h3> <p><img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/6a/cd/d4/1797ace383d2e5c88c58ae2713297e22.jpg alt= width=750 height=412 /></p> <p>• Sở hữu thiết kế giả da sang trọng mang đến cho thiết bị một diện mạo cuốn hút thời trang, đi kèm với đó sẽ là những màu sắc vô cùng cá tính và trẻ trung.</p> <p><img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/94/08/d9/a1c48783fda2a3d582e56a9669ee6db8.jpg alt= width=750 height=468 /></p> <p>• Được trang bị một màn hình kích thước 6.52 inch có độ phân giải HD+ (720 x 1600 Pixels) với khả năng tái hiện hình ảnh tương đối rõ nét để người dùng có thể xem phim, đọc tin tức một cách thoải mái.</p> <p><img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/aa/84/09/37d185cfa835c26186c837ee6560e0f9.jpg alt= width=750 height=419 /></p> <p>• Tuy là một thiết bị có mức giá bán không quá cao nhưng hãng điện thoại Xiaomi lại rất là hào phóng khi trang bị tận hai ống kính có cùng độ phân giải 8 MP.</p> <p>• Không chỉ đem đến những bức ảnh có chất lượng tốt hơn mà Redmi A1 cũng sẽ mang lại cho người dùng nhiều tính năng chụp ảnh nghệ thuật để bạn có thể thỏa sức nhiếp ảnh trên chiếc điện thoại của mình.</p> <p><img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/73/79/4d/3325ff90af1b93a0ba335f7bea0c2947.jpg alt= width=750 height=421 /></p> <p>• Lần này Xiaomi trang bị cho máy con chip Helio A22 được sản xuất bởi MediaTek, đảm bảo thiết bị của bạn có thể vận hành ổn định khi sử dụng cho các vụ liên lạc, lướt web hay xem phim.</p> <p><img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/a7/51/d7/1165fb14471482f26415cf72a42e6ffd.jpg alt= width=750 height=421 /></p> <p>• Trang bị bên trong máy là viên pin có dung lượng 5000 mAh, vì thế Xiaomi Redmi A1 có thể duy trì việc sử dụng cho cả ngày dài, giúp bạn không cần phải quá bận tâm đến các vấn đề thời lượng pin.<img style=margin-left:auto;margin-right:auto; src=https://salt.tikicdn.com/ts/tmp/b0/70/af/573e69a2ce918f195be71959b6fe1aea.jpg alt= width=750 height=405 /></p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 172, 2190000, '[]');
 INSERT INTO `products` VALUES (173, 'Điện Thoại Realme C55 6GB/128GB - Hàng Chính Hãng', 9, 222, 1111, '253407100.jpg', 4990000, '<p>Điện Thoại Realme C55 6GB/128GB - Hàng Chính Hãng</p> <p>Bộ sản phẩm bao gồm: Thân máy, sạc, cáp USB, dụng cụ lấy sim, vỏ bảo vệ, sách hướng dẫn sử dụng.</p> <p><img src=https://cf.shopee.vn/file/vn-11134208-7qukw-lgk96zhal9ii97 alt=vn-11134208-7qukw-lgk96zhal9ii97 /></p> <p>Màn Hình 6.72 inch Sắc Nét</p> <p>- Trang bị màn hình IPS LCD kích thước 6.72 inch, độ phân giải Full HD+ (1080 x 2400 Pixels) và tần số quét đạt tới 90 Hz. Màn hình của điện thoại cho độ sáng và độ tương phản tốt, màu sắc trung thực và góc nhìn rộng, đủ để biến mọi nội dung bạn xem đều được trở nên chân thật.</p> <p> </p> <p>Lưu Giữ Những Khoảnh Khắc Đáng Nhớ Với Camera Sắc Nét</p> <p>- Với hệ thống camera kép có cảm biến chính 64 MP và cảm biến phụ 2 MP. Cảm biến chính được thiết kế với kích thước lớn giúp chụp ảnh trong điều kiện ánh sáng thấp tốt hơn, còn cảm biến phụ có chức năng hỗ trợ chụp ảnh chân dung và tạo hiệu ứng bokeh.</p> <p>Mặt trước là camera selfie 8 MP với tính năng làm đẹp,chụp chân dung hay chế độ ban đêm. Nhờ đó có thể chụp ảnh selfie với chất lượng tốt và dễ dàng chỉnh sửa để tạo ra những bức ảnh đẹp hơn.</p> <p> </p> <p>Đáp Ứng Hầu Hết Các Tác Vụ Với Hiệu Năng Ổn Định</p> <p>- Điện thoại Realme C55 được trạng bị MediaTek Helio G88, xử lý tốt các tác vụ cơ bản mang lại hiệu năng ổn định trong tầm giá.</p> <p>- Với ram 6 GB và bộ nhớ trong 128 GB, Realme C55 có hỗ trợ thẻ nhớ ngoài lên đến 1 TB để nâng cấp không gian lưu trữ dành cho bạn.</p> <p> </p> <p>Dung Lượng Pin Lớn, Thoải Mái Sử Dụng</p> <p>- Chiếc điện thoại này được Realme trang bị viên pin 5000 mAh đây có thể xem là một dung lượng pin khá ổn, mang lại hiệu năng sử dụng pin cả ngày dài, cho bạn thời gian sử dụng và học tập trên điện thoại này lâu hơn.</p> <p>- Bên cạnh đó, cũng được trang bị chế độ sạc nhanh với công suất đến 33 W giúp bạn rút ngắn thời gian sạc.</p> <p>Điện Thoại Realme C55 6GB/128GB - Hàng Chính Hãng</p> <p> </p> <p>Cảm ơn quý khách đã quan tâm đến sản phẩm bên shop, quý khách vui lòng dành ít thời gian đọc kĩ chính sách bảo hành đổi trả:</p> <p>- Sản phẩm được bao test 7 ngày kể từ ngày nhận được sản phẩm và sẽ được đổi máy mới cùng model hoặc giá trị tương đương sau khi được thẩm định lỗi kĩ thuật.</p> <p>- Sản phẩm lỗi kĩ thuật được xác nhận bởi trung tâm bảo hành ủy quyền chính hãng (bằng văn bản); khách hàng có thể gửi lại shop để xác nhận lỗi hoặc tới trạm bảo hành gần nhất để thẩm định lỗi.</p> <p>- Sản phẩm đổi trả phải còn nguyên hiện trạng máy không trầy xước, không bể vỡ, vô nước, gãy chân sim, khung thẻ nhớ… (tất cả các tác động ngoại lực từ phía khách hàng đều TỪ CHỐI BẢO HÀNH)</p> <p>- Sản phẩm đổi trả phải còn nguyên hộp trùng imei, phụ kiện kèm theo máy không trầy xước, cháy nổ, đứt dây (nếu trầy xước shop không đổi phụ kiện mới)</p> <p>- Sau 7 ngày bao test, sản phẩm vẫn nhận chính sách bảo hành 12 tháng kể từ ngày kích hoạt bảo hành (khách chịu phí vận chuyển tới shop bảo hành hộ hoặc tự đến trung tâm bảo hành gần nhất để được hỗ trợ)</p> <p>- Trong một số trường hợp sản phẩm đã được kích hoạt bảo hành điện tử để tham gia chương trình khuyến mãi có giá tốt cho khách hàng. Vui lòng chat với nhân viên tư vấn để được hỗ trợ thêm thông tin.</p> <p>- Sản phẩm bị TỪ CHỐI BẢO HÀNH khi cháy nổ, bể vỡ, tác động ngoại lực vào thân và bên trong máy, có thay đổi sửa chữa bên ngoài.</p> <p>- Các sản phẩm bị khóa tài khoản như Gmail, Samsung account…Khách tự chịu phí mở khóa nếu không nhớ mật khẩu.</p> <p>Điện Thoại Realme C55 6GB/128GB - Hàng Chính Hãng</p> <p>#honghanhmobile #honghanhmobilemall #hhm #dienthoaichinhhanghonghanh #realme_c55 #c55 #điện_thoại #dienthoai #di_động #didong #điện_thoại_di_động #dien_thoai_di_dong #điện_thoại_chính_hãng #hàng_chính_hãng #điện_thoại_giá_rẻ #dien_thoai_gia_re #giá_rẻ #khuyen_mai #freeship #mobile #smartphone #điện_thoại_realme #realme</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>\r\n\r\n', 1, 173, 4990000, '[]');
-INSERT INTO `products` VALUES (174, 'Điện Thoại Samsung Galaxy A54 5G - Hàng Chính Hãng', 2, 998, 9191, '262516933.jpg', 9120000, '<h3>Samsung Galaxy A54 5G là mẫu điện thoại thông minh trong phân khúc tầm trung vừa được hãng cho ra mắt vào tháng 03/2023, máy trang bị màn hình Super AMOLED cùng con chip Exynos 1380 tiên tiến do chính Samsung sản xuất.</h3> <h3>Thiết kế hiện đại, cầm nắm thoải mái</h3> <p>Galaxy A54 5G sở hữu thiết kế khá trẻ trung với tạo hình phẳng cùng nhiều phiên bản màu sắc mới mẻ đầy bắt mắt. Bề ngoài của máy được hoàn thiện từ nhựa giúp mang đến cảm giác cầm nắm nhẹ nhàng.</p> <p></p> <p>Năm nay, Samsung sẽ thay đổi kiểu bố trí cụm camera của phiên bản này so với những chiếc điện thoại Samsung dòng A trước đó, bằng cách sắp xếp cụm theo chiều dọc và bỏ đi phần khung viền bao quanh để mang lại cái nhìn mới lạ hơn.</p> <h3>Màn hình hiển thị sinh động</h3> <p>Đối với phần màn hình, Galaxy A54 5G có một tấm nền Super AMOLED chất lượng cao, kích thước 6.4 inch và độ phân giải Full HD+ (1080 x 2340 Pixels), điều này mang lại trải nghiệm hình ảnh sống động đầy sắc nét, với màu đen sâu và màu sắc rực rỡ.</p> <p></p> <p>Đáng chú ý hơn hết là tốc độ làm mới 120 Hz, điều này sẽ giúp các thao tác cuộn và điều hướng qua các ứng dụng trở nên mượt mà và phản hồi nhanh chóng. Đối với khả năng hiển thị ngoài trời thì màn hình có độ sáng tối đa 1000 nits hết sức ấn tượng.</p> <h3>Camera chụp sắc nét</h3> <p>Mẫu điện thoại Samsung này được trang bị bộ 3 ống kính có độ phân giải cao cùng với nhiều tính năng thú vị, nổi trội trong số đó là camera chính 50 MP được hỗ trợ công nghệ chống rung quang học và chuẩn quay video tối đa có thể đạt được lên tới 4K.</p> <p></p> <p>Camera chính của máy cho phép bạn chụp ảnh và quay video chất lượng cao với nhiều tùy chọn chụp khác nhau, ngoài ra thì máy cũng sẽ có camera trước độ phân giải cao đến 32 MP để chụp ảnh selfie và gọi video. </p> <h3>Hiệu năng mạnh mẽ, hiệu suất tối ưu</h3> <p>Dưới bộ khung của Galaxy A54 5G là bộ vi xử lý Exynos 1380, đây là con chip mới của Samsung nhắm đến việc cung cấp sức mạnh và hiệu suất tối ưu cho những ứng dụng và trò chơi đòi hỏi hiệu năng cao trên một thiết bị thuộc phân khúc tầm trung.</p> <p></p> <p>Bên cạnh việc trang bị hiệu năng tốt thì máy còn là mẫu điện thoại RAM 8 GB và được tích hợp hệ điều hành Android 13, vậy nên bất kỳ mọi thao tác đa nhiệm nào trên máy đều được vận hành một cách trơn tru, mượt mà.</p> <h3>Pin lớn, sạc nhanh 25 W</h3> <p>Một chi tiết đáng chú ý khác của Galaxy A54 5G là viên pin lớn 5000 mAh, máy có thể dễ dàng cung cấp đủ năng lượng để giữ cho thiết bị hoạt động suốt cả ngày, ngay cả khi sử dụng nhiều. </p> <p>Bên cạnh đó, máy cũng hỗ trợ sạc nhanh 25 W, vì vậy bạn có thể nhanh chóng lấp đầy dung lượng của thiết bị mà không cần phải mất quá nhiều thời gian chờ đợi.</p> <p></p> <p>Samsung Galaxy A54 5G dự kiến sẽ là một chiếc điện thoại ấn tượng với vô số tính năng thú vị và khả năng xử lý mạnh mẽ. Màn hình lớn, độ phân giải cao và thiết lập ba camera khiến máy trở thành lựa chọn lý tưởng để chụp ảnh và quay video.</p> <p><img src=https://salt.tikicdn.com/cache/w750/ts/product/94/7b/f0/cd74fad85ddcf98f94f50d852bd02f8b.jpg alt=Samsung Galaxy A54 5G 256GB /></p> <p>Màn hình</p> <p>Công nghệ màn hình: Super AMOLED</p> <p>Độ phân giải: Full HD+ (1080 x 2340 Pixels)</p> <p>Màn hình rộng: 6.4 - Tần số quét 120 Hz</p> <p>Độ sáng tối đa: 1000 nits</p> <p>Mặt kính cảm ứng:</p> <p>Kính cường lực Corning Gorilla Glass 5</p> <p>Camera sau</p> <p>Độ phân giải: Chính 50 MP &amp; Phụ 12 MP, 5 MP</p> <p>Quay phim:</p> <p>FullHD 1080p@60fps</p> <p>FullHD 1080p@30fps</p> <p>4K 2160p@30fps</p> <p>HD 720p@30fps</p> <p>HD 720p@60fps</p> <p>Đèn Flash: Có</p> <p>Tính năng:</p> <p>Quay Siêu chậm (Super Slow Motion)</p> <p>AI Camera</p> <p>HDR</p> <p>Zoom quang học</p> <p>Làm đẹp</p> <p>Siêu cận (Macro)</p> <p>Bộ lọc màu</p> <p>Trôi nhanh thời gian (Time Lapse)</p> <p>Góc siêu rộng (Ultrawide)</p> <p>Góc rộng (Wide)</p> <p>Toàn cảnh (Panorama)</p> <p>Chống rung quang học (OIS)</p> <p>Tự động lấy nét (AF)</p> <p>Ban đêm (Night Mode)</p> <p>Quay chậm (Slow Motion)</p> <p>Xóa phông</p> <p>Camera trước</p> <p>Độ phân giải: 32 MP</p> <p>Tính năng:</p> <p>Quay video 4K</p> <p>Trôi nhanh thời gian (Time Lapse)</p> <p>Làm đẹp</p> <p>Quay video Full HD</p> <p>Góc rộng (Wide)</p> <p>Quay video HD</p> <p>Xóa phông</p> <p>Góc siêu rộng (Ultrawide)</p> <p>Quay chậm (Slow Motion)</p> <p>Bộ lọc màu</p> <p>Chụp đêm</p> <p>Hệ điều hành &amp; CPU</p> <p>Hệ điều hành: Android 13</p> <p>Chip xử lý (CPU): Exynos 1380 8 nhân</p> <p>Tốc độ CPU: 4 nhân 2.4 GHz &amp; 4 nhân 2 GHz</p> <p>Chip đồ họa (GPU): Mali-G68</p> <p>Bộ nhớ &amp; Lưu trữ</p> <p>RAM: 8 GB</p> <p>Dung lượng lưu trữ: 128 GB hoặc 256 GB tùy lựa chọn</p> <p>Dung lượng còn lại (khả dụng) khoảng: 241 GB</p> <p>Thẻ nhớ: MicroSD, hỗ trợ tối đa 1 TB</p> <p>Danh bạ: Không giới hạn</p> <p>Kết nối</p> <p>Mạng di động: Hỗ trợ 5G</p> <p>SIM: 2 Nano SIM</p> <p>Wifi:</p> <p>Dual-band (2.4 GHz/5 GHz)</p> <p>Wi-Fi hotspot</p> <p>Wi-Fi Direct</p> <p>Wi-Fi 802.11 a/b/g/n/ac</p> <p>Wi-Fi MIMO</p> <p>GPS:</p> <p>GLONASS</p> <p>GPS</p> <p>GALILEO</p> <p>QZSS</p> <p>BEIDOU</p> <p>Bluetooth: v5.3</p> <p>Cổng kết nối/sạc: Type-C</p> <p>Jack tai nghe: Type-C</p> <p>Kết nối khác:</p> <p>OTGNFC</p> <p>Pin &amp; Sạc</p> <p>Loại pin: Li-Po</p> <p>Dung lượng pin: 5000 mAh</p> <p>Hỗ trợ sạc tối đa: 25 W</p> <p>Công nghệ pin: Sạc pin nhanh</p> <p>Tiện ích</p> <p>Bảo mật nâng cao: Mở khoá vân tay dưới màn hìnhMở khoá khuôn mặt</p> <p>Tính năng đặc biệt:</p> <p>Samsung Pay</p> <p>Chế độ đơn giản (Giao diện đơn giản)</p> <p>Chạm 2 lần tắt/sáng màn hình</p> <p>Thu nhỏ màn hình sử dụng một tay</p> <p>Trợ lý ảo Samsung Bixby</p> <p>Chặn cuộc gọi</p> <p>Chặn tin nhắn</p> <p>Đa cửa sổ (chia đôi màn hình)</p> <p>Loa kép</p> <p>Tối ưu game (Game Booster)</p> <p>Âm thanh Dolby Atmos</p> <p>Màn hình luôn hiển thị AOD</p> <p>Mở rộng bộ nhớ RAM</p> <p>Kháng nước, bụi: IP67</p> <p>Ghi âm: Ghi âm mặc địnhGhi âm cuộc gọi</p> <p>Radio: Có</p> <p>Xem phim:</p> <p>3GP</p> <p>AVI</p> <p>MP4</p> <p>FLV</p> <p>MKV</p> <p>Nghe nhạc:</p> <p>M4A</p> <p>AAC</p> <p>Midi</p> <p>MP3</p> <p>OGG</p> <p>AMR</p> <p>WAV</p> <p>Thông tin chung</p> <p>Thiết kế: Nguyên khối</p> <p>Chất liệu: Khung nhựa &amp; Mặt lưng kính cường lực Gorilla Glass 5</p> <p>Kích thước, khối lượng: Dài 158.2 mm - Ngang 76.7 mm - Dày 8.2 mm - Nặng 202 g</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 174, 9120000, '[{\"phoneNumber\":\"0379886918\",\"nameComment\":\"vũ 0379886918\",\"idProduct\":\"174\",\"id\":1,\"isActive\":0,\"content\":\"Có gì hot\",\"timestamp\":\"12:38:53 16/7/2024\"},{\"phoneNumber\":\"0379886918\",\"nameComment\":\"asfasfasfas\",\"idProduct\":\"174\",\"id\":2,\"isActive\":0,\"content\":\"fasfasfasfasfasf\",\"timestamp\":\"13:42:46 16/7/2024\"}]');
+INSERT INTO `products` VALUES (174, 'Điện Thoại Samsung Galaxy A54 5G - Hàng Chính Hãng', 2, 998, 9191, '262516933.jpg', 9120000, '<h3>Samsung Galaxy A54 5G là mẫu điện thoại thông minh trong phân khúc tầm trung vừa được hãng cho ra mắt vào tháng 03/2023, máy trang bị màn hình Super AMOLED cùng con chip Exynos 1380 tiên tiến do chính Samsung sản xuất.</h3> <h3>Thiết kế hiện đại, cầm nắm thoải mái</h3> <p>Galaxy A54 5G sở hữu thiết kế khá trẻ trung với tạo hình phẳng cùng nhiều phiên bản màu sắc mới mẻ đầy bắt mắt. Bề ngoài của máy được hoàn thiện từ nhựa giúp mang đến cảm giác cầm nắm nhẹ nhàng.</p> <p></p> <p>Năm nay, Samsung sẽ thay đổi kiểu bố trí cụm camera của phiên bản này so với những chiếc điện thoại Samsung dòng A trước đó, bằng cách sắp xếp cụm theo chiều dọc và bỏ đi phần khung viền bao quanh để mang lại cái nhìn mới lạ hơn.</p> <h3>Màn hình hiển thị sinh động</h3> <p>Đối với phần màn hình, Galaxy A54 5G có một tấm nền Super AMOLED chất lượng cao, kích thước 6.4 inch và độ phân giải Full HD+ (1080 x 2340 Pixels), điều này mang lại trải nghiệm hình ảnh sống động đầy sắc nét, với màu đen sâu và màu sắc rực rỡ.</p> <p></p> <p>Đáng chú ý hơn hết là tốc độ làm mới 120 Hz, điều này sẽ giúp các thao tác cuộn và điều hướng qua các ứng dụng trở nên mượt mà và phản hồi nhanh chóng. Đối với khả năng hiển thị ngoài trời thì màn hình có độ sáng tối đa 1000 nits hết sức ấn tượng.</p> <h3>Camera chụp sắc nét</h3> <p>Mẫu điện thoại Samsung này được trang bị bộ 3 ống kính có độ phân giải cao cùng với nhiều tính năng thú vị, nổi trội trong số đó là camera chính 50 MP được hỗ trợ công nghệ chống rung quang học và chuẩn quay video tối đa có thể đạt được lên tới 4K.</p> <p></p> <p>Camera chính của máy cho phép bạn chụp ảnh và quay video chất lượng cao với nhiều tùy chọn chụp khác nhau, ngoài ra thì máy cũng sẽ có camera trước độ phân giải cao đến 32 MP để chụp ảnh selfie và gọi video. </p> <h3>Hiệu năng mạnh mẽ, hiệu suất tối ưu</h3> <p>Dưới bộ khung của Galaxy A54 5G là bộ vi xử lý Exynos 1380, đây là con chip mới của Samsung nhắm đến việc cung cấp sức mạnh và hiệu suất tối ưu cho những ứng dụng và trò chơi đòi hỏi hiệu năng cao trên một thiết bị thuộc phân khúc tầm trung.</p> <p></p> <p>Bên cạnh việc trang bị hiệu năng tốt thì máy còn là mẫu điện thoại RAM 8 GB và được tích hợp hệ điều hành Android 13, vậy nên bất kỳ mọi thao tác đa nhiệm nào trên máy đều được vận hành một cách trơn tru, mượt mà.</p> <h3>Pin lớn, sạc nhanh 25 W</h3> <p>Một chi tiết đáng chú ý khác của Galaxy A54 5G là viên pin lớn 5000 mAh, máy có thể dễ dàng cung cấp đủ năng lượng để giữ cho thiết bị hoạt động suốt cả ngày, ngay cả khi sử dụng nhiều. </p> <p>Bên cạnh đó, máy cũng hỗ trợ sạc nhanh 25 W, vì vậy bạn có thể nhanh chóng lấp đầy dung lượng của thiết bị mà không cần phải mất quá nhiều thời gian chờ đợi.</p> <p></p> <p>Samsung Galaxy A54 5G dự kiến sẽ là một chiếc điện thoại ấn tượng với vô số tính năng thú vị và khả năng xử lý mạnh mẽ. Màn hình lớn, độ phân giải cao và thiết lập ba camera khiến máy trở thành lựa chọn lý tưởng để chụp ảnh và quay video.</p> <p><img src=https://salt.tikicdn.com/cache/w750/ts/product/94/7b/f0/cd74fad85ddcf98f94f50d852bd02f8b.jpg alt=Samsung Galaxy A54 5G 256GB /></p> <p>Màn hình</p> <p>Công nghệ màn hình: Super AMOLED</p> <p>Độ phân giải: Full HD+ (1080 x 2340 Pixels)</p> <p>Màn hình rộng: 6.4 - Tần số quét 120 Hz</p> <p>Độ sáng tối đa: 1000 nits</p> <p>Mặt kính cảm ứng:</p> <p>Kính cường lực Corning Gorilla Glass 5</p> <p>Camera sau</p> <p>Độ phân giải: Chính 50 MP &amp; Phụ 12 MP, 5 MP</p> <p>Quay phim:</p> <p>FullHD 1080p@60fps</p> <p>FullHD 1080p@30fps</p> <p>4K 2160p@30fps</p> <p>HD 720p@30fps</p> <p>HD 720p@60fps</p> <p>Đèn Flash: Có</p> <p>Tính năng:</p> <p>Quay Siêu chậm (Super Slow Motion)</p> <p>AI Camera</p> <p>HDR</p> <p>Zoom quang học</p> <p>Làm đẹp</p> <p>Siêu cận (Macro)</p> <p>Bộ lọc màu</p> <p>Trôi nhanh thời gian (Time Lapse)</p> <p>Góc siêu rộng (Ultrawide)</p> <p>Góc rộng (Wide)</p> <p>Toàn cảnh (Panorama)</p> <p>Chống rung quang học (OIS)</p> <p>Tự động lấy nét (AF)</p> <p>Ban đêm (Night Mode)</p> <p>Quay chậm (Slow Motion)</p> <p>Xóa phông</p> <p>Camera trước</p> <p>Độ phân giải: 32 MP</p> <p>Tính năng:</p> <p>Quay video 4K</p> <p>Trôi nhanh thời gian (Time Lapse)</p> <p>Làm đẹp</p> <p>Quay video Full HD</p> <p>Góc rộng (Wide)</p> <p>Quay video HD</p> <p>Xóa phông</p> <p>Góc siêu rộng (Ultrawide)</p> <p>Quay chậm (Slow Motion)</p> <p>Bộ lọc màu</p> <p>Chụp đêm</p> <p>Hệ điều hành &amp; CPU</p> <p>Hệ điều hành: Android 13</p> <p>Chip xử lý (CPU): Exynos 1380 8 nhân</p> <p>Tốc độ CPU: 4 nhân 2.4 GHz &amp; 4 nhân 2 GHz</p> <p>Chip đồ họa (GPU): Mali-G68</p> <p>Bộ nhớ &amp; Lưu trữ</p> <p>RAM: 8 GB</p> <p>Dung lượng lưu trữ: 128 GB hoặc 256 GB tùy lựa chọn</p> <p>Dung lượng còn lại (khả dụng) khoảng: 241 GB</p> <p>Thẻ nhớ: MicroSD, hỗ trợ tối đa 1 TB</p> <p>Danh bạ: Không giới hạn</p> <p>Kết nối</p> <p>Mạng di động: Hỗ trợ 5G</p> <p>SIM: 2 Nano SIM</p> <p>Wifi:</p> <p>Dual-band (2.4 GHz/5 GHz)</p> <p>Wi-Fi hotspot</p> <p>Wi-Fi Direct</p> <p>Wi-Fi 802.11 a/b/g/n/ac</p> <p>Wi-Fi MIMO</p> <p>GPS:</p> <p>GLONASS</p> <p>GPS</p> <p>GALILEO</p> <p>QZSS</p> <p>BEIDOU</p> <p>Bluetooth: v5.3</p> <p>Cổng kết nối/sạc: Type-C</p> <p>Jack tai nghe: Type-C</p> <p>Kết nối khác:</p> <p>OTGNFC</p> <p>Pin &amp; Sạc</p> <p>Loại pin: Li-Po</p> <p>Dung lượng pin: 5000 mAh</p> <p>Hỗ trợ sạc tối đa: 25 W</p> <p>Công nghệ pin: Sạc pin nhanh</p> <p>Tiện ích</p> <p>Bảo mật nâng cao: Mở khoá vân tay dưới màn hìnhMở khoá khuôn mặt</p> <p>Tính năng đặc biệt:</p> <p>Samsung Pay</p> <p>Chế độ đơn giản (Giao diện đơn giản)</p> <p>Chạm 2 lần tắt/sáng màn hình</p> <p>Thu nhỏ màn hình sử dụng một tay</p> <p>Trợ lý ảo Samsung Bixby</p> <p>Chặn cuộc gọi</p> <p>Chặn tin nhắn</p> <p>Đa cửa sổ (chia đôi màn hình)</p> <p>Loa kép</p> <p>Tối ưu game (Game Booster)</p> <p>Âm thanh Dolby Atmos</p> <p>Màn hình luôn hiển thị AOD</p> <p>Mở rộng bộ nhớ RAM</p> <p>Kháng nước, bụi: IP67</p> <p>Ghi âm: Ghi âm mặc địnhGhi âm cuộc gọi</p> <p>Radio: Có</p> <p>Xem phim:</p> <p>3GP</p> <p>AVI</p> <p>MP4</p> <p>FLV</p> <p>MKV</p> <p>Nghe nhạc:</p> <p>M4A</p> <p>AAC</p> <p>Midi</p> <p>MP3</p> <p>OGG</p> <p>AMR</p> <p>WAV</p> <p>Thông tin chung</p> <p>Thiết kế: Nguyên khối</p> <p>Chất liệu: Khung nhựa &amp; Mặt lưng kính cường lực Gorilla Glass 5</p> <p>Kích thước, khối lượng: Dài 158.2 mm - Ngang 76.7 mm - Dày 8.2 mm - Nặng 202 g</p><p>Giá sản phẩm trên Tiki đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như phí vận chuyển, phụ phí hàng cồng kềnh, thuế nhập khẩu (đối với đơn hàng giao từ nước ngoài có giá trị trên 1 triệu đồng).....</p>', 1, 174, 9120000, '[{\"phoneNumber\":\"0379886918\",\"replies\":[{\"nameComment\":\"Nguyễn Văn Vũ\",\"id\":1,\"content\":\"Lê Thị Cu Ba\",\"timestamp\":\"2024-07-19T10:44:28\"}],\"nameComment\":\"Trần Thanh Vũ\",\"idProduct\":\"174\",\"id\":1,\"isActive\":1,\"content\":\"Sản phẩm này có trả góp không ?\",\"timestamp\":\"10:19:17 19/7/2024\"},{\"phoneNumber\":\"\",\"nameComment\":\"\",\"idProduct\":\"174\",\"id\":2,\"isActive\":0,\"content\":\"\",\"timestamp\":\"11:25:56 19/7/2024\"},{\"phoneNumber\":\"\",\"nameComment\":\"\",\"idProduct\":\"174\",\"id\":3,\"isActive\":0,\"content\":\"\",\"timestamp\":\"11:28:51 19/7/2024\"},{\"phoneNumber\":\"fasfasfasfas\",\"nameComment\":\"àas\",\"idProduct\":174,\"id\":4,\"isActive\":0,\"content\":\"fasfasfasf\",\"timestamp\":\"11:32:10 19/7/2024\"},{\"phoneNumber\":\"asfasfa\",\"nameComment\":\"fasf\",\"idProduct\":174,\"id\":5,\"isActive\":0,\"content\":\"fasfas\",\"timestamp\":\"11:34:42 19/7/2024\"},{\"phoneNumber\":\"asfasfas\",\"nameComment\":\"asfasf\",\"idProduct\":174,\"id\":6,\"isActive\":0,\"content\":\"fasf\",\"timestamp\":\"11:38:19 19/7/2024\"},{\"phoneNumber\":\"fasfasf\",\"nameComment\":\"asfas\",\"idProduct\":174,\"id\":7,\"isActive\":0,\"content\":\"fasf\",\"timestamp\":\"11:41:57 19/7/2024\"},{\"phoneNumber\":\"asfasfas\",\"nameComment\":\"fasfasf\",\"idProduct\":174,\"id\":8,\"isActive\":0,\"content\":\"fasfas\",\"timestamp\":\"12:08:09 19/7/2024\"},{\"phoneNumber\":\"gg\",\"nameComment\":\"gg\",\"idProduct\":174,\"id\":9,\"isActive\":0,\"content\":\"gg\",\"timestamp\":\"12:49:22 19/7/2024\"}]');
 
 -- ----------------------------
 -- Table structure for productvariants
 -- ----------------------------
 DROP TABLE IF EXISTS `productvariants`;
 CREATE TABLE `productvariants`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `product_id` int NOT NULL,
   `color_id` int NOT NULL,
   `capacity_id` int NOT NULL,
   `price` float NOT NULL,
-  `state` smallint NULL DEFAULT 1,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `product_id`(`product_id` ASC) USING BTREE,
-  INDEX `color_id`(`color_id` ASC) USING BTREE,
-  INDEX `capacity_id`(`capacity_id` ASC) USING BTREE,
-  CONSTRAINT `pv_fk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `pv_fk_2` FOREIGN KEY (`color_id`) REFERENCES `colors` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `pv_fk_3` FOREIGN KEY (`capacity_id`) REFERENCES `capacities` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 309 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  `state` smallint NULL DEFAULT 1
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of productvariants
@@ -1782,226 +1752,5 @@ INSERT INTO `productvariants` VALUES (303, 172, 3, 10, 2190000, 1);
 INSERT INTO `productvariants` VALUES (304, 173, 4, 2, 4990000, 1);
 INSERT INTO `productvariants` VALUES (305, 174, 4, 2, 9120000, 1);
 INSERT INTO `productvariants` VALUES (306, 174, 4, 3, 1190000, 1);
-
--- ----------------------------
--- Table structure for rates
--- ----------------------------
-DROP TABLE IF EXISTS `rates`;
-CREATE TABLE `rates`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
-  `account_id` int NOT NULL,
-  `number_rate` int NOT NULL DEFAULT 0,
-  `comment` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `product_id`(`product_id` ASC) USING BTREE,
-  INDEX `account_id`(`account_id` ASC) USING BTREE,
-  CONSTRAINT `rate_fk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `rate_fk_a1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_520_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of rates
--- ----------------------------
-
--- ----------------------------
--- Table structure for specifications
--- ----------------------------
-DROP TABLE IF EXISTS `specifications`;
-CREATE TABLE `specifications`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `bluetooth` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `camera_after` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `battery_capacity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `camera_before` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `cart_slot` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `chip_set` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `cpu_speed` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `dimensions` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `display_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `port_sac` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `ram` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `rom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `the_sim` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 179 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of specifications
--- ----------------------------
-INSERT INTO `specifications` VALUES (1, 'Có', '20 MP', '10600 mAh', '12 MP', 'có', 'Snapdragon 865', '2.84 GHz', '150 x 75 x 8 mm', 'IPS', 'USB Type-C', '8 GB', '128 GB', '2 SIM 4G');
-INSERT INTO `specifications` VALUES (2, 'Có', '50 MP', '4400 mAh', '10 MP', 'có', 'UniSoC T606', '2.7 GHz', '165 x 76.4 x 8.7 mm', 'IPS LCD', 'USB Type-C 2.0', '16 GB', '128 GB', '2 SIM');
-INSERT INTO `specifications` VALUES (3, 'Có', '16 MP', '5000 mAh', '16 MP', 'có', 'MT6765V/CBA', '2.3GHz', '163.6 x 75.7 x 8.4 mm', 'LCD', 'USB Type-C', '4 GB', '128 GB', '2 SIM');
-INSERT INTO `specifications` VALUES (4, 'Có', '64 MP', '5000 mAh', '16 MP', 'có', 'Snapdragon 695', '2.2 GHz', '159.9 x 73.2 x 7.66 mm', 'AMOLED', 'USB Type-C', '8 GB', '256 GB', '2 SIM');
-INSERT INTO `specifications` VALUES (5, 'Có', '50 MP', '5000 mAh', '8 MP', 'có', 'MediaTek Helio G88 8 nhân', '1.8 GHz', '161 x 75.53 x 8.92 mm', 'IPS LCD', 'USB Type-C', '4 GB', '64 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (6, 'Có', '13 MP', '5000 mAh', '5 MP', 'có', 'Mediatek MT6765 Helio P35 (12nm)', '2.3 GHz', '164.2 x 75.9 x 9.1 mm', 'PLS LCD', 'USB Type-C', '3 GB', '64 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (7, 'Có', '200 MP', '5000 mAh', '12 MP', 'không', 'Snapdragon 8 Gen 2 (4 nm)', '2.8 GHz', '163.4 x 78.1 x 8.9 mm', 'Dynamic AMOLED 2X', 'USB Type-C', '8 GB', '256 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (8, 'Có', '13 MP', '5000 mAh', '5 MP', 'có', 'MediaTek Helio G25 8 nhân', '2.0 GHz', '164.9 x 77.07 x 9 mm', 'IPS LCD', 'Micro USB', '2 GB', '32 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (9, 'Có', '50 MP', '3700 mAh', '10 MP', 'không', 'Snapdragon 8 Gen 1 8 nhân', '3 GHz', '146 x 70.6 x 7.6 mm', 'Dynamic AMOLED 2X', 'USB Type-C', '8 GB', '128 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (10, 'Có', '50 MP', '5000 mAh', '32 MP', 'có', 'Exynos 1380 (5 nm)', '2.4 GHz', '158.2 x 76.7  x 8.2 mm', 'Super AMOLED', 'USB Type-C', '8 GB', '256 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (11, 'Có', '8 MP', '5000 mAh', '5 MP', 'có', 'Unisoc SC9863A (28nm)', '1.6 GHz', '164.2 x 75.9 x 9.1 mm', 'PLS LCD', 'Micro USB', '2 GB', '32 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (12, 'Có', '13 MP', '5000 mAh', '8 MP', 'có', 'Helio G35', '2.3 GHz', '163.7 x 75 x 7.99 mm', 'LCD', 'USB Type-C', '4 GB', '128 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (13, 'Có', '8 MP', '5000 mAh', '5 MP', 'có', 'Unisoc SC9863A1', '1.6 GHz', '164.2 x 75.7 x 8.5mm', 'IPS LCD', 'microUSB', '2 GB', '32 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (14, 'Có', '200 MP', '5000 mAh', '12 MP', 'không', 'Snapdragon 8 Gen 2 for Galaxy', ' 3.36 GHz', '163.4 x 78.1 x 8.9mm', 'Dynamic AMOLED 2X', 'USB Type-C', '12 GB', '512 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (15, 'Có', '5 MP', '3020 mAh', '2 MP', 'có', 'Spreadtrum SC9832E', ' 1.4 GHz', '148 x 72.3 x 9.9mm', 'IPS LCD', 'Micro USB', '2 GB', '32 GB', '2 Nano SIM');
-INSERT INTO `specifications` VALUES (16, 'Có', '6MP', '5000mAh', '12MP', 'Có', 'Qualcomm Snapdragon 480 5G', 'CPU 6 lõi mới với 2 lõi hiệu năng và 4 lõi hiệu suất', '159.86x76.73x8.25 mm', '6.7 inches', 'USB-C', '4 GB', '64GB', '2 sim');
-INSERT INTO `specifications` VALUES (17, 'Có', '8MP', '5000mAh', '48MP', 'Có', 'Qualcomm Snapdragon 480 5G', 'CPU 6 lõi mới với 2 lõi hiệu năng và 4 lõi hiệu suất', '159.86x76.73x8.25 mm', 'IPS LCD 6.5', 'USB-C', '4 GB', '64GB', '1 sim NaNo,1 sim vật lý');
-INSERT INTO `specifications` VALUES (18, 'Có', '9MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G99', 'Bộ vi xử lý Helio G99 mới nhất của MediaTek', '159.86x76.73x8.25 mm', '6.1 inches', 'USB-C', '4 GB', '64GB', '2 sim');
-INSERT INTO `specifications` VALUES (19, 'Có', '16MP', '5000mAh', '50MP', 'Có', 'Qualcomm Snapdragon 680 8 nhân', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '159.86x76.73x8.25 mm', 'IPS LCD 6.64 inches', 'USB-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (20, 'Có', '5MP', 'Li-Po 5000mAh', '8MP', 'Có', 'Helio G35, tối đa 2.3GHz', 'A17K (CPH2471)', '164.2 x 75.6 x 8.3 mm', 'LCD, Kính cường lực Panda', 'USB-C', '3 GB', '64GB', '2 sim');
-INSERT INTO `specifications` VALUES (21, 'Có', '12MP', '4420MAh', '48MP', 'Có', 'A17 Pro', 'CPU 6 lõi mới với 2 lõi hiệu năng và 4 lõi hiệu suất', '159,9 x 76,7 x 8,25 mm', 'Super Retina XDR OLED 6.7 inches', 'USB-C', ' 8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (22, 'Có', '13MP', '5000mAh', '16MP', 'Có', 'Mediatek MT6765 Helio P35 (12nm)', 'Octa-cor', '159.86x76.73x8.25 mm', 'IPS LCD 6.56 inches', 'USB-C', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (23, 'Có', '12MP', '4420MAh', '48MP', 'Có', 'Apple A16 Bionic', '6‑core CPU', '159,9 x 76,7 x 8,25 mm', 'Super Retina XDR OLED 6.1 inches', 'USB-C', ' 6GB', '128GB', '1 sim NaNo,1 sim vật lý');
-INSERT INTO `specifications` VALUES (24, 'Có', '2MP', '5000mAh', '32MP', 'Có', 'MediaTek MT6762 8 nhân (Helio P22)', '4 nhân 2.0 GHz & 4 nhân 1.5 GHz', 'Dài 163.99 mm - Ngang 75.63 mm - Dày 8.49 mm - Nặng 186 g', 'IPS LCD 6.51 inches', 'USB-C', '2 GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (25, 'Có', '16MP', '5000mAh', '50MP', 'Có', 'Qualcomm Snapdragon 680 6nm', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '164,3 × 76,1 × 8,28 mm', 'IPS LCD 6.58 inches', 'USB-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (26, 'Có', '8MP', '5000mAh', '50MP', 'Có', 'MediaTek Helio G85', '2.0GHz*2 + 1.8GHz*6', '163.74 × 75.43 × 8.09 mm', 'IPS LCD 6.58 inches', 'USB-C', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (27, 'Có', '8MP', '5000mAh', '50MP', 'Có', 'Qualcomm Snapdragon 680', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '164.30×76.10×8.38mm', 'IPS LCD 6.55 inches', 'USB-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (28, 'Có', '5MP', 'Li-Po 5000mAh', '13MP', 'Có', 'MediaTek Helio G25 (12 nm)', 'Octa-core 2.0 GHz Cortex-A53', '164.9 x 77.07 x 9.0mm', 'IPS LCD 6.53 inches', 'USB-C', '2 GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (29, 'Có', '5MP', '6000mAh', '13MP', 'Có', 'Spreadtrum SC9863A 8 nhân', '4 nhân 1.6 GHz & 4 nhân 1.2 GHz', '177.7 x 79.1 x 9.9mm', 'IPS LCD 6.82 inches', 'USB-C', '2 GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (30, 'Có', '12MP', '3240MAh', '12MP', 'Có', 'Apple A15', '3.22 GHz', '146,7 x 71,5 x 7,65mm', 'Super Retina XDR OLED 6.1 inches', 'USB-C', ' 8GB', '256GB', '1 sim NaNo,1 sim vật lý');
-INSERT INTO `specifications` VALUES (31, 'Có', '50 MP', '5000mAh', '13MP', 'Có', 'Snapdragon 685 8 nhân', '2.8 GHz', '177.7 x 79.1 x 9.9mm', 'AMOLED', 'Type-C', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (32, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Exynos 850 8 nhân', '2.0 GHz', '164.7 *76.7 * 9.1 mm', 'IPS LCD 6.82 inches', 'Type-C', '4 GB', '64GB', '2 sim');
-INSERT INTO `specifications` VALUES (33, 'Có', '12.0 MP', '3110mAh', '12MP', 'Có', 'Apple A13 Bionic', '1 nhân 2.84 GHz, 3 nhân 2.42 GHz & 4 nhân 1.8 GHz', '150.9 x 75.7 x 8.3mm', 'IPS LCD 7.9 inches', 'Lightning', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (34, 'Có', '20 MP', '4500mAh', '12MP', 'Có', 'Snapdragon 865 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '159.8 * 74.5 * 8.4mm', 'Super Retina XDR', 'USB-C', '4 GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (35, 'Có', '12 MP', '5000mAh', '12MP', 'Có', 'Apple A15 Bionic', '2 nhân 2.0 GHz & 6 nhân 1.8 GHz', '177.7 x 79.1 x 9.9mm', 'Super AMOLED', 'Type-C', '8 GB', '4GB', '2 sim');
-INSERT INTO `specifications` VALUES (36, 'Có', '12 MP', '5000mAh', '32MP', 'Có', 'MediaTek Helio G85 8 nhân', '2 nhân 2.2 GHz & 6 nhân 2.0 GHz', '122.7 x 79.1 x 9.9mm', 'OLED', 'Micro USB', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (37, 'Có', '50 MP', '5000mAh', '8MP', 'Có', 'Exynos 1280 8 nhân', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '111.7 x 79.1 x 9.9mm', 'OLED', 'Type-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (38, 'Có', '30 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G88 8 nhân', '2.8 GHz', '198.7 x 79.1 x 9.9mm', 'IPS LCD 6.82 inches', 'Type-C', '4 GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (39, 'Có', '64 MP', '5000mAh', '16MP', 'Có', 'A16', '2.2 GHz', '177.7 x 79.1 x 9.9mm', 'Super AMOLED', 'Type-C', '8 GB', '64GB', '2 sim');
-INSERT INTO `specifications` VALUES (40, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G99 8 nhân', '1.6 GHz', '188.7 x 79.1 x 9.9mm', 'IPS LCD 6.88 inches', 'Lightning', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (41, 'Có', '48 MP', '5000mAh', '5MP', 'Có', 'Apple A14 Bionic (5 nm)', '2 nhân 2.05 GHz &amp; 6 nhân 2.0 GHz', '167.7 x 79.1 x 9.9mm', 'OLED', 'Type-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (42, 'Có', '16 MP', '5000mAh', '16MP', 'Có', 'Snapdragon 680 8 nhân', '1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz', '157.7 x 79.1 x 9.9mm', 'Super Retina XDR OLED, HDR10, Dolby Vision', 'Type-C', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (43, 'Có', '20 MP', '5000mAh', '5MP', 'Có', 'Snapdragon 685 8 nhân', '2.0 GHz', '147.7 x 79.1 x 9.9mm', 'IPS LCD 6.89 inches', 'Type-C', '8 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (44, 'Có', '6 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G99', '1.82 GHz', '127.7 x 79.1 x 9.9mm', 'IPS LCD 6.82 inches', 'Type-C', '4 GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (45, 'Có', '12 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G99 8 nhân', '2.2 GHz', '117.7 x 79.1 x 9.9mm', 'IPS LCD 6.82 inches', 'Micro USB', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (46, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Snapdragon 680 8 nhân', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'IPS LCD', 'Type-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (47, 'Có', '108 MP', '5000mAh', '16MP', 'Có', 'Snapdragon 685 8 nhân', '2.8 GHz', '<p>Dài 165.66 mm - Ngang 75.96 mm - Dày 7.85 mm</p>', 'AMOLED', 'Type-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (48, 'Có', '8 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G99', '2.2 GHz', '<p>Dài 168.8 mm - Ngang 78.2 mm - Dày 8.8 mm</p>', 'IPS LCD', 'Type-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (49, 'Có', '50 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G99 8 nhân', '1.6 GHz', '<p>Dài 165.66 mm - Ngang 75.96 mm - Dày 7.85 mm - Nặng 183.5 g</p>', 'Super AMOLED', 'Type-C', '2GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (50, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Unisoc SC9863A1 8 nhân', '2 nhân 2.05 GHz &amp; 6 nhân 2.0 GHz', '<p>Dài 159.87 mm - Ngang 73.87 mm - Dày 8.09 mm</p>', 'IPS LCD', 'Micro USB', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (51, 'Có', '8 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G85', '1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz', '<p>g x cao)</p>\\\\n<div>164x75.6x8.4mm</div>', 'PLS LCD', 'Type-C', '8GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (52, 'Có', '50 MP', '5000mAh', '13MP', 'Có', 'Snapdragon 685 8 nhân', '2.0 GHz', 'Dài 146.3 mm - Ngang 70.9 mm - Dày 7.6 mm', 'AMOLED', 'Type-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (53, 'Có', '50 MP', '3900mAh', '12MP', 'Có', 'MediaTek Helio G96 8 nhân', '1.82 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (54, 'Có', '48 MP', '5000mAh', '8MP', 'Có', 'Unisoc T606', '2.2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS LCD', 'Type-C', '2GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (55, 'Có', '12 MP', '5000mAh', '8MP', 'Có', 'Snapdragon 8 Gen 2 8 nhân', 'Max 1.4 GHz', 'Dài 164 mm - Ngang 75.4 mm - Dày 7.9 mm', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Type-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (56, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'MediaTek MT6761 4 nhân (Helio A22)', '2.0 GHz', 'p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS LCD', 'Micro USB', '3GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (57, 'Có', '50 MP', '5000mAh', '8MP', 'Có', 'Unisoc Tiger T612', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '<p>Dài 168 mm - Ngang 77.8 mm - Dày 8.8 mm - Nặng 194 g</p>', 'IPS LCD', 'Type-C', '32GB', '2GB', '2 sim');
-INSERT INTO `specifications` VALUES (58, 'Có', '12 MP', '25000mAh', '5MP', 'Có', 'MediaTek Helio G85', '2.2 GHz', '<p>Dài 155.7 mm - Ngang 74.5 mm - Dày 7.9 mm</p>', 'Super AMOLED', 'Type-C', '8GB', '16GB', '2 sim');
-INSERT INTO `specifications` VALUES (59, 'Có', '8 MP', '5000mAh', '32MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', '1 nhân 2.9 GHz, 3 nhân 2.8 GHz & 4 nhân 2.2 GHz', '<p>Dài 164.7mm - Ngang 76.7mm - Dày 9.1mm - Nặng 195g</p>', 'IPS', 'Micro USB', '2GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (60, 'Có', '50 MP', '5000mAh', '12MP', 'Có', 'Spreadtrum SC9832E', '2.0 GHz 2.0 GHz', '<p>Dài 168.8 mm - Ngang 76.4 mm - Dày 8.8 mm</p>', 'OLED', 'Type-C', '6GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (61, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Unisoc Tiger T612', '1.82 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS LCD', 'USB-C', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (62, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Super AMOLED', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (63, 'Có', '12MP', '5000mAh', '12MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', 'Max 1.4 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (64, 'Có', '64 MP', '25000mAh', '8MP', 'Có', 'Spreadtrum SC9832E', '2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'OLED', 'Type-C', '2GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (65, 'Có', '50 MP', '5000mAh', '8MP', 'Có', 'Apple A15 Bionic', '4 nhân 2.4 GHz & 4 nhân 1.9 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS LCD', 'Type-C', '4GB', '256GB', '1 sim NaNo,1 sim vật lý');
-INSERT INTO `specifications` VALUES (66, 'Có', '45 MP', '5000mAh', '12MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', '2 nhân 2.0 GHz &amp; 6 nhân 1.8 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'OLED', 'Type-C', '2GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (67, 'Có', '50 MP', '4500mAh', '32MP', 'Có', 'Helio G88', '1 nhân 2.9 GHz, 3 nhân 2.8 GHz & 4 nhân 2.2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Type-C', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (68, 'Có', '64 MP', '3600mAh', '32MP', 'Có', 'Snapdragon 680 8 nhân', '2.0 GHz 2.0 GHz', '117.7 x 79.1 x 9.9mm', 'PLS LCD', 'Type-C', '4GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (69, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', '2 nhân 2.0 GHz &amp; 6 nhân 1.8 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '8GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (70, 'Có', '2 camera 12 MP', '5000mAh', '13MP', 'Có', 'Snapdragon 680 8 nhân', '2.6 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'IPS LCD', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (71, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Exynos 2100 8 nhân', '2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'IPS LCD', 'Lightning', '4GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (72, 'Có', '47 MP', '5000mAh', '13MP', 'Có', 'MTK6739 Quad core', '2 nhân 2.2 GHz &amp; 6 nhân 1.8 GHz', 'Dài 146.3 mm - Ngang 70.9 mm - Dày 7.6 mm', 'AMOLED', 'USB-C', '8GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (73, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'Exynos 850 8 nhân', '2 nhân 2.0 GHz &amp; 6 nhân 1.8 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'LTPS LCD', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (74, 'Có', '50 MP', '5000mAh', '13MP', 'Có', 'MediaTek Helio G85 8 nhân', '2.3 GHz &amp; 1.8 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'USB-C', '8GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (75, 'Có', '35 MP', '5000mAh', '5MP', 'Có', 'Mediatek MT6769Z Helio G85 (12nm)', '2GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'IPS LCD', 'Micro USB', '4GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (76, 'Có', '50 MP', '3000mAh', '32MP', 'Có', 'tMediaTek Dimensity 7050 5G 8 nhân', '2.6 GHz', '117.7 x 79.1 x 9.9mm', 'IPS LCD', 'USB-C', '32GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (77, 'Có', '40 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G85 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (78, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 732G 8 nhân', '4 nhân 2.4 GHz &amp; 4 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'IPS LCD', 'USB-C', '4GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (79, 'Có', '46 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 685 8 nhân', '2.8 GHz', '117.7 x 79.1 x 9.9mm', 'IPS LCD', 'Type-C', '8GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (80, 'Có', '80 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G85 8 nhân', '1 nhân 3.36 GHz, 4 nhân 2.8 GHz & 3 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Type-C', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (81, 'Có', '100 MP', '4000mAh', '32MP', 'Có', 'MediaTek MT6761 4 nhân (Helio A22)', '1 nhân 3.18 GHz, 3 nhân 2.7 GHz & 4 nhân 2 GHz', 'Dài 146.3 mm - Ngang 70.9 mm - Dày 7.6 mm', 'PLS LCD', 'Type-C', '8GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (82, 'Có', '47 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G85 8 nhân', ' 2.0 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Micro USB', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (83, 'Có', '99 MP', '5000mAh', '12MP', 'Có', 'MediaTek G99', '4 nhân 1.8 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'IPS LCD', 'Micro USB', '32GB', '246GB', '2 sim');
-INSERT INTO `specifications` VALUES (84, 'Có', '46 MP', '5000mAh', '12MP', 'Có', '8 nhân', '2.6 GHz', 'Dài 146.3 mm - Ngang 70.9 mm - Dày 7.6 mm', 'Super AMOLED', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (85, 'Có', '47 MP', '4700mAh', '32MP', 'Có', 'Exynos 850', '2.2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Micro USB', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (86, 'Có', '48 MP', '3700mAh', '12MP', 'Có', 'Snapdragon 480 5G', '2.7Ghz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Type-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (87, 'Có', '45 MP', '5000mAh', '12MP', 'Có', 'MediaTek Dimensity 7050 5G 8 nhân', '2.2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X, Phụ: Super AMOLED', 'Micro USB', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (88, 'Có', '55 MP', '5000mAh', '32MP', 'Có', 'Spreadtrum SC9832E', '2.7Ghz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'LTPS LCD', 'Lightning', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (89, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'Exynos 1380 8 nhân', '2.2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'AMOLED', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (90, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Mediatek MT6739 4 nhân 4x1.5GHz', '4 nhân 1.3 GHz', 'Dài 146.3 mm - Ngang 70.9 mm - Dày 7.6 mm', 'AMOLED', 'Micro USB', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (91, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'MediaTek Helio G85 8 nhân', '2.3 GHz &amp; 1.8 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Dynamic AMOLED 2X', 'Type-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (92, 'Có', '50 MP', '5000mAh', '5MP', 'Có', 'MediaTek G99', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (93, 'Có', '8 MP', '5000mAh', '12MP', 'Có', '8 nhân', '2.7Ghz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (94, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'Exynos 850', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Type-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (95, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 480 5G', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (96, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'MediaTek Dimensity 7050 5G 8 nhân', '2.7Ghz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'AMOLED', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (97, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'Spreadtrum SC9832E', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Type-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (98, 'Có', '8 MP', '5000mAh', '32MP', 'Có', 'Exynos 1380 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (99, 'Có', '64 MP', '5000mAh', '5MP', 'Có', 'Mediatek MT6739 4 nhân 4x1.5GHz', '2.7Ghz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Type-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (100, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 685 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (101, 'Có', '50 MP', '3000mAh', '5MP', 'Có', 'Snapdragon 8 Gen 2 8 nhân', '2.7Ghz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Lightning', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (102, 'Có', '35 MP', '3000mAh', '32MP', 'Có', 'Snapdragon 8+ Gen 1 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (103, 'Có', '35 MP', '3000mAh', '12MP', 'Có', 'MediaTek Helio G85 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (104, 'Có', '35 MP', '3700mAh', '5MP', 'Có', 'MediaTek Helio G96', '2.6 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (105, 'Có', '2 camera 12 MP', '4700mAh', '12MP', 'Có', 'MediaTek Helo A25', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'USB-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (106, 'Có', '2 camera 12 MP', '4700mAh', '5MP', 'Có', 'MediaTek Dimensity 1080 8 nhân', '2.6 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (107, 'Có', '8 MP', '3000mAh', '12MP', 'Có', 'MediaTek Helio G99', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Lightning', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (108, 'Có', '8 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G35', '4 nhân 1.3 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '32GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (109, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Unisoc T606', '2.6 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (110, 'Có', '50 MP', '5000mAh', '32MP', 'Có', 'MediaTek Dimensity 7050 5G 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'AMOLED', 'USB-C', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (111, 'Có', '35 MP', '5000mAh', '5MP', 'Có', 'MediaTek Helio G85 8 nhân', '2.6 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '4GB', '32GB', '2 sim');
-INSERT INTO `specifications` VALUES (112, 'Có', '100 MP', '4700mAh', '32MP', 'Có', 'MediaTek Helio G85 8 nhân', '2.6 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (113, 'Có', '100 MP', '3700mAh', '5MP', 'Có', 'Exynos 850 8 nhân Exynos 850 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (114, 'Có', '8 MP', '5000mAh', '12MP', 'Có', 'Helio G88', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (115, 'Có', '64 MP', '3700mAh', '32MP', 'Có', 'Unisoc T820', '2.0 GHz 2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Micro USB', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (116, 'Có', '64 MP', '4700mAh', '5MP', 'Có', 'MediaTek Helio G99 8 nhân', '2.7Ghz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Dynamic AMOLED 2X', 'Lightning', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (117, 'Có', '2 camera 12 MP', '4700mAh', '12MP', 'Có', 'HELIO G99', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (118, 'Có', '8 MP', '5000mAh', '12MP', 'Có', 'G99', '2.0 GHz 2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Micro USB', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (119, 'Có', '100 MP', '4700mAh', '12MP', 'Có', 'Helio G37', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (120, 'Có', '100 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G36', '2.6 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (121, 'Có', '64 MP', '3700mAh', '12MP', 'Có', 'Snapdragon 215 4 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Micro USB', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (122, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'Mediatek Helio P35', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (123, 'Có', '100 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 680', '2.7Ghz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'USB-C', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (124, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'MediaTek Helio G96 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (125, 'Có', '35 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G25 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (126, 'Có', '8 MP', '4700mAh', '12MP', 'Có', 'Qualcomm Snapdragon 8+ Gen 1 5G', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (127, 'Có', '64 MP', '3700mAh', '12MP', 'Có', 'Mediatek MT6761 Helio A22 (12 nm)', '2.7Ghz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (128, 'Có', '2 camera 12 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 1 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'Micro USB', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (129, 'Có', '64 MP', '3700mAh', '32MP', 'Có', 'Snapdragon 685 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (130, 'Có', '50 MP', '3700mAh', '12MP', 'Có', 'MediaTek Helio P35 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (131, 'Có', '35 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 8+ Gen 1 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (132, 'Có', '48 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (133, 'Có', '48 MP', '3700mAh', '5MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'USB-C', '4GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (134, 'Có', '8 MP', '5000mAh', '32MP', 'Có', 'MediaTek MT6765 8 nhân', '2.7Ghz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (135, 'Có', '64 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 680 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (136, 'Có', '35 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 695 5G', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'Micro USB', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (137, 'Có', '2 camera 12 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '4GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (138, 'Có', '64 MP', '5000mAh', '5MP', 'Có', 'Exynos 1330', '2.6 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (139, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'MediaTek Helio G35 8 nhân', '2.7Ghz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Dynamic AMOLED 2X', 'USB-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (140, 'Có', '35 MP', '4700mAh', '32MP', 'Có', 'MediaTek Dimensity 8200-Ultra', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (141, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 695 5G 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (142, 'Có', '35 MP', '5000mAh', '12MP', 'Có', 'MediaTek MT6765 8 nhân', '2.7Ghz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Lightning', '4GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (143, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 695 5G 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Type-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (144, 'Có', '2 camera 12 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 695 5G 8 nhân', '2.7Ghz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (145, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'AMOLED', 'Lightning', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (146, 'Có', '35 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2.7Ghz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Type-C', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (147, 'Có', '2 camera 12 MP', '5000mAh', '32MP', 'Có', 'MediaTek Helio G35 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (148, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile PlatformMediaTek Helio G35 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (149, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', '2.0 GHz 2.0 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'AMOLED', 'Lightning', '32GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (150, 'Có', '35 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile PlatformMediaTek Helio G35 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (151, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Type-C', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (152, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Lightning', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (153, 'Có', '35 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '8GB', '512GB', '2 sim');
-INSERT INTO `specifications` VALUES (154, 'Có', '64 MP', '3700mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (155, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile PlatformMediaTek Helio G35 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (156, 'Có', '2 camera 12 MP', '3700mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Lightning', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (157, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (158, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'Type-C', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (159, 'Có', '35 MP', '3700mAh', '12MP', 'Có', 'MediaTek Helio G35 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (160, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Type-C', '8GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (161, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 169 mm - Ngang 76 mm - Dày 8 mm</p>', 'PLS LCD', 'USB-C', '4GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (162, 'Có', '64 MP', '5000mAh', '12MP', 'Có', 'Exynos 1330', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '32GB', '256GB', '2 sim');
-INSERT INTO `specifications` VALUES (163, 'Có', '35 MP', '4700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Type-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (164, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'Exynos 1330', '4 nhân 1.3 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (165, 'Có', '64 MP', '5000mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', '4 nhân 1.3 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'USB-C', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (166, 'Có', '2 camera 12 MP', '4700mAh', '32MP', 'Có', 'Exynos 1330', '4 nhân 1.3 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (167, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'Exynos 1330', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'USB-C', '8GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (168, 'Có', '2 camera 12 MP', '5000mAh', '12MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'USB-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (169, 'Có', '64 MP', '4700mAh', '32MP', 'Có', 'Exynos 1330', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCD', 'Type-C', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (170, 'Có', '2 camera 12 MP', '5000mAh', '5MP', 'Có', 'Exynos 1330', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'Infinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (171, 'Có', '64 MP', '3700mAh', '32MP', 'Có', 'MediaTek Helio G35 8 nhân', '4 nhân 1.3 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'AMOLED', 'Micro USB', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (172, 'Có', '2 camera 12 MP', '3700mAh', '32MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'AMOLED', 'Micro USB', '4GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (173, 'Có', '64 MP', '4700mAh', '5MP', 'Có', 'MediaTek Helio G35 8 nhân', '2 nhân 2.4 GHz & 6 nhân 2 GHz', '<p>Dài 164.9 mm - Ngang 76.75 mm - Dày 9.09 mm</p>', 'PLS LCDInfinity-O, Dynamic AMOLED 2X (48~120Hz)', 'Micro USB', '32GB', '128GB', '2 sim');
-INSERT INTO `specifications` VALUES (174, 'Có', '2 camera 12 MP', '4700mAh', '5MP', 'Có', 'Snapdragon 8 Gen 2 Mobile Platform', 'Quad-core ARM CortexTM A53 1.4GHz', '<p>Dài 161.3 mm - Ngang 78.1 mm - Dày 8.2 mm</p>', 'PLS LCD', 'Micro USB', '32GB', '128GB', '2 sim');
 
 SET FOREIGN_KEY_CHECKS = 1;

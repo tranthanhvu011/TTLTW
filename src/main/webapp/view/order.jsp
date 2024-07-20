@@ -47,8 +47,8 @@
 <div class="container" style="margin-bottom: 30px;">
     <div class="col">
         <%
-        List<OrderProductVariant> listor = (List<OrderProductVariant>) request.getAttribute("order_Account");
-        if (listor==null){
+            List<OrderProductVariant> listor = (List<OrderProductVariant>) request.getAttribute("order_Account");
+            if (listor==null){
         %>
         <div style="margin-top: 30px;">
             <h2 style="color: red">Chưa có đơn hàng nào!</h2>
@@ -149,23 +149,73 @@
                                     Mua lại
                                 </button>
                             </a>
-                        </div>
-                        <div style="align-items: center;text-align: center;padding-top: 10px">
-                            <span>Thành tiền: </span>
-                            <label><%=NumberUtils.formatNumberWithCommas(o.getTotal_price())%>
-                            </label>
+                            <!-- Button trigger modal -->
+                            <button id="reviewButton" name="<%=o.getStatus()%>" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Đánh giá sản phẩm
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 100px">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Đánh giá sản phẩm </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="${pageContext.request.contextPath}/user/rate" method="post">
+                                                <label>Nhận xét</label>
+                                                <input name="id" type="hidden" value="<%=o.getProductVariant().getProduct().getId() %>">
+                                                <input type="text" name="comment" placeholder="Nhận xét của bạn" class="form-control"><br>
+                                                <label>Chất lượng sản phẩm ở mức nào ?</label>
+                                                <select name="star" id="star">
+                                                    <option value="1">1 sao</option>
+                                                    <option value="2">2 sao</option>
+                                                    <option value="3">3 sao</option>
+                                                    <option value="4">4 sao</option>
+                                                    <option value="5">5 sao</option>
+                                                </select> <br>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="align-items: center;text-align: center;padding-top: 10px">
+                                <span>Thành tiền: </span>
+                                <label><%=NumberUtils.formatNumberWithCommas(o.getTotal_price())%>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%
+                    }
+                }
+            %>
         </div>
-        <%
-            }
-        }
-        %>
     </div>
-</div>
-<%@include file="/common/footer.jsp" %>
-<%@include file="/common/libraries_js.jsp" %>
+
+
+    <%@include file="/common/footer.jsp" %>
+    <%@include file="/common/libraries_js.jsp" %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var reviewButton = document.getElementById('reviewButton');
+            var status = parseInt(reviewButton.getAttribute('name'), 10);
+            if (status !== 3) {
+                reviewButton.disabled = true;
+            }
+        });
+    </script>
 </body>
 </html>
