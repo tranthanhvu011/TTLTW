@@ -9,6 +9,9 @@ public class ChiNhanh {
         this.name = name;
     }
 
+    public ChiNhanh() {
+    }
+
     @Override
     public String toString() {
         return "ChiNhanh{" +
