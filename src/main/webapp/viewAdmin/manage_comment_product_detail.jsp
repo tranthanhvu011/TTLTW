@@ -314,12 +314,13 @@
                         </thead>
                         <tbody>
                         <tr>
+                            <input type="hidden" name="idReply" value="fasfasfasfas">
                             <th scope="row">2</th>
                             <td ><textarea id="showRepLyTextArea" style="width: 100%">fasfasfasfasfasfasfasf</textarea></td>
                             <td>Thornton</td>
                             <td>
-                                <button type="button" class="btn btn-success" >Sửa Trả Lời</button>
-                                <button type="button" class="btn btn-danger">Xóa</button>
+                                <button type="button" class="btn btn-success" onclick="changeReply(this)">Sửa Trả Lời</button>
+                                <button type="button" class="btn btn-danger" onclick="deleteReply(this)">Xóa</button>
                             </td>
                         </tr>
                         </tbody>
@@ -360,31 +361,30 @@
                 const repliesContainer = document.querySelector('#showReplyForm tbody');
                 repliesContainer.innerHTML = '';
                 data.forEach(reply => {
-                    const idReply = reply.id || 'CCo cai nit';
+                    const idReply = reply.id || 'N/A';
                     const name = reply.nameComment || 'Unknown';
                     const content = reply.content || 'No content available';
                     const timestamp = reply.timestamp || 'No timestamp available';
                     let row = '<tr>' +
-                        '<input type="hidden" id="showReplyReplyCommentId" name="idComment" value="'+idReply+'">'+
+                        '<input type="hidden" name="idReply" value="'+idReply+'">' +
                         '<th scope="row">' + name + '</th>' +
                         '<td><textarea name="textarea" style="width: 100%">' + content + '</textarea></td>' +
                         '<td>' + timestamp + '</td>' +
                         '<td>' +
-                        '<button type="button" class="btn btn-success" onclick="changeReply(\'changeReply\')">Sửa Trả Lời</button>' +
-                        '<button type="button" class="btn btn-danger" onclick="changeReply(\'deleteReply\')">Xóa</button>' +
+                        '<button type="button" class="btn btn-success" onclick="changeReply(this)">Sửa Trả Lời</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="deleteReply(this)">Xóa</button>' +
                         '</td>' +
                         '</tr>';
                     repliesContainer.innerHTML += row;
                 });
             }
 
-
-            function changeReply(action) {
+            function changeReply(button) {
+                var row = button.closest('tr');
                 var idProduct = document.getElementById("showReplyProductId").value;
                 var idComment = document.getElementById("showReplyCommentId").value;
-                var idReply = document.getElementById("showReplyReplyCommentId").value;
-                // console.log("idProduct" + idProduct + " Id comment"  + idComment );
-                var content = document.querySelector("textarea[name='textarea']").value;
+                var idReply = row.querySelector("input[name='idReply']").value;
+                var content = row.querySelector("textarea[name='textarea']").value;
                 var url = '/admin/manage_comment_product_detail_change_delete';
                 fetch(url, {
                     method: 'POST',
@@ -392,26 +392,56 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        action: action,
+                        action: 'changeReply',
                         idProduct: idProduct,
                         idComment: idComment,
                         idReply: idReply,
                         content: content
                     })
                 })
-                    .then(response =>{
+                    .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
                         return response.json();
-
                     })
                     .then(data => {
                         document.getElementById('replyMessage').textContent = data.message;
+                        getCommentReply(idProduct, idComment);
                     })
                     .catch(error => console.error('Error:', error));
             }
-
+            function deleteReply(button) {
+                var row = button.closest('tr');
+                var idProduct = document.getElementById("showReplyProductId").value;
+                var idComment = document.getElementById("showReplyCommentId").value;
+                var idReply = row.querySelector("input[name='idReply']").value;
+                var url = '/admin/manage_comment_product_detail_change_delete';
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'deleteReply',
+                        idProduct: idProduct,
+                        idComment: idComment,
+                        idReply: idReply
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('replyMessage').textContent = data.message;
+                        console.log("Updating comments for idProduct: " + idProduct + ", idComment: " + idComment);
+                        getCommentReply(idProduct, idComment);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
 
             function showModal(action, idComment, idProduct) {
                 var modal = document.getElementById("confirmModal");
@@ -457,8 +487,6 @@
                 var modal = document.getElementById("showReplyModal");
                 modal.style.display = "block";
                 getCommentReply(idProduct, idComment);
-                changeReply();
-
             }
             function closeReplyModal() {
                 var modal = document.getElementById("replyModal");
