@@ -1,5 +1,8 @@
 package controller.admin;
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import model.Account;
 import model.Manufacturer;
 import service.ManufacturerService;
 
@@ -28,6 +31,8 @@ public class ManageManufacturerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         action = request.getParameter("action");
         boolean isSuccessful;
         if (action != null) {
@@ -53,6 +58,8 @@ public class ManageManufacturerController extends HttpServlet {
                     }
                     isSuccessful = manufacturerService.insertManufacturer(name);
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.ALERT.toString(),"null",name,"Thêm hãng sản xuất");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thành công!");
                     } else {
@@ -70,8 +77,15 @@ public class ManageManufacturerController extends HttpServlet {
                 case "edit":
                     int idManufacturer = Integer.parseInt(request.getParameter("id"));
                     String nameManufacturer = request.getParameter("name");
+                    Manufacturer manufacturer_before = new Manufacturer();
+                    manufacturer_before = manufacturerService.findManufacturerById(idManufacturer);
                     isSuccessful = manufacturerService.alertManufacturer(idManufacturer, nameManufacturer);
+                    Manufacturer manufacturer_after  = new Manufacturer();
+                    manufacturer_after.setId(idManufacturer);
+                    manufacturer_after.setNAME(nameManufacturer);
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.ALERT.toString(),manufacturer_before.toString(),manufacturer_after.toString(),"Sửa hãng sản xuất");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thành công!");
                     } else {
@@ -82,12 +96,16 @@ public class ManageManufacturerController extends HttpServlet {
                     break;
                 case "delete":
                     int id = Integer.parseInt(request.getParameter("id"));
+                    Manufacturer manufacturer_delete = manufacturerService.findManufacturerById(id);
                     try {
                         isSuccessful = manufacturerService.deleteManufacturer(id);
+
                     } catch (Exception e) {
                         isSuccessful = false;
                     }
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.ALERT.toString(),manufacturer_delete.toString(),"DELETE Success","Xóa hãng sản xuất");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thành công!");
                     } else {

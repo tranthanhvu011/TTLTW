@@ -174,7 +174,7 @@ session.removeAttribute("message-discount");
 %>
 <%}%>
 <div class="container">
-    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=message%></h2>
+<%--    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=message%></h2>--%>
 <%--    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=messagediscount%></h2>--%>
     <div class="gutters" style="display: flex;justify-content: space-evenly;margin-bottom: 40px">
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">

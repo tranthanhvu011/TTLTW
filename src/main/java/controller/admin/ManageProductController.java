@@ -1,5 +1,8 @@
 package controller.admin;
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import model.Account;
 import model.Product;
 import model.ProductVariant;
 import service.ProductService;
@@ -41,6 +44,8 @@ public class ManageProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         action = request.getParameter("action");
         id = request.getParameter("id");
         isSuccess = false;
@@ -52,6 +57,8 @@ public class ManageProductController extends HttpServlet {
                 case "delete":
                     isSuccess = productVariantService.deleteProductVariant(idP);
                     if (isSuccess) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.DANGER.toString(),"ID product:"+ id,"Delete success","Xóa sản phẩm");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Xóa sản phẩm thành công");
                     } else {
