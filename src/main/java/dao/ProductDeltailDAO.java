@@ -404,8 +404,8 @@ public static boolean isActiveComment(int idProduct, int idComment) {
 //       System.out.print(jsonArray);
         ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
 //        System.out.print(addReply(174, 2, "aivaynhfasfasfi", "concasattaone"));
-//        System.out.print(getReplyByComment(174,1));
-        System.out.print(getActiveCommentsByProductId(174));
+        System.out.print(getReplyByComment(174,1));
+//        System.out.print(getActiveCommentsByProductId(174));
         }
     }
 
