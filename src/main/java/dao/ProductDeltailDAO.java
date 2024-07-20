@@ -398,14 +398,67 @@ public static boolean isActiveComment(int idProduct, int idComment) {
         }
         return replies;
     }
+    public static boolean UpdateReply(int idProduct, int idComment, int idReply, String contentComment) {
+        String query = "SELECT comment FROM products WHERE id = ?";
+        String updateQuery = "UPDATE products SET comment = ? WHERE id = ?";
+        try {
+            String all = jdbi.withHandle(handle -> handle.createQuery(query)
+                    .bind(0, idProduct)
+                    .mapTo(String.class)
+                    .findOnly());
+//            // In giá trị của 'all' để kiểm tra
+//            System.out.println("JSON from database: " + all);
+//
+//            // Kiểm tra nếu dữ liệu nhận được là null hoặc không phải JSON Array
+//            if (all == null || !all.trim().startsWith("[")) {
+//                System.err.println("Invalid JSON format: " + all);
+//                return false;
+//            }
+            JSONArray jsonArray = new JSONArray(all);
+            boolean update = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                if (jsonObject.optInt("id") == idComment) {
+                    if (jsonObject.has("replies")) {
+                        JSONArray repliesArray = jsonObject.getJSONArray("replies");
+                        for (int j = 0; j < repliesArray.length(); j++) {
+                            JSONObject replyObject = repliesArray.getJSONObject(j);
+                            if (replyObject.optInt("id") == idReply) {
+                                replyObject.put("content", contentComment);
+                                update = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (update) {
+                        break;
+                    }
+                }
+            }
+            if (update) {
+                String updatedCommentsJson = jsonArray.toString();
+                int rowsUpdated = jdbi.withHandle(handle -> handle.createUpdate(updateQuery)
+                        .bind(0, updatedCommentsJson)
+                        .bind(1, idProduct)
+                        .execute());
+                return rowsUpdated > 0;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
 //       JSONArray jsonArray = getAllCommentProduct();
 //       boolean trueOrFalse = isActiveComment(161, 1);
 //       System.out.print(jsonArray);
         ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
 //        System.out.print(addReply(174, 2, "aivaynhfasfasfi", "concasattaone"));
-        System.out.print(getReplyByComment(174,1));
+//        System.out.print(getReplyByComment(174,1));
 //        System.out.print(getActiveCommentsByProductId(174));
+        System.out.print(UpdateReply(174, 8, 1,"Con cặtgifif v"));
         }
     }
 
