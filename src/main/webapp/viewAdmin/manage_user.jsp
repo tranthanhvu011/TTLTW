@@ -29,7 +29,7 @@
     <%@include file="/common/libraries.jsp" %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </head>
@@ -60,6 +60,15 @@
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
+     .search-container {
+         display: flex;
+         align-items: center;
+     }
+
+    /*.search-container input,*/
+    /*.search-container button {*/
+    /*    margin-right: 10px;*/
+    /*}*/
 </style>
 <%
     List<Account> users = (List<Account>) request.getAttribute("users");
@@ -148,7 +157,7 @@
                              src="${pageContext.request.contextPath}/resources/assets/images/batman.png"
                              alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                            NHÓM 4 <i class="fa fa-angle-down"></i>
+                            NHÓM 41 <i class="fa fa-angle-down"></i>
                         </h4>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Message</a> <a
@@ -162,14 +171,11 @@
 
         <!-- taskbar -->
         <div class="main-content-inner">
-
                     <button type="button" class="btn btn-primary" style="background-color: lawngreen"
                             data-toggle="modal" data-target="#modalRegisterUser" onclick="openModalRegister()">
                         Thêm Mới
                     </button>
-                </div>
-
-
+        </div>
 
         <!-- Modal to register -->
         <div class="modal" id="modalRegisterUser" style="display: none" role="dialog" data-backdrop="false"
@@ -300,14 +306,31 @@
                 </div>
             </div>
         </div>
-
+<%--        <div class="search-container">--%>
+<%--            <select id="month-dropdown" onchange="filterByMonth()">--%>
+<%--                <option value="">Select Month</option>--%>
+<%--                <option value="01">January</option>--%>
+<%--                <option value="02">February</option>--%>
+<%--                <option value="03">March</option>--%>
+<%--                <option value="04">April</option>--%>
+<%--                <option value="05">May</option>--%>
+<%--                <option value="06">June</option>--%>
+<%--                <option value="07">July</option>--%>
+<%--                <option value="08">August</option>--%>
+<%--                <option value="09">September</option>--%>
+<%--                <option value="10">October</option>--%>
+<%--                <option value="11">November</option>--%>
+<%--                <option value="12">December</option>--%>
+<%--            </select>--%>
+<%--        </div>--%>
         <div class="single-table" style="width: 95%; margin: 0 auto">
                 <table id="example" class="table table-striped table-bordered" style="width: 100%">
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Năm Sinh</th>
                         <th scope="col">Địa Chỉ</th>
                         <th scope="col">Giới Tính</th>
                         <th scope="col">Active</th>
@@ -316,7 +339,8 @@
                         <th scope="col">HÀNH ĐỘNG</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="tableBody">
+
                     <% for (Account user : users) {%>
                     <tr>
                         <th scope="row"><%=user.getId()%>
@@ -324,6 +348,16 @@
                         <td><%=user.getEmail()%>
                         </td>
                         <td><%=user.getFirst_name()%> <%=user.getLast_name()%>
+                        </td>
+                        <td>
+                            <%=user.getDob()%>
+<%--                            <script>--%>
+<%--                                if (<%= user.getDob() != null %>) {--%>
+<%--                                    console.log(new Date("<%= user.getDob().toString() %>").getMonth() + 1);--%>
+<%--                                } else {--%>
+<%--                                    console.log('null');--%>
+<%--                                }--%>
+<%--                            </script>--%>
                         </td>
                         <td><%=user.getAddress()%>
                         </td>
@@ -375,7 +409,6 @@
                     </tbody>
                 </table>
     </div>
-
 <script>
     new DataTable('#example');
 </script>
@@ -735,8 +768,154 @@
         const re = /^(84|0[3|5|7|8|9])+([0-9]{8})$/;
         return String(phone.value).match(re);
     }
+    function searchByBirthdate() {
+        // Get the input value
+        const birthdate = document.getElementById('search-birthdate').value;
+
+        // Get the table rows
+        const table = document.getElementById('example');
+        const rows = table.getElementsByTagName('tr');
+
+        // Loop through the rows and hide those that don't match the search query
+        for (let i = 1; i < rows.length; i++) { // Skip the header row
+        const cells = rows[i].getElementsByTagName('td');
+        const birthdateCell = cells[3]; // Assuming the birthdate is in the 4th column (index 3)
+
+        if (birthdateCell) {
+        const cellText = birthdateCell.textContent || birthdateCell.innerText;
+        const regex = new RegExp(`\\b${birthdate}\\b`, 'i'); // Case-insensitive search
+
+        if (regex.test(cellText)) {
+        rows[i].style.display = ''; // Show the row
+    } else {
+            rows[i].style.display = 'none'; // Hide the row
+                }
+            }
+        }
+    }
+    function filterByMonth() {
+        <%--    // Get the selected month value--%>
+            const selectedMonth = document.getElementById('month-dropdown').value;
+            const tableBody = document.querySelector('.tableBody');
+            <%--tableBody.innerHTML = ` <% for (Account user : users) { %>--%>
+            <%--    if (selectedMonth === <%=user.getDob().getMonth()%>){--%>
+            <%--<tr>--%>
+            <%--    <th scope="row"><%=user.getId()%>--%>
+            <%--    </th>--%>
+            <%--    <td><%=user.getEmail()%>--%>
+            <%--    </td>--%>
+            <%--    <td><%=user.getFirst_name()%> <%=user.getLast_name()%>--%>
+            <%--    </td>--%>
+            <%--    <td>--%>
+            <%--        <%=user.getDob()%>--%>
+            <%--    </td>--%>
+            <%--    <td><%=user.getAddress()%>--%>
+            <%--    </td>--%>
+            <%--    <%if (user.getGender() == 1) {%>--%>
+            <%--    <td>Nam</td>--%>
+            <%--    <%} else if (user.getGender() == 0) {%>--%>
+            <%--    <td>Nữ</td>--%>
+            <%--    <%} else {%>--%>
+            <%--    <td>Khong xac dinh</td>--%>
+            <%--    <%}%>--%>
+            <%--    <%if (user.getIs_active() == 0) {%>--%>
+            <%--    <td>--%>
+            <%--        <a href="/admin/user/manage_user?action=active&id=<%=user.getId()%>">--%>
+            <%--            <button class="btn btn-primary" style="background-color: lawngreen">--%>
+            <%--                Active--%>
+            <%--            </button>--%>
+            <%--        </a>--%>
+            <%--    </td>--%>
+            <%--    <%} else {%>--%>
+            <%--    <td>--%>
+            <%--        <a href="/admin/user/manage_user?action=block&id=<%=user.getId()%>">--%>
+            <%--            <button class="btn btn-primary" style="background-color: darkred">--%>
+            <%--                Block--%>
+            <%--            </button>--%>
+            <%--        </a>--%>
+            <%--    </td>--%>
+            <%--    <%}%>--%>
+            <%--    <td><%=user.getPhone_number()%>--%>
+            <%--    </td>--%>
+            <%--    <td>--%>
+            <%--        <%=user.getLast_login()%>--%>
+            <%--    </td>--%>
+            <%--    <td>--%>
+            <%--        <a class="btn btn-primary" href="/admin/user/manage_user?id=<%=user.getId()%>&action=alter">--%>
+            <%--            Sửa--%>
+            <%--        </a>--%>
+            <%--        <% if (userDAO.countUserInOrders(user.getId()) > 0) {%>--%>
+            <%--        <button class="btn btn-warning">--%>
+            <%--            Xóa--%>
+            <%--        </button>--%>
+            <%--        <% }else{%>--%>
+            <%--        <button class="btn btn-danger" onclick="openModalDeleteUser(<%=user.getId()%>)">--%>
+            <%--            Xóa--%>
+            <%--        </button>--%>
+            <%--        <%}%>--%>
+            <%--    </td>--%>
+            <%--</tr>--%>
+            <%--    }--%>
+            <%--<%}%>`;--%>
+        // Get the table rows
+        const table = document.getElementById('example');
+        const rows = table.getElementsByTagName('tr');
+
+        // Loop through the rows and hide those that don't match the selected month
+        for (let i = 1; i < rows.length; i++) { // Skip the header row
+            const cells = rows[i].getElementsByTagName('td');
+            const birthdateCell = cells[2]; // Assuming the birthdate is in the 4th column (index 3)
+
+            if (birthdateCell) {
+                const cellText = birthdateCell.textContent || birthdateCell.innerText;
+
+                // Extract the month part from the birthdate (assuming format is YYYY-MM-DD)
+                const cellMonth = cellText.split('-')[1];
+                console.log("cellmonth", cellMonth);
+                console.log("celltext", cellText);
+                console.log("selected", selectedMonth);
+                // Check if the selected month matches the month part of the birthdate
+                if (selectedMonth === "" || cellMonth === selectedMonth) {
+                    rows[i].style.display = ''; // Show the row
+                } else {
+                    rows[i].style.display = 'none'; // Hide the row
+                }
+            }
+        }
+    }
+    <%--}--%>
+    // $(document).ready(function() {
+    //     // Ensure DataTable is initialized
+    //     var table = $('#example').DataTable();
+    //
+    //     // Search by Name Function
+    //     window.searchByName = function() {
+    //         var name = $('#search-name').val();
+    //         table.search(name).draw();
+    //     };
+    //
+    //     // Filter by Month Function
+    //     window.filterByMonth = function() {
+    //         var selectedMonth = $('#month-dropdown').val();
+    //
+    //         // Use DataTables API to filter
+    //         $.fn.dataTable.ext.search.push(
+    //             function(settings, data, dataIndex) {
+    //                 var birthdate = data[3]; // Assuming the birthdate is in the 4th column (index 3)
+    //                 var birthMonth = birthdate.split('-')[1]; // Extract month from birthdate
+    //
+    //                 if (selectedMonth === "" || birthMonth === selectedMonth) {
+    //                     return true;
+    //                 }
+    //                 return false;
+    //             }
+    //         );
+    //         table.draw();
+    //         $.fn.dataTable.ext.search.pop();
+    //     };
+    // });
 </script>
-<%@include file="/common/admin_library_js.jsp" %>
+        <%@include file="/common/admin_library_js.jsp" %>
         <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/admin/slide_show.js"></script>
 </body>
