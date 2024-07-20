@@ -2,15 +2,9 @@ package controller.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import dao.CapacityDAO;
-import dao.ProductImageDAO;
-import dao.ProductVariantDAO;
-import dao.ProductDeltailDAO;
+import dao.*;
 
-import model.Capacity;
-import model.Color;
-import model.ProductImage;
-import model.ProductVariant;
+import model.*;
 
 import org.json.JSONObject;
 import service.ProductDetalService;
@@ -45,7 +39,8 @@ public class ProductDetailController extends HttpServlet {
         String productID = request.getParameter("id");
         int id = Integer.parseInt(productID);
         List<ProductVariant> listProductVariant = productDetalService.getAllProductVariant(id);
-
+        RateDAO rateDAO = new RateDAO();
+        List<Rate> rates = rateDAO.getRatesByProductId(id);
         Map<String, String> colorImageMap = new LinkedHashMap<>();
         for (ProductVariant variant : listProductVariant) {
             String colorName = variant.getColor().getName();
@@ -60,6 +55,7 @@ public class ProductDetailController extends HttpServlet {
             capacitiesSet.add(variant.getCapacity().getName());
         }
         List<String> capacitiesList = new LinkedList<>(capacitiesSet);
+        request.setAttribute("rates",rates);
         request.setAttribute("colorImageMap", colorImageMap);
         request.setAttribute("capacities", capacitiesList);
         request.setAttribute("productVariant", listProductVariant);
@@ -102,26 +98,45 @@ public class ProductDetailController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject commentProductDetail = new JSONObject();
-        commentProductDetail.put("content", request.getParameter("content"));
-        commentProductDetail.put("nameComment", request.getParameter("nameComment"));
-        commentProductDetail.put("phoneNumber", request.getParameter("phoneNumber"));
-        commentProductDetail.put("idProduct", request.getParameter("idProduct"));
-        commentProductDetail.put("isActive", 0);
-        commentProductDetail.put("timestamp", request.getParameter("timestamp"));
+        // Thu thập dữ liệu từ form
+        String content = request.getParameter("content");
+        String nameComment = request.getParameter("nameComment");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String timestamp = request.getParameter("timestamp");
         int idProduct = Integer.parseInt(request.getParameter("idProduct"));
-        JsonArray commentProductArray = new JsonArray();
-        commentProductArray.add(String.valueOf(commentProductDetail));
-        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
-        String jsonString = commentProductDetail.toString();
-        System.out.println(jsonString);
 
-        boolean result = productDeltailDAO.insertComment(commentProductDetail,idProduct );
+        if (content.isEmpty() || nameComment.isEmpty() || phoneNumber.isEmpty()) {
+            if (content.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập nội dung");
+            } else if (nameComment.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập tên");
+            } else if (phoneNumber.isEmpty()) {
+                request.getSession().setAttribute("status", false);
+                request.getSession().setAttribute("message", "Vui lòng nhập số điện thoại");
+            }
+            response.sendRedirect("/product-detail?id=" + idProduct);
+            return;
+        }
+        JSONObject commentProductDetail = new JSONObject();
+        commentProductDetail.put("content", content);
+        commentProductDetail.put("nameComment", nameComment);
+        commentProductDetail.put("phoneNumber", phoneNumber);
+        commentProductDetail.put("idProduct", idProduct);
+        commentProductDetail.put("isActive", 0);
+        commentProductDetail.put("timestamp", timestamp);
+
+        ProductDeltailDAO productDetailDAO = new ProductDeltailDAO();
+        boolean result = productDetailDAO.insertComment(commentProductDetail, idProduct);
         if (result) {
+            request.getSession().setAttribute("status", true);
             request.getSession().setAttribute("message", "Bình luận của bạn đã được gửi và đang đợi xét duyệt.");
+        } else {
+            request.getSession().setAttribute("status", false);
+            request.getSession().setAttribute("message", "Đã có lỗi xảy ra khi đăng bình luận.");
         }
         response.sendRedirect("/product-detail?id=" + idProduct);
-
     }
 
 }

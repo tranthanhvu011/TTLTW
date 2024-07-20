@@ -4,6 +4,17 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.*" %>
 <%@ page import="config.URLConfig" %>
+<%@ page import="dao.ProductDeltailDAO" %>
+<%@ page import="com.google.gson.JsonArray" %>
+<%@ page import="org.json.JSONArray" %>
+<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="org.json.JSONObject" %>
+<%@ page import="dao.UserDAO" %>
+<%@ page import="service.UserService" %>
+<%
+    List<Rate> rateList = (List<Rate>) request.getAttribute("rates");
+    if (rateList == null) rateList = new ArrayList<>();
+%>
 <%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
@@ -21,6 +32,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <link href="${pageContext.request.contextPath}/resources/css/user/main.css" rel="stylesheet" media="all">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/user/product-detail.css">
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
@@ -116,6 +138,9 @@
 </style>
 <%
     Boolean status = (Boolean) session.getAttribute("status");
+    if (status == null) {
+        status = true;
+    }
     String message = (String) session.getAttribute("message");
     if (message  == null) {
     }
@@ -123,7 +148,6 @@
 
 <body>
 <%@include file="/common/header.jsp" %>
-<% if (status == null) {%>
 <div class="toast">
     <div class="toast-content">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
@@ -131,11 +155,18 @@
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
             <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
         </svg>
-        <% if (message != null) {%>
+        <% if (message != null ) {%>
+        <% if (status == true) {%>
         <div class="message">
             <span class="text text-1" style="color: greenyellow">Thành công</span>
             <span class="text text-2" style="color: greenyellow"><%=message%></span>
         </div>
+        <% }else{%>
+        <div class="message">
+            <span class="text text-1 text-danger">Thất bại</span>
+            <span class="text text-2 text-danger"><%=message%></span>
+        </div>
+        <%}%>
         <%    session.removeAttribute("message");
             session.removeAttribute("status");%>
         <% } else{%>
@@ -148,7 +179,6 @@
     <i class="fa-solid fa-xmark close"></i>
     <div class="progress"></div>
 </div>
-<%} else {%>
 <%--<div class="toast">--%>
 <%--    <div class="toast-content">--%>
 <%--        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"--%>
@@ -163,7 +193,6 @@
 <%--    <i class="fa-solid fa-xmark close"></i>--%>
 <%--    <div class="progress"></div>--%>
 <%--</div>--%>
-<%}%>
 <script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
 <%if (message != null) {%>
 <script>
@@ -296,6 +325,50 @@
                         <p class="black_14_400">2</p>
                     </div>
                 </div>
+                <!-- Nút để mở modal -->
+                <!-- Button trigger modal -->
+                <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
+                    Xem đánh giá
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modelrate" tabindex="-1" role="dialog"
+                     aria-labelledby="modelrateLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="height: 600px; margin-top: 40px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modelrateLabel" style="margin-left: 20px;">Đánh giá sản phẩm</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="max-height: 600px; overflow: auto">
+                                <%
+                                    UserDAO userDAO = new UserDAO();
+                                    for (Rate rate : rateList) {
+                                        Account account = userDAO.getUserById(rate.getAccount_id());
+                                %>
+                                <div style="border: 1px solid #ddd; background-color: #f9f9f9; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column;">
+                                    <p style="font-weight: bold; margin-bottom: 8px;"><%= "Tên người dùng: " + account.getFirst_name() + " " + account.getLast_name() %></p>
+                                    <p style="margin-bottom: 8px;">Chất lượng: <%= rate.getNumber_rate() %> sao
+                                        <% for (int i = 0; i < rate.getNumber_rate(); i++) { %>
+                                        <i class="fa-solid fa-star icon-star" style="color: #ffc107; font-size: 18px;"></i>
+                                        <% } %>
+                                    </p>
+                                    <p style="color: #555;"><%= "Nhận xét: " + rate.getComment() %></p>
+                                </div>
+                                <%
+                                    }
+                                %>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
         <% ProductVariant firstVariant = listproduct.get(0);%>
@@ -657,28 +730,30 @@
                     document.getElementById('timestamp').value = formattedDateTime; // Cập nhật trường ẩn
                 };
             </script>
-
+<% ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+    JSONArray jsonArray = productDeltailDAO.getActiveCommentsByProductId(Integer.parseInt(productID));%>
+            <% for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);%>
             <div class="media mt-4">
-                <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png"
+                <img style="width: 60px; height: 50px" src="../resources/assets/images/nguoidung.jpg"
                      class="mr-3 rounded-circle" alt="User Avatar">
                 <div class="media-body">
-                    <h6 class="mt-0">Huyền <small class="text-muted">10/06/2024 21:40:08</small></h6>
-                    iphone 15 promax 512 GB màu titan xanh có về lại hàng nữa không ạ
+                    <h6 class="mt-0"><%= jsonObject.optString("nameComment")%> <small class="text-muted"><%= jsonObject.optString("timestamp")%></small></h6>
+                    <%= jsonObject.optString("content")%>
+                    <% JSONArray jsonArray1 = productDeltailDAO.getReplyByComment(Integer.parseInt(productID), jsonObject.optInt("id"));%>
+                    <% for (int j = 0; j < jsonArray1.length(); j++) {
+                        JSONObject jsonObject1 = jsonArray1.getJSONObject(j);%>
                     <div class="media mt-3">
-                        <img style="width: 50px; height: 50px" src="../resources/assets/images/banner-01.png" class="mr-3 rounded-circle" alt="Admin Avatar">
+                        <img style="width: 60px; height: 50px" src="../resources/assets/images/qtv.webp" class="mr-3 rounded-circle" alt="Admin Avatar">
                         <div class="media-body">
-                            <h6 class="mt-0">Quản Trị Viên</h6>
-                            Di Động Việt xin chào Chị Huyền ạ!
-                            <p>Dạ sản phẩm Chị quan tâm đang tạm hết hàng và chưa có thời gian dự kiến về hàng lại ạ, Chị tham khảo sản phẩm APPLE IPHONE 15 Pro Max 512GB (CTY) - Titan Tự Nhiên - New: 34,990,000 đang có sẵn hàng ạ.</p>
-                            <p>Ngoài ra còn có các ưu đãi kèm máy ạ.<br>
-                                Chuyển khoản: Giảm thêm đến 500.000đ<br>
-                                Trả góp: Giảm thêm đến 500.000đ<br>
-                                Thu cũ đổi mới: Tặng thêm đến 2.000.000đ</p>
-                            <p>Để được tư vấn chi tiết hơn, Chị vui lòng liên hệ tổng đài 1800 6018 (miễn phí). Trân trọng!</p>
+                            <h6 class="mt-0">Quản Trị Viên: <%=jsonObject1.optString("nameComment")%> <small class="text-muted"><%= jsonObject1.optString("timestamp")%></small></h6>
+                                <%=jsonObject1.optString("content")%>
                         </div>
                     </div>
+                    <% } %>
                 </div>
             </div>
+            <% } %>
         </div>
 
         <div class="contai-right col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 border_gr_bg_white h-100">
