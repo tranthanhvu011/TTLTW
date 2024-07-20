@@ -263,8 +263,23 @@ public class ProductVariantDAO {
                 handle.createQuery(query).mapTo(Integer.class).one()
         );
     }
-
+    public static List<Integer> getAllIdProductVariant() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT id FROM productvariants")
+                        .mapTo(Integer.class)
+                        .list()
+        );
+    }
+    public  String getProductNameByVariantId(int variantId) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT p.name FROM products p JOIN productvariants pv ON p.id = pv.product_id WHERE pv.id = :variantId")
+                        .bind("variantId", variantId)
+                        .mapTo(String.class)
+                        .findOnly()
+        );
+    }
     public static void main(String[] args) {
-        System.out.print(getColorAndCapacityProductVariantByID(83));
+//        System.out.println(ProductVariantDAO.getProductNameByVariantId(3));
+//        System.out.println(ProductVariantDAO.getAllIdProductVariant());
     }
 }

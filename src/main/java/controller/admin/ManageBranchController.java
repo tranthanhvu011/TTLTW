@@ -19,7 +19,7 @@ public class ManageBranchController  extends HttpServlet {
         BranchDAO branchDAO = new BranchDAO();
         List<ChiNhanh> list = new ArrayList<>();
         list = branchDAO.getAllBranches();
-        req.setAttribute("list",list);
+        req.setAttribute("listBranches",list);
         req.getRequestDispatcher("/viewAdmin/manage_branch.jsp").forward(req, resp);
     }
     @Override
@@ -27,46 +27,69 @@ public class ManageBranchController  extends HttpServlet {
         String action = req.getParameter("action");
         BranchDAO branchDAO = new BranchDAO();
 
-        if ("delete".equals(action)) {
-            String idParam = req.getParameter("id");
-            if (idParam != null) {
-                try {
-                    int id = Integer.parseInt(idParam);
-                    boolean success = branchDAO.deleteBranch(id);
-                    resp.setContentType("text/plain");
-                    resp.getWriter().write(success ? "success" : "error");
-                } catch (NumberFormatException e) {
-                    resp.getWriter().write("error");
-                }
-            } else {
+        switch (action) {
+            case "delete":
+                handleDelete(req, resp, branchDAO);
+                break;
+            case "edit":
+                handleEdit(req, resp, branchDAO);
+                break;
+            case "add":
+                handleAdd(req, resp, branchDAO);
+                break;
+            default:
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+                break;
+        }
+    }
+
+    private void handleDelete(HttpServletRequest req, HttpServletResponse resp, BranchDAO branchDAO) throws IOException {
+        String idParam = req.getParameter("id");
+        if (idParam != null) {
+            try {
+                int id = Integer.parseInt(idParam);
+                boolean success = branchDAO.deleteBranch(id);
+                resp.setContentType("text/plain");
+                resp.getWriter().write(success ? "success" : "error");
+            } catch (NumberFormatException e) {
                 resp.getWriter().write("error");
             }
-        } else if ("edit".equals(action)) {
-            String idParam = req.getParameter("id");
-            String name = req.getParameter("name");
+        } else {
+            resp.getWriter().write("error");
+        }
+    }
 
-            if (idParam != null && name != null) {
-                try {
-                    int id = Integer.parseInt(idParam);
-                    boolean success = branchDAO.updateBranch(id, name);
-                    resp.sendRedirect("/admin/manage_branch");
-                } catch (NumberFormatException e) {
-                    resp.getWriter().write("error");
-                }
-            } else {
+    private void handleEdit(HttpServletRequest req, HttpServletResponse resp, BranchDAO branchDAO) throws IOException {
+        String idParam = req.getParameter("id");
+        String name = req.getParameter("name");
+        String address = req.getParameter("address");
+        String phone = req.getParameter("phone");
+        String email = req.getParameter("email");
+
+        if (idParam != null && name != null && address != null && phone != null && email != null) {
+            try {
+                int id = Integer.parseInt(idParam);
+                boolean success = branchDAO.updateBranch(id, name, address, phone, email);
+                resp.sendRedirect("/admin/manage_branch");
+            } catch (NumberFormatException e) {
                 resp.getWriter().write("error");
             }
-        } else if ("add".equals(action)) { // Xử lý yêu cầu thêm chi nhánh
-            String name = req.getParameter("name");
+        } else {
+            resp.getWriter().write("error");
+        }
+    }
 
-            if (name != null && !name.trim().isEmpty()) {
-                try {
-                    boolean success = branchDAO.addBranch(name);
-                    resp.sendRedirect("/admin/manage_branch");
-                } catch (Exception e) {
-                    resp.getWriter().write("error");
-                }
-            } else {
+    private void handleAdd(HttpServletRequest req, HttpServletResponse resp, BranchDAO branchDAO) throws IOException {
+        String name = req.getParameter("name");
+        String address = req.getParameter("address");
+        String phone = req.getParameter("phone");
+        String email = req.getParameter("email");
+
+        if (name != null && address != null && phone != null && email != null) {
+            try {
+                boolean success = branchDAO.addBranch(name, address, phone, email);
+                resp.sendRedirect("/admin/manage_branch");
+            } catch (Exception e) {
                 resp.getWriter().write("error");
             }
         } else {

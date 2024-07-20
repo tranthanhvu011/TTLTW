@@ -10,7 +10,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    List<ChiNhanh> list = (List<ChiNhanh>) request.getAttribute("list");
+    List<ChiNhanh> list = (List<ChiNhanh>) request.getAttribute("listBranches");
     if (list == null) list = new ArrayList<>();
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -212,7 +212,10 @@
                     <tr class="text-white">
                         <th scope="col">ID</th>
                         <th scope="col">Tên chi nhánh</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Địa chỉ chi nhánh</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -220,10 +223,12 @@
                     <tr id="log-<%=cn.getId()%>">
                         <td><%=cn.getId()%></td>
                         <td><%=cn.getName()%></td>
+                        <td><%=cn.getDiaChiChiNhanh()%></td>
+                        <td><%=cn.getSdtChiNhanh()%></td>
+                        <td><%=cn.getEmailChiNhanh()%></td>
                         <td style="display: flex">
                             <button type="button" class="btn btn-primary edit-button" data-id="<%= cn.getId() %>"  >Sửa</button>
                             <button style="margin-left: 5px;" type="button" class="btn btn-primary delete-branch" data-id="<%= cn.getId() %>">Xóa</button>
-
                         </td>
                     </tr>
                     <% } %>
@@ -278,25 +283,64 @@
         <div class="form-group">
             <label for="name">Tên chi nhánh</label>
             <input type="hidden" id="editId" name="id">
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required placeholder="Nhập tên chi nhánh">
+            <span id="nameEditError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ chi nhánh</label>
+            <input type="text" id="address" name="address" required placeholder="Nhập địa chỉ chi nhánh">
+            <span id="addressEditError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}" placeholder="Nhập số điện thoại" title="Số điện thoại từ 10 đến 15 chữ số">
+            <span id="phoneEditError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="Nhập email" title="Email hợp lệ">
+            <span id="emailEditError" class="error-message"></span>
         </div>
         <button type="button" id="closeEditPopup" class="btn-close">Đóng</button>
         <button type="submit" class="btn-submit">Cập nhật</button>
     </form>
 </div>
-<%--popup thêm chi nhánh--%>
 
+<%--popup thêm chi nhánh--%>
 <!-- Popup Thêm Chi Nhánh -->
 <div id="addPopup" class="popup">
-    <form action="/admin/manage_branch?action=add" method="post">
+    <form action="/admin/manage_branch" method="post" id="addBranchForm">
+        <input type="hidden" name="action" value="add">
+
         <div class="form-group">
             <label for="branchName">Tên chi nhánh</label>
-            <input type="text" id="branchName" name="name" required>
+            <input type="text" id="branchName" name="name" required placeholder="Nhập tên chi nhánh">
+            <span id="branchNameAddError" class="error-message"></span>
         </div>
+
+        <div class="form-group">
+            <label for="branchAddress">Địa chỉ chi nhánh</label>
+            <input type="text" id="branchAddress" name="address" required placeholder="Nhập địa chỉ chi nhánh">
+            <span id="branchAddressAddError" class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="branchPhone">Số điện thoại</label>
+            <input type="tel" id="branchPhone" name="phone" required pattern="[0-9]{10,15}" placeholder="Nhập số điện thoại" title="Số điện thoại từ 10 đến 15 chữ số">
+            <span id="branchPhoneAddError" class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="branchEmail">Email</label>
+            <input type="email" id="branchEmail" name="email" required placeholder="Nhập email" title="Email hợp lệ">
+            <span id="branchEmailAddError" class="error-message"></span>
+        </div>
+
         <button type="button" id="closeAddPopup" class="btn-close">Đóng</button>
         <button type="submit" class="btn-submit">Thêm</button>
     </form>
 </div>
+
 <script>// js mở nút sửa
 const editButtons = document.querySelectorAll('.edit-button');
 const editPopup = document.getElementById('editPopup');

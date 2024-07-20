@@ -11,8 +11,8 @@
 <%
     List<KhoHang> list = (List<KhoHang>) request.getAttribute("inventory");
     if (list == null) list = new ArrayList<>();
-    List<Integer> listId = (List<Integer>) request.getAttribute("listId");
-    if (list == null) list = new ArrayList<>();
+//    List<Integer> listId = (List<Integer>) request.getAttribute("listId");
+//    if (list == null) list = new ArrayList<>();
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -228,22 +228,22 @@
                     <thead class="text-uppercase bg-primary">
                     <tr class="text-white">
                         <th scope="col">ID</th>
-                        <th scope="col">ID Product</th>
-                        <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Tên kho hàng</th>
+                        <th scope="col">Tên kho</th>
+                        <th scope="col">Địa chỉ kho</th>
+                        <th scope="col">Số điện thoại</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
                     <% for (KhoHang khoHang : list) { %>
                     <tr id="log-<%=khoHang.getId()%>">
-                        <%ProductDAO productDAO = new ProductDAO();
-                            ProductDB product = productDAO.findProductById(khoHang.getIdProduct());
-                        %>
+
                         <td><%=khoHang.getId()%></td>
-                        <td><%=khoHang.getIdProduct()%></td>
-                        <td><%=product.getName()%></td>
-                        <td><%=khoHang.getName()%></td>
+                        <td><%=khoHang.getNameKho()%></td>
+                        <td><%=khoHang.getDiaChiKho()%></td>
+                        <td><%=khoHang.getSdtKho()%></td>
+                        <td><%=khoHang.getEmailKho()%></td>
                         <td style="display: flex">
                            <button class="edit" data-id="<%=khoHang.getId()%>">Sửa</button>
                             <button style="margin-left: 5px;" type="button" class="btn btn-primary delete-inventory" data-id="<%=khoHang.getId()%>">Xóa</button>
@@ -269,24 +269,27 @@
 <%@include file="../common/admin_footer.jsp" %>
 <%@include file="../common/admin_library_js.jsp" %>
 <div id="popup" class="popup">
-    <form action="/admin/manage_inventory?action=edit" method="post">
-        <div class="form-group">
-            <label for="productSelect">Chọn sản phẩm</label>
-            <select style="width: 60%;" name="product" id="productSelect">
-                <% for (Integer id : listId) { %>
-                <%
-                    ProductDAO productDAO = new ProductDAO();
-                    ProductDB productDB = productDAO.findProductById(id); %>
-                <option value="<%= id %>"><%= productDB.getName() %></option>
-                <% } %>
-            </select>
-        </div>
-
+    <form action="/admin/manage_inventory?action=edit" method="post" id="inventoryForm">
         <div class="form-group">
             <label for="name">Tên kho hàng</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required placeholder="Nhập tên kho hàng">
+            <span id="nameError" class="error-message"></span>
         </div>
-
+        <div class="form-group">
+            <label for="address">Địa chỉ kho</label>
+            <input type="text" id="address" name="address" required placeholder="Nhập địa chỉ kho">
+            <span id="addressError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}" placeholder="Nhập số điện thoại" title="Số điện thoại từ 10 đến 15 chữ số">
+            <span id="phoneError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email" id="mail" name="mail" required placeholder="Nhập email" title="Email hợp lệ">
+            <span id="mailError" class="error-message"></span>
+        </div>
         <input type="hidden" id="editId" name="id">
 
         <button type="button" id="closePopup">Đóng</button>
@@ -294,31 +297,99 @@
     </form>
 </div>
 
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    /* Các style khác cho popup */
+</style>
+
+<script>
+    document.getElementById('inventoryForm').addEventListener('submit', function(event) {
+        let valid = true;
+
+        // Kiểm tra tên kho hàng
+        const name = document.getElementById('name').value;
+        if (!name) {
+            document.getElementById('nameError').textContent = 'Tên kho hàng không được để trống.';
+            valid = false;
+        } else {
+            document.getElementById('nameError').textContent = '';
+        }
+
+        // Kiểm tra địa chỉ kho
+        const address = document.getElementById('address').value;
+        if (!address) {
+            document.getElementById('addressError').textContent = 'Địa chỉ kho không được để trống.';
+            valid = false;
+        } else {
+            document.getElementById('addressError').textContent = '';
+        }
+
+        // Kiểm tra số điện thoại
+        const phone = document.getElementById('phone').value;
+        const phonePattern = /^[0-9]{10,15}$/;
+        if (!phonePattern.test(phone)) {
+            document.getElementById('phoneError').textContent = 'Số điện thoại phải từ 10 đến 15 chữ số.';
+            valid = false;
+        } else {
+            document.getElementById('phoneError').textContent = '';
+        }
+
+        // Kiểm tra email
+        const email = document.getElementById('mail').value;
+        if (!email) {
+            document.getElementById('mailError').textContent = 'Email không được để trống.';
+            valid = false;
+        } else {
+            document.getElementById('mailError').textContent = '';
+        }
+
+        if (!valid) {
+            event.preventDefault();
+        }
+    });
+</script>
+
+
 <!-- Add Inventory Popup -->
 <div id="addPopup" class="popup">
-    <form action="/admin/manage_inventory" method="post">
+    <form action="/admin/manage_inventory" method="post" id="addInventoryForm">
         <input type="hidden" name="action" value="add">
         <div class="form-group">
-            <label for="productSelect">Chọn sản phẩm</label>
-            <select style="height: 20%" name="product" id="product" class="form-control">
-                <% for (Integer id : listId) { %>
-                <%
-                    ProductDAO productDAO = new ProductDAO();
-                    ProductDB productDB = productDAO.findProductById(id); %>
-                <option value="<%= id %>"><%= productDB.getName() %></option>
-                <% } %>
-            </select>
+            <label >Tên kho hàng</label>
+            <input type="text" name="name" required placeholder="Nhập tên kho hàng">
+            <span id="nameAddError" class="error-message"></span>
         </div>
-
         <div class="form-group">
-            <label for="name">Tên kho hàng</label>
-            <input type="text" id="nameadd" name="name" required>
+            <label for="address">Địa chỉ kho</label>
+            <input type="text" name="address" required placeholder="Nhập địa chỉ kho">
+            <span id="addressAddError" class="error-message"></span>
         </div>
-
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="tel"  name="phone" required pattern="[0-9]{10,15}" placeholder="Nhập số điện thoại" title="Số điện thoại từ 10 đến 15 chữ số">
+            <span id="phoneAddError" class="error-message"></span>
+        </div>
+        <div class="form-group">
+            <label for="mail">Email</label>
+            <input type="email"  name="mail" required placeholder="Nhập email" title="Email hợp lệ">
+            <span id="mailAddError" class="error-message"></span>
+        </div>
         <button type="button" id="closeAddPopup" class="btn-close">Đóng</button>
         <button type="submit" class="btn-submit">Thêm</button>
     </form>
 </div>
+
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    /* Các style khác cho popup */
+</style>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

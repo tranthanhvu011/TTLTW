@@ -2,16 +2,17 @@ package model;
 
 public class KhoHang {
     int id;
-    int  idProduct;
-    String name;
+    String nameKho ;
+    String   diaChiKho ;
+    String  sdtKho ;
+    String emailKho;
 
-    public KhoHang(int id, int idProduct, String name) {
+    public KhoHang(int id, String nameKho, String diaChiKho, String sdtKho, String emailKho) {
         this.id = id;
-        this.idProduct = idProduct;
-        this.name = name;
-    }
-
-    public KhoHang() {
+        this.nameKho = nameKho;
+        this.diaChiKho = diaChiKho;
+        this.sdtKho = sdtKho;
+        this.emailKho = emailKho;
     }
 
     public int getId() {
@@ -22,28 +23,49 @@ public class KhoHang {
         this.id = id;
     }
 
-    public int getIdProduct() {
-        return idProduct;
+    public String getNameKho() {
+        return nameKho;
     }
 
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setNameKho(String nameKho) {
+        this.nameKho = nameKho;
     }
 
-    public String getName() {
-        return name;
+    public String getDiaChiKho() {
+        return diaChiKho;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDiaChiKho(String diaChiKho) {
+        this.diaChiKho = diaChiKho;
+    }
+
+    public String getSdtKho() {
+        return sdtKho;
+    }
+
+    public void setSdtKho(String sdtKho) {
+        this.sdtKho = sdtKho;
+    }
+
+    public String getEmailKho() {
+        return emailKho;
+    }
+
+    public void setEmailKho(String emailKho) {
+        this.emailKho = emailKho;
     }
 
     @Override
     public String toString() {
         return "KhoHang{" +
                 "id=" + id +
-                ", idProduct=" + idProduct +
-                ", name='" + name + '\'' +
+                ", nameKho='" + nameKho + '\'' +
+                ", diaChiKho='" + diaChiKho + '\'' +
+                ", sdtKho='" + sdtKho + '\'' +
+                ", emailKho='" + emailKho + '\'' +
                 '}';
+    }
+
+    public KhoHang() {
     }
 }
