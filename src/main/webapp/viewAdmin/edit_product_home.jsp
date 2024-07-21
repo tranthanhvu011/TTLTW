@@ -443,7 +443,54 @@
                                 </form>
                             </div>
                             <% } %>
-
+                            <% List<Color> colors = colorDAO.getAllColors();
+                            List<Capacity> capacities = capacityDAO.getAllCapacities();%>
+                            <form method="post"
+                                  action="${pageContext.request.contextPath}/admin/product/add_product?action=addChildProduct&productId=<%=productDB.getId()%>" enctype="multipart/form-data">
+                                <div class="row mb-1 mt-4">
+                                    <div class="col-md-1">
+                                        <label for="color"> Màu Sắc </label>
+                                        <select name="color" class="form-control">
+                                            <%for (Color color : colors) {%>
+                                            <option value="<%=color.getId()%>">
+                                                <%=color.getName()%>
+                                            </option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="capacityId">Dung Lượng</label>
+                                        <select name="capacityId" class="form-control">
+                                            <%for (Capacity capacity : capacities) {%>
+                                            <option value="<%=capacity.getId()%>">
+                                                <%=capacity.getName()%>
+                                            </option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="priceVariant"> Giá Tiền</label>
+                                        <input type="number" name="priceVariant"
+                                               class="form-control" placeholder="Giá Tiền"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label> Ảnh</label>
+                                        <input type="file" class="form-control"
+                                               name="productPictures"
+                                               multiple/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="state"> Trạng Thái </label>
+                                        <select name="state" class="form-control">
+                                            <option value="1">Còn Hàng</option>
+                                            <option value="0">Hết Hàng</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 d-flex">
+                                        <button type="submit" class="btn btn-success">Thêm</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
