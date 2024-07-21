@@ -26,7 +26,13 @@ public class UserDAO {
                         .list());
         return users.isEmpty() ? null : users;
     }
-
+    public static int checkIsActive(String email) {
+        String query = "SELECT is_active from accounts where email =?";
+        return JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
+                .bind(0, email)
+                .mapTo(Integer.class)
+                .one());
+    }
     public static boolean checkLogin(String email, String password) {
         String query = "select password from accounts where email = :email";
         try {
@@ -72,6 +78,7 @@ public class UserDAO {
         });
         return users.isEmpty() ? null : users;
     }
+
     public boolean updateIPAndCountry(String ip, String country, String userEmail) {
         String query = "update accounts set lastIPLogin = ?, countryLoginByIp = ?,last_login = CURRENT_TIMESTAMP where email = ?";
         int count = JDBIConnector.me().withHandle(handle ->
@@ -129,6 +136,13 @@ public class UserDAO {
         });
         return rowUpdated;
     }
+    public static int banUser(String email) {
+        String query = "SELECT ban from accounts where email = ?";
+        return JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
+                .bind(0, email)
+                .mapTo(Integer.class)
+                .one());
+    }
 
     public int blockUserById(int idUser) {
         int rowUpdated = 0;
@@ -170,11 +184,7 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
-        UserDAO userDAO = new UserDAO();
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.print(banUser("fsfasfakjkg9@gmail.com"));
     }
 
     public int deleteUserById(int idUser) {

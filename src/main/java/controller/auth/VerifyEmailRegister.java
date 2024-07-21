@@ -39,13 +39,14 @@ public class VerifyEmailRegister extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession();
         String registeredEmail = (String) session.getAttribute("userEmailRegister");
         String resetCode = request.getParameter("confirmationCode");
         if (passwordResetService.verifyResetCode(registeredEmail, resetCode)) {
             userService.activateAccount(registeredEmail);
             request.getSession().invalidate();
+            request.getSession().setAttribute("message", "Xác thực tài khoản thành công ! Hãy Tiếp Tục Đăng Nhập Tài Khoản");
+            request.getSession().setAttribute("status", true);
             response.sendRedirect("/home");
         } else {
             request.setAttribute("CodeFalse", "Mã Code Đã Nhập Sai");
