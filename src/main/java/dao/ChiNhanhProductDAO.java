@@ -4,6 +4,7 @@ import config.JDBIConnector;
 import model.ChiNhanhProduct;
 import org.jdbi.v3.core.Jdbi;
 import java.util.List;
+import java.util.Random;
 
 public class ChiNhanhProductDAO {
 
@@ -71,8 +72,50 @@ public class ChiNhanhProductDAO {
                                 .list()
                         );
     }
+    public boolean decreaseQuantityById(int idProductVariant) {
+        int rowsAffected = JDBIConnector.me().withHandle(handle ->
+                handle.createUpdate("UPDATE productchinhanh SET quantityProductVariant = quantityProductVariant - 1 WHERE idProductVariant = :idProductVariant AND quantityProductVariant > 0")
+                        .bind("idProductVariant", idProductVariant)
+                        .execute()
+        );
+        return rowsAffected > 0;
+    }
+    public boolean decreaseQuantityRandomBranchByProductVariant(int idProductVariant, int quantityToDecrease) {
+        List<ChiNhanhProduct> chiNhanhProducts = getChiNhanhByProductId(idProductVariant);
+
+        if (chiNhanhProducts.isEmpty()) {
+            return false;
+        }
+
+        Random random = new Random();
+        boolean updated = false;
+
+        for (int i = 0; i < chiNhanhProducts.size(); i++) {
+            ChiNhanhProduct chiNhanhProduct = chiNhanhProducts.get(random.nextInt(chiNhanhProducts.size()));
+
+            if (chiNhanhProduct.getQuantityProductVariant() >= quantityToDecrease) {
+                int rowsAffected = JDBIConnector.me().withHandle(handle ->
+                        handle.createUpdate("UPDATE productchinhanh SET quantityProductVariant = quantityProductVariant - :quantityToDecrease WHERE idChiNhanh = :idChiNhanh AND idProductVariant = :idProductVariant AND quantityProductVariant >= :quantityToDecrease")
+                                .bind("quantityToDecrease", quantityToDecrease)
+                                .bind("idChiNhanh", chiNhanhProduct.getIdChiNhanh())
+                                .bind("idProductVariant", idProductVariant)
+                                .execute()
+                );
+
+                updated = rowsAffected > 0;
+                if (updated) {
+                    break;
+                }
+            }
+        }
+
+        return updated;
+    }
+
+
+
     public static void main(String[] args) {
         ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
-      System.out.println(chiNhanhProductDAO.getChiNhanhByProductId(7));
+      System.out.println(chiNhanhProductDAO.decreaseQuantityRandomBranchByProductVariant(3,2));
     }
 }
