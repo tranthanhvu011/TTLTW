@@ -10,7 +10,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <a href="${pageContext.request.contextPath}/admin/revenue-statistics"
-               style="color: white; font-size: 30px;">NHÓM 4 </a>
+               style="color: white; font-size: 30px;">NHÓM 41 </a>
         </div>
     </div>
     <div class="main-menu">

@@ -12,6 +12,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_product_home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_user.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_warranty.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/revenue_statistics.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
       </map>
     </option>
   </component>

@@ -29,25 +29,25 @@
 </style>
 <body>
 <%@include file="/common/header.jsp" %>
-<div class="conteiner">
+<div class="container" style="margin-top: 30px">
     <div id="wallpaper">
         <div class="GioiThieu">
             <div class="container">
                 <fmt:setLocale value="${lang}" scope="session" />
                 <fmt:bundle basename="messages">
-                <img style="width: 30%;" src="../resources/assets/images/THANHVU.png" alt="">
+<%--                <img style="width: 30%;" src="../resources/assets/images/THANHVU.png" alt="">--%>
                 <div class="page-info">
                     <p style="font-weight: 500;"><fmt:message key="thanhvu"/>
                     </p>
-                    <img style="display: block; margin-left: auto; margin-right: auto; width: 30%;"
-                         src="../resources/assets/images/NHUTOAN.png"
-                         alt="Nguyễn Như Toàn">
+<%--                    <img style="display: block; margin-left: auto; margin-right: auto; width: 30%;"--%>
+<%--                         src="../resources/assets/images/NHUTOAN.png"--%>
+<%--                         alt="Nguyễn Như Toàn">--%>
                     <p style="font-weight: 500;">
                         <fmt:message key="tranloc"/>
                     </p>
-                    <img style="display: block; margin-left: auto; margin-right: 0; width: 33%;"
-                         src="../resources/assets/images/trung.png"
-                         alt="Nguyễn Quốc Trung">
+<%--                    <img style="display: block; margin-left: auto; margin-right: 0; width: 33%;"--%>
+<%--                         src="../resources/assets/images/trung.png"--%>
+<%--                         alt="Nguyễn Quốc Trung">--%>
                     <p><fmt:message key="quoctrung"/>
                     </p>
                     </fmt:bundle>

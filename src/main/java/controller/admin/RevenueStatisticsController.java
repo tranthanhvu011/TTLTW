@@ -1,6 +1,8 @@
 package controller.admin;
 
+import com.google.gson.Gson;
 import model.OrderProductVariant;
+import model.RevenueStatic;
 import service.ManufacturerService;
 import service.OrderProductVariantService;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/admin/revenue-statistics"})
@@ -26,13 +29,31 @@ public class RevenueStatisticsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("totalNumber", totalNumber);
-        request.setAttribute("totalPrice", totalPrice);
-        request.setAttribute("manufacturers", manufacturerService.getAllManufacturer());
-        request.getRequestDispatcher("/viewAdmin/revenue_statistics.jsp").forward(request, response);
+        String action = request.getParameter("action");
+        System.out.print("action ne" + action);
+        if (action == null) {
+            request.setAttribute("totalNumber", totalNumber);
+            request.setAttribute("totalPrice", totalPrice);
+            request.setAttribute("manufacturers", manufacturerService.getAllManufacturer());
+            request.getRequestDispatcher("/viewAdmin/revenue_statistics.jsp").forward(request, response);
+        } else if (action.equalsIgnoreCase("AccountOder")) {
+            doGet_Account_Order(request,response);
+        }
     }
-
-    @Override
+    protected void doGet_Account_Order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json; charset=utf-8");
+        request.setCharacterEncoding("utf-8");
+        PrintWriter printWriter = response.getWriter();
+        int idOrderVariant = Integer.parseInt(request.getParameter("idOrderVariant"));
+        int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+        int idTransport = Integer.parseInt(request.getParameter("idTransport"));
+        System.out.print("idfasfasfasfasfasfas" + idOrderVariant + "dfasf" + idOrder + " fasfas" + idTransport );
+        dao.RevenueStatic revenueStatic = new dao.RevenueStatic();
+        RevenueStatic revenueStatic1 = revenueStatic.getProfileOderAccount(idOrderVariant, idOrder, idTransport);
+        Gson g = new Gson();
+        printWriter.print(g.toJson(revenueStatic1));
+    }
+        @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action != null) {
