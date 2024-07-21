@@ -113,12 +113,7 @@
                         </a>
 
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
-                                Lịch sử hoạt động   </span>
-                        </a>
 
-                    </li>
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true">
                             <span>Kho hàng</span>
@@ -136,11 +131,24 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/manage_import">
-                                    <span>Quản lý nhập hàng</span>
+                                <a href="${pageContext.request.contextPath}/admin/manage_product_inventory">
+                                    <span>Quản lý sản phẩm trong kho</span>
                                 </a>
                             </li>
+
                         </ul>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
+                                Lịch sử hoạt động   </span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/manage_import" aria-expanded="true"> <span>
+                                Nhập hàng   </span>
+                        </a>
+
                     </li>
                 </ul>
             </nav>
