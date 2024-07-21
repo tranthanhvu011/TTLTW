@@ -19,6 +19,8 @@ public class Account {
     private String last_login;
     private String lastIPLogin;
     private String countryLoginByIp;
+    private int ban;
+
 
     public Account(String email, String first_name, String last_name, String phone_number, String address, String password, int gender, String role, int is_active, Date dob, String lastIPLogin, String countryLoginByIp) {
         this.email = email;
@@ -33,10 +35,38 @@ public class Account {
         this.dob = dob;
         this.lastIPLogin = lastIPLogin;
         this.countryLoginByIp = countryLoginByIp;
+
+    }
+
+    public Account(int id, String email, String first_name, String last_name, String phone_number, String address, String password, int gender, String role, int is_active, Date dob, String created_at, String last_login, String lastIPLogin, String countryLoginByIp, int ban) {
+        this.id = id;
+        this.email = email;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.password = password;
+        this.gender = gender;
+        this.role = role;
+        this.is_active = is_active;
+        this.dob = dob;
+        this.created_at = created_at;
+        this.last_login = last_login;
+        this.lastIPLogin = lastIPLogin;
+        this.countryLoginByIp = countryLoginByIp;
+        this.ban = ban;
     }
 
     public Account() {
 
+    }
+
+    public int getBan() {
+        return ban;
+    }
+
+    public void setBan(int ban) {
+        this.ban = ban;
     }
 
     public String getLastIPLogin() {
