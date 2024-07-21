@@ -116,70 +116,70 @@
         <div class="card-body">
             <fmt:setLocale value="${lang}" scope="session" />
             <fmt:bundle basename="messages">
-            <h2 class="title" style="background-color: white"><fmt:message key="Login"/></h2>
-            <form id="login-form" method="post" action="${pageContext.request.contextPath}/login">
-                <div class="row row-space">
+                <h2 class="title" style="background-color: white"><fmt:message key="Login"/></h2>
+                <form id="login-form" method="post" action="${pageContext.request.contextPath}/login">
+                    <div class="row row-space">
 
-                    <div class="input-group" style="width: 100%">
-                        <label class="label"><fmt:message key="username"/></label>
-                        <input class="input--style-4" type="text" name="email" id="email" required>
+                        <div class="input-group" style="width: 100%">
+                            <label class="label"><fmt:message key="username"/></label>
+                            <input class="input--style-4" type="text" name="email" id="email" required>
+                        </div>
                     </div>
-                </div>
-                <div class="row row-space">
-                    <div class="input-group" style="width: 100%">
-                        <label class="label"><fmt:message key="Password"/></label>
-                        <input class="input--style-4 mb-1" type="password" id="pass" name="password" required
-                               style="width: 100%">
-                        <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
+                    <div class="row row-space">
+                        <div class="input-group" style="width: 100%">
+                            <label class="label"><fmt:message key="Password"/></label>
+                            <input class="input--style-4 mb-1" type="password" id="pass" name="password" required
+                                   style="width: 100%">
+                            <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
+                        </div>
                     </div>
-                </div>
-                <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
-                <div style="color: red" id="captchaError"></div>
-                <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
-                    <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
-                        khẩu?</a>
-                </div>
-                <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
-                </div>
+                    <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
+                    <div style="color: red" id="captchaError"></div>
+                    <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
+                        <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
+                            khẩu?</a>
+                    </div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
+                    </div>
 
-            </form>
-            <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
-                if (errorMessage != null) {
-                    for (String eString : errorMessage) {
-            %>
-            <h4 style="background: transparent"><%=eString%></h4>
-            <%
-                    }
-                }%>
-            <div>
-                <div class="row-space" style="display: flex;align-items: center;padding-bottom: 14px;margin-top: 25px">
-                    <div class="line"></div>
-                    <span class="txt1" style="margin: 0px 20px 0px 20px;color: #dbdbdb"><fmt:message key="Or"/></span>
-                    <div class="line"></div>
-                </div>
-                <div class="row" style="margin-top: 20px;justify-content: space-between">
-                    <div class="col-4">
-                        <button class="btn-face m-b-20" id="facebook">
-                            <i class="fa fa-facebook-official"></i>
-                            Facebook
-                        </button>
+                </form>
+                <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
+                    if (errorMessage != null) {
+                        for (String eString : errorMessage) {
+                %>
+                <h4 style="background: transparent"><%=eString%></h4>
+                <%
+                        }
+                    }%>
+                <div>
+                    <div class="row-space" style="display: flex;align-items: center;padding-bottom: 14px;margin-top: 25px">
+                        <div class="line"></div>
+                        <span class="txt1" style="margin: 0px 20px 0px 20px;color: #dbdbdb"><fmt:message key="Or"/></span>
+                        <div class="line"></div>
                     </div>
-                    <div class="col-4">
-<%--                        <button href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force" class="btn-google m-b-20" id="google">--%>
-<%--                            Google--%>
-<%--                        </button>--%>
-    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force">
-        <img style="width: 50%" src="../resources/assets/icon/google_icon.png" alt="GOOGLE"></a>
+                    <div class="row" style="margin-top: 20px;justify-content: space-between">
+                        <div class="col-4">
+                            <button class="btn-face m-b-20" id="facebook">
+                                <i class="fa fa-facebook-official"></i>
+                                Facebook
+                            </button>
+                        </div>
+                        <div class="col-4">
+                                <%--                        <button href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force" class="btn-google m-b-20" id="google">--%>
+                                <%--                            Google--%>
+                                <%--                        </button>--%>
+                            <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:8080/LoginGoogleHandle&response_type=code&client_id=477605457331-8ljhvdmosltg10etjnj7rd5ltjn43j5f.apps.googleusercontent.com&approval_prompt=force">
+                                <img style="width: 50%" src="../resources/assets/icon/google_icon.png" alt="GOOGLE"></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="p-t-55" style="width: 100%">
-                <span class="txt1" style="float: unset;font-size: 16px"><fmt:message key="Donothaveanaccount?Registernow"/></span>
-                <a href="${pageContext.request.contextPath}/register?action=register" class="txt1"
-                   style="float: unset;font-size: 16px;text-decoration: underline"><fmt:message key="Registernow"/>
+                <div class="p-t-55" style="width: 100%">
+                    <span class="txt1" style="float: unset;font-size: 16px"><fmt:message key="Donothaveanaccount?Registernow"/></span>
+                    <a href="${pageContext.request.contextPath}/register?action=register" class="txt1"
+                       style="float: unset;font-size: 16px;text-decoration: underline"><fmt:message key="Registernow"/>
                     </a>
-            </div>
+                </div>
             </fmt:bundle>
         </div>
     </div>
@@ -205,8 +205,8 @@
         http.send();
         http.onreadystatechange = function (){
             if (this.readyState == 4 && this.status == 200){
-            const results = JSON.parse(this.responseText);
-            myAddr.value = results.locality + ', ' + results.city;
+                const results = JSON.parse(this.responseText);
+                myAddr.value = results.locality + ', ' + results.city;
             }
         }
     }

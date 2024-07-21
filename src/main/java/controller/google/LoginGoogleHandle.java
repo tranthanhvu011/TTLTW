@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -39,6 +41,7 @@ public class LoginGoogleHandle extends HttpServlet {
         response.sendRedirect("/home");
       }else{
         Account account = new Account();
+        account.setIs_active(1);
         account.setEmail(email);
         account.setFirst_name(name);
         account.setLast_name("");
@@ -46,6 +49,11 @@ public class LoginGoogleHandle extends HttpServlet {
         account.setRole("user");
         account.setCountryLoginByIp(countryLoginByIp);
         account.setLastIPLogin(lastIPLogin);
+        account.setAddress("null");
+        account.setGender(1);
+        Date dob = new Date(2024, 1, 20);
+        account.setDob(dob);
+        account.setPhone_number("0");
         try {
           userService.save(account);
           request.getSession().setAttribute("account", account);
