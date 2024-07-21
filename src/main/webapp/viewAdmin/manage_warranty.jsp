@@ -183,7 +183,7 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="time" class="label">Thoi gian bao hanh</label>
+                                        <label for="time" class="label">Thời gian bảo hành</label>
                                         <input class="input--style-4" type="text" name="time"
                                                id="time">
                                         <span class="error" id="timeEr"
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="address" class="label">Dia chi bao hanh</label>
+                                        <label for="address" class="label">Địa chỉ bảo hành</label>
                                         <input class="input--style-4" type="text" name="address"
                                                id="address">
                                         <span class="error" id="addressEr"
@@ -203,7 +203,7 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="term" class="label">Hinh thuc bao hanh</label>
+                                        <label for="term" class="label">Hình thức bảo hành</label>
                                         <input class="input--style-4" type="text" name="term"
                                                id="term">
                                         <span class="error" id="termEr"
@@ -239,10 +239,10 @@
                     <thead class="text-uppercase bg-primary">
                     <tr class="text-white">
                         <th scope="col">ID</th>
-                        <th scope="col">Thoi gian</th>
-                        <th scope="col">Dia chi</th>
-                        <th scope="col">Hinh thuc</th>
-                        <th scope="col">Hanh dong</th>
+                        <th scope="col">Thời gian</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Hình thức</th>
+                        <th scope="col">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -282,7 +282,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal">Sua thong tin mau sac san pham</h5>
+                        <h5 class="modal-title" id="exampleModal">Sửa thông tin bảo hành</h5>
                     </div>
                     <div class="modal-body">
                         <form method="post" id="formAlterWarranty"
@@ -290,7 +290,7 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="time" class="label">Thoi gian bao hanh</label>
+                                        <label for="time" class="label">Thời gian bảo hành</label>
                                         <input class="input--style-4" type="text" name="time"
                                                id="time" value="<%=warrantyEdit.getTime_warranty()%>">
                                         <span class="error" id="timeEr"
@@ -299,7 +299,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="address" class="label">Dia chi bao hanh</label>
+                                        <label for="address" class="label">Địa chỉ bảo hành</label>
                                         <input class="input--style-4" type="text" name="address"
                                                id="address" value="<%=warrantyEdit.getAddress_warranty()%>">
                                         <span class="error" id="addressEr"
@@ -310,7 +310,7 @@
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label for="term" class="label">Hinh thuc bao hanh</label>
+                                        <label for="term" class="label">Hình thức bảo hành</label>
                                         <input class="input--style-4" type="text" name="term"
                                                id="term" value="<%=warrantyEdit.getTerm_waranty()%>">
                                         <span class="error" id="termEr"
@@ -331,11 +331,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="closeModalAlter()">Dong
+                                onclick="closeModalAlter()">Đóng
                         </button>
                         <button type="button" name="submit"
                                 class="btn btn-primary" onclick="submitAlterWarranty()">
-                            Cap nhat
+                            Cập nhập
                         </button>
                     </div>
                 </div>

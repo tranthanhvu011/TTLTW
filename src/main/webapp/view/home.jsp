@@ -528,7 +528,7 @@
                                          style="background-color: white;padding: 5px;border-radius: 7px">
                                         <div class="thumb">
                                             <a href="${pageContext.request.contextPath}/product-detail?id=<%= p.getId() %>">
-                                                <img src="${pageContext.request.contextPath}/<%=URLConfig.URL_SAVE_THUMBALL%>/<%=p.getThumbnailURL().trim()%>" alt="">
+                                                <img style="width: 197.5px; height: 197.5px" src="${pageContext.request.contextPath}/<%=URLConfig.URL_SAVE_THUMBALL%>/<%=p.getThumbnailURL().trim()%>" alt="">
                                             </a>
                                             <fmt:setLocale value="${lang}" scope="session" />
                                             <fmt:bundle basename="messages">
@@ -550,9 +550,9 @@
                                             <h6><fmt:message key="quantitysold"/>: <%=p.getSellQuantity()%>
                                             </h6>
                                             <div class="price">
-                                                <span class="price-current"><%=Formater.formatCurrency(p.getPriceNew())%>&#x20AB;</span>
+                                                <span class="price-current"><%=Formater.formatCurrency(p.getPriceNew())%></span>
                                                 <%if (!(p.getPriceNew() == p.getPrice())) {%>
-                                                <span class="price-old"><%=Formater.formatCurrency(p.getPrice())%>&#x20AB;</span>
+                                                <span class="price-old"><%=Formater.formatCurrency(p.getPrice())%></span>
                                                 <%}%>
                                             </div>
                                             <a href="${pageContext.request.contextPath}/product-detail?id=<%= p.getId() %>"

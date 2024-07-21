@@ -2,17 +2,22 @@ package dao;
 
 import config.JDBIConnector;
 import model.InfoWarranty;
+import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 import java.util.Optional;
 
 public class WarrantyDAO {
+    private static final Jdbi jdbi = JDBIConnector.me();
 
     public InfoWarranty findWarrantyById(int productId) {
 
         Optional<InfoWarranty> infoWarranties = JDBIConnector.me().withHandle(handle -> {
             String query = "SELECT * FROM InfoWarranties WHERE id = ?";
-            return handle.createQuery(query).bind(0, productId).mapToBean(InfoWarranty.class).findOne();
+            return handle.createQuery(query).
+                    bind(0, productId).
+                    mapToBean(InfoWarranty.class).
+                    findOne();
         });
 
         return infoWarranties.orElse(null);
@@ -68,5 +73,31 @@ public class WarrantyDAO {
                         .bind(0, id)
                         .execute());
         return result > 0;
+    }
+    public Optional<InfoWarranty> getInfoWarantyByIDProduct(int idProduct) {
+        String query = "SELECT infowarranties.* FROM infowarranties " +
+                "INNER JOIN products ON infowarranties.id = products.info_warranty_id " +
+                "WHERE products.id = ?";
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery(query)
+                    .bind(0, idProduct)
+                    .map((rs, ctx) -> {
+                        InfoWarranty infoWarranty = new InfoWarranty();
+                        infoWarranty.setId(rs.getInt("id"));
+                        infoWarranty.setTime_warranty(rs.getString("time_warranty"));
+                        infoWarranty.setAddress_warranty(rs.getString("address_warranty"));
+                        infoWarranty.setTerm_waranty(rs.getString("term_waranty"));
+                        return infoWarranty;
+                    })
+                    .findOne());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    public static void main(String[] args) {
+        WarrantyDAO warrantyDAO = new WarrantyDAO();
+        System.out.print(warrantyDAO.getInfoWarantyByIDProduct(197));
     }
 }

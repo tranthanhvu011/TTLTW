@@ -72,7 +72,6 @@ public class OrderController extends HttpServlet {
 
                     String after_status = convertStatusToString(getStatus);
                     if (statusOrder == getStatus) {
-
                         req.getSession().setAttribute("status", false);
                         req.getSession().setAttribute("message", "Trạng thái đơn hàng đã được cập nhật trước đó");
                         resp.sendRedirect(req.getContextPath() + "/admin/manage_order");

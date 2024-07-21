@@ -5,6 +5,7 @@
 <%@ page import="modelDB.ProductVariantDB" %>
 <%@ page import="model.Order" %>
 <%@ page import="model.InforTransport" %>
+<%@ page import="config.Formater" %>
 <%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
@@ -222,20 +223,23 @@
                             <td><%= o.getQuantity() %></td>
                             <td><%= inforTransport.getId() %></td>
                             <td><%= o.getBuy_at() %></td>
-                            <td><%= o.getTotal_price() %></td>
+                            <td><%=Formater.formatCurrency(o.getTotal_price())%></td>
                             <td>
                                 <label for="status<%= o.getId() %>" style="display: none"></label>
-                                <select class="form-control" name="status<%= o.getId() %>" id="status<%= o.getId() %>">
+                                <select class="form-control" name="status<%= o.getId() %>" id="status<%= o.getId() %>"
+                                        <% if (o.getStatus() == 0 || o.getStatus() == 6) { %> disabled <% } %>>
                                     <option value="<%= o.getStatus() %>">
-                                        <% if (o.getStatus() == 0) {%>Đã hủy<% } else if (o.getStatus() == 1) {%>Đang chuẩn bị hàng<% } else if (o.getStatus() == 2) {%>Đang giao hàng<% } else if (o.getStatus() == 3) {%>Đã giao hàng<% } %>
+                                        <% if (o.getStatus() == 0) { %>Đã hủy<% } else if (o.getStatus() == 1) { %>Đơn hàng đang đợi duyệt<% } else if (o.getStatus() == 2) { %>Đang chuẩn bị hàng<% } else if (o.getStatus() == 3) { %>Đã gửi cho đơn vị vận chuyển<% } else if (o.getStatus() == 4) { %>Đã đến kho gần bạn<% } else if (o.getStatus() == 5) { %>Shipper đang giao hàng<% } else if (o.getStatus() == 6) { %>Đã giao hàng thành công<% }  %>
                                     </option>
-                                    <% for (int i = 0; i < 4; i++) { %>
+                                    <% for (int i = 0; i < 7; i++) { %>
                                     <% if (i == o.getStatus()) { continue; } %>
                                     <option value="<%= i %>">
-                                        <% if (i == 0) {%>Đã hủy<% } else if (i == 1) {%>Đang chuẩn bị hàng<% } else if (i == 2) {%>Đang giao hàng<% } else if (i == 3) {%>Đã giao hàng<% } %>
+                                        <% if (i == 0) { %>Đã hủy<% } else if (i == 1) { %>Đơn hàng đang đợi duyệt<% } else if (i == 2) { %>Đang chuẩn bị hàng<% } else if (i == 3) { %>Đã gửi cho đơn vị vận chuyển<% } else if (i == 4) { %>Đã đến kho gần bạn<% } else if (i == 5) { %>Shipper đang giao hàng<% } else if (i == 6) { %>Đã giao hàng thành công<% } %>
                                     </option>
                                     <% } %>
                                 </select>
+
+
                             </td>
                             <td style="display: flex">
                                 <button type="button" class="btn btn-danger" style="margin-right: 5px" onclick="openModalDeleteUser(<%= o.getId() %>)">Xoá</button>

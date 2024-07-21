@@ -87,4 +87,9 @@ public class SpecificationDAO {
 
         );
     }
+
+    public static void main(String[] args) {
+        SpecificationDAO specificationDAO = new SpecificationDAO();
+        System.out.print(specificationDAO.findSpecificationBytId(174));
+    }
 }
