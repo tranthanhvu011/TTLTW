@@ -54,8 +54,11 @@ public class InventoryDAO {
                 handle.createQuery("SELECT * FROM Kho WHERE id = :id")
                         .bind("id", id)
                         .mapToBean(KhoHang.class)
-                        .findOnly());
+                        .findFirst() // Sử dụng findFirst() để tránh lỗi khi không có kết quả
+                        .orElse(null) // Trả về null nếu không có kết quả
+        );
     }
+
 
     public static List<Integer> getAllIdInventory() {
         return JDBIConnector.me().withHandle(handle ->
@@ -67,9 +70,15 @@ public class InventoryDAO {
 
     public static void main(String[] args) {
         InventoryDAO inventoryDAO = new InventoryDAO();
+        ProductInventoryDAO productInventoryDAO  = new ProductInventoryDAO();
+        NhapHangProductVariantDAO nhapHangProductVariantDAO = new NhapHangProductVariantDAO();
+        int getID = nhapHangProductVariantDAO.getAll().get(1).getIdkho();
+        System.out.println("ID product kho" +getID);
+      System.out.println(productInventoryDAO.getProductInventoryById(getID).toString());
+        System.out.println();
         // Test các phương thức
 //        System.out.println(inventoryDAO.addInventory("Kho A", "Địa chỉ A", "0123456789", "email@khoa.com"));
-//        System.out.println(inventoryDAO.getInventoryByID(1));
+//        System.out.println(inventoryDAO.getInventoryByID(productInventoryDAO.getProductInventoryById(getID).getIdKho()));
 //        System.out.println(inventoryDAO.updateInventory(1, "Kho B", "Địa chỉ B", "0987654321", "newemail@khoa.com"));
 //        System.out.println(inventoryDAO.deleteInventory(1));
 //        System.out.println(InventoryDAO.getAllIdInventory());

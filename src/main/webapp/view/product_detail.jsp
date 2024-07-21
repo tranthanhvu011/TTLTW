@@ -247,7 +247,6 @@
                     });
                 });
             </script>
-
             <input type="hidden" id="firstProductVariant" value="<%= listproduct.get(0).getId() %>">
             <div class="image-product border_gr_bg_white" style="padding: 10px" id="productImages">
                 <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">
@@ -276,10 +275,9 @@
                     } // End of images check
                 } // End of product variants check
             %>
-            <fmt:setLocale value="${lang}" scope="session" />
-            <fmt:bundle basename="messages">
+
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
-                <p class="black_14_600_none_align"><fmt:message key="ProductReviews"/></p>
+                <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
                 <div class="">
                     <div class="soluong-sao">
                         <p class="black_14_400">5</p>
@@ -330,9 +328,8 @@
                 <!-- Nút để mở modal -->
                 <!-- Button trigger modal -->
                 <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
-                    <fmt:message key="Seereviews"/>
+                    Xem đánh giá
                 </button>
-                </fmt:bundle>
 
                 <!-- Modal -->
                 <div class="modal fade" id="modelrate" tabindex="-1" role="dialog"
@@ -397,11 +394,13 @@
                         </p>
                     </div>
                 </div>
-                <fmt:setLocale value="${lang}" scope="session" />
-                <fmt:bundle basename="messages">
+                <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
-                    <fmt:message key="Seeiftheproductisstillavailableinstore"/>
+                    Xem cửa hàng còn sản phẩm
                 </button>
+
+                <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" style="width: fit-content">
                         <div class="modal-content">
@@ -409,19 +408,8 @@
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách cửa hàng</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-<%--                            Danh sách chi nhánh ở đây--%>
                             <div class="modal-body" id="listStore">
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div><div>còn <span>6</span> sản phẩm</div>
-                                </div>
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>8</span> sản phẩm</div>
-                                </div>
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>16</span> sản phẩm</div>
-                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -430,9 +418,8 @@
                     </div>
                 </div>
 <%--               --%>
-
                 <div class="chonmau">
-                    <p style="font-size: 15px"><fmt:message key="Color"/></p>
+                    <p style="font-size: 15px">Màu sắc:</p>
                     <div class="mau" style="cursor: pointer;">
                         <%
                             ColorDAO colorDAO = new ColorDAO();
@@ -468,52 +455,136 @@
                     </div>
                 </div>
             </div>
+<%--            <script>--%>
+<%--                $(document).ready(function() {--%>
+<%--                    $("input[name='options']:eq(0)").prop("checked", true);--%>
+<%--                    $('.hinhanh:eq(0)').css('border', '3px solid #F3B95F');--%>
+<%--                    var colorID = $('.hinhanh:eq(0)').find('#colorID').html();--%>
+<%--                    var productID = $('.hinhanh:eq(0)').find('#productID').val();--%>
+<%--                    // console.log(colorID + '-' +productID);--%>
+<%--                    $('.hinhanh').click(function() {--%>
+<%--                        $('.hinhanh').css('border', '');--%>
+<%--                        $(this).css('border', '2px solid blue');--%>
+<%--                    });--%>
 
+<%--                    $('.hinhanh').on('click', function() {--%>
+<%--                        $('#soluong').val('1');--%>
+<%--                        var colorID = $(this).find('#colorID').html();--%>
+<%--                        var productID = $(this).find('#productID').val();--%>
+<%--                        var colorName = $(this).find('img').attr('alt');--%>
+<%--                        var colorSrc = $(this).find('img').attr('src');--%>
+<%--                        var s = '';--%>
+<%--                        $("input[name='options']:eq(0)").prop("checked", true);--%>
+
+<%--                        // console.log(colorID + '-' + productID + '-' + colorSrc);--%>
+<%--                        $.ajax({--%>
+<%--                            type: 'GET',--%>
+<%--                            url: '${pageContext.request.contextPath}/product-detail',--%>
+<%--                            data: {--%>
+<%--                                action: 'productvariant',--%>
+<%--                                productID : productID,--%>
+<%--                                colorID : colorID--%>
+<%--                            },--%>
+<%--                            success: function(data) {--%>
+<%--                                var productvariant = data.productVariant;--%>
+<%--                                var first = data.first;--%>
+<%--                                var last = data.last;--%>
+<%--                                const formattedNumber = productvariant.price.toLocaleString('vi-VN');--%>
+<%--                                $('#price').html(formattedNumber);--%>
+<%--                                $('#price1').html(formattedNumber);--%>
+<%--                                $('#currentColor').html(colorName);--%>
+<%--                                $('#currentImage').attr('src', colorSrc);--%>
+<%--                                s+= ' <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">';--%>
+<%--                                s+= '<img src="${pageContext.request.contextPath}/resources/assets/images/product/' + first.image_url +'" id="image-main"alt="ảnh iphone 15 promax" style="margin: 10px 0 10px 0">';--%>
+<%--                                s+= '</div>';--%>
+<%--                                s+= '<div class="imageProductOrder">';--%>
+<%--                                for (var i = 1; i < last.length; i++) {--%>
+<%--                                    s+= '<div class="imageOrder">';--%>
+<%--                                    s+= '<img class="img_Order" <img class="img_Order" src="${pageContext.request.contextPath}/resources/assets/images/product/' + last[i].image_url +'" alt="">';--%>
+<%--                                    s+= '</div>';--%>
+<%--                                }--%>
+<%--                                s+= '</div>';--%>
+<%--                                $('#productImages').html(s);--%>
+<%--                                $('.img_Order').on('click', function () {--%>
+<%--                                    var src_order = $(this).attr('src');--%>
+<%--                                    console.log(src_order);--%>
+<%--                                    $('#image-main').attr('src', src_order);--%>
+<%--                                });--%>
+
+<%--                            }--%>
+
+<%--                        });--%>
+
+<%--                    });--%>
+<%--                    $('input[name="options"]').change(function(){--%>
+<%--                        $('#soluong').val('1');--%>
+<%--                        var capacityID = $('input[name="options"]:checked').next('label').html();--%>
+<%--                        $.ajax({--%>
+<%--                            type: 'GET',--%>
+<%--                            url: '${pageContext.request.contextPath}/product-detail',--%>
+<%--                            data: {--%>
+<%--                                action: 'productvariantcapacity',--%>
+<%--                                productID : productID,--%>
+<%--                                colorID : colorID,--%>
+<%--                                capacityID : capacityID--%>
+<%--                            },--%>
+<%--                            success: function(data) {--%>
+<%--                                const formattedNumber = data.price.toLocaleString('vi-VN');--%>
+<%--                                $('#price').html(formattedNumber);--%>
+<%--                                $('#price1').html(formattedNumber);--%>
+
+<%--                            }--%>
+<%--                        });--%>
+<%--                    });--%>
+
+<%--                });--%>
+
+<%--            </script>--%>
             <div class="khuyenmai border_gr_bg_white" style="margin-top: 10px;">
-                <p class="khuyenmai-text">                    <fmt:message key="Promotion"/>
-                </p>
+                <p class="khuyenmai-text">Khuyến mãi</p>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p> <fmt:message key="Customerscanbuyproductsininstallmentswith0%interestratefor6monthsfromthedateofpurchase."/></p>
+                    <p>Khách hàng có thể mua trả góp sản phẩm với lãi suất 0% với thời hạn 6 tháng kể từ khi mua
+                        hàng.</p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p> <fmt:message key="IntheboxChargerHeadphonesUsermanualSIMejectorpinCase"/></p>
+                    <p>Trong hộp có: Sạc, Tai nghe, Sách hướng dẫn, Cây lấy sim, Ốp lưng</p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p> <fmt:message key="12monthgenuinewarranty"/></p>
+                    <p>Bảo hành chính hãng 12 tháng.</p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p> <fmt:message key="1for1exchangewithin1monthifdefective,productexchangeathomewithin1day."/></p>
+                    <p>1 đổi 1 trong 1 tháng nếu lỗi, đổi sản phẩm tại nhà trong 1 ngày.</p>
                 </div>
             </div>
             <div class="warranty_info border_gr_bg_white" style="padding: 10px;margin-top: 10px">
-                <p class="black_14_600_none_align"><fmt:message key="Warrantyinformation"/></p>
+                <p class="black_14_600_none_align">Thông tin bảo hành</p>
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantyperiod"/></p>
+                    <p class="black_14_400" style="margin: 0">Thời gian bảo hành</p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getTime_warranty()%>
                     </p>
                 </div>
                 <hr style="width: 100%;margin: 5px 0 5px 0">
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantyform"/></p>
+                    <p class="black_14_400" style="margin: 0">Hình thức bảo hành</p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getTerm_waranty()%>
                     </p>
                 </div>
                 <hr style="width: 100%;margin: 5px 0 5px 0">
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantylocation"/></p>
+                    <p class="black_14_400" style="margin: 0">Nơi bảo hành</p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getAddress_warranty()%>
                     </p>
                 </div>
             </div>
             <div class="thongsokythuat border_gr_bg_white" style="margin-top: 10px">
-                <p class="black_14_600_none_align" style="margin-top: 10px;margin-left: 10px;"><fmt:message key="Specifications"/></p>
+                <p class="black_14_600_none_align" style="margin-top: 10px;margin-left: 10px;">Thông số kĩ thuật</p>
                 <table class="" style="padding-left: 10px;padding-right: 10px;border: none">
                     <tr>
                         <td>Dung lượng pin</td>
@@ -642,8 +713,6 @@
                     </form>
                 </div>
             </div>
-            </fmt:bundle>
-
             <script>
                 document.getElementById('myForm').onsubmit = function() {
                     var date = new Date();
@@ -698,6 +767,7 @@
                 <script>
 
                     $(document).ready(function () {
+                        var idVariant;
                         var quantityInput = $('#soluong'); // Lấy giá trị số lượng ban đầu
 // Hàm lấy số lượng sau khi thay đổi
                         function getUpdatedQuantity() {
@@ -756,8 +826,10 @@
                                     colorID: colorID
                                 },
                                 success: function (data) {
+                                    idVariant = data.pr;
+                                    console.log("id productvariant"+idVariant);
                                     var productvariant = data.productVariant;
-                                    console.log(productvariant.id);
+                                    console.log("id productvariant"+ productvariant.id);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + productvariant.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + productvariant.id);
                                     var first = data.first;
@@ -778,8 +850,6 @@
                                     }
                                     s += '</div>';
                                     $('#productImages').html(s);
-
-
                                 }
 
                             });
@@ -799,6 +869,8 @@
                                     capacityID: capacityID.trim()
                                 },
                                 success: function (data) {
+                                    idVariant = data.id;
+                                    console.log(idVariant);
                                     console.log("Số lượng sau khi thay đổi lựa chọn: " + quantityInput);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + data.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + data.id);
@@ -809,6 +881,7 @@
                                 }
                             });
                         });
+
                         $('#addToCart').click(function () {
 
                             // var attrSoluong = $('#addToCart').attr('href');
@@ -880,9 +953,7 @@
 
 
             </div>
-            <fmt:setLocale value="${lang}" scope="session" />
-            <fmt:bundle basename="messages">
-            <p id="giatamtinh" style="font-size: 20px;font-weight: 500"><fmt:message key="Provisional"/></p>
+            <p id="giatamtinh" style="font-size: 20px;font-weight: 500">Tạm tính</p>
             <p id="price1"><%= numberFormatVN.format(firstVariant.getPrice()) %>
             </p>
 
@@ -891,23 +962,23 @@
             <div class="button-buy">
                 <a id="buynow" href="#">
                     <button class="muatructiep-btn">
-                        <span><fmt:message key="buynow"/></span>
+                        <span>Mua ngay</span>
                     </button>
                 </a>
                 <a href="#" id="addToCart">
                     <button class="themgiohang-btn">
                         <span class="them"><i class="fa-solid fa-cart-shopping"></i>
-                            <p style=" background-color: transparent; margin-bottom: 0"><fmt:message key="Addtocart"/></p></span>
+                            <p style=" background-color: transparent; margin-bottom: 0">Thêm vào giỏ hàng</p></span>
                     </button>
-                    </fmt:bundle>
-
                 </a>
             </div>
         </div>
     </div>
 </div>
-
 <%@include file="/common/footer.jsp" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user/productDetails.js"></script>
 <%--<%@include file="/resources/js/user/productDetails.js" %>--%>
