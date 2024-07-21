@@ -1,12 +1,9 @@
 package dao;
 
-import com.sun.tools.javac.Main;
 import config.JDBIConnector;
 import model.*;
 import model.Product;
 import model.ProductVariant;
-import modelDB.OrderProductVariantDB;
-import modelDB.ProductDB;
 import modelDB.ProductVariantDB;
 import org.jdbi.v3.core.statement.StatementContext;
 
@@ -172,7 +169,7 @@ public class ProductVariantDAO {
     }
 
 
-    public List<ProductVariantDB> getAllProductVariantByIdProduct(int idProduct) {
+    public static List<ProductVariantDB> getAllProductVariantByIdProduct(int idProduct) {
         String query = "SELECT * FROM ProductVariants WHERE product_id = :id";
         List<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query).bind("id", idProduct).mapToBean(ProductVariantDB.class).list()
@@ -229,6 +226,18 @@ public class ProductVariantDAO {
 
 
     }
+    public static Integer updateVariant(Double priceVariant, int stateVariant, int idVariant) {
+
+        String query = "UPDATE productvariants SET " +
+                "productvariants.price = ? , productvariants.state = ? " +
+                "WHERE productvariants.id = ? ; ";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind(0, priceVariant)
+                        .bind(1, stateVariant)
+                        .bind(2, idVariant)
+                        .execute());
+    }
 
     public List<Integer> findProductVariantByCapacityId(int id) {
         String query = "SELECT id FROM productvariants WHERE capacity_id = ?";
@@ -265,6 +274,6 @@ public class ProductVariantDAO {
     }
 
     public static void main(String[] args) {
-        System.out.print(getColorAndCapacityProductVariantByID(83));
+        System.out.print(updateVariant(1500000.00, 1, 3));
     }
 }
