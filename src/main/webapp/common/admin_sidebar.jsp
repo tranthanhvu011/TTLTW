@@ -126,8 +126,13 @@
                             </li>
 
                             <li>
-                                <a href="${pageContext.request.contextPath}/admin/contacts/manage_contacts">
+                                <a href="${pageContext.request.contextPath}/admin/manage_branch">
                                     <span>Quản lý chi nhánh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_import">
+                                    <span>Quản lý nhập hàng</span>
                                 </a>
                             </li>
                         </ul>

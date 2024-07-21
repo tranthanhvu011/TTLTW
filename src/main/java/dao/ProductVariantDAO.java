@@ -1,9 +1,12 @@
 package dao;
 
+import com.sun.tools.javac.Main;
 import config.JDBIConnector;
 import model.*;
 import model.Product;
 import model.ProductVariant;
+import modelDB.OrderProductVariantDB;
+import modelDB.ProductDB;
 import modelDB.ProductVariantDB;
 import org.jdbi.v3.core.statement.StatementContext;
 
@@ -169,7 +172,7 @@ public class ProductVariantDAO {
     }
 
 
-    public static List<ProductVariantDB> getAllProductVariantByIdProduct(int idProduct) {
+    public List<ProductVariantDB> getAllProductVariantByIdProduct(int idProduct) {
         String query = "SELECT * FROM ProductVariants WHERE product_id = :id";
         List<ProductVariantDB> productVariantDB = JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query).bind("id", idProduct).mapToBean(ProductVariantDB.class).list()
@@ -226,18 +229,6 @@ public class ProductVariantDAO {
 
 
     }
-    public static Integer updateVariant(Double priceVariant, int stateVariant, int idVariant) {
-
-        String query = "UPDATE productvariants SET " +
-                "productvariants.price = ? , productvariants.state = ? " +
-                "WHERE productvariants.id = ? ; ";
-        return JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate(query)
-                        .bind(0, priceVariant)
-                        .bind(1, stateVariant)
-                        .bind(2, idVariant)
-                        .execute());
-    }
 
     public List<Integer> findProductVariantByCapacityId(int id) {
         String query = "SELECT id FROM productvariants WHERE capacity_id = ?";
@@ -272,8 +263,23 @@ public class ProductVariantDAO {
                 handle.createQuery(query).mapTo(Integer.class).one()
         );
     }
-
+    public static List<Integer> getAllIdProductVariant() {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT id FROM productvariants")
+                        .mapTo(Integer.class)
+                        .list()
+        );
+    }
+    public  String getProductNameByVariantId(int variantId) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT p.name FROM products p JOIN productvariants pv ON p.id = pv.product_id WHERE pv.id = :variantId")
+                        .bind("variantId", variantId)
+                        .mapTo(String.class)
+                        .findOnly()
+        );
+    }
     public static void main(String[] args) {
-        System.out.print(updateVariant(1500000.00, 1, 3));
+//        System.out.println(ProductVariantDAO.getProductNameByVariantId(3));
+//        System.out.println(ProductVariantDAO.getAllIdProductVariant());
     }
 }
