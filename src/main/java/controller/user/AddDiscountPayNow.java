@@ -40,25 +40,27 @@ public class AddDiscountPayNow extends HttpServlet {
 
                 if (is_discount) {
                     double discountedPrice = productVariant.getPrice() * discount.getCost();
-                    // Nếu sản phẩm hiện tại trong session giống với sản phẩm áp dụng giảm giá
                     if (productVariantsession != null && productVariantsession.getId() == productVariant.getId()) {
                         productVariantsession.setPrice(discountedPrice);
                         session.setAttribute("product", productVariantsession);
                         System.out.println(productVariantsession.getPrice());
                     }
                     productVariant.setPrice(discountedPrice);
-                    req.getSession().setAttribute("message-discount", "Áp dụng thành công");
+                    req.getSession().setAttribute("message","Áp mã thành công!");
+                    req.getSession().setAttribute("status",true);
                     resp.sendRedirect("/buynow?id=" + idProduct);
                 } else {
-                    req.getSession().setAttribute("message-discount", "Mã không tồn tại");
+                    req.getSession().setAttribute("message","Mã không tồn tại");
+                    req.getSession().setAttribute("status",false);
                     resp.sendRedirect("/buynow?id=" + idProduct);
                 }
             } else {
-                req.getSession().setAttribute("message-discount", "Mã giảm giá không hợp lệ");
+                req.getSession().setAttribute("message","Mã giảm giá không hợp lệ");
+                req.getSession().setAttribute("status",false);
                 resp.sendRedirect("/buynow?id=" + idProduct);
             }
-        } else {
-            req.getSession().setAttribute("message-discount", "Sản phẩm không tồn tại");
+        } else { req.getSession().setAttribute("message","Sản phẩm không tồn tại");
+            req.getSession().setAttribute("status",false);
             resp.sendRedirect("/buynow?id=" + idProduct);
         }
     }

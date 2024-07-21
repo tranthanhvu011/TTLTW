@@ -18,10 +18,8 @@
 <%@include file="/common/taglib.jsp" %>
 <html>
 <head>
-    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/css/dataTables.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/js/dataTables.min.js">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Đơn hàng</title>
@@ -29,12 +27,15 @@
     <link rel="stylesheet" href="../resources/css/user/profile.css">
     <link href="../resources/css/user/main.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/libs/datepicker/css/bootstrap/zebra_datepicker.min.css"
+          rel="stylesheet" media="all">
+    <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
+    <%@include file="/common/libraries.jsp" %>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
 
     <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
-    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
 <%--    toast--%>
     <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
 </head>
@@ -97,7 +98,7 @@
 <%@include file="/common/header.jsp" %>
 <div class="container" style="margin-bottom: 30px;">
     <div style="margin-top: 20px;" class="table-responsive">
-        <table id="table_inventory" class="table text-center">
+        <table id="table_order" class="table text-center">
             <thead class="text-uppercase bg-primary">
             <tr class="text-white">
                 <th scope="col">ID</th>
@@ -127,7 +128,7 @@
                 <td><%= o.getProductVariant().getColor().getName() %></td>
                 <td><%= o.getProductVariant().getCapacity().getName() %></td>
                 <td><%= o.getQuantity() %></td>
-                <td><%= NumberUtils.formatNumberWithCommas(o.getProductVariant().getPrice()) %></td>
+                <td><%= NumberUtils.formatNumberWithCommas(o.getTotal_price()) %> VNĐ</td>
                 <td>
                     <%
                         int statuss = o.getStatus();
@@ -222,8 +223,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    new DataTable('#table_inventory');
+    new DataTable('#table_order');
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

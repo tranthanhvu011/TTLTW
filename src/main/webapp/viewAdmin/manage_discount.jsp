@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.Discount" %>
+<%@ page import="service.NumberUtils" %>
 <%@include file="/common/taglib.jsp" %>
 <%--
   Created by IntelliJ IDEA.
@@ -274,7 +275,7 @@
                     <tr>
                         <th scope="row"><%=discount.getId()%>
                         </th>
-                        <td><%=discount.getCost()%>
+                        <td><%=NumberUtils.formatNumberWithCommas(discount.getCost())+ "VNĐ"%>
                         </td>
                         <td><%=discount.getName()%>
                         </td>

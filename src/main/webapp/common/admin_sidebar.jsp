@@ -149,17 +149,17 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
-                                Lịch sử hoạt động   </span>
-                        </a>
-
-                    </li>
-                    <li>
                         <a href="${pageContext.request.contextPath}/admin/manage_import" aria-expanded="true"> <span>
                                 Nhập hàng   </span>
                         </a>
+                    </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
+                                Lịch sử hoạt động  </span>
+                        </a>
 
                     </li>
+
                 </ul>
             </nav>
         </div>
