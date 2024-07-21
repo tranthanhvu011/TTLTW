@@ -20,13 +20,13 @@
                             <strong class="white_13_400"><fmt:message key="Address"/>: </strong> 203 Linh Trung, Thủ Đức, Tp.HCM
                         </p>
                         <p>
-                            <strong class="white_13_400">Email: </strong> nhom4store@gmail.com
+                            <strong class="white_13_400">Email: </strong> nhom41store@gmail.com
                         </p>
                         <p>
                             <strong class="white_13_400"><fmt:message key="Phone"/>: </strong> 0836452145
                         </p>
                         <p>
-                            <strong class="white_13_400">Website: </strong> https://nhom4store.com
+                            <strong class="white_13_400">Website: </strong> https://nhom41store.com
                         </p>
 
 

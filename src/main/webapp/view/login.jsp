@@ -133,14 +133,14 @@
                         <span class="error" id="er-login" style="color: red;font-size: 13px"><%=error%></span>
                     </div>
                 </div>
-                <input type="hidden" id="myAddress" name="myAddress" value="0">
                 <div class="g-recaptcha" data-sitekey="6LcZpdcpAAAAAC2ZB7LeRbXmpF0u3yImAdVuxnJC"></div>
                 <div style="color: red" id="captchaError"></div>
                 <div class="forgot-password" style="width: 100%;margin-bottom: 15px">
-                    <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1"><fmt:message key="Forgotpassword"/></a>
+                    <a href="${pageContext.request.contextPath}/forgot_password?action=forgot_password" class="txt1">Quên mật
+                        khẩu?</a>
                 </div>
                 <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" onclick="find()" style="width: 100%"><fmt:message key="Login"/></button>
+                    <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
                 </div>
             </form>
             <% List<String> errorMessage = (List<String>) request.getAttribute("errors");

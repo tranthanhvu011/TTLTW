@@ -143,7 +143,7 @@
                              src="${pageContext.request.contextPath}/resources/assets/images/batman.png"
                              alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                            NHÓM 4 <i class="fa fa-angle-down"></i>
+                            NHÓM 41 <i class="fa fa-angle-down"></i>
                         </h4>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Message</a> <a
@@ -248,7 +248,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal">Sua thong tin nha san xuat</h5>
+                        <h5 class="modal-title" id="exampleModal">Sửa thông tin nhà sản xuất</h5>
                     </div>
                     <div class="modal-body">
                         <form method="post" id="formAlterManufacturer"
@@ -256,7 +256,7 @@
                             <div class="row row-space">
                                 <div class="col-12">
                                     <div class="input-group">
-                                        <label for="name_edit" class="label">Họ</label>
+                                        <label for="name_edit" class="label">Hãng</label>
                                         <input class="input--style-4" type="text" name="name" id="name_edit"
                                                value="<%=manufacturerEdit.getNAME()%>">
                                         <span class="error" id="er-f-name"
@@ -268,7 +268,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="closeModalAlter()">Dong
+                                onclick="closeModalAlter()">Đóng
                         </button>
                         <button type="button" name="submit"
                                 class="btn btn-primary" onclick="submitAlterManufacturer()">
@@ -378,4 +378,3 @@
 <script src="${pageContext.request.contextPath}/resources/js/user/datepicker.js"></script>
 </body>
 </html>
-

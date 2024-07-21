@@ -4,7 +4,8 @@
 <%@ page import="modelDB.OrderProductVariantDB" %>
 <%@ page import="modelDB.ProductVariantDB" %>
 <%@ page import="dao.ProductVariantDAO" %>
-<%@ page import="dao.ProductDAO" %><%--
+<%@ page import="dao.ProductDAO" %>
+<%@ page import="config.Formater" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2024-01-21
@@ -36,7 +37,6 @@
 <style>
     body {
         background-color: #F5F5FA;
-
     }
 
     * {
@@ -45,21 +45,73 @@
     }
 
     .modal {
-        display: block;
-        position: fixed;
-        z-index: 1;
+        display: none; /* Ẩn modal mặc định */
+        position: fixed; /* Cố định modal */
+        z-index: 3; /* Hiển thị trên cùng */
         left: 0;
         top: 0;
+        width: 100%;
+        height: 100%;
         overflow: auto;
-        background-color: rgba(0, 0, 0, 0);
+        background-color: rgb(0,0,0); /* Màu nền đen với độ mờ */
+        background-color: rgba(0,0,0,0.4); /* Độ mờ */
     }
 
     .modal-content {
-        background-color: #fff;
-        margin: auto;
+        background-color: #fefefe;
+        margin: 10% auto; /* Giảm margin-top để tránh bị tràn khi modal lớn */
         padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border: 1px solid #888;
+        width: 50%; /* Tăng kích thước width */
+        max-width: none; /* Xóa max-width để cho phép modal mở rộng hơn */
+        text-align: center;
+    }
+
+    /* Tăng kích thước font cho tất cả phần tử trong modal */
+    .modal-content * {
+        font-size: 14px; /* Tăng kích thước font gấp ba */
+    }
+
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal-buttons {
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+     .table-cell {
+         padding: 10px 20px; /* Tăng khoảng cách giữa các ô */
+         text-align: left; /* Canh lề trái */
+     }
+    .table-cell:nth-child(3) { /* Tùy chỉnh riêng cho cột Giới Tính */
+        text-align: center; /* Canh giữa */
     }
 </style>
 <%
@@ -71,6 +123,7 @@
     String message = (String) session.getAttribute("message");
 %>
 <body>
+
 <div id="preloader">
     <div class="loader">
     </div>
@@ -145,7 +198,7 @@
                              src="${pageContext.request.contextPath}/resources/assets/images/batman.png"
                              alt="avatar">
                         <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                            NHÓM 4 <i class="fa fa-angle-down"></i>
+                            NHÓM 41 <i class="fa fa-angle-down"></i>
                         </h4>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Message</a> <a
@@ -205,7 +258,7 @@
                 </div>
                 <div class="col-md-6">
                     TỔNG DOANH THU ĐÃ BÁN
-                    <div class="text-danger"><%=sumTotalPrice%> VNĐ</div>
+                    <div class="text-danger"><%=Formater.formatCurrency(sumTotalPrice)%></div>
                 </div>
             </div>
         </div>
@@ -223,7 +276,7 @@
                         <th scope="col">Ngày Mua</th>
                         <th scope="col">Tổng tiền</th>
                         <th scope="col">Trang thai</th>
-                        <th scope="col">Chi tiet</th>
+                        <th scope="col">Chi Tiết</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -243,43 +296,146 @@ for (OrderProductVariantDB productVariant: productVariantDBList) {
         continue;
     }
 %>
+<input id="idOder" type="hidden" value="<%=productVariant.getOrder_id()%>">
+<input id="idTransport" type="hidden" value="<%=productVariant.getTransport_id()%>">
                     <tr>
-                        <td><%= productVariant.getId() %>
+                        <td id="getId" class="text-center"><%= productVariant.getId() %>
                         </td>
-                        <td id="id_product_variant">
+
+                        <td class="text-center" id="id_product_variant">
                             <%= productVariants.getNameProduct()%>
                         </td>
-                        <td><%= productVariants.getNameColor()%>
+                        <td class="text-center"><%= productVariants.getNameColor()%>
                         </td>
-                        <td><%= productVariants.getNameCapacity()%>
+                        <td class="text-center"><%= productVariants.getNameCapacity()%>
                         </td>
-                        <td><%= productVariants.getPrice()%>
+                        <td class="text-center"><%=Formater.formatCurrency(productVariants.getPrice())%>
                         </td>
-                        <td><%= productVariant.getQuantity()%>
+                        <td class="text-center"><%= productVariant.getQuantity()%>
                         </td>
-                        <td><%=productVariant.getBuy_at()%>
+                        <td class="text-center"><%=productVariant.getBuy_at()%>
                         </td>
-                        <td><%= productVariant.getTotal_price()%>
+                        <td class="text-center"><%=Formater.formatCurrency(productVariant.getTotal_price()) %>
                         <td>
-                        <% if (productVariant.getStatus() == 3) {%>
+                        <% if (productVariant.getStatus() == 6) {%>
                         Đã Giao Hàng Thành Công
                         <% }%>
                         </td>
-                        <td style="display: flex">
-                            <button class="btn btn-primary" type="button" onclick="showDetail(<%=productVariant.getId()%>)">
-                                Chi tiet
+                        <td class="text-center" style="display: flex">
+                            <button id="idOderProductVariant" class="btn btn-primary" type="button" onclick="showShowReplyModal(<%=productVariant.getId()%>, <%=productVariant.getOrder_id()%>, <%=productVariant.getTransport_id()%>)">
+                                Chi Tiết
                             </button>
                         </td>
                         <% } %>
                     </tr>
-<%--                    <%--%>
-<%--                            }--%>
-<%--                        }--%>
-<%--                    %>--%>
+
                     </tbody>
                 </table>
+            <div id="showReplyModal" class="modal">
+                <input type="hidden" id="showReplyCommentId" name="idComment">
+                <input type="hidden" id="showReplyProductId" name="idProduct">
+                <div class="modal-content" id="modal-content">
+                    <span class="close" onclick="closeShowReplyModal()">&times;</span>
+                    <p>Trả lời về bình luận</p>
+                    <h4 id="replyMessage" class=text-success></h4>
+                    <form id="showReplyForm">
+                        <table class="table-show">
+                            <thead>
+                            <tr>
+                                <th scope="col-md-2 text-right">Mã đơn hàng</th>
+                                <th scope="col-md-2 text-right" >Tên Người Mua</th>
+                                <th scope="col-md-2 text-right" >Giới Tính</th>
+                                <th scope="col-md-2 text-right">SĐT</th>
+                                <th scope="col-md-2 text-right">Địa Chỉ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td ><textarea id="showRepLyTextArea" style="width: 100%">fasfasfasfasfasfasfasf</textarea></td>
+                                <td>Thornton</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn btn-secondary" onclick="closeShowReplyModal()">Hủy</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <script>
                 new DataTable('#example');
+            </script>
+            <script>
+                function showShowReplyModal(idOderProductVariant, idOder, idTransport) {
+                    console.log(idTransport);
+                    console.log(idOderProductVariant);
+                    console.log(idOder);
+                    document.getElementById("idOderProductVariant").value = idOderProductVariant;
+                    var modal = document.getElementById("showReplyModal");
+                    modal.style.display = "block";
+                    getDataRevenue(idOderProductVariant,idOder,idTransport);
+                }
+                function getDataRevenue(idOrderVariant, idOrder, idTransport) {
+                    var url = '/admin/revenue-statistics?action=AccountOder&idOrderVariant=' + idOrderVariant + '&idOrder=' + idOrder + '&idTransport=' + idTransport;
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok.');
+                            }
+                           return response.json();
+                        })
+                        .then(data => {
+                            console.log(data);
+                            updateModalContent(data);
+                        })
+                        .catch(error => console.error('Error fetching replies:', error));
+                }
+                function updateModalContent(data) {
+                    const repliesContainer = document.querySelector('#showReplyForm tbody');
+                    repliesContainer.innerHTML = '';
+
+                    const idOrder = data.id || 'N/A';
+                    const name = data.firstName + data.lastName || 'Unknown';
+                    const gioitinh = data.gioiTinh || 'No content available';
+                    var stringGioiTinh = '';
+                    if (gioitinh === 1) {
+                        stringGioiTinh = 'Nam';
+                    }else{
+                        stringGioiTinh = 'Nu';
+                    }
+                    const sdt = data.sdt || 'No timestamp available';
+                    const diaChi = data.diachi || 'No address available';
+                    let row = '<tr>' +
+                        '<th scope="row" class="col-md-2 text-left">' + idOrder + '</th>' +
+                        '<td class="col-md-2 text-left">' + name + '</td>' +
+                        '<td class="col-md-2 text-left">' + stringGioiTinh + '</td>' +
+                        '<td class="col-md-2 text-left">' + sdt + '</td>' +
+                        '<td class="col-md-2 text-left">' + diaChi + '</td>' +
+                        '</tr>';
+
+                    repliesContainer.innerHTML += row;
+                }
+                function closeShowReplyModal() {
+                    var modal = document.getElementById("showReplyModal");
+                    modal.style.display = "none";
+                }
+                window.onclick = function(event) {
+                    var modal = document.getElementById("confirmModal");
+                    var replyModal = document.getElementById("replyModal");
+                    var showReplyModal = document.getElementById("showReplyModal");
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                    if (event.target == replyModal) {
+                        replyModal.style.display = "none";
+                    }
+                    if (event.target == showReplyModal) {
+                        showReplyModal.style.display = "none";
+                    }
+                }
             </script>
             </div>
         </div>

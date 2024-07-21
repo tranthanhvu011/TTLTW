@@ -35,7 +35,7 @@ public class OrderProductVariantDAO {
         return res > 0;
     }
     public static Double sumTotalPrice() {
-        String query = "select sum(total_price) from orderproductvariant where status = 3";
+        String query = "select sum(total_price) from orderproductvariant where status = 6";
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query)
                         .mapTo(Double.class)
@@ -43,7 +43,7 @@ public class OrderProductVariantDAO {
         );
     }
     public static int sumQuantity() {
-        String query = "select sum(quantity) from orderproductvariant where status = 3";
+        String query = "select sum(quantity) from orderproductvariant where status = 6";
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery(query)
                         .mapTo(Integer.class)

@@ -10,7 +10,7 @@
     <div class="sidebar-header">
         <div class="logo">
             <a href="${pageContext.request.contextPath}/admin/revenue-statistics"
-               style="color: white; font-size: 30px;">NHÓM 4 </a>
+               style="color: white; font-size: 30px;">NHÓM 41 </a>
         </div>
     </div>
     <div class="main-menu">
@@ -66,8 +66,13 @@
                         </a>
                         <ul class="collapse">
                             <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_product_home">
+                                    <span>Quản lý sản phẩm cha</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="${pageContext.request.contextPath}/admin/product/manage_product">
-                                    <span>Quản lý sản phẩm</span>
+                                    <span>Quản lý sản phẩm con</span>
                                 </a>
                             </li>
                             <li>

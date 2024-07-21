@@ -9,7 +9,7 @@
 <footer style="padding: 0;margin-top: 20px">
     <div class="footer-area">
         <p style="background: white">
-            Nhóm 4
+            Nhóm 41
         </p>
     </div>
 </footer>
