@@ -244,7 +244,7 @@
                             <td style="display: flex">
                                 <button type="button" class="btn btn-danger" style="margin-right: 5px" onclick="openModalDeleteUser(<%= o.getId() %>)">Xoá</button>
                                 <button style="margin-right: 5px" class="btn btn-primary" type="button" onclick="editStatus(<%= o.getId() %>)">Cập nhật trạng thái</button>
-                                <button class="btn btn-primary" type="button" onclick="showDetail(<%= o.getId() %>)">Chi tiet</button>
+                                <button class="btn btn-primary" type="button" onclick="showDetail(<%= o.getId() %>)">Chi Tiết</button>
                             </td>
                         </tr>
                         <% } %>

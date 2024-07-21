@@ -116,11 +116,7 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.3.4</version>
-        </dependency>
+
 
     </dependencies>
     <!--    end -->

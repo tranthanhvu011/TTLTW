@@ -66,8 +66,13 @@
                         </a>
                         <ul class="collapse">
                             <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_product_home">
+                                    <span>Quản lý sản phẩm cha</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="${pageContext.request.contextPath}/admin/product/manage_product">
-                                    <span>Quản lý sản phẩm</span>
+                                    <span>Quản lý sản phẩm con</span>
                                 </a>
                             </li>
                             <li>
