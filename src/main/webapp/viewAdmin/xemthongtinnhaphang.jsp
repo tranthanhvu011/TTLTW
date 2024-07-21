@@ -2,7 +2,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.*" %>
 <%@ page import="modelDB.ProductDB" %>
-<%@ page import="dao.*" %><%--
+<%@ page import="dao.*" %>
+<%@ page import="service.NumberUtils" %><%--
   Created by IntelliJ IDEA.
   Date: 2023-11-29
   Time: 3:50 PM
@@ -255,8 +256,8 @@
                         <td><%=tenKho%></td>
                         <td><%=tenSanPham%></td>
                         <td><%=n.getQuantityProduct()%></td>
-                        <td><%=n.getPriceOneProduct()%></td>
-                        <td><%=n.getPriceAllProduct()%></td>
+                        <td><%=NumberUtils.formatNumberWithCommas(n.getPriceOneProduct())+" VNĐ"%></td>
+                        <td><%=NumberUtils.formatNumberWithCommas(n.getPriceAllProduct())+ " VNĐ" %></td>
                         <td><%=n.getNgayNhapHang()%></td>
                     </tr>
                     <% } %>

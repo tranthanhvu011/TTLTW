@@ -99,9 +99,6 @@ public class DiscountDAO {
         return count > 0;
     }
 
-
-
-
     public List<Discount> getDiscountNotInProduct(int productId) {
         String query = "SELECT * FROM discounts WHERE discounts.id NOT IN ( SELECT discount_id FROM discountproduct WHERE discountproduct.product_id = ?);";
         List<Discount> discounts = JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
@@ -222,6 +219,8 @@ public class DiscountDAO {
 
     public static void main(String[] args) {
         DiscountDAO discountDAO = new DiscountDAO();
-        System.out.print(discountDAO.getDiscountByIdProduct(197));
+        Discount discount =   findDiscountByCode("CODE2");
+        System.out.print(DiscountDAO.isDiscount(306,discount.getId()));
+
     }
 }

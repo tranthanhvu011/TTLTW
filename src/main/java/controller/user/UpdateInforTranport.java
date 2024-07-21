@@ -50,6 +50,7 @@ public class UpdateInforTranport extends HttpServlet {
             req.getSession().setAttribute("status",true);
             req.getSession().setAttribute("message", "Cập nhật thành công!");
         } else {
+            req.getSession().setAttribute("status",false);
             req.getSession().setAttribute("message", "Cập nhật không thành công!");
         }
 

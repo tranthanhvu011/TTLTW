@@ -3,7 +3,9 @@
 <%@ page import="model.*" %>
 <%@ page import="dao.ProductDAO" %>
 <%@ page import="modelDB.ProductDB" %>
-<%@ page import="dao.ProductVariantDAO" %><%--
+<%@ page import="dao.ProductVariantDAO" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="service.NumberUtils" %><%--
   Created by IntelliJ IDEA.
   Date: 2023-11-29
   Time: 3:50 PM
@@ -251,8 +253,8 @@
                         <td><%=productInventory.getIdProductVariant()%></td>
                         <td><%=ten%></td>
                         <td><%=productInventory.getQuantityProductVariant()%></td>
-                        <td><%=productInventory.getPriceOneProductVariant()%></td>
-                        <td><%=productInventory.getPriceAllProductVariant()%></td>
+                        <td><%=NumberUtils.formatNumberWithCommas(productInventory.getPriceOneProductVariant())+" VNĐ"%></td>
+                        <td><%=NumberUtils.formatNumberWithCommas(productInventory.getPriceAllProductVariant())+" VNĐ"%></td>
                         <td style="display: flex">
                             <button class="edit" data-id="<%=productInventory.getId()%>">Sửa</button>
                             <button style="margin-left: 5px;" type="button" class="btn btn-primary delete-product-inventory" data-id="<%=productInventory.getId()%>">Xóa</button>
