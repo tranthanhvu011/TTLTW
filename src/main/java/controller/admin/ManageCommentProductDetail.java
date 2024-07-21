@@ -1,6 +1,7 @@
 package controller.admin;
 
 import dao.ProductDeltailDAO;
+import org.json.JSONArray;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 @WebServlet(urlPatterns = {"/admin/manage_comment_product_detail"})
 public class ManageCommentProductDetail extends HttpServlet {
     @Override
@@ -23,6 +26,8 @@ public class ManageCommentProductDetail extends HttpServlet {
             doGet_Delete(req, resp);
         } else if (action.equalsIgnoreCase("notActive")) {
             doGet_Not_Active(req, resp);
+        }else if (action.equalsIgnoreCase("getReply")) {
+            doGet_Reply(req,resp);
         }
     }
 
@@ -63,8 +68,21 @@ public class ManageCommentProductDetail extends HttpServlet {
             resp.sendRedirect("/admin/manage_comment_product_detail");
         }
     }
+    protected void doGet_Reply(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String idProduct = req.getParameter("idProduct");
+        String idComment = req.getParameter("idComment");
+        System.out.println("Received idProduct: " + idProduct + ", idComment: " + idComment);
+        ProductDeltailDAO productDeltailDAO = new ProductDeltailDAO();
+        JSONArray jsonArray = productDeltailDAO.getReplyByComment(Integer.parseInt(idProduct), Integer.parseInt(idComment));
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
-    @Override
+        PrintWriter out = resp.getWriter();
+        out.print(jsonArray.toString());
+        out.flush();
+    }
+
+        @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        String action = req.getParameter("action");
        if (action.equalsIgnoreCase("reply")) {
@@ -85,4 +103,4 @@ public class ManageCommentProductDetail extends HttpServlet {
                 resp.sendRedirect("/viewAdmin/manage_comment_product_detail.jsp");
             }
     }
-}
+    }

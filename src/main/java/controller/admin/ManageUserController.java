@@ -1,5 +1,7 @@
 package controller.admin;
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
 import model.Account;
 import service.UserService;
 
@@ -44,6 +46,9 @@ public class ManageUserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         boolean isSuccess;
         int idUser = 0;
         Account user = null;
@@ -57,6 +62,8 @@ public class ManageUserController extends HttpServlet {
             case "active":
                 isSuccess = activeUserById(idUser);
                 if (isSuccess) {
+                    LogDAO logDAO = new LogDAO();
+                    logDAO.insertLog(account.getId(),ip, LogLevel.WARNING.toString(),"Block user id: "+ idUser,"Active user id: "+idUser,"Kích hoạt người dùng ");
                     request.getSession().setAttribute("status", true);
                     request.getSession().setAttribute("message", "Đã mở khóa một người dùng");
                     response.sendRedirect(request.getContextPath() + "/admin/user/manage_user");
@@ -69,6 +76,8 @@ public class ManageUserController extends HttpServlet {
             case "block":
                 isSuccess = blockUserById(idUser);
                 if (isSuccess) {
+                    LogDAO logDAO = new LogDAO();
+                    logDAO.insertLog(account.getId(),ip, LogLevel.WARNING.toString(),"Active user id: "+ idUser,"Block user id: "+idUser,"Block người dùng");
                     request.getSession().setAttribute("status", true);
                     request.getSession().setAttribute("message", "Đã khóa một người dùng");
                     response.sendRedirect(request.getContextPath() + "/admin/user/manage_user");
@@ -86,6 +95,8 @@ public class ManageUserController extends HttpServlet {
                 try {
                     isSuccess = userService.deleteUserById(idUser);
                     if (isSuccess) {
+                        LogDAO logDAO  =new LogDAO();
+                        logDAO.insertLog(account.getId(),ip,LogLevel.DANGER.toString(),user.toString(),"User id:"+user.getId()+" is delete","Xóa người dùng");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Đã xóa một người dùng");
                                 response.sendRedirect(request.getContextPath() + "/admin/user/manage_user");

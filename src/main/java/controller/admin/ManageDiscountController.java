@@ -1,5 +1,8 @@
 package controller.admin;
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import model.Account;
 import model.Discount;
 import service.DiscountService;
 
@@ -28,6 +31,8 @@ public class ManageDiscountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         action = request.getParameter("action");
         boolean isSuccessful;
         if (action != null) {
@@ -48,6 +53,8 @@ public class ManageDiscountController extends HttpServlet {
                     Discount discount = getDataFromRequest(request);
                     isSuccessful = discountService.insertCapacity(discount);
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.ALERT.toString(),"null",discount.toString(),"Thêm mã giảm giá");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thêm thông tin thành công !");
                     } else {
@@ -70,15 +77,20 @@ public class ManageDiscountController extends HttpServlet {
                     break;
                 case "edit":
                     int idCapacity = Integer.parseInt(request.getParameter("id"));
+                    Discount discount1 = discountService.findDiscountById(idCapacity);
+                    Discount discount_edit = new Discount();
                     try {
                         Discount discountFromRequest = getDataFromRequest(request);
                         isSuccessful = discountService.editDiscount(idCapacity, discountFromRequest);
+                        discount_edit = discountFromRequest;
                     } catch (Exception e) {
                         isSuccessful = false;
                         request.getSession().setAttribute("status", false);
                         request.getSession().setAttribute("message", e.getMessage());
                     }
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.WARNING.toString(),discount1.toString(),discount_edit.toString(),"Sửa mã giảm giá");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Sửa thành công !");
                     }
@@ -86,12 +98,15 @@ public class ManageDiscountController extends HttpServlet {
                     break;
                 case "delete":
                     int id = Integer.parseInt(request.getParameter("id"));
+                    Discount discount_delete = discountService.findDiscountById(id);
                     try {
                         isSuccessful = discountService.deleteDiscount(id);
                     } catch (Exception e) {
                         isSuccessful = false;
                     }
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(),ip, LogLevel.DANGER.toString(),discount_delete.toString(),"Delete Success!!","Xóa mã giảm giá");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Xóa thành công!");
                     } else {

@@ -1,6 +1,9 @@
 package controller.admin;
 
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import model.Account;
 import model.OrderProductVariant;
 import service.OrderProductVariantService;
 
@@ -30,6 +33,8 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String getAction = req.getParameter("action");
+        String ip = req.getRemoteAddr();
+        Account account = (Account) req.getSession().getAttribute("account");
         int getID;
         if (getAction != null) {
             switch (getAction) {
@@ -49,6 +54,8 @@ public class OrderController extends HttpServlet {
                     getID = Integer.parseInt(req.getParameter("id"));
                     boolean isSuccess = orderProductVariantService.deleteOrder(getID);
                     if (isSuccess) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(), ip, LogLevel.ALERT.toString(),"Order id:"+getID,"Delete success","Xóa đơn hàng");
                         req.getSession().setAttribute("status", true);
                         req.getSession().setAttribute("message", "Xóa đơn hàng thành công");
                     } else {
@@ -61,6 +68,9 @@ public class OrderController extends HttpServlet {
                     getID = Integer.parseInt(req.getParameter("id"));
                     int statusOrder = orderProductVariantService.findOrderProductVariantById(getID);
                     int getStatus = Integer.parseInt(req.getParameter("status"));
+                    String before_status = convertStatusToString(statusOrder);
+
+                    String after_status = convertStatusToString(getStatus);
                     if (statusOrder == getStatus) {
                         req.getSession().setAttribute("status", false);
                         req.getSession().setAttribute("message", "Trạng thái đơn hàng đã được cập nhật trước đó");
@@ -69,6 +79,8 @@ public class OrderController extends HttpServlet {
                     }
                     boolean success = orderProductVariantService.updateStatus(getID, getStatus);
                     if (success) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(), ip, LogLevel.ALERT.toString(),before_status,after_status,"Cập nhật trạng thái đơn hàng");
                         req.getSession().setAttribute("status", true);
                         req.getSession().setAttribute("message", "Cập nhật trạng thái đơn hàng thành công");
                     } else {
@@ -95,5 +107,20 @@ public class OrderController extends HttpServlet {
         }else{
             req.getRequestDispatcher("/viewAdmin/manage_order.jsp").forward(req, resp);
         }
+
     }
+    public String convertStatusToString(int status) {
+        switch (status) {
+            case 0:
+                return "Đã hủy";
+            case 1:
+                return "Đang chuẩn bị hàng";
+            case 2:
+                return "Đang giao";
+            case 3:
+                return "Đã nhận hàng";
+        }
+        return null;
+    }
+
 }

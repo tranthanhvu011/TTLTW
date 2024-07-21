@@ -163,11 +163,11 @@
 
         <!-- Table data -->
         <div class="single-table" style="width: 95%; margin: 0 auto">
-            <table id="example" class="table table-striped table-bordered" style="width: 100%">
+            <table id="example" class="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Tên Sản Phẩm</th>
+                    <th scope="col" style="width: 20%">Tên Sản Phẩm</th>
                     <th scope="col">Giá</th>
                     <th scope="col">Hãng Sản Xuất</th>
                     <th scope="col">Màu sắc</th>
@@ -184,24 +184,19 @@
                 <% Product product = productVariant.getProduct(); %>
                 <tr>
                     <th scope="row"><%= productVariant.getId() %></th>
-                    <td><%= product.getName() %></td>
+                    <td style="max-width: 100px"><%= product.getName() %></td>
                     <td><%= Formater.formatCurrency(productVariant.getPrice()) %></td>
                     <td><%= product.getManufacturer().getNAME() %></td>
                     <td><%= productVariant.getColor().getName() %></td>
                     <td><%= productVariant.getState() == 1 ? "Còn hàng" : "Hết hàng" %></td>
                     <td>
                         <% if (!productVariant.getProductImages().isEmpty()) { %>
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
                                 <% for (ProductImage image : productVariant.getProductImages()) { %>
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100" src="${pageContext.request.contextPath}/<%= URLConfig.URL_SAVE_IMAGE %>/<%= image.getImage_url().trim() %>" alt="">
-                                </div>
-                                <% } %>
-                            </div>
-                        </div>
+                                    <img class="" style="max-width: 100px; max-height: 100px" src="${pageContext.request.contextPath}/<%= URLConfig.URL_SAVE_IMAGE %>/<%= image.getImage_url().trim()%>" alt="">
+                                <%
+                                break;
+                                } %>
                         <% } else { %>
-                        <img src="${pageContext.request.contextPath}/resources/assets/images/error.jpg" width="200" height="100">
                         <% } %>
                     </td>
                     <td><%= productVariant.getCapacity().getName() %></td>
@@ -234,8 +229,6 @@
                 </li>
             </ul>
         </nav>
-
-        <!-- Modal to notify delete user -->
         <form id="formDeleteUser" method="post">
             <div id="modalDeleteUser" class="modal" style="margin: auto;width: 300px;display: none;align-items: center">
                 <div class="modal-content" style="padding: 20px">
@@ -255,35 +248,6 @@
             </div>
         </form>
 
-
-        <!-- Paging -->
-<%--        <%if (numberPage > 1) {%>--%>
-<%--        <div class="row">--%>
-<%--            <div class="col-12 d-flex justify-content-center">--%>
-<%--                <nav aria-label="Page navigation example">--%>
-<%--                    <ul class="pagination">--%>
-<%--                        <li class="page-item">--%>
-<%--                            <button id="previousPage" class="page-link" style="<%=currentIndex == 1 ? "pointer-events: none" : ""%>" onclick="pPage(<%=currentIndex%>)">Previous</button>--%>
-<%--                        </li>--%>
-<%--                        <%--%>
-<%--                            for (int i = 1; i <= numberPage; i++) {--%>
-<%--                        %>--%>
-<%--                        <li class="page-item"><a class="page-link" style="<%=i == currentIndex ? "background-color: blue; color: black" : ""%>"--%>
-<%--                                                 href="${pageContext.request.contextPath}/admin/product/manage_product?index=<%=i%>"><%=i%>--%>
-<%--                        </a></li>--%>
-<%--                        <%}%>--%>
-<%--                        <li class="page-item">--%>
-<%--                            <button id="nextPage" class="page-link" style="<%=currentIndex == numberPage ? "pointer-events: none" : ""%>" onclick="nPage(<%=currentIndex%>)">Next</button>--%>
-<%--                        </li>--%>
-<%--                    </ul>--%>
-<%--                </nav>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <%}%>--%>
-<%--    </div>--%>
-
-    <!-- main content area end -->
-    <!-- footer area start-->
     <%@include file="/common/admin_footer.jsp" %>
 </div>
 <script>

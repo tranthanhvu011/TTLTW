@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.util.List;
 
 public class ProductImageDAO {
-    public List<ProductImage> getAllProductImageByProductVariantId(int id) {
+    public static List<ProductImage> getAllProductImageByProductVariantId(int id) {
         List<ProductImage> productImages = JDBIConnector.me().withHandle(handle -> {
             return handle.createQuery("SELECT * FROM productimages WHERE product_variant_id = :id")
                     .bind("id", id)
@@ -41,5 +41,10 @@ public class ProductImageDAO {
         JDBIConnector.me().withHandle(handle -> {
             return handle.createUpdate(query).bind(0, idP).execute();
         });
+    }
+
+    public static void main(String[] args) {
+        List<ProductImage> productImages = getAllProductImageByProductVariantId(4);
+        System.out.print(productImages);
     }
 }

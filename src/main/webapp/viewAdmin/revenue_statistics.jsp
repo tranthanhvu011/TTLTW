@@ -4,7 +4,8 @@
 <%@ page import="modelDB.OrderProductVariantDB" %>
 <%@ page import="modelDB.ProductVariantDB" %>
 <%@ page import="dao.ProductVariantDAO" %>
-<%@ page import="dao.ProductDAO" %><%--
+<%@ page import="dao.ProductDAO" %>
+<%@ page import="config.Formater" %><%--
   Created by IntelliJ IDEA.
   User: Nguyen Nhu Toan
   Date: 2024-01-21
@@ -71,6 +72,7 @@
     String message = (String) session.getAttribute("message");
 %>
 <body>
+
 <div id="preloader">
     <div class="loader">
     </div>
@@ -205,7 +207,7 @@
                 </div>
                 <div class="col-md-6">
                     TỔNG DOANH THU ĐÃ BÁN
-                    <div class="text-danger"><%=sumTotalPrice%> VNĐ</div>
+                    <div class="text-danger"><%=Formater.formatCurrency(sumTotalPrice)%></div>
                 </div>
             </div>
         </div>
@@ -244,30 +246,30 @@ for (OrderProductVariantDB productVariant: productVariantDBList) {
     }
 %>
                     <tr>
-                        <td><%= productVariant.getId() %>
+                        <td class="text-center"><%= productVariant.getId() %>
                         </td>
-                        <td id="id_product_variant">
+                        <td class="text-center" id="id_product_variant">
                             <%= productVariants.getNameProduct()%>
                         </td>
-                        <td><%= productVariants.getNameColor()%>
+                        <td class="text-center"><%= productVariants.getNameColor()%>
                         </td>
-                        <td><%= productVariants.getNameCapacity()%>
+                        <td class="text-center"><%= productVariants.getNameCapacity()%>
                         </td>
-                        <td><%= productVariants.getPrice()%>
+                        <td class="text-center"><%=Formater.formatCurrency(productVariants.getPrice())%>
                         </td>
-                        <td><%= productVariant.getQuantity()%>
+                        <td class="text-center"><%= productVariant.getQuantity()%>
                         </td>
-                        <td><%=productVariant.getBuy_at()%>
+                        <td class="text-center"><%=productVariant.getBuy_at()%>
                         </td>
-                        <td><%= productVariant.getTotal_price()%>
+                        <td class="text-center"><%=Formater.formatCurrency(productVariant.getTotal_price()) %>
                         <td>
-                        <% if (productVariant.getStatus() == 3) {%>
+                        <% if (productVariant.getStatus() == 6) {%>
                         Đã Giao Hàng Thành Công
                         <% }%>
                         </td>
-                        <td style="display: flex">
+                        <td class="text-center" style="display: flex">
                             <button class="btn btn-primary" type="button" onclick="showDetail(<%=productVariant.getId()%>)">
-                                Chi tiet
+                                Chi Tiết
                             </button>
                         </td>
                         <% } %>

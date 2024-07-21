@@ -245,7 +245,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal">Sua thong tin mau sac san pham</h5>
+                        <h5 class="modal-title" id="exampleModal">Sửa thông tin màu sắc cho sản phẩm</h5>
                     </div>
                     <div class="modal-body">
                         <form method="post" id="formEditColor"
@@ -253,7 +253,7 @@
                             <div class="row row-space">
                                 <div class="col-12">
                                     <div class="input-group">
-                                        <label for="name_edit" class="label">Mau</label>
+                                        <label for="name_edit" class="label">Màu</label>
                                         <input class="input--style-4" type="text" name="name" id="name_edit"
                                                value="<%=colorEdit.getName()%>">
                                         <span class="error" id="er-f-name"
@@ -265,11 +265,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                onclick="closeModalAlter()">Dong
+                                onclick="closeModalAlter()">Đóng
                         </button>
                         <button type="button" name="submit"
                                 class="btn btn-primary" onclick="submitAlterManufacturer()">
-                            Cap nhat
+                            Cập nhập
                         </button>
                     </div>
                 </div>

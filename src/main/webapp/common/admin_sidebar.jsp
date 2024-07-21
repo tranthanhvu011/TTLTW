@@ -108,8 +108,35 @@
                         </a>
 
                     </li>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/admin/manage-log" aria-expanded="true"> <span>
+                                Lịch sử hoạt động   </span>
+                        </a>
 
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true">
+                            <span>Kho hàng</span>
+                        </a>
+                        <ul class="collapse">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_inventory">
+                                    <span>Quản lý kho hàng</span>
+                                </a>
+                            </li>
 
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_branch">
+                                    <span>Quản lý chi nhánh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_import">
+                                    <span>Quản lý nhập hàng</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

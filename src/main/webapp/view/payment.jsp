@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../resources/css/user/product-detail.css">
     <link rel="stylesheet" href="../resources/css/user/trangchu.css">
     <link rel="stylesheet" href="../resources/css/user/payment.css">
+    <link href="${pageContext.request.contextPath}/resources/css/user/toast.css" rel="stylesheet" media="all">
     <%@include file="/common/libraries.jsp" %>
 </head>
 <%
@@ -60,6 +61,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         flex-direction: column;
         align-items: center;
+
     }
 
     #changeProfileForm {
@@ -92,6 +94,59 @@
 
 </style>
 <body>
+<%
+    Boolean status = (Boolean) session.getAttribute("status");
+    if (status == null) {
+        status = true;
+    }
+    String message = (String) session.getAttribute("message");
+    if (message  == null) {
+    }
+%>
+<div class="toast">
+    <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle"
+             viewBox="0 0 20 20">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+        </svg>
+        <% if (message != null ) {%>
+        <% if (status == true) {%>
+        <div class="message">
+            <span class="text text-1" style="color: greenyellow">Thành công</span>
+            <span class="text text-2" style="color: greenyellow"><%=message%></span>
+        </div>
+        <% }else{%>
+        <div class="message">
+            <span class="text text-1 text-danger">Thất bại</span>
+            <span class="text text-2 text-danger"><%=message%></span>
+        </div>
+        <%}%>
+        <%    session.removeAttribute("message");
+            session.removeAttribute("status");%>
+        <% } else{%>
+        <div class="message">
+            <span class="text text-1" style="color: greenyellow">Thành công</span>
+            <span class="text text-2" style="color: greenyellow">Thêm vào giỏ hàng thành công</span>
+        </div>
+        <% }%>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+    <div class="progress"></div>
+</div>
+<script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
+<%if (message != null) {%>
+<script>
+    showToast();
+    setTimeout(() => document.querySelector(".toast").style.display = "none", 5000);
+</script>
+
+<%
+    session.removeAttribute("message");
+    session.removeAttribute("status");
+%>
+<%}%>
+<script src="${pageContext.request.contextPath}/resources/js/user/toast.js"></script>
 <%@include file="/common/header.jsp" %>
 <%--<%--%>
 <%--    Account loggedInUser = (Account)session.getAttribute("account");--%>
@@ -104,8 +159,7 @@
     InforTransport inforTransport = (InforTransport) request.getAttribute("infortransport");
     List<Integer> listID = (List<Integer>) session.getAttribute("selectedProductIds");
     Account account = (Account) session.getAttribute("account");
-    String message = (String) session.getAttribute("message");
-    message = (message == null) ? "" : message;
+
     String messagediscount = (String) session.getAttribute("message-discount");
     messagediscount = (messagediscount==null) ? "" : messagediscount;
 %>
@@ -120,7 +174,7 @@ session.removeAttribute("message-discount");
 %>
 <%}%>
 <div class="container">
-    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=message%></h2>
+<%--    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=message%></h2>--%>
 <%--    <h2 style="color: red;padding-top: 10px;padding-left: 15px;top: 17%;text-align: center;position: absolute;left: 30%;"><%=messagediscount%></h2>--%>
     <div class="gutters" style="display: flex;justify-content: space-evenly;margin-bottom: 40px">
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
@@ -449,7 +503,6 @@ session.removeAttribute("message-discount");
                 // Handle form submission logic here
                 console.log('Submit form with new phone number:', newPhoneNumber);
 
-                // Display the updated information
                 document.getElementById('profileInfo').style.display = 'block';
                 document.getElementById('changeForm').style.display = 'none';
             } else {
@@ -511,20 +564,102 @@ session.removeAttribute("message-discount");
     document.addEventListener('DOMContentLoaded', changPhiVanChuyen);
 
 </script>
+<div id="changeForm" style="display: none; width: 80%; margin: 0 auto;">
 
-<div id="changeForm" style="display: none;">
-    <!-- Form để nhập thông tin mới -->
-    <form style="     background-color: #c2dcf8;" action="${pageContext.request.contextPath}/update-infor-transport" method="post" id="changeProfileForm" onsubmit="submitForm();">
-        <label style="text-align: center" for="newName">Tên:</label>
-        <input  type="text" id="newName" name="newName" value="<%=inforTransport.getName_reciver()%>" required>
-        <label style="text-align: center" for="newPhoneNumber">Số điện thoại:</label>
-        <input  type="text" id="newPhoneNumber" name="newPhoneNumber" value="<%=inforTransport.getPhone_reciver()%>" required oninput="validatePhoneNumber()">
-        <span id="phoneNumberError" style="color: red;"></span>
-        <label style="text-align: center" for="newAddress">Địa chỉ:</label>
-        <input type="text" id="newAddress" name="newAddress" value="<%=inforTransport.getAddress_reciver()%>" required>
-        <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+    <form style="background-color: #c2dcf8; padding: 20px; border-radius: 8px; width: 100%;" action="${pageContext.request.contextPath}/update-infor-transport" method="post" id="changeProfileForm" onsubmit="submitForm();">
+        <label style="display: block; margin-bottom: 8px; font-weight: bold;">Họ tên người nhận hàng:</label>
+        <input required type="text" name="newName" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: bold;">Số điện thoại:</label>
+        <input required type="number" name="newPhoneNumber" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: bold;">Địa chỉ:</label>
+        <div class="row row-space" style="display: flex; justify-content: space-between; gap: 20px;">
+            <div class="form-group" style="flex: 1;">
+                <label for="provinceSelect" style="width: 75%;display: block; margin-bottom: 8px; font-weight: bold;">Chọn Tỉnh/ Thành Phố:</label>
+                <select required name="tinhThanh" class="form-control" id="provinceSelect" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;" onchange="loadDistricts()">
+                    <option value="">Chọn Tỉnh/ Thành Phố</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="districtSelect" style="display: block; margin-bottom: 8px; font-weight: bold;">Chọn Huyện:</label>
+                <select required name="huyen" class="form-control" id="districtSelect" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;" onchange="loadWards()">
+                    <option value="">Chọn Huyện</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="wardSelect" style="display: block; margin-bottom: 8px; font-weight: bold;">Chọn Xã:</label>
+                <select required name="xa" class="form-control" id="wardSelect" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="">Chọn Xã</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Lưu thay đổi</button>
+        <button id="btn-cancel"  style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Hủy</button>
     </form>
 </div>
+<script>
+    document.getElementById('btn-cancel').onclick = function() {
+        document.getElementById('changeForm').style.display = 'none';
+    };
+</script>
+<script>
+    window.onload = function () {
+        loadData('ProvinceServlet', 'provinceSelect', 'name_with_type');
+    };
 
+    function loadData(servletName, selectId, textProperty) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", servletName, true);
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+                    if (Array.isArray(data)) {
+                        populateDropdown(selectId, data, textProperty);
+                    } else {
+                        console.error('Expected an array but got: ', data);
+                    }
+                } catch (e) {
+                    console.error('Failed to parse JSON: ', e);
+                }
+            } else {
+                console.error('Failed to fetch data: ', xhr.statusText);
+            }
+        };
+        xhr.onerror = function () {
+            console.error('Request error.');
+        };
+        xhr.send();
+    }
+
+    function populateDropdown(selectId, data, textProperty) {
+        let select = document.getElementById(selectId);
+        select.innerHTML = `<option value="">Chọn Tỉnh/ Thành Phố ${selectId.replace('Select', '')}</option>`; // Reset
+        data.forEach(item => {
+            let option = new Option(item[textProperty], item.code);
+            select.appendChild(option);
+        });
+    }
+
+    function loadDistricts() {
+        const provinceCode = document.getElementById('provinceSelect').value;
+        if (provinceCode) {
+            loadData('DistrictServlet?provinceCode=' + provinceCode, 'districtSelect', 'name_with_type');
+        }
+    }
+
+    function loadWards() {
+        const districtCode = document.getElementById('districtSelect').value;
+        if (districtCode) {
+            loadData('WardServlet?districtCode=' + districtCode, 'wardSelect', 'name_with_type');
+        }
+    }
+
+</script>
+<%@include file="/common/footer.jsp" %>
+<%@include file="/common/libraries_js.jsp" %>
+<script src="../resources/libs/datepicker/zebra_datepicker.min.js"></script>
+<script src="../resources/libs/datepicker/zebra_datepicker.src.js"></script>
+<script src="../resources/js/user/datepicker.js"></script>
 </body>
 </html>

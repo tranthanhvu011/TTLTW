@@ -1,5 +1,8 @@
 package controller.admin;
 
+import controller.enums.LogLevel;
+import dao.LogDAO;
+import model.Account;
 import model.InfoWarranty;
 import service.WarrantyService;
 
@@ -28,6 +31,8 @@ public class ManageWarrantyController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String ip = request.getRemoteAddr();
+        Account account = (Account) request.getSession().getAttribute("account");
         action = request.getParameter("action");
         boolean isSuccessful;
         if (action != null) {
@@ -48,6 +53,8 @@ public class ManageWarrantyController extends HttpServlet {
                     InfoWarranty warranty = getDataFromRequest(request);
                     isSuccessful = warrantyService.insertWarranty(warranty);
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(), ip, LogLevel.ALERT.toString(),"null",warranty.toString(),"Thêm thông tin bảo hành");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Thêm thông tin thành công !");
                     } else {
@@ -70,8 +77,11 @@ public class ManageWarrantyController extends HttpServlet {
                     break;
                 case "edit":
                     int idWarranty = Integer.parseInt(request.getParameter("id"));
+                    InfoWarranty infoWarranty_before = warrantyService.findWarrantyById(idWarranty);
+                    InfoWarranty infoWarranty_after = new InfoWarranty();
                     try {
                         InfoWarranty warrantyFromRequest = getDataFromRequest(request);
+                        infoWarranty_after = warrantyFromRequest;
                         isSuccessful = warrantyService.editWarranty(idWarranty, warrantyFromRequest);
                     } catch (Exception e) {
                         isSuccessful = false;
@@ -80,19 +90,25 @@ public class ManageWarrantyController extends HttpServlet {
                         response.sendRedirect(request.getContextPath() + "/admin/manage_warranty");
                     }
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(), ip, LogLevel.WARNING.toString(),infoWarranty_before.toString(),infoWarranty_after.toString(),"Sửa thông tin bảo hành");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Sửa thành công !");
                     }
                     response.sendRedirect(request.getContextPath() + "/admin/manage_warranty");
                     break;
                 case "delete":
+                    InfoWarranty infoWarranty_delete = new InfoWarranty();
                     try {
                         int id = Integer.parseInt(request.getParameter("id"));
+                        infoWarranty_delete = warrantyService.findWarrantyById(id);
                         isSuccessful = warrantyService.deleteWarranty(id);
                     } catch (Exception e) {
                         isSuccessful = false;
                     }
                     if (isSuccessful) {
+                        LogDAO logDAO = new LogDAO();
+                        logDAO.insertLog(account.getId(), ip, LogLevel.WARNING.toString(),infoWarranty_delete.toString(),"Delete success","Xóa bảo hành");
                         request.getSession().setAttribute("status", true);
                         request.getSession().setAttribute("message", "Xóa thành công!");
                     } else {
