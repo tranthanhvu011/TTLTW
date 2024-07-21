@@ -247,6 +247,7 @@
                     });
                 });
             </script>
+
             <input type="hidden" id="firstProductVariant" value="<%= listproduct.get(0).getId() %>">
             <div class="image-product border_gr_bg_white" style="padding: 10px" id="productImages">
                 <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">
@@ -275,9 +276,10 @@
                     } // End of images check
                 } // End of product variants check
             %>
-
+            <fmt:setLocale value="${lang}" scope="session" />
+            <fmt:bundle basename="messages">
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
-                <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
+                <p class="black_14_600_none_align"><fmt:message key="ProductReviews"/></p>
                 <div class="">
                     <div class="soluong-sao">
                         <p class="black_14_400">5</p>
@@ -328,8 +330,9 @@
                 <!-- Nút để mở modal -->
                 <!-- Button trigger modal -->
                 <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
-                    Xem đánh giá
+                    <fmt:message key="Seereviews"/>
                 </button>
+                </fmt:bundle>
 
                 <!-- Modal -->
                 <div class="modal fade" id="modelrate" tabindex="-1" role="dialog"
@@ -394,12 +397,11 @@
                         </p>
                     </div>
                 </div>
-                <!-- Button trigger modal -->
+                <fmt:setLocale value="${lang}" scope="session" />
+                <fmt:bundle basename="messages">
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
-                    Xem cửa hàng còn sản phẩm
+                    <fmt:message key="Seeiftheproductisstillavailableinstore"/>
                 </button>
-
-                <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" style="width: fit-content">
                         <div class="modal-content">
@@ -428,8 +430,9 @@
                     </div>
                 </div>
 <%--               --%>
+
                 <div class="chonmau">
-                    <p style="font-size: 15px">Màu sắc:</p>
+                    <p style="font-size: 15px"><fmt:message key="Color"/></p>
                     <div class="mau" style="cursor: pointer;">
                         <%
                             ColorDAO colorDAO = new ColorDAO();
@@ -465,136 +468,52 @@
                     </div>
                 </div>
             </div>
-<%--            <script>--%>
-<%--                $(document).ready(function() {--%>
-<%--                    $("input[name='options']:eq(0)").prop("checked", true);--%>
-<%--                    $('.hinhanh:eq(0)').css('border', '3px solid #F3B95F');--%>
-<%--                    var colorID = $('.hinhanh:eq(0)').find('#colorID').html();--%>
-<%--                    var productID = $('.hinhanh:eq(0)').find('#productID').val();--%>
-<%--                    // console.log(colorID + '-' +productID);--%>
-<%--                    $('.hinhanh').click(function() {--%>
-<%--                        $('.hinhanh').css('border', '');--%>
-<%--                        $(this).css('border', '2px solid blue');--%>
-<%--                    });--%>
 
-<%--                    $('.hinhanh').on('click', function() {--%>
-<%--                        $('#soluong').val('1');--%>
-<%--                        var colorID = $(this).find('#colorID').html();--%>
-<%--                        var productID = $(this).find('#productID').val();--%>
-<%--                        var colorName = $(this).find('img').attr('alt');--%>
-<%--                        var colorSrc = $(this).find('img').attr('src');--%>
-<%--                        var s = '';--%>
-<%--                        $("input[name='options']:eq(0)").prop("checked", true);--%>
-
-<%--                        // console.log(colorID + '-' + productID + '-' + colorSrc);--%>
-<%--                        $.ajax({--%>
-<%--                            type: 'GET',--%>
-<%--                            url: '${pageContext.request.contextPath}/product-detail',--%>
-<%--                            data: {--%>
-<%--                                action: 'productvariant',--%>
-<%--                                productID : productID,--%>
-<%--                                colorID : colorID--%>
-<%--                            },--%>
-<%--                            success: function(data) {--%>
-<%--                                var productvariant = data.productVariant;--%>
-<%--                                var first = data.first;--%>
-<%--                                var last = data.last;--%>
-<%--                                const formattedNumber = productvariant.price.toLocaleString('vi-VN');--%>
-<%--                                $('#price').html(formattedNumber);--%>
-<%--                                $('#price1').html(formattedNumber);--%>
-<%--                                $('#currentColor').html(colorName);--%>
-<%--                                $('#currentImage').attr('src', colorSrc);--%>
-<%--                                s+= ' <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">';--%>
-<%--                                s+= '<img src="${pageContext.request.contextPath}/resources/assets/images/product/' + first.image_url +'" id="image-main"alt="ảnh iphone 15 promax" style="margin: 10px 0 10px 0">';--%>
-<%--                                s+= '</div>';--%>
-<%--                                s+= '<div class="imageProductOrder">';--%>
-<%--                                for (var i = 1; i < last.length; i++) {--%>
-<%--                                    s+= '<div class="imageOrder">';--%>
-<%--                                    s+= '<img class="img_Order" <img class="img_Order" src="${pageContext.request.contextPath}/resources/assets/images/product/' + last[i].image_url +'" alt="">';--%>
-<%--                                    s+= '</div>';--%>
-<%--                                }--%>
-<%--                                s+= '</div>';--%>
-<%--                                $('#productImages').html(s);--%>
-<%--                                $('.img_Order').on('click', function () {--%>
-<%--                                    var src_order = $(this).attr('src');--%>
-<%--                                    console.log(src_order);--%>
-<%--                                    $('#image-main').attr('src', src_order);--%>
-<%--                                });--%>
-
-<%--                            }--%>
-
-<%--                        });--%>
-
-<%--                    });--%>
-<%--                    $('input[name="options"]').change(function(){--%>
-<%--                        $('#soluong').val('1');--%>
-<%--                        var capacityID = $('input[name="options"]:checked').next('label').html();--%>
-<%--                        $.ajax({--%>
-<%--                            type: 'GET',--%>
-<%--                            url: '${pageContext.request.contextPath}/product-detail',--%>
-<%--                            data: {--%>
-<%--                                action: 'productvariantcapacity',--%>
-<%--                                productID : productID,--%>
-<%--                                colorID : colorID,--%>
-<%--                                capacityID : capacityID--%>
-<%--                            },--%>
-<%--                            success: function(data) {--%>
-<%--                                const formattedNumber = data.price.toLocaleString('vi-VN');--%>
-<%--                                $('#price').html(formattedNumber);--%>
-<%--                                $('#price1').html(formattedNumber);--%>
-
-<%--                            }--%>
-<%--                        });--%>
-<%--                    });--%>
-
-<%--                });--%>
-
-<%--            </script>--%>
             <div class="khuyenmai border_gr_bg_white" style="margin-top: 10px;">
-                <p class="khuyenmai-text">Khuyến mãi</p>
+                <p class="khuyenmai-text">                    <fmt:message key="Promotion"/>
+                </p>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p>Khách hàng có thể mua trả góp sản phẩm với lãi suất 0% với thời hạn 6 tháng kể từ khi mua
-                        hàng.</p>
+                    <p> <fmt:message key="Customerscanbuyproductsininstallmentswith0%interestratefor6monthsfromthedateofpurchase."/></p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p>Trong hộp có: Sạc, Tai nghe, Sách hướng dẫn, Cây lấy sim, Ốp lưng</p>
+                    <p> <fmt:message key="IntheboxChargerHeadphonesUsermanualSIMejectorpinCase"/></p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p>Bảo hành chính hãng 12 tháng.</p>
+                    <p> <fmt:message key="12monthgenuinewarranty"/></p>
                 </div>
                 <div class="chitietkhuyemai">
                     <i class="fa-solid fa-circle-check"></i>
-                    <p>1 đổi 1 trong 1 tháng nếu lỗi, đổi sản phẩm tại nhà trong 1 ngày.</p>
+                    <p> <fmt:message key="1for1exchangewithin1monthifdefective,productexchangeathomewithin1day."/></p>
                 </div>
             </div>
             <div class="warranty_info border_gr_bg_white" style="padding: 10px;margin-top: 10px">
-                <p class="black_14_600_none_align">Thông tin bảo hành</p>
+                <p class="black_14_600_none_align"><fmt:message key="Warrantyinformation"/></p>
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0">Thời gian bảo hành</p>
+                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantyperiod"/></p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getTime_warranty()%>
                     </p>
                 </div>
                 <hr style="width: 100%;margin: 5px 0 5px 0">
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0">Hình thức bảo hành</p>
+                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantyform"/></p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getTerm_waranty()%>
                     </p>
                 </div>
                 <hr style="width: 100%;margin: 5px 0 5px 0">
                 <div style="display: flex">
-                    <p class="black_14_400" style="margin: 0">Nơi bảo hành</p>
+                    <p class="black_14_400" style="margin: 0"><fmt:message key="Warrantylocation"/></p>
                     <p class="black_14_400"
                        style="margin: 0 0 0 15px"><%=firstVariant.getProduct().getInfoWarranty().getAddress_warranty()%>
                     </p>
                 </div>
             </div>
             <div class="thongsokythuat border_gr_bg_white" style="margin-top: 10px">
-                <p class="black_14_600_none_align" style="margin-top: 10px;margin-left: 10px;">Thông số kĩ thuật</p>
+                <p class="black_14_600_none_align" style="margin-top: 10px;margin-left: 10px;"><fmt:message key="Specifications"/></p>
                 <table class="" style="padding-left: 10px;padding-right: 10px;border: none">
                     <tr>
                         <td>Dung lượng pin</td>
@@ -723,6 +642,8 @@
                     </form>
                 </div>
             </div>
+            </fmt:bundle>
+
             <script>
                 document.getElementById('myForm').onsubmit = function() {
                     var date = new Date();
@@ -959,7 +880,9 @@
 
 
             </div>
-            <p id="giatamtinh" style="font-size: 20px;font-weight: 500">Tạm tính</p>
+            <fmt:setLocale value="${lang}" scope="session" />
+            <fmt:bundle basename="messages">
+            <p id="giatamtinh" style="font-size: 20px;font-weight: 500"><fmt:message key="Provisional"/></p>
             <p id="price1"><%= numberFormatVN.format(firstVariant.getPrice()) %>
             </p>
 
@@ -968,19 +891,22 @@
             <div class="button-buy">
                 <a id="buynow" href="#">
                     <button class="muatructiep-btn">
-                        <span>Mua ngay</span>
+                        <span><fmt:message key="buynow"/></span>
                     </button>
                 </a>
                 <a href="#" id="addToCart">
                     <button class="themgiohang-btn">
                         <span class="them"><i class="fa-solid fa-cart-shopping"></i>
-                            <p style=" background-color: transparent; margin-bottom: 0">Thêm vào giỏ hàng</p></span>
+                            <p style=" background-color: transparent; margin-bottom: 0"><fmt:message key="Addtocart"/></p></span>
                     </button>
+                    </fmt:bundle>
+
                 </a>
             </div>
         </div>
     </div>
 </div>
+
 <%@include file="/common/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user/productDetails.js"></script>
