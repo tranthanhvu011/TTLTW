@@ -40,10 +40,18 @@ public class UpdateUserController extends HttpServlet {
         String phone = request.getParameter("phone_number");
         String gender = request.getParameter("selectedButton");
         String role = request.getParameter("role");
+        String nameRole = "";
+        if (Integer.parseInt(role) == 1) {
+            nameRole = "admin";
+        } else if (Integer.parseInt(role) == 2) {
+            nameRole = "manage";
+        }else{
+            nameRole="user";
+        }
         int is_active = Integer.parseInt(request.getParameter("is_active"));
         Account user = userService.getUserById(idUser);
         try {
-            Map<String, Object> user1 = compareUser(user, email, firstName, lastName, address, dob, phone, gender, role, is_active);
+            Map<String, Object> user1 = compareUser(user, email, firstName, lastName, address, dob, phone, gender, nameRole, is_active);
             if (user1.isEmpty()) {
                 request.getSession().setAttribute("status", false);
                 request.getSession().setAttribute("message", "Vui lòng nhập thông tin cần thay đổi");
