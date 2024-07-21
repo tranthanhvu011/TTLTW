@@ -263,23 +263,59 @@ public class ProductVariantDAO {
                 handle.createQuery(query).mapTo(Integer.class).one()
         );
     }
-    public static List<Integer> getAllIdProductVariant() {
+    public  List<Integer> getAllIdProductVariant() {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT id FROM productvariants")
                         .mapTo(Integer.class)
                         .list()
         );
     }
-    public  String getProductNameByVariantId(int variantId) {
+    public String getProductNameByVariantId(int variantId) {
         return JDBIConnector.me().withHandle(handle ->
                 handle.createQuery("SELECT p.name FROM products p JOIN productvariants pv ON p.id = pv.product_id WHERE pv.id = :variantId")
                         .bind("variantId", variantId)
                         .mapTo(String.class)
+                        .findFirst() // Sử dụng findFirst() để tránh lỗi khi không có kết quả
+                        .orElse("Unknown Product") // Cung cấp giá trị mặc định nếu không có kết quả
+        );
+    }
+
+    public int getProductIdByVariantId(int variantId) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT p.id FROM products p JOIN productvariants pv ON p.id = pv.product_id WHERE pv.id = :variantId")
+                        .bind("variantId", variantId)
+                        .mapTo(int.class)
                         .findOnly()
         );
     }
+
+    public String getThumbnailUrlByProductId(int productId) {
+        String query = "SELECT thumbnail_url FROM products WHERE id = :productId";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("productId", productId)
+                        .mapTo(String.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
+
+    public String getImageFirtProductVariant(int productVariantId) {
+        String query = "SELECT image_url FROM productimages WHERE product_variant_id = :productVariantId ORDER BY id LIMIT 1";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("productVariantId", productVariantId)
+                        .mapTo(String.class)
+                        .findOnly()
+        );
+    }
+
+
     public static void main(String[] args) {
-//        System.out.println(ProductVariantDAO.getProductNameByVariantId(3));
-//        System.out.println(ProductVariantDAO.getAllIdProductVariant());
+    ProductVariantDAO productVariantDAO = new ProductVariantDAO();
+//   ProductVariant productVariant = ProductVariantDAO.getColorAndCapacityProductVariantByID(3);
+
+//        System.out.println(productVariant.getNameCapacity());
+        System.out.println(productVariantDAO.getImageFirtProductVariant(4));
     }
 }
