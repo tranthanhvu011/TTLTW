@@ -142,6 +142,7 @@
                 <div class="p-t-15">
                     <button class="btn btn--radius-2 btn--blue" type="button" onclick="checkCaptcha()" style="width: 100%">Đăng nhập</button>
                 </div>
+
             </form>
             <% List<String> errorMessage = (List<String>) request.getAttribute("errors");
                 if (errorMessage != null) {

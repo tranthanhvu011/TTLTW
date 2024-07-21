@@ -256,10 +256,10 @@
                             <td><input type="number" name="priceAll_<%=idProduct%>" placeholder="Nhập giá" min="0"></td>
                             <td>
                                 <select style="width: 70%;" name="branch_<%=idProduct%>" required>
-                                    <option value="">Chọn chi nhánh</option>
+                                    <option value="">Chọn đơn hàng( Người đại diện)</option>
                                     <% if (nhapHangList != null) { %>
                                     <% for (NhapHang nhapHang : nhapHangList) { %>
-                                    <option value="<%= nhapHang.getId() %>"><%= branchDAO.getBranchById(nhapHang.getIdChiNhanh()).getName() %></option>
+                                    <option value="<%= nhapHang.getId() %>"><%= nhapHang.getTenNguoiDaiDien()%></option>
                                     <% } %>
                                     <% } %>
                                 </select>

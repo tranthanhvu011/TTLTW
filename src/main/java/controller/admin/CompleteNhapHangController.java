@@ -1,6 +1,11 @@
 package controller.admin;
 
+import dao.BranchDAO;
+import dao.ChiNhanhProductDAO;
+import dao.NhapHangDAO;
 import dao.NhapHangProductVariantDAO;
+import model.ChiNhanh;
+import model.ChiNhanhProduct;
 import model.NhapHang;
 import model.ProductInventory;
 import javax.servlet.ServletException;
@@ -18,6 +23,7 @@ public class CompleteNhapHangController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String[]> parameterMap = request.getParameterMap();
+        ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
 
         for (String paramName : parameterMap.keySet()) {
             if (paramName.startsWith("quantity_")) {
@@ -30,7 +36,15 @@ public class CompleteNhapHangController extends HttpServlet {
                 int warehouseId = Integer.parseInt(request.getParameter("warehouse_" + idProductStr));
 
                 boolean success = nhapHangProductVariantDAO.addNhapHangProductVariant(branchId, warehouseId, idProduct, quantity, priceOne, priceAll);
+                BranchDAO branchDAO = new BranchDAO();
+                NhapHangDAO nhapHangDAO = new NhapHangDAO();
+                NhapHang nhapHang = nhapHangDAO.getById(branchId);
+                ChiNhanh chiNhanh = branchDAO.getBranchById(nhapHang.getIdChiNhanh());
+                ChiNhanhProduct chiNhanhProduct = new ChiNhanhProduct(
+                        chiNhanh.getId(), idProduct, quantity, priceOne, priceAll
+                );
 
+                chiNhanhProductDAO.addOrUpdateQuantity(chiNhanh.getId(), idProduct, quantity, priceOne);
                 if (!success) {
                     request.setAttribute("error", "Lỗi khi thêm sản phẩm có ID: " + idProduct);
                     return;

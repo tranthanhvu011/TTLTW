@@ -135,6 +135,16 @@
                                     <span>Quản lý sản phẩm trong kho</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_import_coupon">
+                                    <span>Quản lý phiếu nhập hàng</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/manage_import_details">
+                                    <span>Lịch sử  nhập hàng</span>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>

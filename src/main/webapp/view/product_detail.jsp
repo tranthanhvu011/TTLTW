@@ -395,6 +395,7 @@
                     </div>
                 </div>
                 <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
                     Xem cửa hàng còn sản phẩm
                 </button>
@@ -407,19 +408,8 @@
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách cửa hàng</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-<%--                            Danh sách chi nhánh ở đây--%>
                             <div class="modal-body" id="listStore">
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div><div>còn <span>6</span> sản phẩm</div>
-                                </div>
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>8</span> sản phẩm</div>
-                                </div>
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>16</span> sản phẩm</div>
-                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -777,6 +767,7 @@
                 <script>
 
                     $(document).ready(function () {
+                        var idVariant;
                         var quantityInput = $('#soluong'); // Lấy giá trị số lượng ban đầu
 // Hàm lấy số lượng sau khi thay đổi
                         function getUpdatedQuantity() {
@@ -835,8 +826,10 @@
                                     colorID: colorID
                                 },
                                 success: function (data) {
+                                    idVariant = data.pr;
+                                    console.log("id productvariant"+idVariant);
                                     var productvariant = data.productVariant;
-                                    console.log(productvariant.id);
+                                    console.log("id productvariant"+ productvariant.id);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + productvariant.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + productvariant.id);
                                     var first = data.first;
@@ -857,8 +850,6 @@
                                     }
                                     s += '</div>';
                                     $('#productImages').html(s);
-
-
                                 }
 
                             });
@@ -878,6 +869,8 @@
                                     capacityID: capacityID.trim()
                                 },
                                 success: function (data) {
+                                    idVariant = data.id;
+                                    console.log(idVariant);
                                     console.log("Số lượng sau khi thay đổi lựa chọn: " + quantityInput);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + data.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + data.id);
@@ -888,6 +881,7 @@
                                 }
                             });
                         });
+
                         $('#addToCart').click(function () {
 
                             // var attrSoluong = $('#addToCart').attr('href');
@@ -982,6 +976,9 @@
     </div>
 </div>
 <%@include file="/common/footer.jsp" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user/productDetails.js"></script>
 <%--<%@include file="/resources/js/user/productDetails.js" %>--%>
