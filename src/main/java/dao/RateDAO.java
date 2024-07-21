@@ -15,6 +15,17 @@ public class RateDAO {
                         .execute()
         );
     }
+    public boolean checkRateByAccountId(int productId, int accountId) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT 1 FROM rate WHERE product_id = :productId AND account_id = :accountId")
+                        .bind("productId", productId)
+                        .bind("accountId", accountId)
+                        .mapTo(Integer.class)
+                        .findFirst()
+                        .isPresent()
+        );
+    }
+
 
     public void addRate(Rate rate) {
         JDBIConnector.me().withHandle(
@@ -46,6 +57,6 @@ public class RateDAO {
 
     public static void main(String[] args) {
         RateDAO rateDAO = new RateDAO();
-        System.out.println(rateDAO.getRatesByProductId(173));
+      System.out.println(rateDAO.checkRateByAccountId(171,124));
     }
 }

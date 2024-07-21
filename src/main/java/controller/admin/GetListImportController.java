@@ -1,5 +1,5 @@
 package controller.admin;
-
+// class này để xử lý xóa list đơn hàng được chọn, dùng ajax để xử lý
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

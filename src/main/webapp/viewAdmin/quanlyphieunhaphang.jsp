@@ -1,21 +1,22 @@
-﻿<%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.*" %>
+<%@ page import="dao.ProductDAO" %>
 <%@ page import="modelDB.ProductDB" %>
-<%@ page import="dao.*" %><%--
+<%@ page import="dao.NhapHangDAO" %>
+<%@ page import="dao.BranchDAO" %><%--
   Created by IntelliJ IDEA.
   Date: 2023-11-29
   Time: 3:50 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%
-    List<NhapHangProductVariant> list = (List<NhapHangProductVariant>) request.getAttribute("nhaphangdetail");
+    List<NhapHang> list = (List<NhapHang>) request.getAttribute("listNhapHang");
     if (list == null) list = new ArrayList<>();
-    ProductVariantDAO productVariantDAO = new ProductVariantDAO();
-    InventoryDAO inventoryDAO = new InventoryDAO();
-    BranchDAO branchDAO = new BranchDAO();
-    NhapHangDAO nhapHangDAO = new NhapHangDAO();
-    ProductInventoryDAO productInventoryDAO = new ProductInventoryDAO();
+    List<ChiNhanh> chiNhanhList = (List<ChiNhanh>) request.getAttribute("chiNhanhList");
+    if (list==null){
+        list=new ArrayList<>();
+    }
 %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -224,40 +225,30 @@
 
         <div class="single-table"
              style="margin: 0px 30px; padding-bottom: 15px">
-            <button id="export-excel" style="margin-bottom: 20px;margin-left: 90%;">Xuất excel</button>
+            <button id="openAddPopup" style="margin-bottom: 20px;">Thêm phiếu nhập hàng</button>
             <div class="table-responsive">
                 <!-- Table -->
                 <table id="table_inventory" class="table text-center">
                     <thead class="text-uppercase bg-primary">
                     <tr class="text-white">
                         <th scope="col">ID</th>
-                        <th scope="col">Tên chi nhánh nhâp</th>
-                        <th scope="col">Tên kho</th>
-                        <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Giá một sản phẩm</th>
-                        <th scope="col">Giá tất cả sản phẩm</th>
-                        <th scope="col">Ngày nhập</th>
+                        <th scope="col">Id chi nhánh</th>
+                        <th scope="col">Tên chi nhánh</th>
+                        <th scope="col">Tên người đại diện</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (NhapHangProductVariant n : list) { %>
-                    <tr id="log-<%=n.getId()%>">
-                        <%
-                            String tenSanPham = productVariantDAO.getProductNameByVariantId(n.getIdProductVariant());
-                                int idKho = n.getIdkho();
-                                String tenKho = inventoryDAO.getInventoryByID(productInventoryDAO.getProductInventoryById(idKho).getIdKho()).getNameKho();
-                            NhapHang nhapHang = nhapHangDAO.getById(n.getIdnhaphang());
-                            String tenChiNhanh = branchDAO.getBranchById(nhapHang.getIdChiNhanh()).getName();
+                    <% for (NhapHang nhapHang : list) { %>
+                    <tr id="log-<%=nhapHang.getId()%>">
+                    <td><%=nhapHang.getId()%></td>
+                        <td><%=nhapHang.getIdChiNhanh()%></td>
+                        <%  BranchDAO branchDAO = new BranchDAO();
+                        String tenChiNhanh = branchDAO.getBranchById(nhapHang.getIdChiNhanh()).getName();
                         %>
-                        <td><%=n.getId()%></td>
                         <td><%=tenChiNhanh%></td>
-                        <td><%=tenKho%></td>
-                        <td><%=tenSanPham%></td>
-                        <td><%=n.getQuantityProduct()%></td>
-                        <td><%=n.getPriceOneProduct()%></td>
-                        <td><%=n.getPriceAllProduct()%></td>
-                        <td><%=n.getNgayNhapHang()%></td>
+                        <td><%=nhapHang.getTenNguoiDaiDien()%></td>
+
                     </tr>
                     <% } %>
                     </tbody>
@@ -281,24 +272,94 @@
 
 
 
+<!-- Add Inventory Popup -->
+<div id="addPopup" class="popup">
+    <form action="/admin/manage_import_coupon" method="post" id="addInventoryForm">
+        <input type="hidden" name="action" value="add">
+        <div class="form-group">
+            <label >Chọn chi nhánh</label>
+            <select name="chiNhanh">
+                <%
+                    if (chiNhanhList != null) {
+                        for (ChiNhanh chiNhanh : chiNhanhList) {
+                %>
+                <option value="<%= chiNhanh.getId() %>"><%= chiNhanh.getName() %></option>
+                <%
+                        }
+                    }
+                %>
+            </select>
 
+        </div>
+        <div class="form-group">
+            <label >Tên người đại diện</label>
+            <input type="text" name="tenNguoiDaiDien" required placeholder="Nhập họ và tên">
+        </div>
+        <button type="button" id="closeAddPopup" class="btn-close">Đóng</button>
+        <button type="submit" class="btn-submit">Thêm</button>
+    </form>
+</div>
+
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.875em;
+    }
+    /* Các style khác cho popup */
+</style>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script>
-    document.getElementById('export-excel').addEventListener('click', function() {
-        var wb = XLSX.utils.table_to_book(document.getElementById('table_inventory'), {sheet: "Sheet1"});
-        XLSX.writeFile(wb, 'InventoryData.xlsx');
+    document.addEventListener('DOMContentLoaded', function() {
+        var openAddPopupButton = document.getElementById('openAddPopup');
+        var addPopup = document.getElementById('addPopup');
+        var closeAddPopupButton = document.getElementById('closeAddPopup');
+
+        // Open the add inventory popup
+        openAddPopupButton.addEventListener('click', function() {
+            addPopup.style.display = 'block';
+        });
+
+        // Close the add inventory popup
+        closeAddPopupButton.addEventListener('click', function() {
+            addPopup.style.display = 'none';
+        });
     });
+
 </script>
+
 
 
 <script>
     new DataTable('#table_inventory');
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script>
+    $(document).ready(function(){
+        $('.delete-inventory').click(function(){
+            var khoHangId = $(this).data('id');
+            $.ajax({
+                url: '/admin/manage_inventory',
+                type: 'POST',
+                data: {
+                    action: 'delete',
+                    id: khoHangId
+                },
+                success: function(response){
+                    if(response === 'success'){
+                        $('#log-' + khoHangId).remove();
+                    } else {
+                        alert('Xóa không thành công');
+                    }
+                },
+                error: function(){
+                    alert('Có lỗi xảy ra');
+                }
+            });
+        });
+    });
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

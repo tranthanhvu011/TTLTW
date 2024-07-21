@@ -5,12 +5,13 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/common/header.jsp" value="file://$PROJECT_DIR$/src/main/webapp/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/view/new_order.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/view/product_detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/view" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/edit_product_home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_comment_product_detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
-        <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_productinventory.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_product.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_product_home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_productinventory.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_user.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/manage_warranty.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/viewAdmin/revenue_statistics.jsp" value="file://$PROJECT_DIR$/src/main/webapp/viewAdmin" />

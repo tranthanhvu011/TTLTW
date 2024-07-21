@@ -36,10 +36,9 @@ public class NhapHangDAO {
         );
         return rowsAffected > 0;
     }
-    public boolean add(int idKho, int idChiNhanh, String tenNguoiDaiDien) {
+    public boolean add( int idChiNhanh, String tenNguoiDaiDien) {
         int rowsAffected = JDBIConnector.me().withHandle(handle ->
-                handle.createUpdate("INSERT INTO nhapHang (idKho, idChiNhanh, tenNguoiDaiDien) VALUES (:idKho, :idChiNhanh, :tenNguoiDaiDien)")
-                        .bind("idKho", idKho)
+                handle.createUpdate("INSERT INTO nhapHang (idChiNhanh, tenNguoiDaiDien) VALUES ( :idChiNhanh, :tenNguoiDaiDien)")
                         .bind("idChiNhanh", idChiNhanh)
                         .bind("tenNguoiDaiDien", tenNguoiDaiDien)
                         .execute()
@@ -58,6 +57,6 @@ public class NhapHangDAO {
     }
     public static void main(String[] args) {
         NhapHangDAO nhapHangDAO = new NhapHangDAO();
-        System.out.println(nhapHangDAO.getById(1));
+    System.out.println(nhapHangDAO.add(1,"Trung"));
     }
 }

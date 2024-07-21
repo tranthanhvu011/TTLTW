@@ -21,21 +21,20 @@ public class RateController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        rateDAO = new RateDAO(); // Khởi tạo đối tượng RateDAO
+        rateDAO = new RateDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String productIdStr = req.getParameter("id");
         if (productIdStr != null) {
             int productId = Integer.parseInt(productIdStr);
             List<Rate> rates = rateDAO.getRatesByProductId(productId);
 
-            // Chuyển đổi danh sách các đối tượng Rate thành JSON
             Gson gson = new Gson();
             String jsonRates = gson.toJson(rates);
 
-            // Gửi JSON về client
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(jsonRates);
@@ -51,12 +50,30 @@ public class RateController extends HttpServlet {
         int star = Integer.parseInt(req.getParameter("star")); // Chuyển đổi giá trị số sao từ String sang int
         Account account = (Account) req.getSession().getAttribute("account");
         int id = Integer.parseInt(req.getParameter("id"));
-        Rate rate = new Rate();
-        rate.setProduct_id(id);
-        rate.setAccount_id(account.getId());
-        rate.setComment(comment);
-        rate.setNumber_rate(star);
-        rateDAO.addRate(rate);
-        resp.sendRedirect(req.getContextPath() + "/user/order"); // Thay đổi thành trang hoặc đường dẫn mong muốn
+        int status = Integer.parseInt(req.getParameter("status"));
+
+            RateDAO dao = new RateDAO();
+            boolean check_comment = dao.checkRateByAccountId(id,account.getId());
+            if(check_comment== false){
+                Rate rate = new Rate();
+                rate.setProduct_id(id);
+                rate.setAccount_id(account.getId());
+                rate.setComment(comment);
+                rate.setNumber_rate(star);
+                rateDAO.addRate(rate);
+                req.getSession().setAttribute("message","Đánh giá thành công ");
+                req.getSession().setAttribute("status",true);
+                resp.sendRedirect(req.getContextPath() + "/user/your_order");
+            }else{
+               if (status!=6){
+                   req.getSession().setAttribute("message","Hãy đánh giá khi đơn hàng được giao thành công!");
+                   req.getSession().setAttribute("status",false);
+                   resp.sendRedirect(req.getContextPath() + "/user/your_order");
+               }else {
+                   req.getSession().setAttribute("message","Sản phẩm đã được đánh giá");
+                   req.getSession().setAttribute("status",false);
+                   resp.sendRedirect(req.getContextPath() + "/user/your_order");
+               }
+            }
     }
 }
