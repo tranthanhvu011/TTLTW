@@ -7,15 +7,20 @@ import java.util.Locale;
 
 public class Formater {
     static final Locale locale = new Locale("vi", "VN");
-    static final DecimalFormat customFormatter;
-
+    static final NumberFormat currencyFormatter;
     static {
-        // Initialize the customFormatter with the pattern for rounding to the nearest whole number
-        customFormatter = new DecimalFormat("#.###");
+        // Initialize the currencyFormatter for VND
+        currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+        DecimalFormatSymbols symbols = ((DecimalFormat) currencyFormatter).getDecimalFormatSymbols();
+        symbols.setCurrencySymbol(""); // Remove the currency symbol
+        ((DecimalFormat) currencyFormatter).setDecimalFormatSymbols(symbols);
+
     }
 
     public static String formatCurrency(double price) {
-        // Round to the nearest whole number and format
-        return customFormatter.format(Math.round(price));
+        return currencyFormatter.format(Math.round(price)) + "VNĐ";
+    }
+    public static String formatCurrency1(double price) {
+        return currencyFormatter.format(Math.round(price));
     }
 }

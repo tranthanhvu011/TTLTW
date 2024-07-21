@@ -2,6 +2,7 @@ package dao;
 
 import config.JDBIConnector;
 import model.Discount;
+import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.StatementContext;
 
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DiscountDAO {
+    private static final Jdbi jdbi = JDBIConnector.me();
 
     public List<Discount> getDiscountsByProductId(int productId) {
         String query = "SELECT Discounts. * from Discounts INNER JOIN DiscountProduct\n" +
@@ -60,11 +62,7 @@ public class DiscountDAO {
                 .toInstant());
     }
 
-    public static void main(String[] args) {
-//        DiscountDAO discountDAO = new DiscountDAO();
-//        List<Discount> discounts = discountDAO.getAllDiscount();
-        System.out.println(DiscountDAO.isDiscount(3,1));
-    }
+
 
     public static Discount findDiscountByCode(String code) {
         String query = "SELECT * FROM discounts WHERE code = ?";
@@ -187,6 +185,32 @@ public class DiscountDAO {
                 .execute());
         return result > 0;
     }
+    public Optional<Discount> getDiscountByIdProduct(int idProduct) {
+        String query = "SELECT discounts.* FROM discounts " +
+                "INNER JOIN discountproduct ON discounts.id = discountproduct.discount_id " +
+                "INNER JOIN products ON discountproduct.product_id = products.id " +
+                "WHERE products.id = ?";
+        try {
+            return jdbi.withHandle(handle -> handle.createQuery(query)
+                    .bind(0, idProduct)
+                    .map((rs, ctx) -> {
+                        Discount discount = new Discount();
+                        discount.setId(rs.getInt("id"));
+                        discount.setCost(rs.getDouble("cost"));
+                        discount.setName(rs.getString("name"));
+                        discount.setCode(rs.getString("code"));
+                        discount.setIs_active(rs.getInt("is_active"));
+                        discount.setAtStart(rs.getString("start_at"));
+                        discount.setEndStart(rs.getString("end_at"));
+                        return discount;
+                    })
+                    .findOne());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
 
     public boolean deleteDiscount(int id) {
         String query = "DELETE FROM discounts WHERE id = ?;";
@@ -194,5 +218,10 @@ public class DiscountDAO {
                 .bind(0, id)
                 .execute());
         return result > 0;
+    }
+
+    public static void main(String[] args) {
+        DiscountDAO discountDAO = new DiscountDAO();
+        System.out.print(discountDAO.getDiscountByIdProduct(197));
     }
 }

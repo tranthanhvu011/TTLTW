@@ -83,18 +83,6 @@ public class ProductDAO {
 
     public int update(ProductDB productDB) {
         String query = "UPDATE products SET name = ?,manufacturer_id = ? , sell_quantity = ? , remaning_quantity = ? , thumbnail_url = ? , price = ? , description = ? , info_warranty_id = ? WHERE id = ?";
-//        return JDBIConnector.me().withHandle(
-//                handle -> handle.createUpdate(query)
-//                        .bind(0, "'" + productDB.getName() + "'")
-//                        .bind(1, productDB.getManufacturer_id())
-//                        .bind(2, productDB.getSell_quantity())
-//                        .bind(3, productDB.getRemaning_quantity())
-//                        .bind(4, "'" + productDB.getThumbnail_url() + "'")
-//                        .bind(5, productDB.getPrice())
-//                        .bind(6, "'" + productDB.getDescription() + "'")
-//                        .bind(7, productDB.getInfo_warranty_id())
-//                        .bind(8, productDB.getId())
-//                        .execute()
         return JDBIConnector.me().withHandle(
                 handle -> handle.createUpdate(query)
                         .bind(0, productDB.getName())
@@ -109,6 +97,51 @@ public class ProductDAO {
                         .execute()
         );
     }
+//    public boolean updateProduct(int quantitySell, int remainingQuantity, double priceProduct, String desString, int idDiscount, int idProduct) {
+//        String query = "UPDATE products SET sell_quantity = ? , remaning_quantity = ? , price = ? , description = ? WHERE id = ?";
+//        return JDBIConnector.me().withHandle(
+//                handle -> handle.createUpdate(query)
+//                        .bind(0, quantitySell)
+//                        .bind(1, remainingQuantity)
+//                        .bind(2, priceProduct)
+//                        .bind(3, desString)
+//                        .bind(4, idProduct)
+//                        .execute());
+//
+//    }
+//    public boolean updateDiscount(int idProduct, int idDiscount) {
+//        String query ="Update discountproduct set discount_id = ? where product_id = ?";
+//        return JDBIConnector.me().withHandle(handle -> handle.createUpdate(query)
+//                .bind(0, idDiscount)
+//                .bind(1, idProduct)
+//                .execute());
+//    }
+public boolean updateProductAndDiscount(int quantitySell, int remainingQuantity, double priceProduct, String description, int idDiscount, int idProduct) {
+    return JDBIConnector.me().withHandle(handle -> {
+        handle.begin();  // Bắt đầu giao dịch
+        boolean productUpdated = handle.createUpdate("UPDATE products SET sell_quantity = ?, remaning_quantity = ?, price = ?, description = ? WHERE id = ?")
+                .bind(0, quantitySell)
+                .bind(1, remainingQuantity)
+                .bind(2, priceProduct)
+                .bind(3, description)
+                .bind(4, idProduct)
+                .execute() > 0;
+
+        boolean discountUpdated = handle.createUpdate("UPDATE discountproduct SET discount_id = ? WHERE product_id = ?")
+                .bind(0, idDiscount)
+                .bind(1, idProduct)
+                .execute() > 0;
+
+        if (productUpdated && discountUpdated) {
+            handle.commit();  // Cam kết giao dịch nếu cả hai cập nhật thành công
+            return true;
+        } else {
+            handle.rollback();  // Lùi giao dịch nếu một trong các cập nhật thất bại
+            return false;
+        }
+    });
+}
+
     public boolean updateNewPrice(double priceNew, int idProduct) {
         String query = "UPDATE products SET priceNew = :priceNew WHERE id = :id";
         return JDBIConnector.me().withHandle(
@@ -119,7 +152,7 @@ public class ProductDAO {
         ) > 0; // Kiểm tra xem có bất kỳ hàng nào được cập nhật hay không
     }
 
-    public List<Integer> findProductByIDWarranty(int id) {
+    public static List<Integer> findProductByIDWarranty(int id) {
         List<Integer> products = JDBIConnector.me().withHandle(handle -> {
             String query = "SELECT p.id FROM Products p WHERE p.info_warranty_id = ?";
             return handle.createQuery(query).bind(0, id).mapTo(Integer.class).list();
@@ -150,7 +183,7 @@ public class ProductDAO {
     }
 
     public static void main(String[] args) {
-     System.out.println(getAllIdProduct());
+     System.out.println(findProductByIDWarranty(150));
 
     }
 }

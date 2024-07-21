@@ -229,6 +229,18 @@ public class ProductVariantDAO {
 
 
     }
+    public static Integer updateVariant(Double priceVariant, int stateVariant, int idVariant) {
+
+        String query = "UPDATE productvariants SET " +
+                "productvariants.price = ? , productvariants.state = ? " +
+                "WHERE productvariants.id = ? ; ";
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind(0, priceVariant)
+                        .bind(1, stateVariant)
+                        .bind(2, idVariant)
+                        .execute());
+    }
 
     public List<Integer> findProductVariantByCapacityId(int id) {
         String query = "SELECT id FROM productvariants WHERE capacity_id = ?";

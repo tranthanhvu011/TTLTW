@@ -20,6 +20,25 @@ public class Discount {
 
     private Date end_at;
 
+    private String atStart;
+    private String endStart;
+
+    public String getAtStart() {
+        return atStart;
+    }
+
+    public void setAtStart(String atStart) {
+        this.atStart = atStart;
+    }
+
+    public String getEndStart() {
+        return endStart;
+    }
+
+    public void setEndStart(String endStart) {
+        this.endStart = endStart;
+    }
+
     public int getId() {
         return id;
     }
@@ -86,6 +105,8 @@ public class Discount {
                 ", is_active=" + is_active +
                 ", start_at=" + start_at +
                 ", end_at=" + end_at +
+                ", atStart='" + atStart + '\'' +
+                ", endStart='" + endStart + '\'' +
                 '}';
     }
 }
