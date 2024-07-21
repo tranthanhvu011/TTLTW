@@ -128,7 +128,7 @@ public class UserDAO {
 
     public int activeUserById(int idUser) {
         int rowUpdated = 0;
-        String query = "UPDATE Accounts SET is_active = 1 WHERE id = ?";
+        String query = "UPDATE Accounts SET ban = 0 WHERE id = ?";
         rowUpdated = JDBIConnector.me().withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind(0, idUser)
@@ -146,7 +146,7 @@ public class UserDAO {
 
     public int blockUserById(int idUser) {
         int rowUpdated = 0;
-        String query = "UPDATE Accounts SET is_active = 0 WHERE id = ?";
+        String query = "UPDATE Accounts SET ban = 1 WHERE id = ?";
         rowUpdated = JDBIConnector.me().withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind(0, idUser).execute();

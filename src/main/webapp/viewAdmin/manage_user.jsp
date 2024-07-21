@@ -333,7 +333,7 @@
                         <th scope="col">Năm Sinh</th>
                         <th scope="col">Địa Chỉ</th>
                         <th scope="col">Giới Tính</th>
-                        <th scope="col">Active</th>
+                        <th scope="col">Ban</th>
                         <th scope="col">Số Điện Thoại</th>
                         <th scope="col">Lần Cuối Đăng Nhập</th>
                         <th scope="col">HÀNH ĐỘNG</th>
@@ -368,7 +368,7 @@
                         <%} else {%>
                         <td>Khong xac dinh</td>
                         <%}%>
-                        <%if (user.getIs_active() == 0) {%>
+                        <%if (user.getBan() == 1) {%>
                         <td>
                             <a href="/admin/user/manage_user?action=active&id=<%=user.getId()%>">
                                 <button class="btn btn-primary" style="background-color: lawngreen">
