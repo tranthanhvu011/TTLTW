@@ -63,11 +63,16 @@ public class ChiNhanhProductDAO {
             add(chiNhanhProduct);
         }
     }
-
+    public List<ChiNhanhProduct> getChiNhanhByProductId(int idProductVariant) {
+        return JDBIConnector.me().withHandle(handle ->
+                handle.createQuery("SELECT idChiNhanh, idProductVariant, quantityProductVariant, priceOneProductVariant, priceAllProductVariant FROM productchinhanh WHERE idProductVariant = :idProductVariant")
+                        .bind("idProductVariant", idProductVariant)
+                                   .mapToBean(ChiNhanhProduct.class)
+                                .list()
+                        );
+    }
     public static void main(String[] args) {
         ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
-        chiNhanhProductDAO.deleteById(2);
-        chiNhanhProductDAO.deleteById(3);
-        chiNhanhProductDAO.deleteById(4);
+      System.out.println(chiNhanhProductDAO.getChiNhanhByProductId(7));
     }
 }
