@@ -37,6 +37,8 @@ public class ProductDetailController extends HttpServlet {
     protected void doGet_Index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductDetalService productDetalService = new ProductDetalService();
         String productID = request.getParameter("id");
+        System.out.print("product ID " + productID );
+        ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
         int id = Integer.parseInt(productID);
         List<ProductVariant> listProductVariant = productDetalService.getAllProductVariant(id);
         RateDAO rateDAO = new RateDAO();
@@ -44,12 +46,10 @@ public class ProductDetailController extends HttpServlet {
         Map<String, String> colorImageMap = new LinkedHashMap<>();
         for (ProductVariant variant : listProductVariant) {
             String colorName = variant.getColor().getName();
-            // Kiểm tra nếu màu sắc chưa có trong map
             if (!colorImageMap.containsKey(colorName)) {
                 colorImageMap.put(colorName, variant.getProductImages().get(0).getImage_url());
             }
         }
-
         Set<String> capacitiesSet = new LinkedHashSet<>();
         for (ProductVariant variant : listProductVariant) {
             capacitiesSet.add(variant.getCapacity().getName());

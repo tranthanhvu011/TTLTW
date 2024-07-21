@@ -1,8 +1,12 @@
 package dao;
 
 import config.JDBIConnector;
+import model.ChiNhanhAndProduct;
 import model.ChiNhanhProduct;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.StatementContext;
+
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Random;
 
@@ -72,6 +76,28 @@ public class ChiNhanhProductDAO {
                                 .list()
                         );
     }
+    public static List<ChiNhanhAndProduct> getChiNhanhAndProduct(int idProduct) {
+        String query = "select products.name, colors.`name` AS nameColor, capacities.`name` as nameCapacity, productchinhanh.quantityProductVariant, chinhanh.name as chinhanhName, chinhanh.diaChiChiNhanh\n" +
+                "FROM productchinhanh INNER JOIN chinhanh on productchinhanh.idChiNhanh = chinhanh.id INNER JOIN productvariants on productchinhanh.idProductVariant = productvariants.id\n" +
+                "INNER JOIN products on productvariants.product_id = products.id INNER JOIN colors on productvariants.color_id=colors.id INNER JOIN capacities on productvariants.capacity_id = capacities.id WHERE products.id = ?";
+        try {
+          return JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
+                    .bind(0 , idProduct)
+                    .map((ResultSet rs, StatementContext ctx) -> {
+                        ChiNhanhAndProduct chiNhanhAndProduct = new ChiNhanhAndProduct();
+                        chiNhanhAndProduct.setNameProduct(rs.getString("products.name"));
+                        chiNhanhAndProduct.setNameColor(rs.getString("nameColor"));
+                        chiNhanhAndProduct.setNameCapacity(rs.getString("nameCapacity"));
+                        chiNhanhAndProduct.setQuantityProduct(rs.getInt("productchinhanh.quantityProductVariant"));
+                        chiNhanhAndProduct.setNameChiNhanh(rs.getString("chinhanhName"));
+                        chiNhanhAndProduct.setDiaChiChiNhanh(rs.getString("chinhanh.diaChiChiNhanh"));
+                        return chiNhanhAndProduct;
+                    }).list());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public boolean decreaseQuantityById(int idProductVariant) {
         int rowsAffected = JDBIConnector.me().withHandle(handle ->
                 handle.createUpdate("UPDATE productchinhanh SET quantityProductVariant = quantityProductVariant - 1 WHERE idProductVariant = :idProductVariant AND quantityProductVariant > 0")
@@ -116,6 +142,6 @@ public class ChiNhanhProductDAO {
 
     public static void main(String[] args) {
         ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
-      System.out.println(chiNhanhProductDAO.decreaseQuantityRandomBranchByProductVariant(3,2));
+
     }
 }
