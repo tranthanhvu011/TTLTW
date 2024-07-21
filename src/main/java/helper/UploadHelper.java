@@ -14,7 +14,7 @@ public class UploadHelper {
         try {
             // Đường dẫn lưu vào project
             String rootPath = request.getServletContext().getRealPath("");
-            String projectBasePath = "D:\\ttltw_trung_final\\src\\main\\webapp\\" + urlSave + File.separator;
+            String projectBasePath = "E:\\ThucTapLapTrinhWebThanhVu\\src\\main\\webapp" + urlSave + File.separator;
             System.out.println("Saving file to project folder: " + projectBasePath);
 
             // Đường dẫn lưu vào thư mục Tomcat (ví dụ: trong thư mục webapps của Tomcat)
