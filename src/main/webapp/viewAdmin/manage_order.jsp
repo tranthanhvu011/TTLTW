@@ -227,7 +227,7 @@
                             <td>
                                 <label for="status<%= o.getId() %>" style="display: none"></label>
                                 <select class="form-control" name="status<%= o.getId() %>" id="status<%= o.getId() %>"
-                                        <% if (o.getStatus() == 0 || o.getStatus() == 6) { %> disabled <% } %>>
+                                        <% if (o.getStatus() == 0 || o.getStatus() == 6) { %> disabled <% } %> >
                                     <option value="<%= o.getStatus() %>">
                                         <% if (o.getStatus() == 0) { %>Đã hủy<% } else if (o.getStatus() == 1) { %>Đơn hàng đang đợi duyệt<% } else if (o.getStatus() == 2) { %>Đang chuẩn bị hàng<% } else if (o.getStatus() == 3) { %>Đã gửi cho đơn vị vận chuyển<% } else if (o.getStatus() == 4) { %>Đã đến kho gần bạn<% } else if (o.getStatus() == 5) { %>Shipper đang giao hàng<% } else if (o.getStatus() == 6) { %>Đã giao hàng thành công<% }  %>
                                     </option>
@@ -238,8 +238,6 @@
                                     </option>
                                     <% } %>
                                 </select>
-
-
                             </td>
                             <td style="display: flex">
                                 <button type="button" class="btn btn-danger" style="margin-right: 5px" onclick="openModalDeleteUser(<%= o.getId() %>)">Xoá</button>

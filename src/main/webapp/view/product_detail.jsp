@@ -22,11 +22,11 @@
   Time: 10:18 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -277,7 +277,12 @@
             %>
 
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
-                <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
+
+
+                <fmt:setLocale value="${lang}" scope="session" />
+                <fmt:bundle basename="messages">
+                <p class="black_14_600_none_align">
+                        <fmt:message key="productreviews"/></p>
                 <div class="">
                     <div class="soluong-sao">
                         <p class="black_14_400">5</p>
@@ -328,7 +333,7 @@
                 <!-- Nút để mở modal -->
                 <!-- Button trigger modal -->
                 <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
-                    Xem đánh giá
+                    <fmt:message key="reviews"/>
                 </button>
 
                 <!-- Modal -->
@@ -396,7 +401,7 @@
                 </div>
                 <!-- Button trigger modal -->
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
-                    Xem cửa hàng còn sản phẩm
+                    <fmt:message key="instock"/>
                 </button>
 
                 <!-- Modal -->
@@ -768,7 +773,7 @@
             </div>
             <input type="hidden" id="quantity" value="<%=listproduct.get(0).getProduct().getRemaningQuantity()%>">
             <div class="soluong">
-                <p style="margin-top: 10px;font-weight: 500;font-size: 15px">Số lượng:</p>
+                <p style="margin-top: 10px;font-weight: 500;font-size: 15px"><fmt:message key="quantity"/>:</p>
                 <div class="input-group" style="width: 130px">
                     <button class="btn btn-minus actionButton">-</button>
                     <input id="soluong" type="text" class="form-control quantity-input" name="quantity" value="1">
@@ -959,7 +964,7 @@
 
 
             </div>
-            <p id="giatamtinh" style="font-size: 20px;font-weight: 500">Tạm tính</p>
+            <p id="giatamtinh" style="font-size: 20px;font-weight: 500"><fmt:message key="Temporarypayment"/></p>
             <p id="price1"><%= numberFormatVN.format(firstVariant.getPrice()) %>
             </p>
 
@@ -968,19 +973,20 @@
             <div class="button-buy">
                 <a id="buynow" href="#">
                     <button class="muatructiep-btn">
-                        <span>Mua ngay</span>
+                        <span><fmt:message key="buynow"/></span>
                     </button>
                 </a>
                 <a href="#" id="addToCart">
                     <button class="themgiohang-btn">
                         <span class="them"><i class="fa-solid fa-cart-shopping"></i>
-                            <p style=" background-color: transparent; margin-bottom: 0">Thêm vào giỏ hàng</p></span>
+                            <p style=" background-color: transparent; margin-bottom: 0"><fmt:message key="addtocart"/></p></span>
                     </button>
                 </a>
             </div>
         </div>
     </div>
 </div>
+</fmt:bundle>
 <%@include file="/common/footer.jsp" %>
 <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user/productDetails.js"></script>
