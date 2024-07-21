@@ -41,7 +41,6 @@ public class RegisterController extends HttpServlet {
             EmailDAO emailDAO = new EmailDAO();
             UserDAO userDAO = new UserDAO();
             EmailService emailService = new EmailService();
-
             this.passwordResetService = new PasswordResetService(emailDAO, userDAO);
         } catch (Exception e) {
             e.printStackTrace();

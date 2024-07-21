@@ -11,10 +11,18 @@ import java.util.Random;
 public class PasswordResetService {
     private EmailDAO emailDAO;
     private UserDAO userDAO;
-
+    private String email;
     public PasswordResetService(EmailDAO emailDAO, UserDAO userDAO) {
         this.emailDAO = emailDAO;
         this.userDAO = userDAO;
+    }
+
+    public PasswordResetService(EmailDAO emailDAO, String email) {
+        this.emailDAO = emailDAO;
+        this.email = email;
+    }
+
+    public PasswordResetService() {
     }
 
     public String createAndSendResetCode(String userEmail) {

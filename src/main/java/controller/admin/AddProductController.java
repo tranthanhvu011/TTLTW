@@ -169,9 +169,7 @@ public class AddProductController extends HttpServlet {
             mapDataToRequest(request);
             request.getRequestDispatcher("/viewAdmin/add_product.jsp").forward(request, response);
         }
-
     }
-
 
     public static Specification setSpecification(String bluetooth, String bcamera, String acamera, String battery, String memory, String chipset, String cpu, String dimensions, String screen_type, String charging_port, String ram, String rom, String sim) {
         Specification specification = new Specification();

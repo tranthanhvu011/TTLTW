@@ -1,9 +1,11 @@
 package controller.auth;
 
 import Utils.ValidationUtils;
+import dao.EmailDAO;
 import dao.LoggingLogin;
 import dao.UserDAO;
 import model.Account;
+import service.PasswordResetService;
 import service.UserService;
 
 import javax.inject.Inject;
@@ -20,7 +22,9 @@ import java.util.List;
 public class LoginController extends HttpServlet {
     @Inject
     private UserService userService;
-
+    EmailDAO emailDAO = new EmailDAO();
+    String emailAccount = "";
+    PasswordResetService passwordResetService = new PasswordResetService(emailDAO, emailAccount);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,11 +34,13 @@ public class LoginController extends HttpServlet {
         System.out.print(count);
         request.getRequestDispatcher("/view/login.jsp").forward(request, response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
+        emailAccount = email;
         String password = request.getParameter("password");
+        UserDAO userDAO = new UserDAO();
+        int isActive = userDAO.checkIsActive(email);
         List<String> error = new ArrayList<>();
 //        String country = request.getParameter("myAddress");
 
@@ -45,7 +51,6 @@ public class LoginController extends HttpServlet {
             error.add("Nhập mật khẩu ít nhất 1 chữ hoa, 1 chữ thường, 1 kí tự đặc biệt @,#,% ... , 1 số");
         }
         Account user = userService.findUserByEmailAndPassword(email, password);
-        UserDAO userDAO = new UserDAO();
         LoggingLogin loggingLogin = new LoggingLogin();
         String ipUser = request.getRemoteAddr();
         String country = loggingLogin.getCountryFromIP(ipUser);
@@ -62,10 +67,13 @@ public class LoginController extends HttpServlet {
                 System.out.print(count);
 
             } else if (user.getIs_active() == 0) {
+                passwordResetService.createAndSendResetCode(emailAccount);
+                request.getSession().setAttribute("userEmailRegister", email);
+                response.sendRedirect("/view/enter_Code_Register.jsp");
+            } else if (userDAO.banUser(email) == 1) {
                 request.setAttribute("error", "Tài khoản của bạn đã bị khóa");
                 request.getRequestDispatcher("/view/login.jsp").forward(request, response);
-                System.out.print(count);
-            } else {
+        } else {
                 userDAO.updateIPAndCountry(ipUser, country, email);
                 request.getSession().setAttribute("account", user);
                 request.getSession().setAttribute("nameAccount", user.getFirst_name() + " " + user.getLast_name());

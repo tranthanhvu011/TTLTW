@@ -113,7 +113,7 @@
                             <th scope="col">Địa Chỉ Email</th>
                             <th scope="col">Số Điện Thoại</th>
                             <th scope="col">Tiêu Đề</th>
-                            <th scope="col">Nội Dung</th>
+                            <th scope="col" class="col-3">Nội Dung</th>
                             <th scope="col">Ngày Tạo</th>
                             <th scope="col">Trạng Thái</th>
                             <th scope="col">Hành Động</th>
@@ -132,7 +132,7 @@
                                        <%=contacts.getTitle()%>
                                     </a>
                                 </td>
-                                <td><%=contacts.getContent()%></td>
+                                <td><textarea style="width: 100%"><%=contacts.getContent()%> </textarea></td>
                                 <td><%=contacts.getCreate_at()%></td>
                                 <td>
                                     <%
@@ -146,12 +146,12 @@
                                     <%}%>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success" data-id="<%= contacts.getId() %>">
-                                        Đã Xử Lý
-                                    </button>
-                                    <button type="button" class="btn btn-danger" data-id="<%= contacts.getId() %>" >
-                                        Xóa Liên Hệ
-                                    </button>
+                                 <a href="/admin/contacts/manage_contacts?action=update&value=<%=contacts.getId()%>"><button class="btn btn-success">
+                                     Đã Xử Lý
+                                 </button></a>
+                                 <a href="/admin/contacts/manage_contacts?action=delete&value=<%=contacts.getId()%>"><button class="btn btn-danger" >
+                                     Xóa Liên Hệ
+                                 </button></a>
                                 </td>
                             </tr>
                            <%}%>
@@ -168,40 +168,6 @@
                 </div>
             </div>
         </form>
-        <script>
-            document.querySelectorAll('.btn-process').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var contactId = this.getAttribute('data-id');
-                    fetch('/admin/contacts/manage_contacts?action=update&value=' + contactId)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Cập nhật trạng thái của hàng hoặc nút
-                                buttonElement.textContent = 'Đã cập nhật';
-                                // Có thể thay đổi màu sắc hoặc thêm thông báo tại đây
-                            } else {
-                                // Hiển thị thông báo lỗi
-                            }                        });
-                });
-            });
-
-            document.querySelectorAll('.btn-delete').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var contactId = this.getAttribute('data-id');
-                    fetch('/admin/contacts/manage_contacts?action=delete&value=' + contactId)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Xóa hàng từ bảng
-                                rowElement.remove();
-                                // Hiển thị thông báo xóa thành công
-                            } else {
-                                // Hiển thị thông báo lỗi
-                            }
-                        });
-                });
-            });
-        </script>
     </div>
     <%@include file="/common/admin_footer.jsp" %>
 </div>

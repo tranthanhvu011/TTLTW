@@ -247,6 +247,7 @@
                     });
                 });
             </script>
+
             <input type="hidden" id="firstProductVariant" value="<%= listproduct.get(0).getId() %>">
             <div class="image-product border_gr_bg_white" style="padding: 10px" id="productImages">
                 <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">
@@ -275,7 +276,6 @@
                     } // End of images check
                 } // End of product variants check
             %>
-
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
                 <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
                 <div class="">
@@ -417,6 +417,7 @@
                         </div>
                     </div>
                 </div>
+
 <%--               --%>
                 <div class="chonmau">
                     <p style="font-size: 15px">Màu sắc:</p>
@@ -455,6 +456,7 @@
                     </div>
                 </div>
             </div>
+
 <%--            <script>--%>
 <%--                $(document).ready(function() {--%>
 <%--                    $("input[name='options']:eq(0)").prop("checked", true);--%>
