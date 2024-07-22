@@ -84,7 +84,6 @@
     %>
 </span>
 
-                    </div>
                     <hr style="width: 100%">
                     <div class="mt-3 mb-3 flex" style="display: flex;justify-content: space-between">
                         <div>
@@ -165,10 +164,9 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-
                                             <form action="${pageContext.request.contextPath}/user/rate" method="post">
                                                 <label>Nhận xét</label>
-                                                <input name="id" type="hidden" value="<%=o.getProductVariant().getProduct().getId() %>">
+                                                <input name="idproductvariant" type="hidden" value="<%=o.getProductVariant().getProduct().getId() %>">
                                                 <input type="text" name="comment" placeholder="Nhận xét của bạn" class="form-control"><br>
                                                 <label>Chất lượng sản phẩm ở mức nào ?</label>
                                                 <select name="star" id="star">

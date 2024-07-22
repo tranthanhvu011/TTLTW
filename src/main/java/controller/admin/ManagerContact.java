@@ -35,26 +35,27 @@ public class ManagerContact extends HttpServlet {
         req.getRequestDispatcher("/viewAdmin/manage_contact.jsp").forward(req, resp);
     }
     protected void doGet_Remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json; charset=utf-8");
-        request.setCharacterEncoding("utf-8");
         String value = request.getParameter("value");
         int id = Integer.parseInt(value);
-        PrintWriter printWriter = response.getWriter();
-        Gson gson = new Gson();
         ContactsDAO contactsDAO = new ContactsDAO();
-        printWriter.print(gson.toJson(contactsDAO.removeContacts(id)));
+        if (contactsDAO.removeContacts(id)) {
+           response.sendRedirect("/admin/contacts/manage_contacts");
+        }else {
+            response.sendRedirect("/admin/contacts/manage_contacts");
+        }
     }
     protected void doGet_Update1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json; charset=utf-8");
-        request.setCharacterEncoding("utf-8");
         String value = request.getParameter("value");
         int id = Integer.parseInt(value);
-        PrintWriter printWriter = response.getWriter();
-        Gson gson = new Gson();
         ContactsDAO contactsDAO = new ContactsDAO();
-        printWriter.print(gson.toJson(contactsDAO.updateAction(id)));
-    }
+        if (contactsDAO.updateAction(id)) {
+            response.sendRedirect("/admin/contacts/manage_contacts");
+        }else{
+            response.sendRedirect("/admin/contacts/manage_contacts");
 
+        }
+
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }

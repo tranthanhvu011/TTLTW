@@ -26,7 +26,13 @@ public class UserDAO {
                         .list());
         return users.isEmpty() ? null : users;
     }
-
+    public static int checkIsActive(String email) {
+        String query = "SELECT is_active from accounts where email =?";
+        return JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
+                .bind(0, email)
+                .mapTo(Integer.class)
+                .one());
+    }
     public static boolean checkLogin(String email, String password) {
         String query = "select password from accounts where email = :email";
         try {
@@ -72,6 +78,7 @@ public class UserDAO {
         });
         return users.isEmpty() ? null : users;
     }
+
     public boolean updateIPAndCountry(String ip, String country, String userEmail) {
         String query = "update accounts set lastIPLogin = ?, countryLoginByIp = ?,last_login = CURRENT_TIMESTAMP where email = ?";
         int count = JDBIConnector.me().withHandle(handle ->
@@ -121,7 +128,7 @@ public class UserDAO {
 
     public int activeUserById(int idUser) {
         int rowUpdated = 0;
-        String query = "UPDATE Accounts SET is_active = 1 WHERE id = ?";
+        String query = "UPDATE Accounts SET ban = 0 WHERE id = ?";
         rowUpdated = JDBIConnector.me().withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind(0, idUser)
@@ -129,10 +136,17 @@ public class UserDAO {
         });
         return rowUpdated;
     }
+    public static int banUser(String email) {
+        String query = "SELECT ban from accounts where email = ?";
+        return JDBIConnector.me().withHandle(handle -> handle.createQuery(query)
+                .bind(0, email)
+                .mapTo(Integer.class)
+                .one());
+    }
 
     public int blockUserById(int idUser) {
         int rowUpdated = 0;
-        String query = "UPDATE Accounts SET is_active = 0 WHERE id = ?";
+        String query = "UPDATE Accounts SET ban = 1 WHERE id = ?";
         rowUpdated = JDBIConnector.me().withHandle(handle -> {
             return handle.createUpdate(query)
                     .bind(0, idUser).execute();
@@ -170,11 +184,7 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
-        UserDAO userDAO = new UserDAO();
-        try {
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.print(banUser("fsfasfakjkg9@gmail.com"));
     }
 
     public int deleteUserById(int idUser) {

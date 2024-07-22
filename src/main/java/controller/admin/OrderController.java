@@ -2,7 +2,9 @@ package controller.admin;
 
 
 import controller.enums.LogLevel;
+import dao.ChiNhanhProductDAO;
 import dao.LogDAO;
+import dao.OrderProductVariantDAO;
 import model.Account;
 import model.OrderProductVariant;
 import service.OrderProductVariantService;
@@ -69,7 +71,7 @@ public class OrderController extends HttpServlet {
                     int statusOrder = orderProductVariantService.findOrderProductVariantById(getID);
                     int getStatus = Integer.parseInt(req.getParameter("status"));
                     String before_status = convertStatusToString(statusOrder);
-
+              OrderProductVariant orderProductVariant_edit=orderProductVariantService.getOrderProductVariantById(getID);
                     String after_status = convertStatusToString(getStatus);
                     if (statusOrder == getStatus) {
                         req.getSession().setAttribute("status", false);
@@ -79,6 +81,10 @@ public class OrderController extends HttpServlet {
                     }
                     boolean success = orderProductVariantService.updateStatus(getID, getStatus);
                     if (success) {
+                        if (getStatus==6){
+                            ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
+                            chiNhanhProductDAO.decreaseQuantityRandomBranchByProductVariant(orderProductVariant_edit.getProductVariant().getId(),orderProductVariant_edit.getQuantity());
+                        }
                         LogDAO logDAO = new LogDAO();
                         logDAO.insertLog(account.getId(), ip, LogLevel.ALERT.toString(),before_status,after_status,"Cập nhật trạng thái đơn hàng");
                         req.getSession().setAttribute("status", true);

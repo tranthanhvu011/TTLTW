@@ -202,7 +202,7 @@
                         </h4>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Message</a> <a
-                                class="dropdown-item" href="${base }/login">Log Out</a>
+                                class="dropdown-item" href="${base }/logout">Log Out</a>
                         </div>
                     </div>
                 </div>

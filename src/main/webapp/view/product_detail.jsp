@@ -1,16 +1,13 @@
 <%@page import="java.text.NumberFormat" %>
-<%@page import="dao.ColorDAO" %>
-<%@page import="dao.ProductVariantDAO" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.*" %>
 <%@ page import="config.URLConfig" %>
-<%@ page import="dao.ProductDeltailDAO" %>
 <%@ page import="com.google.gson.JsonArray" %>
 <%@ page import="org.json.JSONArray" %>
 <%@ page import="com.google.gson.JsonObject" %>
 <%@ page import="org.json.JSONObject" %>
-<%@ page import="dao.UserDAO" %>
 <%@ page import="service.UserService" %>
+<%@ page import="dao.*" %>
 <%
     List<Rate> rateList = (List<Rate>) request.getAttribute("rates");
     if (rateList == null) rateList = new ArrayList<>();
@@ -22,11 +19,11 @@
   Time: 10:18 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@include file="/common/taglib.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="vi">
+
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -225,10 +222,9 @@
                 // Định dạng số
 
                 String productID = request.getParameter("id");
-
                 int productID1 = Integer.parseInt(productID);
+                System.out.print(productID1 + "fasfasfasfas");
                 ProductVariantDAO productVariantDAO = new ProductVariantDAO();
-
                 List<ProductVariant> listproduct = (List<ProductVariant>) request.getAttribute("productVariant");
                 if (listproduct != null && !listproduct.isEmpty()) {
                     ProductVariant firstVariant = listproduct.get(0); // Assuming you want the first variant's images
@@ -247,6 +243,7 @@
                     });
                 });
             </script>
+
             <input type="hidden" id="firstProductVariant" value="<%= listproduct.get(0).getId() %>">
             <div class="image-product border_gr_bg_white" style="padding: 10px" id="productImages">
                 <div class="thumbnail" style="border-radius: 10px;border: solid lightgrey 1px;height: 280px">
@@ -275,14 +272,8 @@
                     } // End of images check
                 } // End of product variants check
             %>
-
             <div class="border_gr_bg_white danhgia" style="margin-top: 20px; ">
-
-
-                <fmt:setLocale value="${lang}" scope="session" />
-                <fmt:bundle basename="messages">
-                <p class="black_14_600_none_align">
-                        <fmt:message key="productreviews"/></p>
+                <p class="black_14_600_none_align">Đánh giá sản phẩm</p>
                 <div class="">
                     <div class="soluong-sao">
                         <p class="black_14_400">5</p>
@@ -333,7 +324,7 @@
                 <!-- Nút để mở modal -->
                 <!-- Button trigger modal -->
                 <button style="background-color: #fa7d11; margin-left: 10px; width: 90%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelrate" data-product-id="<%=productID%>">
-                    <fmt:message key="reviews"/>
+                    Xem đánh giá
                 </button>
 
                 <!-- Modal -->
@@ -400,11 +391,11 @@
                     </div>
                 </div>
                 <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding-left: 0; padding-right: 0; color: red">
-                    <fmt:message key="instock"/>
+                    Xem cửa hàng còn sản phẩm
                 </button>
 
-                <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" style="width: fit-content">
                         <div class="modal-content">
@@ -412,26 +403,34 @@
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách cửa hàng</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-<%--                            Danh sách chi nhánh ở đây--%>
+                            <%--                            Danh sách chi nhánh ở đây--%>
                             <div class="modal-body" id="listStore">
+                                <%
+                                    ChiNhanhProductDAO chiNhanhProductDAO = new ChiNhanhProductDAO();
+                                    List<ChiNhanhAndProduct> chiNhanhProducts = chiNhanhProductDAO.getChiNhanhAndProduct(productID1);
+                                %>
+                                <% if (chiNhanhProducts != null && !chiNhanhProducts.isEmpty()) { %>
+                                <% for (ChiNhanhAndProduct chiNhanhAndProduct : chiNhanhProducts) { %>
                                 <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div><div>còn <span>6</span> sản phẩm</div>
+                                    <div>Sản phẩm: <%= chiNhanhAndProduct.getNameProduct() %></div>
+                                    <div>Màu: <%= chiNhanhAndProduct.getNameColor() %>, Dung Lượng: <%= chiNhanhAndProduct.getNameCapacity() %> còn <span><%= chiNhanhAndProduct.getQuantityProduct() %></span> sản phẩm</div>
+                                    <div>Chi nhánh: <%= chiNhanhAndProduct.getNameChiNhanh() %>, <%= chiNhanhAndProduct.getDiaChiChiNhanh() %></div>
                                 </div>
+                                <% } %>
+                                <% } else { %>
                                 <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>8</span> sản phẩm</div>
+                                    <div>Sản phẩm Đã Hết Hàng Ở Tất Cả Chi Nhánh</div>
                                 </div>
-                                <div class="store">
-                                    <div>Chi nhánh: 123, Linh Trung, Thủ Đức</div>
-                                    <div>còn <span>16</span> sản phẩm</div>
-                                </div>
+                                <% } %>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
+
 <%--               --%>
                 <div class="chonmau">
                     <p style="font-size: 15px">Màu sắc:</p>
@@ -470,6 +469,7 @@
                     </div>
                 </div>
             </div>
+
 <%--            <script>--%>
 <%--                $(document).ready(function() {--%>
 <%--                    $("input[name='options']:eq(0)").prop("checked", true);--%>
@@ -773,7 +773,7 @@
             </div>
             <input type="hidden" id="quantity" value="<%=listproduct.get(0).getProduct().getRemaningQuantity()%>">
             <div class="soluong">
-                <p style="margin-top: 10px;font-weight: 500;font-size: 15px"><fmt:message key="quantity"/>:</p>
+                <p style="margin-top: 10px;font-weight: 500;font-size: 15px">Số lượng:</p>
                 <div class="input-group" style="width: 130px">
                     <button class="btn btn-minus actionButton">-</button>
                     <input id="soluong" type="text" class="form-control quantity-input" name="quantity" value="1">
@@ -782,6 +782,7 @@
                 <script>
 
                     $(document).ready(function () {
+                        var idVariant;
                         var quantityInput = $('#soluong'); // Lấy giá trị số lượng ban đầu
 // Hàm lấy số lượng sau khi thay đổi
                         function getUpdatedQuantity() {
@@ -840,8 +841,10 @@
                                     colorID: colorID
                                 },
                                 success: function (data) {
+                                    idVariant = data.pr;
+                                    console.log("id productvariant"+idVariant);
                                     var productvariant = data.productVariant;
-                                    console.log(productvariant.id);
+                                    console.log("id productvariant"+ productvariant.id);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + productvariant.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + productvariant.id);
                                     var first = data.first;
@@ -862,8 +865,6 @@
                                     }
                                     s += '</div>';
                                     $('#productImages').html(s);
-
-
                                 }
 
                             });
@@ -883,6 +884,8 @@
                                     capacityID: capacityID.trim()
                                 },
                                 success: function (data) {
+                                    idVariant = data.id;
+                                    console.log(idVariant);
                                     console.log("Số lượng sau khi thay đổi lựa chọn: " + quantityInput);
                                     $('#buynow').attr("href", "${pageContext.request.contextPath}/cart?action=buynow&id=" + data.id);
                                     $('#addToCart').attr("href", "${pageContext.request.contextPath}/cart?action=add-cart&id=" + data.id);
@@ -893,6 +896,7 @@
                                 }
                             });
                         });
+
                         $('#addToCart').click(function () {
 
                             // var attrSoluong = $('#addToCart').attr('href');
@@ -964,7 +968,7 @@
 
 
             </div>
-            <p id="giatamtinh" style="font-size: 20px;font-weight: 500"><fmt:message key="Temporarypayment"/></p>
+            <p id="giatamtinh" style="font-size: 20px;font-weight: 500">Tạm tính</p>
             <p id="price1"><%= numberFormatVN.format(firstVariant.getPrice()) %>
             </p>
 
@@ -973,21 +977,23 @@
             <div class="button-buy">
                 <a id="buynow" href="#">
                     <button class="muatructiep-btn">
-                        <span><fmt:message key="buynow"/></span>
+                        <span>Mua ngay</span>
                     </button>
                 </a>
                 <a href="#" id="addToCart">
                     <button class="themgiohang-btn">
                         <span class="them"><i class="fa-solid fa-cart-shopping"></i>
-                            <p style=" background-color: transparent; margin-bottom: 0"><fmt:message key="addtocart"/></p></span>
+                            <p style=" background-color: transparent; margin-bottom: 0">Thêm vào giỏ hàng</p></span>
                     </button>
                 </a>
             </div>
         </div>
     </div>
 </div>
-</fmt:bundle>
 <%@include file="/common/footer.jsp" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="${pageContext.request.contextPath}/resources/js/user/main.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/user/productDetails.js"></script>
 <%--<%@include file="/resources/js/user/productDetails.js" %>--%>

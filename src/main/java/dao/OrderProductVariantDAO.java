@@ -212,6 +212,7 @@ public class OrderProductVariantDAO {
 
     public List<OrderProductVariant> findOrderProductVariantsByOrderId(int orderID) {
         String query = "SELECT * FROM orderproductvariant WHERE order_id = ?";
+//        String query = "SELECT * FROM orderproductvariant WHERE order_id = ? ORDER BY status DESC";
         List<OrderProductVariantDB> lists = JDBIConnector.me().withHandle(
                 handle -> handle.createQuery(query)
                         .bind(0, orderID)

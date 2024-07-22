@@ -73,7 +73,7 @@
                             </div>
                             <div class="my_account">
                                 <img src="https://down-vn.img.susercontent.com/file/f0049e9df4e536bc3e7f140d071e9078">
-                                <a href="${pageContext.request.contextPath}/user/order">
+                                <a href="${pageContext.request.contextPath}/user/your_order">
                                     <div class="name_item_in_profile">Đơn mua</div>
                                 </a>
                             </div>

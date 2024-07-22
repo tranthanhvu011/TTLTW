@@ -59,9 +59,11 @@ public class BranchDAO {
                 handle.createQuery("SELECT * FROM ChiNhanh WHERE id = :id")
                         .bind("id", id)
                         .mapToBean(ChiNhanh.class)
-                        .findOnly()
+                        .findFirst() // Sử dụng findFirst() để tránh lỗi khi không có kết quả
+                        .orElse(null) // Trả về null nếu không có kết quả
         );
     }
+
 
     public static List<Integer> getAllIdBranch() {
         return JDBIConnector.me().withHandle(handle ->
